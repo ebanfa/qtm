@@ -10,7 +10,7 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import com.nathanclaire.alantra.model.BaseEntity;
+import com.nathanclaire.alantra.base.BaseEntity;
 
 /**
  * @author Edward Banfa 
