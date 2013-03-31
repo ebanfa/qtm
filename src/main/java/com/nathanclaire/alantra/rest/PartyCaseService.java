@@ -23,12 +23,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.PartyCase;
-import com.nathanclaire.alantra.model.CaseRole;
 import com.nathanclaire.alantra.rest.request.CaseRoleRequest;
-import com.nathanclaire.alantra.model.CommunicationEvent;
 import com.nathanclaire.alantra.rest.request.CommunicationEventRequest;
-import com.nathanclaire.alantra.model.CaseStatusType;
+import com.nathanclaire.alantra.model.messaging.CommunicationEvent;
+import com.nathanclaire.alantra.model.party.CaseRole;
+import com.nathanclaire.alantra.model.party.CaseStatusType;
+import com.nathanclaire.alantra.model.party.PartyCase;
 import com.nathanclaire.alantra.rest.request.CaseStatusTypeRequest;
 import com.nathanclaire.alantra.rest.request.PartyCaseRequest;
 

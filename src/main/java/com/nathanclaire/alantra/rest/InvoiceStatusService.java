@@ -23,10 +23,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.InvoiceStatus;
-import com.nathanclaire.alantra.model.InvoiceStatusType;
 import com.nathanclaire.alantra.rest.request.InvoiceStatusTypeRequest;
-import com.nathanclaire.alantra.model.Invoice;
+import com.nathanclaire.alantra.model.invoice.Invoice;
+import com.nathanclaire.alantra.model.invoice.InvoiceStatus;
+import com.nathanclaire.alantra.model.invoice.InvoiceStatusType;
 import com.nathanclaire.alantra.rest.request.InvoiceRequest;
 import com.nathanclaire.alantra.rest.request.InvoiceStatusRequest;
 

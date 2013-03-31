@@ -23,10 +23,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.CommunicationEventWorkEffort;
-import com.nathanclaire.alantra.model.WorkEffort;
 import com.nathanclaire.alantra.rest.request.WorkEffortRequest;
-import com.nathanclaire.alantra.model.CommunicationEvent;
+import com.nathanclaire.alantra.model.messaging.CommunicationEvent;
+import com.nathanclaire.alantra.model.messaging.CommunicationEventWorkEffort;
+import com.nathanclaire.alantra.model.workeffort.WorkEffort;
 import com.nathanclaire.alantra.rest.request.CommunicationEventRequest;
 import com.nathanclaire.alantra.rest.request.CommunicationEventWorkEffortRequest;
 

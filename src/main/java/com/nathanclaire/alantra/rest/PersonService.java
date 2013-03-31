@@ -23,8 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.Person;
-import com.nathanclaire.alantra.model.Party;
+import com.nathanclaire.alantra.model.party.Party;
+import com.nathanclaire.alantra.model.party.Person;
 import com.nathanclaire.alantra.rest.request.PartyRequest;
 import com.nathanclaire.alantra.rest.request.PersonRequest;
 

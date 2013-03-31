@@ -23,14 +23,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.EstimatedProductCost;
-import com.nathanclaire.alantra.model.Product;
 import com.nathanclaire.alantra.rest.request.ProductRequest;
-import com.nathanclaire.alantra.model.CostComponentType;
 import com.nathanclaire.alantra.rest.request.CostComponentTypeRequest;
-import com.nathanclaire.alantra.model.ProductFeature;
 import com.nathanclaire.alantra.rest.request.ProductFeatureRequest;
-import com.nathanclaire.alantra.model.GeoBoundry;
+import com.nathanclaire.alantra.model.businessdata.GeoBoundry;
+import com.nathanclaire.alantra.model.party.EstimatedProductCost;
+import com.nathanclaire.alantra.model.product.CostComponentType;
+import com.nathanclaire.alantra.model.product.Product;
+import com.nathanclaire.alantra.model.product.ProductFeature;
 import com.nathanclaire.alantra.rest.request.GeoBoundryRequest;
 import com.nathanclaire.alantra.rest.request.EstimatedProductCostRequest;
 

@@ -23,10 +23,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.ProductFeature;
-import com.nathanclaire.alantra.model.ProductFeatureType;
 import com.nathanclaire.alantra.rest.request.ProductFeatureTypeRequest;
-import com.nathanclaire.alantra.model.ProductFeatureCategory;
+import com.nathanclaire.alantra.model.product.ProductFeature;
+import com.nathanclaire.alantra.model.product.ProductFeatureCategory;
+import com.nathanclaire.alantra.model.product.ProductFeatureType;
 import com.nathanclaire.alantra.rest.request.ProductFeatureCategoryRequest;
 import com.nathanclaire.alantra.rest.request.ProductFeatureRequest;
 

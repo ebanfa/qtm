@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.InvoiceType;
+import com.nathanclaire.alantra.model.invoice.InvoiceType;
 import com.nathanclaire.alantra.rest.request.InvoiceTypeRequest;
 
 /**

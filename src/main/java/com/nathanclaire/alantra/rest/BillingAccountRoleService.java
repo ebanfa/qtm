@@ -23,12 +23,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.BillingAccountRole;
-import com.nathanclaire.alantra.model.BillingAccountRoleType;
 import com.nathanclaire.alantra.rest.request.BillingAccountRoleTypeRequest;
-import com.nathanclaire.alantra.model.Party;
 import com.nathanclaire.alantra.rest.request.PartyRequest;
-import com.nathanclaire.alantra.model.BillingAccount;
+import com.nathanclaire.alantra.model.customer.BillingAccount;
+import com.nathanclaire.alantra.model.customer.BillingAccountRole;
+import com.nathanclaire.alantra.model.customer.BillingAccountRoleType;
+import com.nathanclaire.alantra.model.party.Party;
 import com.nathanclaire.alantra.rest.request.BillingAccountRequest;
 import com.nathanclaire.alantra.rest.request.BillingAccountRoleRequest;
 

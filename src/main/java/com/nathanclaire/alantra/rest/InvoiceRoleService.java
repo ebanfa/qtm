@@ -23,12 +23,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.InvoiceRole;
-import com.nathanclaire.alantra.model.InvoiceRoleType;
 import com.nathanclaire.alantra.rest.request.InvoiceRoleTypeRequest;
-import com.nathanclaire.alantra.model.Party;
 import com.nathanclaire.alantra.rest.request.PartyRequest;
-import com.nathanclaire.alantra.model.Invoice;
+import com.nathanclaire.alantra.model.invoice.Invoice;
+import com.nathanclaire.alantra.model.invoice.InvoiceRole;
+import com.nathanclaire.alantra.model.invoice.InvoiceRoleType;
+import com.nathanclaire.alantra.model.party.Party;
 import com.nathanclaire.alantra.rest.request.InvoiceRequest;
 import com.nathanclaire.alantra.rest.request.InvoiceRoleRequest;
 

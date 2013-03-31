@@ -23,10 +23,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.ContactMechanismLink;
-import com.nathanclaire.alantra.model.ContactMechanism;
 import com.nathanclaire.alantra.rest.request.ContactMechanismRequest;
-import com.nathanclaire.alantra.model.ContactMechanism;
+import com.nathanclaire.alantra.model.party.ContactMechanism;
+import com.nathanclaire.alantra.model.party.ContactMechanismLink;
 import com.nathanclaire.alantra.rest.request.ContactMechanismRequest;
 import com.nathanclaire.alantra.rest.request.ContactMechanismLinkRequest;
 

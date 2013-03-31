@@ -23,8 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.InvoiceTerm;
-import com.nathanclaire.alantra.model.TermType;
+import com.nathanclaire.alantra.model.businessdata.TermType;
+import com.nathanclaire.alantra.model.invoice.InvoiceTerm;
 import com.nathanclaire.alantra.rest.request.TermTypeRequest;
 import com.nathanclaire.alantra.rest.request.InvoiceTermRequest;
 

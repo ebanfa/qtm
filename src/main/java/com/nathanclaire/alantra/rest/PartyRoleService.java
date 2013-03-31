@@ -23,10 +23,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.PartyRole;
-import com.nathanclaire.alantra.model.PartyRoleType;
 import com.nathanclaire.alantra.rest.request.PartyRoleTypeRequest;
-import com.nathanclaire.alantra.model.Party;
+import com.nathanclaire.alantra.model.party.Party;
+import com.nathanclaire.alantra.model.party.PartyRole;
+import com.nathanclaire.alantra.model.party.PartyRoleType;
 import com.nathanclaire.alantra.rest.request.PartyRequest;
 import com.nathanclaire.alantra.rest.request.PartyRoleRequest;
 

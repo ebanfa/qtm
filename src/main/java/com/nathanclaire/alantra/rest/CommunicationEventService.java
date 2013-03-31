@@ -23,16 +23,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.CommunicationEvent;
-import com.nathanclaire.alantra.model.CommunicationEventType;
 import com.nathanclaire.alantra.rest.request.CommunicationEventTypeRequest;
-import com.nathanclaire.alantra.model.CommunicationEventPurpose;
 import com.nathanclaire.alantra.rest.request.CommunicationEventPurposeRequest;
-import com.nathanclaire.alantra.model.ContactMechanismType;
 import com.nathanclaire.alantra.rest.request.ContactMechanismTypeRequest;
-import com.nathanclaire.alantra.model.PartyRelationship;
 import com.nathanclaire.alantra.rest.request.PartyRelationshipRequest;
-import com.nathanclaire.alantra.model.CommunicationEventStatusType;
+import com.nathanclaire.alantra.model.messaging.CommunicationEvent;
+import com.nathanclaire.alantra.model.messaging.CommunicationEventPurpose;
+import com.nathanclaire.alantra.model.messaging.CommunicationEventStatusType;
+import com.nathanclaire.alantra.model.messaging.CommunicationEventType;
+import com.nathanclaire.alantra.model.party.ContactMechanismType;
+import com.nathanclaire.alantra.model.party.PartyRelationship;
 import com.nathanclaire.alantra.rest.request.CommunicationEventStatusTypeRequest;
 import com.nathanclaire.alantra.rest.request.CommunicationEventRequest;
 

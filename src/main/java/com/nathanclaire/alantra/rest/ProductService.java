@@ -23,8 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.Product;
-import com.nathanclaire.alantra.model.ProductType;
+import com.nathanclaire.alantra.model.product.Product;
+import com.nathanclaire.alantra.model.product.ProductType;
 import com.nathanclaire.alantra.rest.request.ProductTypeRequest;
 import com.nathanclaire.alantra.rest.request.ProductRequest;
 

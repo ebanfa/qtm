@@ -23,8 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.GeoBoundry;
-import com.nathanclaire.alantra.model.GeoBoundaryType;
+import com.nathanclaire.alantra.model.businessdata.GeoBoundaryType;
+import com.nathanclaire.alantra.model.businessdata.GeoBoundry;
 import com.nathanclaire.alantra.rest.request.GeoBoundaryTypeRequest;
 import com.nathanclaire.alantra.rest.request.GeoBoundryRequest;
 

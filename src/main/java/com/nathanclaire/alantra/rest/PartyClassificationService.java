@@ -23,12 +23,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.model.PartyClassification;
-import com.nathanclaire.alantra.model.PartyType;
 import com.nathanclaire.alantra.rest.request.PartyTypeRequest;
-import com.nathanclaire.alantra.model.PartyClassificationType;
 import com.nathanclaire.alantra.rest.request.PartyClassificationTypeRequest;
-import com.nathanclaire.alantra.model.Party;
+import com.nathanclaire.alantra.model.party.Party;
+import com.nathanclaire.alantra.model.party.PartyClassification;
+import com.nathanclaire.alantra.model.party.PartyClassificationType;
+import com.nathanclaire.alantra.model.party.PartyType;
 import com.nathanclaire.alantra.rest.request.PartyRequest;
 import com.nathanclaire.alantra.rest.request.PartyClassificationRequest;
 
