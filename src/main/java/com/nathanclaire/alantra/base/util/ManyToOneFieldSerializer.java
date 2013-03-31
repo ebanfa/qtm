@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.util;
+package com.nathanclaire.alantra.base.util;
 
 import java.io.IOException;
 

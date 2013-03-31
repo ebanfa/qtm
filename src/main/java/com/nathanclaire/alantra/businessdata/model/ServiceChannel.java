@@ -23,8 +23,8 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.BaseEntity;
-import com.nathanclaire.alantra.util.DateDeserializer;
-import com.nathanclaire.alantra.util.DateSerializer;
+import com.nathanclaire.alantra.base.util.DateDeserializer;
+import com.nathanclaire.alantra.base.util.DateSerializer;
 
 /**
  * ServiceChannel 

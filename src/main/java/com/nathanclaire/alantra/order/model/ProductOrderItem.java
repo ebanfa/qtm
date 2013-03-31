@@ -28,11 +28,11 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.BaseEntity;
+import com.nathanclaire.alantra.base.util.DateDeserializer;
+import com.nathanclaire.alantra.base.util.DateSerializer;
 import com.nathanclaire.alantra.invoice.model.OrderItemBilling;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
-import com.nathanclaire.alantra.util.DateDeserializer;
-import com.nathanclaire.alantra.util.DateSerializer;
 
 /**
  * ProductOrderItem 

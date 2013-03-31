@@ -28,6 +28,8 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.BaseEntity;
+import com.nathanclaire.alantra.base.util.DateDeserializer;
+import com.nathanclaire.alantra.base.util.DateSerializer;
 import com.nathanclaire.alantra.customer.model.BillingAccountRole;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
@@ -35,8 +37,6 @@ import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceRole;
 import com.nathanclaire.alantra.payment.model.Payment;
 import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
-import com.nathanclaire.alantra.util.DateDeserializer;
-import com.nathanclaire.alantra.util.DateSerializer;
 
 /**
  * Party 

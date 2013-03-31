@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.service;
+package com.nathanclaire.alantra.base.service;
 
 import java.math.BigDecimal;
 

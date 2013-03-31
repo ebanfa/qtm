@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.service;
+package com.nathanclaire.alantra.base.service;
 
 import java.math.BigDecimal;
 
@@ -21,7 +21,7 @@ public class TransactionAuthorizationServiceImpl implements
 								TransactionAuthorizationService {
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.service.TransactionAuthorizationService#validateTransaction(java.lang.String, java.lang.String, java.lang.String, java.math.BigDecimal)
+	 * @see com.nathanclaire.alantra.base.service.TransactionAuthorizationService#validateTransaction(java.lang.String, java.lang.String, java.lang.String, java.math.BigDecimal)
 	 */
 	@WebMethod
 	public boolean validateTransaction(String customerName, String accoutnNo,
