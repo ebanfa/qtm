@@ -1,0 +1,221 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= workeffort ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-workeffort-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.workeffort %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- workEffortType. -->
+												<div id="workEffortTypeSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (workeffort) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.workeffort_code %></label>
+													<input type="text" id="code" value="<%= workeffort.get('code') ? workeffort.get('code') : '' %>" name="code" placeholder="<%= entities_strings.workeffort_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.workeffort_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.workeffort_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (workeffort) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.workeffort_name %></label>
+													<input type="text" id="name" value="<%= workeffort.get('name') ? workeffort.get('name') : '' %>" name="name" placeholder="<%= entities_strings.workeffort_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.workeffort_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.workeffort_name %>">
+												</div>		
+												<% } %>									
+												<% if (workeffort) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.workeffort_description %></label>
+													<input type="text" id="description" value="<%= workeffort.get('description') ? workeffort.get('description') : '' %>" name="description" placeholder="<%= entities_strings.workeffort_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.workeffort_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.workeffort_description %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (workeffort) { %>
+												<!-- schedStartDt. -->
+						            			<div class="span6">
+						            				<label for="schedStartDt"><%= entities_strings.workeffort_schedstartdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="schedStartDt" name="schedStartDt" type="text" value="<%= workeffort.get('schedStartDt') ? workeffort.get('schedStartDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- schedStartDt. -->
+						            			<div class="span6">
+						            				<label for="schedStartDt"><%= entities_strings.workeffort_schedstartdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="schedStartDt" name="schedStartDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<% if (workeffort) { %>
+												<!-- schedEndDt. -->
+						            			<div class="span6">
+						            				<label for="schedEndDt"><%= entities_strings.workeffort_schedenddt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="schedEndDt" name="schedEndDt" type="text" value="<%= workeffort.get('schedEndDt') ? workeffort.get('schedEndDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- schedEndDt. -->
+						            			<div class="span6">
+						            				<label for="schedEndDt"><%= entities_strings.workeffort_schedenddt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="schedEndDt" name="schedEndDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (workeffort) { %>
+												<!-- estHours. -->
+						            			<div class="span6">
+						            				<label for="estHours"><%= entities_strings.workeffort_esthours %></label>
+													<input type="text" id="estHours" value="<%= workeffort.get('estHours') ? workeffort.get('estHours') : '' %>" name="estHours" placeholder="<%= entities_strings.workeffort_esthours %>">
+												</div>		
+												<% } else {%>
+												<!-- estHours. -->
+						            			<div class="span6">
+						            				<label for="estHours"><%= entities_strings.workeffort_esthours %></label>
+													<input type="text" id="estHours" name="estHours" value="" placeholder="<%= entities_strings.workeffort_esthours %>">
+												</div>		
+												<% } %>									
+												<% if (workeffort) { %>
+												<!-- totalHrAllowed. -->
+						            			<div class="span6">
+						            				<label for="totalHrAllowed"><%= entities_strings.workeffort_totalhrallowed %></label>
+													<input type="text" id="totalHrAllowed" value="<%= workeffort.get('totalHrAllowed') ? workeffort.get('totalHrAllowed') : '' %>" name="totalHrAllowed" placeholder="<%= entities_strings.workeffort_totalhrallowed %>">
+												</div>		
+												<% } else {%>
+												<!-- totalHrAllowed. -->
+						            			<div class="span6">
+						            				<label for="totalHrAllowed"><%= entities_strings.workeffort_totalhrallowed %></label>
+													<input type="text" id="totalHrAllowed" name="totalHrAllowed" value="" placeholder="<%= entities_strings.workeffort_totalhrallowed %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (workeffort) { %>
+												<!-- totalAmountAllowed. -->
+						            			<div class="span6">
+						            				<label for="totalAmountAllowed"><%= entities_strings.workeffort_totalamountallowed %></label>
+													<input type="text" id="totalAmountAllowed" value="<%= workeffort.get('totalAmountAllowed') ? workeffort.get('totalAmountAllowed') : '' %>" name="totalAmountAllowed" placeholder="<%= entities_strings.workeffort_totalamountallowed %>">
+												</div>		
+												<% } else {%>
+												<!-- totalAmountAllowed. -->
+						            			<div class="span6">
+						            				<label for="totalAmountAllowed"><%= entities_strings.workeffort_totalamountallowed %></label>
+													<input type="text" id="totalAmountAllowed" name="totalAmountAllowed" value="" placeholder="<%= entities_strings.workeffort_totalamountallowed %>">
+												</div>		
+												<% } %>									
+												<% if (workeffort) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.workeffort_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= workeffort.get('effectiveDt') ? workeffort.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.workeffort_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.workeffort_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+											<!-- communicationEventWorkEfforts. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="communicationEventWorkEfforts" placeholder="One to Many communicationEventWorkEfforts">
+												</div>
+											</div> -->
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-workeffort"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

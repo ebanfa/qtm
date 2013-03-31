@@ -1,0 +1,126 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= paymentapplication ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-paymentapplication-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.paymentapplication %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- payment. -->
+												<div id="paymentSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- billingAccount. -->
+												<div id="billingAccountSelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- invoiceItem. -->
+												<div id="invoiceItemSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (paymentapplication) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.paymentapplication_code %></label>
+													<input type="text" id="code" value="<%= paymentapplication.get('code') ? paymentapplication.get('code') : '' %>" name="code" placeholder="<%= entities_strings.paymentapplication_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.paymentapplication_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.paymentapplication_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (paymentapplication) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.paymentapplication_description %></label>
+													<input type="text" id="description" value="<%= paymentapplication.get('description') ? paymentapplication.get('description') : '' %>" name="description" placeholder="<%= entities_strings.paymentapplication_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.paymentapplication_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.paymentapplication_description %>">
+												</div>		
+												<% } %>									
+												<% if (paymentapplication) { %>
+												<!-- amountAppl. -->
+						            			<div class="span6">
+						            				<label for="amountAppl"><%= entities_strings.paymentapplication_amountappl %></label>
+													<input type="text" id="amountAppl" value="<%= paymentapplication.get('amountAppl') ? paymentapplication.get('amountAppl') : '' %>" name="amountAppl" placeholder="<%= entities_strings.paymentapplication_amountappl %>">
+												</div>		
+												<% } else {%>
+												<!-- amountAppl. -->
+						            			<div class="span6">
+						            				<label for="amountAppl"><%= entities_strings.paymentapplication_amountappl %></label>
+													<input type="text" id="amountAppl" name="amountAppl" value="" placeholder="<%= entities_strings.paymentapplication_amountappl %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (paymentapplication) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.paymentapplication_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= paymentapplication.get('effectiveDt') ? paymentapplication.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.paymentapplication_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.paymentapplication_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-paymentapplication"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

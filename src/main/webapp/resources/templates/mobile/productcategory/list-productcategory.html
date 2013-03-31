@@ -1,0 +1,20 @@
+<div data-role="header">
+    <a data-role="button" data-icon="home" href="#">Home</a>
+    <h3>Product Categories</h3>
+</div>
+<div data-role="content" id='itemMenu'>
+    <ul id='categoryMenu' data-role='listview' data-inset="true" data-filter='true' data-filter-placeholder='Product category name ...'>
+            <%
+            _.each(model.models, function (category) {
+            %>
+            <li>
+                <a href="#"><%=category.attributes.prodCatNm%></a>
+            </li>
+            <% }); %>
+    </ul>
+</div>
+
+
+
+
+

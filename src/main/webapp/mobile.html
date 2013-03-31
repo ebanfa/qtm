@@ -1,0 +1,261 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Edge Mobile Web Application</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" /> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script> 
+	
+	<script type="text/javascript"> 
+		$(document).on("pageinit", "#page1", function(event){ 
+			//alert("Ready To Go"); 
+			$.getJSON("rest/orders", function(events) {
+			    // console.log("returned are " + events);
+			    //var listOfEvents = $("#listOfItems");
+			    //listOfEvents.empty();
+			    //$.each(events, function(index, event) {
+			            // console.log(event.name);
+			    ///        listOfEvents.append("<li><a href='#'>" + event.name + "</a>");
+			    //});
+			    //listOfEvents.listview("refresh");
+			    });
+		}); 
+	</script>
+</head> 
+<body> 
+	<!-- Menu Page -->
+	<div id="menu" data-role="page" data-add-back-btn="true"> 
+		
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>Main Menu</h1> 
+		</div> 
+		
+		<!-- Content -->
+		<div data-role="content"> 
+			<ul id="listOfItems" data-role="listview" data-inset="true" data-filter="false"> 
+				<li><a href="#new_order">New Order</a></li> 
+				<li><a href="#enquiry">Order Enquiries</a></li> 
+				<li><a href="#payment">Process Payment</a></li> 
+				<li><a href="#messages">Messages</a></li> 
+				<li><a href="#contact">Contact Account Manager</a></li> 
+			</ul> 
+		</div> 
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div> 
+	
+	<!-- New Order Page -->
+	<div id="new_order" data-role="page" data-add-back-btn="true"> 
+		
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>New Order</h1> 
+		</div> 
+		
+		<!-- Content -->
+		<div data-role="content">
+	        
+		    <div data-role="fieldcontain">
+	            <fieldset data-role="controlgroup">
+		            <label for="selectmenu1">
+		                Product Type:
+		            </label>
+		    	</fieldset>
+		    	<fieldset data-role="controlgroup">
+		            <select id="formInput" name="productType" data-inset="true">
+		                <option value="option1">
+		                    Sodas
+		                </option>
+		                <option value="value">
+		                    Juices
+		                </option>
+		                <option value="value">
+		                    Non Alcoholic Drinks
+		                </option>
+		            </select>
+	            </fieldset>
+	        </div>
+	        <div id="fieldContainer" data-role="fieldcontain">
+	        	<fieldset data-role="controlgroup">
+		            <label for="selectmenu2">
+		                Brand:
+		            </label>
+		            <select id="formInput" name="brand">
+		                <option value="option1">
+		                    Coca Cola
+		                </option>
+		            </select>
+		        </fieldset>
+	        </div>
+	        <div id="fieldContainer" data-role="fieldcontain">
+	        
+	            <fieldset data-role="controlgroup">
+		            <label for="selectmenu2">
+		                Size:
+		            </label>
+		            <select id="formInput" name="brand">
+		                <option value="option1">
+		                   35 CL
+		                </option>
+		            </select>
+	            </fieldset>
+	        </div>
+	        
+	        <div class="textInput" id="quantity" data-role="fieldcontain">
+	            <fieldset data-role="controlgroup">
+	                <label for="quantity">
+	                    Quantity
+	                </label>
+	                <input name="quantity" id="quantity" placeholder="" value="" type="text">
+	            </fieldset>
+	        </div>
+	        
+	        <div class="textInput" id="amount" data-role="fieldcontain">
+	            <fieldset data-role="fieldcontain">
+	                <label for="amount">
+	                    Amount
+	                </label>
+	                <input name="amount" id="amount" placeholder="" value="" type="text">
+	            </fieldset>
+	        </div>
+	        
+	         <input data-inline="true" data-icon="forward" data-iconpos="left" value="Cancel"
+	        type="submit">
+	        <input data-inline="true" data-icon="forward" data-iconpos="left" value="Add And View Basket"
+	        type="submit">
+	        <input data-inline="true" data-icon="forward" data-iconpos="left" value="Add Next Item"
+	        type="submit">
+	        
+		    </div>
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div>
+	
+	<!-- Order Enquiry Page -->
+	<div id="enquiry" data-role="page" data-add-back-btn="true"> 
+		
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>Order Enquiry</h1> 
+		</div> 
+		
+		<!-- Content -->
+		<div data-role="content"> 
+			<ul id="listOfItems" data-role="listview" data-inset="true" data-filter="false"> 
+				<li><a href="#new_order">Ref: ASWD <wbr><wbr>KSH:7600.00</a> </li> 
+				<li><a href="#enquiry">Ref: GSKL  <wbr><wbr>KSH:2300.00</a></li> 
+				<li><a href="#payment">Ref: EIEE <wbr><wbr>KSH:4500.00</a></li> 
+				<li><a href="#messages">Ref: YMDF <wbr><wbr>KSH:3200.00</a></li> 
+				<li><a href="#contact">Ref: MMCB <wbr><wbr>KSH:4500.00</a></li> 
+			</ul> 
+		</div> 
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div>  
+	
+	<!-- Pyment Page -->
+	<div id="payment" data-role="page" data-add-back-btn="true"> 
+		
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>Payment Processor</h1> 
+		</div> 
+		
+		<!-- Content -->
+		<div data-role="content"> 
+			<ul id="listOfItems" data-role="listview" data-inset="true" data-filter="false"> 
+				<li><a href="#new_order">New Order</a></li> 
+				<li><a href="#enquiry">Order Enquiries</a></li> 
+				<li><a href="#payment">Process Payment</a></li> 
+				<li><a href="#messages">Messages</a></li> 
+				<li><a href="#contact">Contact Account Manager</a></li> 
+			</ul> 
+		</div> 
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div> 
+	
+	<!-- Messages Page -->
+	<div id="messages" data-role="page" data-add-back-btn="true"> 
+		
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>Message Center</h1> 
+		</div> 
+		
+		<!-- Tabs -->
+		<nav data-role="navbar"> 
+			<ul id="listOfItems" data-role="listview" data-inset="true" data-filter="false"> 
+				<li><a href="#" data-role="button" class="ui-btn-active">Inbox</a></li> 
+				<li><a href="#outbox" data-role="button">Outbox</a></li> 
+			</ul> 
+		</nav> 
+		
+		<!-- Content -->
+		<div data-role="content"> 
+			<ul id="listOfItems" data-role="listview" data-inset="true" data-filter="false"> 
+				<li><a href="#">Transaction Confirmation: Ref: ASWD</a></li> 
+				<li><a href="#">Transaction Confirmation: Ref: GSKL</a></li> 
+				<li><a href="#">Transaction Confirmation: Ref: EIEE</a></li> 
+				<li><a href="#">Transaction Confirmation: Ref: YMDF</a></li> 
+				<li><a href="#">Transaction Confirmation: Ref: MMCB</a></li> 
+			</ul> 
+		</div> 
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div> 
+	
+	<!-- Contact Account Manager Page -->
+	<div id="contact" data-role="page" data-add-back-btn="true"> 
+	
+		<!-- Header -->
+		<div data-role="header"> 
+			<h1>Contact Account Manager</h1> 
+		</div> 
+		
+		<!-- Content -->
+		<div data-role="content">
+	        <div class="textInput" id="subject" data-role="fieldcontain">
+	            <fieldset data-role="controlgroup">
+	                <label for="subject">
+	                    Subject
+	                </label>
+	                <input name="subject" id="subject" placeholder="" value="" type="text">
+	            </fieldset>
+	        </div>
+	        <div class="largeTextInput" id="message" data-role="fieldcontain">
+	            <fieldset data-role="controlgroup">
+	                <label for="message">
+	                    Message
+	                </label>
+	                <textarea name="message" id="message" placeholder="Type message in here"></textarea>
+	            </fieldset>
+	        </div>
+	        <input data-icon="forward" data-iconpos="left" value="Send" type="submit">
+	    </div>
+		
+		<!-- Footer -->
+		<div data-role="footer"> 
+			<h4>http://www.nathanclaire.com/</h4> 
+		</div> 
+	</div> 
+</body> 
+</html>

@@ -1,0 +1,13 @@
+<label for="partyRelationshipTypeSelect"><%= entities_strings.partyrelationshiptype %></label>
+<select name="<%=relatedFieldName%>" id="partyRelationshipTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (partyRelationshipType) {
+	%>
+		<% if (selectedOption == partyRelationshipType.attributes.id) { %>
+	<option value="<%=partyRelationshipType.id%>" selected="selected" ><%=partyRelationshipType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=partyRelationshipType.id%>" ><%=partyRelationshipType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

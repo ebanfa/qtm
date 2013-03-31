@@ -1,0 +1,42 @@
+<!-- Header -->
+<div data-role="header">
+    <a data-role="button" data-icon="home" href="#">Home</a>
+    <h3>Process Payment</h3>
+    <a data-role="button" data-icon="home" href="#">Log out</a>
+</div>
+<!-- Content -->
+<div data-role="content" id='paymentFormContainerDiv' >
+    <form action="#" method="get">
+        <fieldset>
+            <div id="paymentMethodSelectContainerDiv" data-role="fieldcontain">
+                
+            </div>
+            <div id="paymentProviderSelectContainerDiv" data-role="fieldcontain">
+                
+            </div>
+            <div id="orderReferenceContainerDiv" data-role="fieldcontain">
+                <label for="paymentCd">Order Reference:</label>
+                <input name="paymentCd" id="paymentCd" placeholder="" value="<%= payment ? payment.get('paymentCd') : '' %>" type="text"/>
+                
+            </div>
+            <div id="pinNumberContainerDiv" data-role="fieldcontain">
+                <label for="paymentPin" class="select">PIN:</label>
+                <input name="paymentPin" id="paymentPin" placeholder="" value="<%= payment ? payment.get('paymentPin') : '' %>" type="text"/>
+                
+            </div>
+            <div id="amountContainerDiv" data-role="fieldcontain">
+                <label for="amount" class="select">Amount:</label>
+                <input name="amount" id="amount" placeholder="" value="<%= payment ? payment.get('amount') : '' %>" type="text"/>
+                
+            </div>
+        </fieldset>
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><button type="submit" data-theme="c">Cancel</button></div>
+            <div class="ui-block-b"><button type="submit" data-theme="b">Submit</button></div>     
+        </fieldset>
+    </form>
+</div> 
+<!-- Footer -->
+<div data-role="footer"> 
+    <h4>http://www.nathanclaire.com/</h4> 
+</div>

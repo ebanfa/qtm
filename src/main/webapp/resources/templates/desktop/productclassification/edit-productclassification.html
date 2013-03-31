@@ -1,0 +1,205 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= productclassification ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-productclassification-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.productclassification %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- productCategory. -->
+												<div id="productCategorySelectContainerDiv" class="span6">
+	            								</div>
+												<!-- product. -->
+												<div id="productSelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productclassification) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productclassification_code %></label>
+													<input type="text" id="code" value="<%= productclassification.get('code') ? productclassification.get('code') : '' %>" name="code" placeholder="<%= entities_strings.productclassification_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productclassification_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.productclassification_code %>">
+												</div>		
+												<% } %>									
+												<% if (productclassification) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.productclassification_name %></label>
+													<input type="text" id="name" value="<%= productclassification.get('name') ? productclassification.get('name') : '' %>" name="name" placeholder="<%= entities_strings.productclassification_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.productclassification_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.productclassification_name %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productclassification) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productclassification_description %></label>
+													<input type="text" id="description" value="<%= productclassification.get('description') ? productclassification.get('description') : '' %>" name="description" placeholder="<%= entities_strings.productclassification_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productclassification_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.productclassification_description %>">
+												</div>		
+												<% } %>									
+												<% if (productclassification) { %>
+												<!-- remarks. -->
+						            			<div class="span6">
+						            				<label for="remarks"><%= entities_strings.productclassification_remarks %></label>
+													<input type="text" id="remarks" value="<%= productclassification.get('remarks') ? productclassification.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.productclassification_remarks %>">
+												</div>		
+												<% } else {%>
+												<!-- remarks. -->
+						            			<div class="span6">
+						            				<label for="remarks"><%= entities_strings.productclassification_remarks %></label>
+													<input type="text" id="remarks" name="remarks" value="" placeholder="<%= entities_strings.productclassification_remarks %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productclassification) { %>
+												<!-- fromDt. -->
+						            			<div class="span6">
+						            				<label for="fromDt"><%= entities_strings.productclassification_fromdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="fromDt" name="fromDt" type="text" value="<%= productclassification.get('fromDt') ? productclassification.get('fromDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- fromDt. -->
+						            			<div class="span6">
+						            				<label for="fromDt"><%= entities_strings.productclassification_fromdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="fromDt" name="fromDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<% if (productclassification) { %>
+												<!-- toDt. -->
+						            			<div class="span6">
+						            				<label for="toDt"><%= entities_strings.productclassification_todt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="toDt" name="toDt" type="text" value="<%= productclassification.get('toDt') ? productclassification.get('toDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- toDt. -->
+						            			<div class="span6">
+						            				<label for="toDt"><%= entities_strings.productclassification_todt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="toDt" name="toDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productclassification) { %>
+												<!-- primaryFg. -->
+						            			<div class="span6">
+						            				<label for="primaryFg"><%= entities_strings.productclassification_primaryfg %></label>
+													<input type="text" id="primaryFg" value="<%= productclassification.get('primaryFg') ? productclassification.get('primaryFg') : '' %>" name="primaryFg" placeholder="<%= entities_strings.productclassification_primaryfg %>">
+												</div>		
+												<% } else {%>
+												<!-- primaryFg. -->
+						            			<div class="span6">
+						            				<label for="primaryFg"><%= entities_strings.productclassification_primaryfg %></label>
+													<input type="text" id="primaryFg" name="primaryFg" value="" placeholder="<%= entities_strings.productclassification_primaryfg %>">
+												</div>		
+												<% } %>									
+												<% if (productclassification) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productclassification_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= productclassification.get('effectiveDt') ? productclassification.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productclassification_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												
+												<!-- recSt. -->
+						            			<div class="span12">
+						            				<label for="recSt"><%= entities_strings.productclassification_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-productclassification"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

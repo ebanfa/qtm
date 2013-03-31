@@ -1,0 +1,203 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= invoiceitem ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-invoiceitem-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.invoiceitem %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- invoiceItemType. -->
+												<div id="invoiceItemTypeSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- invoiceItemCategory. -->
+												<div id="invoiceItemCategorySelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- product. -->
+												<div id="productSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- productFeature. -->
+												<div id="productFeatureSelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- invoice. -->
+												<div id="invoiceSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (invoiceitem) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.invoiceitem_code %></label>
+													<input type="text" id="code" value="<%= invoiceitem.get('code') ? invoiceitem.get('code') : '' %>" name="code" placeholder="<%= entities_strings.invoiceitem_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.invoiceitem_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.invoiceitem_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (invoiceitem) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.invoiceitem_name %></label>
+													<input type="text" id="name" value="<%= invoiceitem.get('name') ? invoiceitem.get('name') : '' %>" name="name" placeholder="<%= entities_strings.invoiceitem_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.invoiceitem_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.invoiceitem_name %>">
+												</div>		
+												<% } %>									
+												<% if (invoiceitem) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.invoiceitem_description %></label>
+													<input type="text" id="description" value="<%= invoiceitem.get('description') ? invoiceitem.get('description') : '' %>" name="description" placeholder="<%= entities_strings.invoiceitem_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.invoiceitem_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.invoiceitem_description %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (invoiceitem) { %>
+												<!-- taxableFg. -->
+						            			<div class="span6">
+						            				<label for="taxableFg"><%= entities_strings.invoiceitem_taxablefg %></label>
+													<input type="text" id="taxableFg" value="<%= invoiceitem.get('taxableFg') ? invoiceitem.get('taxableFg') : '' %>" name="taxableFg" placeholder="<%= entities_strings.invoiceitem_taxablefg %>">
+												</div>		
+												<% } else {%>
+												<!-- taxableFg. -->
+						            			<div class="span6">
+						            				<label for="taxableFg"><%= entities_strings.invoiceitem_taxablefg %></label>
+													<input type="text" id="taxableFg" name="taxableFg" value="" placeholder="<%= entities_strings.invoiceitem_taxablefg %>">
+												</div>		
+												<% } %>									
+												<% if (invoiceitem) { %>
+												<!-- quantity. -->
+						            			<div class="span6">
+						            				<label for="quantity"><%= entities_strings.invoiceitem_quantity %></label>
+													<input type="text" id="quantity" value="<%= invoiceitem.get('quantity') ? invoiceitem.get('quantity') : '' %>" name="quantity" placeholder="<%= entities_strings.invoiceitem_quantity %>">
+												</div>		
+												<% } else {%>
+												<!-- quantity. -->
+						            			<div class="span6">
+						            				<label for="quantity"><%= entities_strings.invoiceitem_quantity %></label>
+													<input type="text" id="quantity" name="quantity" value="" placeholder="<%= entities_strings.invoiceitem_quantity %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (invoiceitem) { %>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.invoiceitem_amount %></label>
+													<input type="text" id="amount" value="<%= invoiceitem.get('amount') ? invoiceitem.get('amount') : '' %>" name="amount" placeholder="<%= entities_strings.invoiceitem_amount %>">
+												</div>		
+												<% } else {%>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.invoiceitem_amount %></label>
+													<input type="text" id="amount" name="amount" value="" placeholder="<%= entities_strings.invoiceitem_amount %>">
+												</div>		
+												<% } %>									
+												<% if (invoiceitem) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.invoiceitem_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= invoiceitem.get('effectiveDt') ? invoiceitem.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.invoiceitem_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.invoiceitem_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+											<!-- orderItemBillings. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="orderItemBillings" placeholder="One to Many orderItemBillings">
+												</div>
+											</div> -->
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												
+											<!-- paymentApplications. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="paymentApplications" placeholder="One to Many paymentApplications">
+												</div>
+											</div> -->
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-invoiceitem"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

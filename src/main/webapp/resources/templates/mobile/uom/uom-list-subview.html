@@ -1,0 +1,10 @@
+
+<label for="productUomSelect">Size:</label>
+<select name="productUomSelectNm" id="productUomSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (productUom) {
+	%>
+	<option value="<%=productUom.id%>"><%=productUom.attributes.prodUomCd%></option>
+	<% }); %>
+</select>

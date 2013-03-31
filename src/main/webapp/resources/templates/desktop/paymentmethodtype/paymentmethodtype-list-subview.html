@@ -1,0 +1,13 @@
+<label for="paymentMethodTypeSelect"><%= entities_strings.paymentmethodtype %></label>
+<select name="<%=relatedFieldName%>" id="paymentMethodTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (paymentMethodType) {
+	%>
+		<% if (selectedOption == paymentMethodType.attributes.id) { %>
+	<option value="<%=paymentMethodType.id%>" selected="selected" ><%=paymentMethodType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=paymentMethodType.id%>" ><%=paymentMethodType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

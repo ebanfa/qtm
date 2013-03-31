@@ -1,0 +1,10 @@
+
+<label for="productTypeSelect">Product Type:</label>
+<select name="productTypeSelectNm" id="productTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (productType) {
+	%>
+	<option value="<%=productType.id%>"><%=productType.attributes.code%></option>
+	<% }); %>
+</select>

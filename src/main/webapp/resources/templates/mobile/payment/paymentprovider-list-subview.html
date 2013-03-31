@@ -1,0 +1,10 @@
+
+<label for="paymentProviderSelect">Payment Provider:</label>
+<select name="paymentProviderSelect" id="paymentProviderSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (paymentProvider) {
+	%>
+	<option value="<%=paymentProvider.id%>"><%=paymentProvider.attributes.payProviderNm%></option>
+	<% }); %>
+</select>

@@ -1,0 +1,218 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= productcomponent ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-productcomponent-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.productcomponent %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- productByInProdId. -->
+												<div id="productSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- productByForProdId. -->
+												<div id="productSelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productcomponent) { %>
+												<!-- locationId. -->
+						            			<div class="span6">
+						            				<label for="locationId"><%= entities_strings.productcomponent_locationid %></label>
+													<input type="text" id="locationId" value="<%= productcomponent.get('locationId') ? productcomponent.get('locationId') : '' %>" name="locationId" placeholder="<%= entities_strings.productcomponent_locationid %>">
+												</div>		
+												<% } else {%>
+												<!-- locationId. -->
+						            			<div class="span6">
+						            				<label for="locationId"><%= entities_strings.productcomponent_locationid %></label>
+													<input type="text" id="locationId" name="locationId" value="" placeholder="<%= entities_strings.productcomponent_locationid %>">
+												</div>		
+												<% } %>									
+												<% if (productcomponent) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productcomponent_code %></label>
+													<input type="text" id="code" value="<%= productcomponent.get('code') ? productcomponent.get('code') : '' %>" name="code" placeholder="<%= entities_strings.productcomponent_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productcomponent_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.productcomponent_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productcomponent) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productcomponent_description %></label>
+													<input type="text" id="description" value="<%= productcomponent.get('description') ? productcomponent.get('description') : '' %>" name="description" placeholder="<%= entities_strings.productcomponent_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productcomponent_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.productcomponent_description %>">
+												</div>		
+												<% } %>									
+												<% if (productcomponent) { %>
+												<!-- instruction. -->
+						            			<div class="span6">
+						            				<label for="instruction"><%= entities_strings.productcomponent_instruction %></label>
+													<input type="text" id="instruction" value="<%= productcomponent.get('instruction') ? productcomponent.get('instruction') : '' %>" name="instruction" placeholder="<%= entities_strings.productcomponent_instruction %>">
+												</div>		
+												<% } else {%>
+												<!-- instruction. -->
+						            			<div class="span6">
+						            				<label for="instruction"><%= entities_strings.productcomponent_instruction %></label>
+													<input type="text" id="instruction" name="instruction" value="" placeholder="<%= entities_strings.productcomponent_instruction %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productcomponent) { %>
+												<!-- remarks. -->
+						            			<div class="span6">
+						            				<label for="remarks"><%= entities_strings.productcomponent_remarks %></label>
+													<input type="text" id="remarks" value="<%= productcomponent.get('remarks') ? productcomponent.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.productcomponent_remarks %>">
+												</div>		
+												<% } else {%>
+												<!-- remarks. -->
+						            			<div class="span6">
+						            				<label for="remarks"><%= entities_strings.productcomponent_remarks %></label>
+													<input type="text" id="remarks" name="remarks" value="" placeholder="<%= entities_strings.productcomponent_remarks %>">
+												</div>		
+												<% } %>									
+												<% if (productcomponent) { %>
+												<!-- quantitiyUsed. -->
+						            			<div class="span6">
+						            				<label for="quantitiyUsed"><%= entities_strings.productcomponent_quantitiyused %></label>
+													<input type="text" id="quantitiyUsed" value="<%= productcomponent.get('quantitiyUsed') ? productcomponent.get('quantitiyUsed') : '' %>" name="quantitiyUsed" placeholder="<%= entities_strings.productcomponent_quantitiyused %>">
+												</div>		
+												<% } else {%>
+												<!-- quantitiyUsed. -->
+						            			<div class="span6">
+						            				<label for="quantitiyUsed"><%= entities_strings.productcomponent_quantitiyused %></label>
+													<input type="text" id="quantitiyUsed" name="quantitiyUsed" value="" placeholder="<%= entities_strings.productcomponent_quantitiyused %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productcomponent) { %>
+												<!-- fromDt. -->
+						            			<div class="span6">
+						            				<label for="fromDt"><%= entities_strings.productcomponent_fromdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="fromDt" name="fromDt" type="text" value="<%= productcomponent.get('fromDt') ? productcomponent.get('fromDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- fromDt. -->
+						            			<div class="span6">
+						            				<label for="fromDt"><%= entities_strings.productcomponent_fromdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="fromDt" name="fromDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<% if (productcomponent) { %>
+												<!-- toDt. -->
+						            			<div class="span6">
+						            				<label for="toDt"><%= entities_strings.productcomponent_todt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="toDt" name="toDt" type="text" value="<%= productcomponent.get('toDt') ? productcomponent.get('toDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- toDt. -->
+						            			<div class="span6">
+						            				<label for="toDt"><%= entities_strings.productcomponent_todt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="toDt" name="toDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productcomponent) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productcomponent_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= productcomponent.get('effectiveDt') ? productcomponent.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productcomponent_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.productcomponent_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-productcomponent"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

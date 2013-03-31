@@ -1,0 +1,13 @@
+<label for="workEffortSelect"><%= entities_strings.workeffort %></label>
+<select name="<%=relatedFieldName%>" id="workEffortSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (workEffort) {
+	%>
+		<% if (selectedOption == workEffort.attributes.id) { %>
+	<option value="<%=workEffort.id%>" selected="selected" ><%=workEffort.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=workEffort.id%>" ><%=workEffort.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

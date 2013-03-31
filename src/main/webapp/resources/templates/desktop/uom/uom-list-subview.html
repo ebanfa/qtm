@@ -1,0 +1,13 @@
+<label for="uomSelect"><%= entities_strings.uom %></label>
+<select name="<%=relatedFieldName%>" id="uomSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (uom) {
+	%>
+		<% if (selectedOption == uom.attributes.id) { %>
+	<option value="<%=uom.id%>" selected="selected" ><%=uom.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=uom.id%>" ><%=uom.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

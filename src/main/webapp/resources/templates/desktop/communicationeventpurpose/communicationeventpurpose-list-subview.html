@@ -1,0 +1,13 @@
+<label for="communicationEventPurposeSelect"><%= entities_strings.communicationeventpurpose %></label>
+<select name="<%=relatedFieldName%>" id="communicationEventPurposeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (communicationEventPurpose) {
+	%>
+		<% if (selectedOption == communicationEventPurpose.attributes.id) { %>
+	<option value="<%=communicationEventPurpose.id%>" selected="selected" ><%=communicationEventPurpose.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=communicationEventPurpose.id%>" ><%=communicationEventPurpose.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

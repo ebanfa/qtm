@@ -1,0 +1,13 @@
+<label for="partyContactMechanismPurposeSelect"><%= entities_strings.partycontactmechanismpurpose %></label>
+<select name="<%=relatedFieldName%>" id="partyContactMechanismPurposeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (partyContactMechanismPurpose) {
+	%>
+		<% if (selectedOption == partyContactMechanismPurpose.attributes.id) { %>
+	<option value="<%=partyContactMechanismPurpose.id%>" selected="selected" ><%=partyContactMechanismPurpose.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=partyContactMechanismPurpose.id%>" ><%=partyContactMechanismPurpose.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

@@ -1,0 +1,188 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= invoice ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-invoice-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.invoice %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- invoiceType. -->
+												<div id="invoiceTypeSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- partyByToPartyId. -->
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- contactMechanism. -->
+												<div id="contactMechanismSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- partyByFromPartyId. -->
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- invoiceTerm. -->
+												<div id="invoiceTermSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (invoice) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.invoice_code %></label>
+													<input type="text" id="code" value="<%= invoice.get('code') ? invoice.get('code') : '' %>" name="code" placeholder="<%= entities_strings.invoice_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.invoice_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.invoice_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (invoice) { %>
+												<!-- message. -->
+						            			<div class="span6">
+						            				<label for="message"><%= entities_strings.invoice_message %></label>
+													<input type="text" id="message" value="<%= invoice.get('message') ? invoice.get('message') : '' %>" name="message" placeholder="<%= entities_strings.invoice_message %>">
+												</div>		
+												<% } else {%>
+												<!-- message. -->
+						            			<div class="span6">
+						            				<label for="message"><%= entities_strings.invoice_message %></label>
+													<input type="text" id="message" name="message" value="" placeholder="<%= entities_strings.invoice_message %>">
+												</div>		
+												<% } %>									
+												<% if (invoice) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.invoice_description %></label>
+													<input type="text" id="description" value="<%= invoice.get('description') ? invoice.get('description') : '' %>" name="description" placeholder="<%= entities_strings.invoice_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.invoice_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.invoice_description %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (invoice) { %>
+												<!-- invoiceDt. -->
+						            			<div class="span6">
+						            				<label for="invoiceDt"><%= entities_strings.invoice_invoicedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="invoiceDt" name="invoiceDt" type="text" value="<%= invoice.get('invoiceDt') ? invoice.get('invoiceDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- invoiceDt. -->
+						            			<div class="span6">
+						            				<label for="invoiceDt"><%= entities_strings.invoice_invoicedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="invoiceDt" name="invoiceDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<% if (invoice) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.invoice_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= invoice.get('effectiveDt') ? invoice.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.invoice_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.invoice_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+											<!-- invoiceStatuses. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="invoiceStatuses" placeholder="One to Many invoiceStatuses">
+												</div>
+											</div> -->
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+											<!-- invoiceRoles. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="invoiceRoles" placeholder="One to Many invoiceRoles">
+												</div>
+											</div> -->
+											<!-- invoiceItems. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="invoiceItems" placeholder="One to Many invoiceItems">
+												</div>
+											</div> -->
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-invoice"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+<label for="estimatedProductCostSelect"><%= entities_strings.estimatedproductcost %></label>
+<select name="<%=relatedFieldName%>" id="estimatedProductCostSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (estimatedProductCost) {
+	%>
+		<% if (selectedOption == estimatedProductCost.attributes.id) { %>
+	<option value="<%=estimatedProductCost.id%>" selected="selected" ><%=estimatedProductCost.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=estimatedProductCost.id%>" ><%=estimatedProductCost.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

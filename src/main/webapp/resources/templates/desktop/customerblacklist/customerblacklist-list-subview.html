@@ -1,0 +1,13 @@
+<label for="customerBlacklistSelect"><%= entities_strings.customerblacklist %></label>
+<select name="<%=relatedFieldName%>" id="customerBlacklistSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (customerBlacklist) {
+	%>
+		<% if (selectedOption == customerBlacklist.attributes.id) { %>
+	<option value="<%=customerBlacklist.id%>" selected="selected" ><%=customerBlacklist.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=customerBlacklist.id%>" ><%=customerBlacklist.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

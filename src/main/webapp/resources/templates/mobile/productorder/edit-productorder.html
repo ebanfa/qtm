@@ -1,0 +1,40 @@
+<!-- Header -->
+<div data-role="header">
+    <a data-role="button" data-icon="home" href="#">Home</a>
+    <h3><%= productorder ? 'View' : 'Create' %> Order</h3>
+    <a data-role="button" data-icon="home" href="#">Log out</a>
+</div>
+<!-- Content -->
+<div data-role="content" id='paymentFormContainerDiv' >
+    <form action="#" method="get">
+        <fieldset>
+            <div id="productTypeSelectContainerDiv" data-role="fieldcontain">
+                
+            </div>
+            <div id="productSelectContainerDiv" data-role="fieldcontain">
+                
+            </div>
+            <div id="productUomSelectContainerDiv" data-role="fieldcontain">
+                
+            </div>
+            <div id="quantityContainerDiv" data-role="fieldcontain">
+                <label for="quantity" class="select">Quantity:</label>
+                <input name="quantity" id="quantity" placeholder="" value="<%= productorder ? productorder.get('quantity') : '' %>" type="text"/>
+                
+            </div>
+            <div id="priceContainerDiv" data-role="fieldcontain">
+                <label for="price" class="select">Price:</label>
+                <input name="price" id="price" placeholder="" value="<%= productorder ? productorder.get('price') : '' %>" type="text"/>
+                
+            </div>
+        </fieldset>
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><button type="submit" data-theme="c">Cancel</button></div>
+            <div class="ui-block-b"><button type="submit" data-theme="b">Submit</button></div>     
+        </fieldset>
+    </form>
+</div> 
+<!-- Footer -->
+<div data-role="footer"> 
+    <h4>http://www.nathanclaire.com/</h4> 
+</div>
