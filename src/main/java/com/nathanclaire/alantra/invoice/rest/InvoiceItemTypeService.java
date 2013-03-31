@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.InvoiceItemTypeRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemType;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
 
 /**
  * @author administrator

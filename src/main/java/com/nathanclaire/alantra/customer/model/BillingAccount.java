@@ -26,7 +26,7 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.BaseEntity;
-import com.nathanclaire.alantra.payments.model.PaymentApplication;
+import com.nathanclaire.alantra.payment.model.PaymentApplication;
 import com.nathanclaire.alantra.util.DateDeserializer;
 import com.nathanclaire.alantra.util.DateSerializer;
 

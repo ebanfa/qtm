@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.GeoBoundryAssociationRequest;
-import com.nathanclaire.alantra.base.rest.request.GeoBoundryRequest;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundryAssociation;
+import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryAssociationRequest;
+import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
 /**
  * @author administrator

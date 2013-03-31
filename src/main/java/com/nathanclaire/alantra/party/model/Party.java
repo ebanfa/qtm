@@ -33,8 +33,8 @@ import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceRole;
-import com.nathanclaire.alantra.payments.model.Payment;
-import com.nathanclaire.alantra.payments.model.PaymentMethodTypeProvider;
+import com.nathanclaire.alantra.payment.model.Payment;
+import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
 import com.nathanclaire.alantra.util.DateDeserializer;
 import com.nathanclaire.alantra.util.DateSerializer;
 

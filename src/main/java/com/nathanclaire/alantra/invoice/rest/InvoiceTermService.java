@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.InvoiceTermRequest;
-import com.nathanclaire.alantra.base.rest.request.TermTypeRequest;
 import com.nathanclaire.alantra.businessdata.model.TermType;
+import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceTerm;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceTermRequest;
 
 /**
  * @author administrator

@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ContactMechanismRequest;
-import com.nathanclaire.alantra.base.rest.request.PostalAddressRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 import com.nathanclaire.alantra.party.model.PostalAddress;
+import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
+import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
 
 /**
  * @author administrator

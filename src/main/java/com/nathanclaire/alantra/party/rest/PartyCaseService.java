@@ -26,12 +26,12 @@ import javax.ws.rs.core.Response;
 import com.nathanclaire.alantra.party.model.CaseRole;
 import com.nathanclaire.alantra.party.model.CaseStatusType;
 import com.nathanclaire.alantra.party.model.PartyCase;
+import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyCaseRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.CaseRoleRequest;
-import com.nathanclaire.alantra.base.rest.request.CaseStatusTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.CommunicationEventRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyCaseRequest;
+import com.nathanclaire.alantra.customer.rest.request.CaseRoleRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
+import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
 
 /**
  * @author administrator

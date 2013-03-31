@@ -25,17 +25,17 @@ import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
+import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
+import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.InvoiceItemCategoryRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceItemRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceItemTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductFeatureRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemCategory;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemType;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemCategoryRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 
 /**
  * @author administrator

@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.CommunicationEventTypeRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
+import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
 
 /**
  * @author administrator

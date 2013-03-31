@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.PartyRelationshipTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyRoleTypeRequest;
 import com.nathanclaire.alantra.party.model.PartyRelationshipType;
 import com.nathanclaire.alantra.party.model.PartyRoleType;
+import com.nathanclaire.alantra.party.rest.request.PartyRelationshipTypeRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 
 /**
  * @author administrator

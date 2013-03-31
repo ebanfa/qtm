@@ -24,16 +24,16 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.PartyRequest;
-import com.nathanclaire.alantra.base.rest.request.PaymentMethodTypeProviderRequest;
-import com.nathanclaire.alantra.base.rest.request.PaymentMethodTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.PaymentRequest;
-import com.nathanclaire.alantra.base.rest.request.PaymentTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.payments.model.Payment;
-import com.nathanclaire.alantra.payments.model.PaymentMethodType;
-import com.nathanclaire.alantra.payments.model.PaymentMethodTypeProvider;
-import com.nathanclaire.alantra.payments.model.PaymentType;
+import com.nathanclaire.alantra.party.rest.request.PartyRequest;
+import com.nathanclaire.alantra.payment.model.Payment;
+import com.nathanclaire.alantra.payment.model.PaymentMethodType;
+import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
+import com.nathanclaire.alantra.payment.model.PaymentType;
+import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeProviderRequest;
+import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeRequest;
+import com.nathanclaire.alantra.payment.rest.request.PaymentRequest;
+import com.nathanclaire.alantra.payment.rest.request.PaymentTypeRequest;
 
 /**
  * @author administrator

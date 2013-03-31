@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ProductRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductTypeRequest;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductType;
+import com.nathanclaire.alantra.product.rest.request.ProductRequest;
+import com.nathanclaire.alantra.product.rest.request.ProductTypeRequest;
 
 /**
  * @author administrator

@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.BillingAccountRoleTypeRequest;
 import com.nathanclaire.alantra.customer.model.BillingAccountRoleType;
+import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleTypeRequest;
 
 /**
  * @author administrator

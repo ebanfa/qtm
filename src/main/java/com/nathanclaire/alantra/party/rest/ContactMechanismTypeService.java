@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ContactMechanismTypeRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanismType;
+import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
 
 /**
  * @author administrator

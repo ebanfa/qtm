@@ -24,12 +24,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceStatusRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceStatusTypeRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceStatus;
 import com.nathanclaire.alantra.invoice.model.InvoiceStatusType;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusTypeRequest;
 
 /**
  * @author administrator

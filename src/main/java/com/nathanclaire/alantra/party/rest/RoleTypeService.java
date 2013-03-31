@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.RoleTypeRequest;
 import com.nathanclaire.alantra.party.model.RoleType;
+import com.nathanclaire.alantra.party.rest.request.RoleTypeRequest;
 
 /**
  * @author administrator

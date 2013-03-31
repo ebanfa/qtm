@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.PaymentTypeRequest;
-import com.nathanclaire.alantra.payments.model.PaymentType;
+import com.nathanclaire.alantra.payment.model.PaymentType;
+import com.nathanclaire.alantra.payment.rest.request.PaymentTypeRequest;
 
 /**
  * @author administrator

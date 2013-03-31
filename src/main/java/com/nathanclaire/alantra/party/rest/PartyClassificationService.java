@@ -24,14 +24,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.PartyClassificationRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyClassificationTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.party.model.PartyClassification;
 import com.nathanclaire.alantra.party.model.PartyClassificationType;
 import com.nathanclaire.alantra.party.model.PartyType;
+import com.nathanclaire.alantra.party.rest.request.PartyClassificationRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyClassificationTypeRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
 
 /**
  * @author administrator

@@ -24,14 +24,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ProductFeatureApplicabilityRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductFeatureApplicabilityTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductFeatureRequest;
-import com.nathanclaire.alantra.base.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicability;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicabilityType;
+import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityRequest;
+import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityTypeRequest;
+import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
+import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 
 /**
  * @author administrator

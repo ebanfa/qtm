@@ -24,12 +24,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.party.model.PostalAddress;
+import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.GeoBoundryRequest;
-import com.nathanclaire.alantra.base.rest.request.PostalAddressBoundryRequest;
-import com.nathanclaire.alantra.base.rest.request.PostalAddressRequest;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.model.PostalAddressBoundry;
+import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
+import com.nathanclaire.alantra.businessdata.rest.request.PostalAddressBoundryRequest;
 
 /**
  * @author administrator

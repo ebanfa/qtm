@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.CurrencyRequest;
 import com.nathanclaire.alantra.businessdata.model.Currency;
+import com.nathanclaire.alantra.businessdata.rest.request.CurrencyRequest;
 
 /**
  * @author administrator

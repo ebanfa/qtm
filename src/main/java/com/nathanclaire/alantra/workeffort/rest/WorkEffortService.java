@@ -24,10 +24,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.WorkEffortRequest;
-import com.nathanclaire.alantra.base.rest.request.WorkEffortTypeRequest;
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
 import com.nathanclaire.alantra.workeffort.model.WorkEffortType;
+import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
+import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortTypeRequest;
 
 /**
  * @author administrator

@@ -24,12 +24,12 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ContactMechanismPurposeTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.ContactMechanismRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyContactMechanismPurposeRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 import com.nathanclaire.alantra.party.model.ContactMechanismPurposeType;
 import com.nathanclaire.alantra.party.model.PartyContactMechanismPurpose;
+import com.nathanclaire.alantra.party.rest.request.ContactMechanismPurposeTypeRequest;
+import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyContactMechanismPurposeRequest;
 
 /**
  * @author administrator

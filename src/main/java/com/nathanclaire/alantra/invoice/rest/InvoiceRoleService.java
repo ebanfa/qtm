@@ -24,14 +24,14 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.party.model.Party;
+import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRoleRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRoleTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceRole;
 import com.nathanclaire.alantra.invoice.model.InvoiceRoleType;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleTypeRequest;
 
 /**
  * @author administrator

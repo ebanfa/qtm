@@ -24,8 +24,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ProductOrderItemTypeRequest;
 import com.nathanclaire.alantra.order.model.ProductOrderItemType;
+import com.nathanclaire.alantra.order.rest.request.ProductOrderItemTypeRequest;
 
 /**
  * @author administrator

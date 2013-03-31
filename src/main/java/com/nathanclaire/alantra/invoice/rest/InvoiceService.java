@@ -25,15 +25,15 @@ import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 import com.nathanclaire.alantra.party.model.Party;
+import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
+import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
-import com.nathanclaire.alantra.base.rest.request.ContactMechanismRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceTermRequest;
-import com.nathanclaire.alantra.base.rest.request.InvoiceTypeRequest;
-import com.nathanclaire.alantra.base.rest.request.PartyRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceTerm;
 import com.nathanclaire.alantra.invoice.model.InvoiceType;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceTermRequest;
+import com.nathanclaire.alantra.invoice.rest.request.InvoiceTypeRequest;
 
 /**
  * @author administrator
