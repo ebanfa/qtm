@@ -1,0 +1,13 @@
+<label for="productFeatureApplicabilityTypeSelect"><%= entities_strings.productfeatureapplicabilitytype %></label>
+<select name="<%=relatedFieldName%>" id="productFeatureApplicabilityTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (productFeatureApplicabilityType) {
+	%>
+		<% if (selectedOption == productFeatureApplicabilityType.attributes.id) { %>
+	<option value="<%=productFeatureApplicabilityType.id%>" selected="selected" ><%=productFeatureApplicabilityType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=productFeatureApplicabilityType.id%>" ><%=productFeatureApplicabilityType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

@@ -1,0 +1,13 @@
+<label for="caseStatusTypeSelect"><%= entities_strings.casestatustype %></label>
+<select name="<%=relatedFieldName%>" id="caseStatusTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (caseStatusType) {
+	%>
+		<% if (selectedOption == caseStatusType.attributes.id) { %>
+	<option value="<%=caseStatusType.id%>" selected="selected" ><%=caseStatusType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=caseStatusType.id%>" ><%=caseStatusType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

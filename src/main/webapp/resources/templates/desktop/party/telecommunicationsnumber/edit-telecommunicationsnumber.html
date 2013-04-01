@@ -1,0 +1,146 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= telecommunicationsnumber ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-telecommunicationsnumber-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.telecommunicationsnumber %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- contactMechanism. -->
+												<div id="contactMechanismSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (telecommunicationsnumber) { %>
+												<!-- areaCode. -->
+						            			<div class="span6">
+						            				<label for="areaCode"><%= entities_strings.telecommunicationsnumber_areacode %></label>
+													<input type="text" id="areaCode" value="<%= telecommunicationsnumber.get('areaCode') ? telecommunicationsnumber.get('areaCode') : '' %>" name="areaCode" placeholder="<%= entities_strings.telecommunicationsnumber_areacode %>">
+												</div>		
+												<% } else {%>
+												<!-- areaCode. -->
+						            			<div class="span6">
+						            				<label for="areaCode"><%= entities_strings.telecommunicationsnumber_areacode %></label>
+													<input type="text" id="areaCode" name="areaCode" value="" placeholder="<%= entities_strings.telecommunicationsnumber_areacode %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (telecommunicationsnumber) { %>
+												<!-- contactNo. -->
+						            			<div class="span6">
+						            				<label for="contactNo"><%= entities_strings.telecommunicationsnumber_contactno %></label>
+													<input type="text" id="contactNo" value="<%= telecommunicationsnumber.get('contactNo') ? telecommunicationsnumber.get('contactNo') : '' %>" name="contactNo" placeholder="<%= entities_strings.telecommunicationsnumber_contactno %>">
+												</div>		
+												<% } else {%>
+												<!-- contactNo. -->
+						            			<div class="span6">
+						            				<label for="contactNo"><%= entities_strings.telecommunicationsnumber_contactno %></label>
+													<input type="text" id="contactNo" name="contactNo" value="" placeholder="<%= entities_strings.telecommunicationsnumber_contactno %>">
+												</div>		
+												<% } %>									
+												<% if (telecommunicationsnumber) { %>
+												<!-- countryCd. -->
+						            			<div class="span6">
+						            				<label for="countryCd"><%= entities_strings.telecommunicationsnumber_countrycd %></label>
+													<input type="text" id="countryCd" value="<%= telecommunicationsnumber.get('countryCd') ? telecommunicationsnumber.get('countryCd') : '' %>" name="countryCd" placeholder="<%= entities_strings.telecommunicationsnumber_countrycd %>">
+												</div>		
+												<% } else {%>
+												<!-- countryCd. -->
+						            			<div class="span6">
+						            				<label for="countryCd"><%= entities_strings.telecommunicationsnumber_countrycd %></label>
+													<input type="text" id="countryCd" name="countryCd" value="" placeholder="<%= entities_strings.telecommunicationsnumber_countrycd %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (telecommunicationsnumber) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.telecommunicationsnumber_description %></label>
+													<input type="text" id="description" value="<%= telecommunicationsnumber.get('description') ? telecommunicationsnumber.get('description') : '' %>" name="description" placeholder="<%= entities_strings.telecommunicationsnumber_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.telecommunicationsnumber_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.telecommunicationsnumber_description %>">
+												</div>		
+												<% } %>									
+												<% if (telecommunicationsnumber) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.telecommunicationsnumber_code %></label>
+													<input type="text" id="code" value="<%= telecommunicationsnumber.get('code') ? telecommunicationsnumber.get('code') : '' %>" name="code" placeholder="<%= entities_strings.telecommunicationsnumber_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.telecommunicationsnumber_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.telecommunicationsnumber_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (telecommunicationsnumber) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.telecommunicationsnumber_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= telecommunicationsnumber.get('effectiveDt') ? telecommunicationsnumber.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.telecommunicationsnumber_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.telecommunicationsnumber_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-telecommunicationsnumber"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

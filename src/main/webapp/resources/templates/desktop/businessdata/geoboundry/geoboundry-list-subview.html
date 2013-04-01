@@ -1,0 +1,13 @@
+<label for="geoBoundrySelect"><%= entities_strings.geoboundry %></label>
+<select name="<%=relatedFieldName%>" id="geoBoundrySelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (geoBoundry) {
+	%>
+		<% if (selectedOption == geoBoundry.attributes.id) { %>
+	<option value="<%=geoBoundry.id%>" selected="selected" ><%=geoBoundry.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=geoBoundry.id%>" ><%=geoBoundry.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

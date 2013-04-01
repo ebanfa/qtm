@@ -1,0 +1,13 @@
+<label for="personSelect"><%= entities_strings.person %></label>
+<select name="<%=relatedFieldName%>" id="personSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (person) {
+	%>
+		<% if (selectedOption == person.attributes.id) { %>
+	<option value="<%=person.id%>" selected="selected" ><%=person.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=person.id%>" ><%=person.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

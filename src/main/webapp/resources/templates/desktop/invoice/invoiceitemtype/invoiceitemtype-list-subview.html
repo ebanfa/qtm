@@ -1,0 +1,13 @@
+<label for="invoiceItemTypeSelect"><%= entities_strings.invoiceitemtype %></label>
+<select name="<%=relatedFieldName%>" id="invoiceItemTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (invoiceItemType) {
+	%>
+		<% if (selectedOption == invoiceItemType.attributes.id) { %>
+	<option value="<%=invoiceItemType.id%>" selected="selected" ><%=invoiceItemType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=invoiceItemType.id%>" ><%=invoiceItemType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

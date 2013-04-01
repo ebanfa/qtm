@@ -1,0 +1,13 @@
+<label for="billingAccountSelect"><%= entities_strings.billingaccount %></label>
+<select name="<%=relatedFieldName%>" id="billingAccountSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (billingAccount) {
+	%>
+		<% if (selectedOption == billingAccount.attributes.id) { %>
+	<option value="<%=billingAccount.id%>" selected="selected" ><%=billingAccount.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=billingAccount.id%>" ><%=billingAccount.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

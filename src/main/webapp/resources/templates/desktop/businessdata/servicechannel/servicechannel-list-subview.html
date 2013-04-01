@@ -1,0 +1,13 @@
+<label for="serviceChannelSelect"><%= entities_strings.servicechannel %></label>
+<select name="<%=relatedFieldName%>" id="serviceChannelSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (serviceChannel) {
+	%>
+		<% if (selectedOption == serviceChannel.attributes.id) { %>
+	<option value="<%=serviceChannel.id%>" selected="selected" ><%=serviceChannel.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=serviceChannel.id%>" ><%=serviceChannel.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

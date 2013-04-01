@@ -1,0 +1,13 @@
+<label for="caseRoleSelect"><%= entities_strings.caserole %></label>
+<select name="<%=relatedFieldName%>" id="caseRoleSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (caseRole) {
+	%>
+		<% if (selectedOption == caseRole.attributes.id) { %>
+	<option value="<%=caseRole.id%>" selected="selected" ><%=caseRole.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=caseRole.id%>" ><%=caseRole.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

@@ -1,0 +1,13 @@
+<label for="contactMechanismTypeSelect"><%= entities_strings.contactmechanismtype %></label>
+<select name="<%=relatedFieldName%>" id="contactMechanismTypeSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (contactMechanismType) {
+	%>
+		<% if (selectedOption == contactMechanismType.attributes.id) { %>
+	<option value="<%=contactMechanismType.id%>" selected="selected" ><%=contactMechanismType.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=contactMechanismType.id%>" ><%=contactMechanismType.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

@@ -1,0 +1,13 @@
+<label for="postalAddressBoundrySelect"><%= entities_strings.postaladdressboundry %></label>
+<select name="<%=relatedFieldName%>" id="postalAddressBoundrySelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (postalAddressBoundry) {
+	%>
+		<% if (selectedOption == postalAddressBoundry.attributes.id) { %>
+	<option value="<%=postalAddressBoundry.id%>" selected="selected" ><%=postalAddressBoundry.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=postalAddressBoundry.id%>" ><%=postalAddressBoundry.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>

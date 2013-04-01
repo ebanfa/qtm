@@ -1,0 +1,178 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= productorder ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-productorder-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.productorder %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- productOrderType. -->
+												<div id="productOrderTypeSelectContainerDiv" class="span6">
+	            								</div>
+												<% if (productorder) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.productorder_name %></label>
+													<input type="text" id="name" value="<%= productorder.get('name') ? productorder.get('name') : '' %>" name="name" placeholder="<%= entities_strings.productorder_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.productorder_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.productorder_name %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productorder) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productorder_description %></label>
+													<input type="text" id="description" value="<%= productorder.get('description') ? productorder.get('description') : '' %>" name="description" placeholder="<%= entities_strings.productorder_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.productorder_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.productorder_description %>">
+												</div>		
+												<% } %>									
+												<% if (productorder) { %>
+												<!-- orderDt. -->
+						            			<div class="span6">
+						            				<label for="orderDt"><%= entities_strings.productorder_orderdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="orderDt" name="orderDt" type="text" value="<%= productorder.get('orderDt') ? productorder.get('orderDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- orderDt. -->
+						            			<div class="span6">
+						            				<label for="orderDt"><%= entities_strings.productorder_orderdt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="orderDt" name="orderDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- fromParty. -->
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
+												<!-- toParty. -->
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productorder) { %>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.productorder_amount %></label>
+													<input type="text" id="amount" value="<%= productorder.get('amount') ? productorder.get('amount') : '' %>" name="amount" placeholder="<%= entities_strings.productorder_amount %>">
+												</div>		
+												<% } else {%>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.productorder_amount %></label>
+													<input type="text" id="amount" name="amount" value="" placeholder="<%= entities_strings.productorder_amount %>">
+												</div>		
+												<% } %>									
+											<!-- productOrderItems. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="productOrderItems" placeholder="One to Many productOrderItems">
+												</div>
+											</div> -->
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (productorder) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productorder_code %></label>
+													<input type="text" id="code" value="<%= productorder.get('code') ? productorder.get('code') : '' %>" name="code" placeholder="<%= entities_strings.productorder_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.productorder_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.productorder_code %>">
+												</div>		
+												<% } %>									
+												<% if (productorder) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productorder_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= productorder.get('effectiveDt') ? productorder.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.productorder_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												
+												<!-- recSt. -->
+						            			<div class="span12">
+						            				<label for="recSt"><%= entities_strings.productorder_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-productorder"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

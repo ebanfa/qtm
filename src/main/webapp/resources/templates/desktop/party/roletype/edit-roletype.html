@@ -1,0 +1,118 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= roletype ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-roletype-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.roletype %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (roletype) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.roletype_name %></label>
+													<input type="text" id="name" value="<%= roletype.get('name') ? roletype.get('name') : '' %>" name="name" placeholder="<%= entities_strings.roletype_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.roletype_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.roletype_name %>">
+												</div>		
+												<% } %>									
+												<% if (roletype) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.roletype_description %></label>
+													<input type="text" id="description" value="<%= roletype.get('description') ? roletype.get('description') : '' %>" name="description" placeholder="<%= entities_strings.roletype_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.roletype_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.roletype_description %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+											<!-- partyRoleTypes. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="partyRoleTypes" placeholder="One to Many partyRoleTypes">
+												</div>
+											</div> -->
+												<% if (roletype) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.roletype_code %></label>
+													<input type="text" id="code" value="<%= roletype.get('code') ? roletype.get('code') : '' %>" name="code" placeholder="<%= entities_strings.roletype_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.roletype_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.roletype_code %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (roletype) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.roletype_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= roletype.get('effectiveDt') ? roletype.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.roletype_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												<!-- recSt. -->
+						            			<div class="span6">
+						            				<label for="recSt"><%= entities_strings.roletype_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-roletype"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+

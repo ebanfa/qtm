@@ -1,0 +1,13 @@
+<label for="billingAccountRoleSelect"><%= entities_strings.billingaccountrole %></label>
+<select name="<%=relatedFieldName%>" id="billingAccountRoleSelect">
+	<option value="--"></option>
+	<%
+	_.each(model.models, function (billingAccountRole) {
+	%>
+		<% if (selectedOption == billingAccountRole.attributes.id) { %>
+	<option value="<%=billingAccountRole.id%>" selected="selected" ><%=billingAccountRole.attributes.code%></option>
+		<% } else {%>
+	<option value="<%=billingAccountRole.id%>" ><%=billingAccountRole.attributes.code%></option>
+		<% } %>	
+	<% }); %>
+</select>
