@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/invoice/invoiceitemtype/invoiceitemtype',
     'app/collections/invoice/invoiceitemcategory/invoiceitemcategory',
     'app/collections/product/product/product',
@@ -14,7 +15,7 @@ define([
     'text!../../../../../../templates/desktop/product/productfeature/productfeature-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoice/invoice-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoiceitem/edit-invoiceitem.html'
-], function (utilities, config, formUtilities, entities_strings, InvoiceItemTypes, InvoiceItemCategorys, Products, ProductFeatures, Invoices, invoiceItemTypeListSubViewTemplate, invoiceItemCategoryListSubViewTemplate, productListSubViewTemplate, productFeatureListSubViewTemplate, invoiceListSubViewTemplate, InvoiceItemEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, InvoiceItemTypes, InvoiceItemCategorys, Products, ProductFeatures, Invoices, invoiceItemTypeListSubViewTemplate, invoiceItemCategoryListSubViewTemplate, productListSubViewTemplate, productFeatureListSubViewTemplate, invoiceListSubViewTemplate, InvoiceItemEditTemplate) {
 	
     var InvoiceItemTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -23,14 +24,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceItemTypeSelectContainerDiv'), invoiceItemTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceItemType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceItemTypeSelectContainerDiv'), invoiceItemTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoiceItemTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoiceItemTypesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceItemTypeSelectContainerDiv'), invoiceItemTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceItemType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceItemTypeSelectContainerDiv'), invoiceItemTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoiceItemType", 
+            	fieldName:entities_strings.invoiceitemtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -41,14 +56,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceItemCategorySelectContainerDiv'), invoiceItemCategoryListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceItemCategory", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceItemCategorySelectContainerDiv'), invoiceItemCategoryListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoiceItemCategorysFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoiceItemCategorysFetch.done(function (){
-                utilities.applyTemplate($('#invoiceItemCategorySelectContainerDiv'), invoiceItemCategoryListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceItemCategory", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceItemCategorySelectContainerDiv'), invoiceItemCategoryListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoiceItemCategory", 
+            	fieldName:entities_strings.invoiceitemcategory, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -59,14 +88,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productsFetch = this.model.fetch();
             // Re render the template when the data is available    
             productsFetch.done(function (){
-                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"product", 
+            	fieldName:entities_strings.product, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -77,14 +120,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productFeaturesFetch = this.model.fetch();
             // Re render the template when the data is available    
             productFeaturesFetch.done(function (){
-                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productFeature", 
+            	fieldName:entities_strings.productfeature, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -95,75 +152,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoicesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoicesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoice", 
+            	fieldName:entities_strings.invoice, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var InvoiceItemEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(invoiceitem)
-                    {
-                        utilities.applyTemplate($(self.el), InvoiceItemEditTemplate,  
-                            {model:this.model, invoiceitem:invoiceitem, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), InvoiceItemEditTemplate,  
-                    {model:this.model, invoiceitem:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var InvoiceItemEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = InvoiceItemEditTemplate;
         },
         events:
         {
-            'submit #edit-invoiceitem-form':'editInvoiceItem'
+            'submit #edit-invoiceitem-form':'saveEntity'
             
         },
-        editInvoiceItem: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var invoiceitem = $(event.currentTarget).serializeObject();
-            this.model.save(invoiceitem, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-invoiceitem');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-invoiceitem');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.invoiceItemTypeId = this.model.attributes.invoiceItemType

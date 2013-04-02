@@ -1,13 +1,29 @@
-<label for="electronicAddressSelect"><%= entities_strings.electronicaddress %></label>
+<label for="electronicAddressSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="electronicAddressSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (electronicAddress) {
 	%>
 		<% if (selectedOption == electronicAddress.attributes.id) { %>
-	<option value="<%=electronicAddress.id%>" selected="selected" ><%=electronicAddress.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=electronicAddress.id%>" selected="selected" >
+					<%=electronicAddress.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=electronicAddress.attributes.code%>" selected="selected" >
+					<%=electronicAddress.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=electronicAddress.id%>" ><%=electronicAddress.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=electronicAddress.id%>" ><%=electronicAddress.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=electronicAddress.attributes.code%>" ><%=electronicAddress.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

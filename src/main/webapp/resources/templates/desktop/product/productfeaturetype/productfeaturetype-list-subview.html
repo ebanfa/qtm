@@ -1,13 +1,29 @@
-<label for="productFeatureTypeSelect"><%= entities_strings.productfeaturetype %></label>
+<label for="productFeatureTypeSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="productFeatureTypeSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (productFeatureType) {
 	%>
 		<% if (selectedOption == productFeatureType.attributes.id) { %>
-	<option value="<%=productFeatureType.id%>" selected="selected" ><%=productFeatureType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=productFeatureType.id%>" selected="selected" >
+					<%=productFeatureType.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=productFeatureType.attributes.code%>" selected="selected" >
+					<%=productFeatureType.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=productFeatureType.id%>" ><%=productFeatureType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=productFeatureType.id%>" ><%=productFeatureType.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=productFeatureType.attributes.code%>" ><%=productFeatureType.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

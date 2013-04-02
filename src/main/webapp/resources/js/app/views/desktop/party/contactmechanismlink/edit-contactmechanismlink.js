@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/contactmechanism/contactmechanism',
     'app/collections/party/contactmechanism/contactmechanism',
     'text!../../../../../../templates/desktop/party/contactmechanism/contactmechanism-list-subview.html',
     'text!../../../../../../templates/desktop/party/contactmechanism/contactmechanism-list-subview.html',
     'text!../../../../../../templates/desktop/party/contactmechanismlink/edit-contactmechanismlink.html'
-], function (utilities, config, formUtilities, entities_strings, ContactMechanisms, ContactMechanisms, contactMechanismListSubViewTemplate, contactMechanismListSubViewTemplate, ContactMechanismLinkEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ContactMechanisms, ContactMechanisms, contactMechanismListSubViewTemplate, contactMechanismListSubViewTemplate, ContactMechanismLinkEditTemplate) {
 	
     var ContactMechanismListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,93 +18,81 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismByToId", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var contactMechanismsFetch = this.model.fetch();
             // Re render the template when the data is available    
             contactMechanismsFetch.done(function (){
-                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismByToId", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  self.getTemplateData());
             });
             return this;
-        }
-    });
-    
-    var ContactMechanismListSubView = Backbone.View.extend({
-        initialize: function () {
-            _.bindAll(this, 'render');
         },
-        render:function () 
-        {     
-            var self = this;            
-            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismByFromId", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
-            // Fetch data
-            var contactMechanismsFetch = this.model.fetch();
-            // Re render the template when the data is available    
-            contactMechanismsFetch.done(function (){
-                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismByFromId", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
-            });
-            return this;
-        }
-    });
-    
-	
-    var ContactMechanismLinkEditView = Backbone.View.extend({
-        render:function () {
+        getTemplateData: function()
+        {
             var self = this;
-            if (this.model.attributes.id)
+            var templateData = 
             {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(contactmechanismlink)
-                    {
-                        utilities.applyTemplate($(self.el), ContactMechanismLinkEditTemplate,  
-                            {model:this.model, contactmechanismlink:contactmechanismlink, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), ContactMechanismLinkEditTemplate,  
-                    {model:this.model, contactmechanismlink:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"contactMechanismByToId", 
+            	fieldName:entities_strings.contactmechanism, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
+        }
+    });
+    
+    var ContactMechanismListSubView = Backbone.View.extend({
+        initialize: function () {
+            _.bindAll(this, 'render');
+        },
+        render:function () 
+        {     
+            var self = this;            
+            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  this.getTemplateData());
+            // Fetch data
+            var contactMechanismsFetch = this.model.fetch();
+            // Re render the template when the data is available    
+            contactMechanismsFetch.done(function (){
+                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  self.getTemplateData());
+            });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"contactMechanismByFromId", 
+            	fieldName:entities_strings.contactmechanism, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
+        }
+    });
+    
+	
+    var ContactMechanismLinkEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = ContactMechanismLinkEditTemplate;
         },
         events:
         {
-            'submit #edit-contactmechanismlink-form':'editContactMechanismLink'
+            'submit #edit-contactmechanismlink-form':'saveEntity'
             
         },
-        editContactMechanismLink: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var contactmechanismlink = $(event.currentTarget).serializeObject();
-            this.model.save(contactmechanismlink, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-contactmechanismlink');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-contactmechanismlink');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.contactMechanismId = this.model.attributes.contactMechanism

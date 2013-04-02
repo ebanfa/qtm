@@ -6,9 +6,6 @@ package com.nathanclaire.alantra.messaging.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -23,19 +20,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.party.model.ContactMechanismType;
-import com.nathanclaire.alantra.party.model.PartyRelationship;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
-import com.nathanclaire.alantra.party.rest.request.PartyRelationshipRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurpose;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventStatusType;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeRequest;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventStatusTypeRequest;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
+import com.nathanclaire.alantra.party.model.ContactMechanismType;
+import com.nathanclaire.alantra.party.model.PartyRelationship;
 
 /**
  * @author administrator

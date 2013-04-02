@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/payment/paymenttype/edit-paymenttype.html'
-], function (utilities, config, formUtilities, entities_strings, PaymentTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PaymentTypeEditTemplate) {
 	
 	
-    var PaymentTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(paymenttype)
-                    {
-                        utilities.applyTemplate($(self.el), PaymentTypeEditTemplate,  
-                            {model:this.model, paymenttype:paymenttype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PaymentTypeEditTemplate,  
-                    {model:this.model, paymenttype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PaymentTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PaymentTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-paymenttype-form':'editPaymentType'
+            'submit #edit-paymenttype-form':'saveEntity'
             
         },
-        editPaymentType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var paymenttype = $(event.currentTarget).serializeObject();
-            this.model.save(paymenttype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-paymenttype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-paymenttype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }

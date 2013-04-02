@@ -3,10 +3,11 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/workeffort/workefforttype/workefforttype',
     'text!../../../../../../templates/desktop/workeffort/workefforttype/workefforttype-list-subview.html',
     'text!../../../../../../templates/desktop/workeffort/workeffort/edit-workeffort.html'
-], function (utilities, config, formUtilities, entities_strings, WorkEffortTypes, workEffortTypeListSubViewTemplate, WorkEffortEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, WorkEffortTypes, workEffortTypeListSubViewTemplate, WorkEffortEditTemplate) {
 	
     var WorkEffortTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -15,75 +16,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#workEffortTypeSelectContainerDiv'), workEffortTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"workEffortType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#workEffortTypeSelectContainerDiv'), workEffortTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var workEffortTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             workEffortTypesFetch.done(function (){
-                utilities.applyTemplate($('#workEffortTypeSelectContainerDiv'), workEffortTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"workEffortType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#workEffortTypeSelectContainerDiv'), workEffortTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"workEffortType", 
+            	fieldName:entities_strings.workefforttype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var WorkEffortEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(workeffort)
-                    {
-                        utilities.applyTemplate($(self.el), WorkEffortEditTemplate,  
-                            {model:this.model, workeffort:workeffort, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), WorkEffortEditTemplate,  
-                    {model:this.model, workeffort:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var WorkEffortEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = WorkEffortEditTemplate;
         },
         events:
         {
-            'submit #edit-workeffort-form':'editWorkEffort'
+            'submit #edit-workeffort-form':'saveEntity'
             
         },
-        editWorkEffort: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var workeffort = $(event.currentTarget).serializeObject();
-            this.model.save(workeffort, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-workeffort');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-workeffort');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.workEffortTypeId = this.model.attributes.workEffortType

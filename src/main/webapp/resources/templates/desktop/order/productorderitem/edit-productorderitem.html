@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= productorderitem ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -34,11 +34,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
 						            				<label for="name"><%= entities_strings.productorderitem_name %></label>
-													<input type="text" id="name" value="<%= productorderitem.get('name') ? productorderitem.get('name') : '' %>" name="name" placeholder="<%= entities_strings.productorderitem_name %>">
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.productorderitem_name %>">
 												</div>		
 												<% } else {%>
 												<!-- name. -->
@@ -47,11 +47,11 @@
 													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.productorderitem_name %>">
 												</div>		
 												<% } %>									
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.productorderitem_description %></label>
-													<input type="text" id="description" value="<%= productorderitem.get('description') ? productorderitem.get('description') : '' %>" name="description" placeholder="<%= entities_strings.productorderitem_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.productorderitem_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -65,11 +65,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- quantity. -->
 						            			<div class="span6">
 						            				<label for="quantity"><%= entities_strings.productorderitem_quantity %></label>
-													<input type="text" id="quantity" value="<%= productorderitem.get('quantity') ? productorderitem.get('quantity') : '' %>" name="quantity" placeholder="<%= entities_strings.productorderitem_quantity %>">
+													<input type="text" id="quantity" value="<%= entity.get('quantity') ? entity.get('quantity') : '' %>" name="quantity" placeholder="<%= entities_strings.productorderitem_quantity %>">
 												</div>		
 												<% } else {%>
 												<!-- quantity. -->
@@ -78,11 +78,11 @@
 													<input type="text" id="quantity" name="quantity" value="" placeholder="<%= entities_strings.productorderitem_quantity %>">
 												</div>		
 												<% } %>									
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- unitPrice. -->
 						            			<div class="span6">
 						            				<label for="unitPrice"><%= entities_strings.productorderitem_unitprice %></label>
-													<input type="text" id="unitPrice" value="<%= productorderitem.get('unitPrice') ? productorderitem.get('unitPrice') : '' %>" name="unitPrice" placeholder="<%= entities_strings.productorderitem_unitprice %>">
+													<input type="text" id="unitPrice" value="<%= entity.get('unitPrice') ? entity.get('unitPrice') : '' %>" name="unitPrice" placeholder="<%= entities_strings.productorderitem_unitprice %>">
 												</div>		
 												<% } else {%>
 												<!-- unitPrice. -->
@@ -96,12 +96,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- expectDeliveryDt. -->
 						            			<div class="span6">
 						            				<label for="expectDeliveryDt"><%= entities_strings.productorderitem_expectdeliverydt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="expectDeliveryDt" name="expectDeliveryDt" type="text" value="<%= productorderitem.get('expectDeliveryDt') ? productorderitem.get('expectDeliveryDt') : '' %>" placeholder="" readonly></input>
+													    <input id="expectDeliveryDt" name="expectDeliveryDt" type="text" value="<%= entity.get('expectDeliveryDt') ? entity.get('expectDeliveryDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -119,11 +119,11 @@
 													</div>
 												</div>
 												<% } %>
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- instructions. -->
 						            			<div class="span6">
 						            				<label for="instructions"><%= entities_strings.productorderitem_instructions %></label>
-													<input type="text" id="instructions" value="<%= productorderitem.get('instructions') ? productorderitem.get('instructions') : '' %>" name="instructions" placeholder="<%= entities_strings.productorderitem_instructions %>">
+													<input type="text" id="instructions" value="<%= entity.get('instructions') ? entity.get('instructions') : '' %>" name="instructions" placeholder="<%= entities_strings.productorderitem_instructions %>">
 												</div>		
 												<% } else {%>
 												<!-- instructions. -->
@@ -137,11 +137,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- remarks. -->
 						            			<div class="span6">
 						            				<label for="remarks"><%= entities_strings.productorderitem_remarks %></label>
-													<input type="text" id="remarks" value="<%= productorderitem.get('remarks') ? productorderitem.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.productorderitem_remarks %>">
+													<input type="text" id="remarks" value="<%= entity.get('remarks') ? entity.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.productorderitem_remarks %>">
 												</div>		
 												<% } else {%>
 												<!-- remarks. -->
@@ -161,11 +161,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.productorderitem_code %></label>
-													<input type="text" id="code" value="<%= productorderitem.get('code') ? productorderitem.get('code') : '' %>" name="code" placeholder="<%= entities_strings.productorderitem_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.productorderitem_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -174,12 +174,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.productorderitem_code %>">
 												</div>		
 												<% } %>									
-												<% if (productorderitem) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.productorderitem_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= productorderitem.get('effectiveDt') ? productorderitem.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

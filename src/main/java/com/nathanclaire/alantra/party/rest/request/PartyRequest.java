@@ -14,21 +14,13 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PartyRequest extends BaseRequest {
 
-    private Integer id;
     private Integer partyType;
-    private String code;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public PartyRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPartyType() {
@@ -37,14 +29,6 @@ public class PartyRequest extends BaseRequest {
     
     public void setPartyType(Integer partyType) {
         this.partyType = partyType;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -61,6 +45,22 @@ public class PartyRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

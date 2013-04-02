@@ -1,13 +1,29 @@
-<label for="caseStatusTypeSelect"><%= entities_strings.casestatustype %></label>
+<label for="caseStatusTypeSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="caseStatusTypeSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (caseStatusType) {
 	%>
 		<% if (selectedOption == caseStatusType.attributes.id) { %>
-	<option value="<%=caseStatusType.id%>" selected="selected" ><%=caseStatusType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=caseStatusType.id%>" selected="selected" >
+					<%=caseStatusType.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=caseStatusType.attributes.code%>" selected="selected" >
+					<%=caseStatusType.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=caseStatusType.id%>" ><%=caseStatusType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=caseStatusType.id%>" ><%=caseStatusType.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=caseStatusType.attributes.code%>" ><%=caseStatusType.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

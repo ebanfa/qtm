@@ -14,20 +14,12 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class RoleTypeRequest extends BaseRequest {
 
-    private Integer id;
     private String name;
     private String description;
+    private Integer id;
     private String code;
 
     public RoleTypeRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,6 +36,14 @@ public class RoleTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCode() {

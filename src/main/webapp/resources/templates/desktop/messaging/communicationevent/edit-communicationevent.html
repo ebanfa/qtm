@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= communicationevent ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -37,11 +37,11 @@
 												<!-- communicationEventStatusType. -->
 												<div id="communicationEventStatusTypeSelectContainerDiv" class="span6">
 	            								</div>
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.communicationevent_description %></label>
-													<input type="text" id="description" value="<%= communicationevent.get('description') ? communicationevent.get('description') : '' %>" name="description" placeholder="<%= entities_strings.communicationevent_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.communicationevent_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -55,11 +55,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- fromEmail. -->
 						            			<div class="span6">
 						            				<label for="fromEmail"><%= entities_strings.communicationevent_fromemail %></label>
-													<input type="text" id="fromEmail" value="<%= communicationevent.get('fromEmail') ? communicationevent.get('fromEmail') : '' %>" name="fromEmail" placeholder="<%= entities_strings.communicationevent_fromemail %>">
+													<input type="text" id="fromEmail" value="<%= entity.get('fromEmail') ? entity.get('fromEmail') : '' %>" name="fromEmail" placeholder="<%= entities_strings.communicationevent_fromemail %>">
 												</div>		
 												<% } else {%>
 												<!-- fromEmail. -->
@@ -68,11 +68,11 @@
 													<input type="text" id="fromEmail" name="fromEmail" value="" placeholder="<%= entities_strings.communicationevent_fromemail %>">
 												</div>		
 												<% } %>									
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- toEmail. -->
 						            			<div class="span6">
 						            				<label for="toEmail"><%= entities_strings.communicationevent_toemail %></label>
-													<input type="text" id="toEmail" value="<%= communicationevent.get('toEmail') ? communicationevent.get('toEmail') : '' %>" name="toEmail" placeholder="<%= entities_strings.communicationevent_toemail %>">
+													<input type="text" id="toEmail" value="<%= entity.get('toEmail') ? entity.get('toEmail') : '' %>" name="toEmail" placeholder="<%= entities_strings.communicationevent_toemail %>">
 												</div>		
 												<% } else {%>
 												<!-- toEmail. -->
@@ -86,11 +86,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- fromPhone. -->
 						            			<div class="span6">
 						            				<label for="fromPhone"><%= entities_strings.communicationevent_fromphone %></label>
-													<input type="text" id="fromPhone" value="<%= communicationevent.get('fromPhone') ? communicationevent.get('fromPhone') : '' %>" name="fromPhone" placeholder="<%= entities_strings.communicationevent_fromphone %>">
+													<input type="text" id="fromPhone" value="<%= entity.get('fromPhone') ? entity.get('fromPhone') : '' %>" name="fromPhone" placeholder="<%= entities_strings.communicationevent_fromphone %>">
 												</div>		
 												<% } else {%>
 												<!-- fromPhone. -->
@@ -99,11 +99,11 @@
 													<input type="text" id="fromPhone" name="fromPhone" value="" placeholder="<%= entities_strings.communicationevent_fromphone %>">
 												</div>		
 												<% } %>									
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- toPhone. -->
 						            			<div class="span6">
 						            				<label for="toPhone"><%= entities_strings.communicationevent_tophone %></label>
-													<input type="text" id="toPhone" value="<%= communicationevent.get('toPhone') ? communicationevent.get('toPhone') : '' %>" name="toPhone" placeholder="<%= entities_strings.communicationevent_tophone %>">
+													<input type="text" id="toPhone" value="<%= entity.get('toPhone') ? entity.get('toPhone') : '' %>" name="toPhone" placeholder="<%= entities_strings.communicationevent_tophone %>">
 												</div>		
 												<% } else {%>
 												<!-- toPhone. -->
@@ -117,11 +117,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- subject. -->
 						            			<div class="span6">
 						            				<label for="subject"><%= entities_strings.communicationevent_subject %></label>
-													<input type="text" id="subject" value="<%= communicationevent.get('subject') ? communicationevent.get('subject') : '' %>" name="subject" placeholder="<%= entities_strings.communicationevent_subject %>">
+													<input type="text" id="subject" value="<%= entity.get('subject') ? entity.get('subject') : '' %>" name="subject" placeholder="<%= entities_strings.communicationevent_subject %>">
 												</div>		
 												<% } else {%>
 												<!-- subject. -->
@@ -130,11 +130,11 @@
 													<input type="text" id="subject" name="subject" value="" placeholder="<%= entities_strings.communicationevent_subject %>">
 												</div>		
 												<% } %>									
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- content. -->
 						            			<div class="span6">
 						            				<label for="content"><%= entities_strings.communicationevent_content %></label>
-													<input type="text" id="content" value="<%= communicationevent.get('content') ? communicationevent.get('content') : '' %>" name="content" placeholder="<%= entities_strings.communicationevent_content %>">
+													<input type="text" id="content" value="<%= entity.get('content') ? entity.get('content') : '' %>" name="content" placeholder="<%= entities_strings.communicationevent_content %>">
 												</div>		
 												<% } else {%>
 												<!-- content. -->
@@ -148,11 +148,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- startDate. -->
 						            			<div class="span6">
 						            				<label for="startDate"><%= entities_strings.communicationevent_startdate %></label>
-													<input type="text" id="startDate" value="<%= communicationevent.get('startDate') ? communicationevent.get('startDate') : '' %>" name="startDate" placeholder="<%= entities_strings.communicationevent_startdate %>">
+													<input type="text" id="startDate" value="<%= entity.get('startDate') ? entity.get('startDate') : '' %>" name="startDate" placeholder="<%= entities_strings.communicationevent_startdate %>">
 												</div>		
 												<% } else {%>
 												<!-- startDate. -->
@@ -161,11 +161,11 @@
 													<input type="text" id="startDate" name="startDate" value="" placeholder="<%= entities_strings.communicationevent_startdate %>">
 												</div>		
 												<% } %>									
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- endDate. -->
 						            			<div class="span6">
 						            				<label for="endDate"><%= entities_strings.communicationevent_enddate %></label>
-													<input type="text" id="endDate" value="<%= communicationevent.get('endDate') ? communicationevent.get('endDate') : '' %>" name="endDate" placeholder="<%= entities_strings.communicationevent_enddate %>">
+													<input type="text" id="endDate" value="<%= entity.get('endDate') ? entity.get('endDate') : '' %>" name="endDate" placeholder="<%= entities_strings.communicationevent_enddate %>">
 												</div>		
 												<% } else {%>
 												<!-- endDate. -->
@@ -196,11 +196,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.communicationevent_code %></label>
-													<input type="text" id="code" value="<%= communicationevent.get('code') ? communicationevent.get('code') : '' %>" name="code" placeholder="<%= entities_strings.communicationevent_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.communicationevent_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -209,12 +209,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.communicationevent_code %>">
 												</div>		
 												<% } %>									
-												<% if (communicationevent) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.communicationevent_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= communicationevent.get('effectiveDt') ? communicationevent.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

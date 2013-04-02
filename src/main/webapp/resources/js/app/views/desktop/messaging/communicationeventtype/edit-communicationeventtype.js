@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/messaging/communicationeventtype/edit-communicationeventtype.html'
-], function (utilities, config, formUtilities, entities_strings, CommunicationEventTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, CommunicationEventTypeEditTemplate) {
 	
 	
-    var CommunicationEventTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(communicationeventtype)
-                    {
-                        utilities.applyTemplate($(self.el), CommunicationEventTypeEditTemplate,  
-                            {model:this.model, communicationeventtype:communicationeventtype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), CommunicationEventTypeEditTemplate,  
-                    {model:this.model, communicationeventtype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var CommunicationEventTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = CommunicationEventTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-communicationeventtype-form':'editCommunicationEventType'
+            'submit #edit-communicationeventtype-form':'saveEntity'
             
         },
-        editCommunicationEventType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var communicationeventtype = $(event.currentTarget).serializeObject();
-            this.model.save(communicationeventtype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-communicationeventtype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-communicationeventtype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }

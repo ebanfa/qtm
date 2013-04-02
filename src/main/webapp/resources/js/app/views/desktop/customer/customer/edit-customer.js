@@ -3,96 +3,97 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
-        'app/collections/party/party/party',
+    'app/collections/party/party/party',
+    'app/collections/party/partytype/partytype',
+    'app/views/desktop/base/baseentityeditview',
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
+    'text!../../../../../../templates/desktop/party/partytype/partytype-list-subview.html',
     'text!../../../../../../templates/desktop/customer/customer/edit-customer.html'
-], function (utilities, config, formUtilities, entities_strings, Partys, partyListSubViewTemplate, CustomerEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, Partys, PartyTypes, BaseEntityEditView, partyListSubViewTemplate, partyTypeListSubViewTemplate, CustomerEditTemplate) {
 	
-    var PartyListSubView = Backbone.View.extend({
+    
+
+    var PartyTypeListSubView = Backbone.View.extend({
         initialize: function () {
             _.bindAll(this, 'render');
         },
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
-            // Fetch data
-            var partysFetch = this.model.fetch();
-            // Re render the template when the data is available    
-            partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+            utilities.applyTemplate($('#partyTypeSelectContainerDiv'), 
+                partyTypeListSubViewTemplate,  this.getTemplateData());
+            // Fetch data and Re render the template when the data is available
+            var partyTypesFetch = this.model.fetch();
+            partyTypesFetch.done(function ()
+            {
+                utilities.applyTemplate($('#partyTypeSelectContainerDiv'), 
+                    partyTypeListSubViewTemplate, self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = {
+                idField:'code', 
+                model:self.model, 
+                relatedFieldName:"party", 
+                fieldName:entities_strings.customer_customertype, 
+                entities_strings:entities_strings, 
+                selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
-	
-    var CustomerEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(customer)
-                    {
-                        utilities.applyTemplate($(self.el), CustomerEditTemplate,  
-                            {model:this.model, customer:customer, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), CustomerEditTemplate,  
-                    {model:this.model, customer:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var CustomerEditView = BaseEntityEditView.extend({
+
+        initialize: function(options)
+        {
+            this.entityTemplate = CustomerEditTemplate;
         },
         events:
         {
-            'submit #edit-customer-form':'editCustomer'
-            
+            'change #partyTypeSelect':'changeCustomerEditForm',
+            'submit #edit-customer-form':'saveEntity'
         },
-        editCustomer: function(event)
+        changeCustomerEditForm: function(event)
         {
-            event.preventDefault();
-            var customer = $(event.currentTarget).serializeObject();
-            this.model.save(customer, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-customer');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            var customerType = $(event.currentTarget).val();
+            console.log('Option selected:' + customerType);
+            if (customerType == "ORGANIZATION")
+            {
+                this.renderOrganizationView();
+            }
+            else if (customerType == "INDIVIDUAL") 
+            {
+                this.renderPersonView();
+            }
+        },
+        navigateToEntityList:function()
+        {
+            utilities.navigate('list-customer');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.partyId = this.model.attributes.party
             }
             // Partys
-            var partys = new Partys();
-            partyListSubView = new PartyListSubView({model:partys, el:$('#partySelectContainerDiv'), selectedOption:this.partyId});
-            partyListSubView.render();
+            var partytypes = new PartyTypes();
+            partyTypeListSubView = new PartyTypeListSubView({model:partytypes, el:$('#partyTypeSelectContainerDiv'), selectedOption:this.partyTypeId});
+            partyTypeListSubView.render();
+        },
+        renderPersonView: function()
+        {
+            utilities.navigate('edit-person');
+        },
+        renderOrganizationView: function()
+        {
+            utilities.navigate('edit-organization');
         }
+
     });
 
     return CustomerEditView;

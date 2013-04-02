@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/contactmechanismpurposetype/contactmechanismpurposetype',
     'app/collections/party/contactmechanism/contactmechanism',
     'text!../../../../../../templates/desktop/party/contactmechanismpurposetype/contactmechanismpurposetype-list-subview.html',
     'text!../../../../../../templates/desktop/party/contactmechanism/contactmechanism-list-subview.html',
     'text!../../../../../../templates/desktop/party/partycontactmechanismpurpose/edit-partycontactmechanismpurpose.html'
-], function (utilities, config, formUtilities, entities_strings, ContactMechanismPurposeTypes, ContactMechanisms, contactMechanismPurposeTypeListSubViewTemplate, contactMechanismListSubViewTemplate, PartyContactMechanismPurposeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ContactMechanismPurposeTypes, ContactMechanisms, contactMechanismPurposeTypeListSubViewTemplate, contactMechanismListSubViewTemplate, PartyContactMechanismPurposeEditTemplate) {
 	
     var ContactMechanismPurposeTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,14 +18,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#contactMechanismPurposeTypeSelectContainerDiv'), contactMechanismPurposeTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismPurposeType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#contactMechanismPurposeTypeSelectContainerDiv'), contactMechanismPurposeTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var contactMechanismPurposeTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             contactMechanismPurposeTypesFetch.done(function (){
-                utilities.applyTemplate($('#contactMechanismPurposeTypeSelectContainerDiv'), contactMechanismPurposeTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismPurposeType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#contactMechanismPurposeTypeSelectContainerDiv'), contactMechanismPurposeTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"contactMechanismPurposeType", 
+            	fieldName:entities_strings.contactmechanismpurposetype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -35,75 +50,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanism", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var contactMechanismsFetch = this.model.fetch();
             // Re render the template when the data is available    
             contactMechanismsFetch.done(function (){
-                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanism", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#contactMechanismSelectContainerDiv'), contactMechanismListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"contactMechanism", 
+            	fieldName:entities_strings.contactmechanism, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PartyContactMechanismPurposeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(partycontactmechanismpurpose)
-                    {
-                        utilities.applyTemplate($(self.el), PartyContactMechanismPurposeEditTemplate,  
-                            {model:this.model, partycontactmechanismpurpose:partycontactmechanismpurpose, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PartyContactMechanismPurposeEditTemplate,  
-                    {model:this.model, partycontactmechanismpurpose:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PartyContactMechanismPurposeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PartyContactMechanismPurposeEditTemplate;
         },
         events:
         {
-            'submit #edit-partycontactmechanismpurpose-form':'editPartyContactMechanismPurpose'
+            'submit #edit-partycontactmechanismpurpose-form':'saveEntity'
             
         },
-        editPartyContactMechanismPurpose: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var partycontactmechanismpurpose = $(event.currentTarget).serializeObject();
-            this.model.save(partycontactmechanismpurpose, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-partycontactmechanismpurpose');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-partycontactmechanismpurpose');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.contactMechanismPurposeTypeId = this.model.attributes.contactMechanismPurposeType

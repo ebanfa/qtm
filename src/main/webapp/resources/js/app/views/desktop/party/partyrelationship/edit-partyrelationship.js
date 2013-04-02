@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/partyrole/partyrole',
     'app/collections/party/partyrole/partyrole',
     'app/collections/party/partyrelationshiptype/partyrelationshiptype',
@@ -10,7 +11,7 @@ define([
     'text!../../../../../../templates/desktop/party/partyrole/partyrole-list-subview.html',
     'text!../../../../../../templates/desktop/party/partyrelationshiptype/partyrelationshiptype-list-subview.html',
     'text!../../../../../../templates/desktop/party/partyrelationship/edit-partyrelationship.html'
-], function (utilities, config, formUtilities, entities_strings, PartyRoles, PartyRoles, PartyRelationshipTypes, partyRoleListSubViewTemplate, partyRoleListSubViewTemplate, partyRelationshipTypeListSubViewTemplate, PartyRelationshipEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PartyRoles, PartyRoles, PartyRelationshipTypes, partyRoleListSubViewTemplate, partyRoleListSubViewTemplate, partyRelationshipTypeListSubViewTemplate, PartyRelationshipEditTemplate) {
 	
     var PartyRoleListSubView = Backbone.View.extend({
         initialize: function () {
@@ -19,14 +20,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  {model:self.model, relatedFieldName:"fromPartyRole", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyRolesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyRolesFetch.done(function (){
-                utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  {model:self.model, relatedFieldName:"fromPartyRole", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"fromPartyRole", 
+            	fieldName:entities_strings.partyrole, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -37,14 +52,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  {model:self.model, relatedFieldName:"toPartyRole", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyRolesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyRolesFetch.done(function (){
-                utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  {model:self.model, relatedFieldName:"toPartyRole", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyRoleSelectContainerDiv'), partyRoleListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"toPartyRole", 
+            	fieldName:entities_strings.partyrole, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -55,75 +84,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyRelationshipTypeSelectContainerDiv'), partyRelationshipTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyRelationshipType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyRelationshipTypeSelectContainerDiv'), partyRelationshipTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyRelationshipTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyRelationshipTypesFetch.done(function (){
-                utilities.applyTemplate($('#partyRelationshipTypeSelectContainerDiv'), partyRelationshipTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyRelationshipType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyRelationshipTypeSelectContainerDiv'), partyRelationshipTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyRelationshipType", 
+            	fieldName:entities_strings.partyrelationshiptype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PartyRelationshipEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(partyrelationship)
-                    {
-                        utilities.applyTemplate($(self.el), PartyRelationshipEditTemplate,  
-                            {model:this.model, partyrelationship:partyrelationship, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PartyRelationshipEditTemplate,  
-                    {model:this.model, partyrelationship:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PartyRelationshipEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PartyRelationshipEditTemplate;
         },
         events:
         {
-            'submit #edit-partyrelationship-form':'editPartyRelationship'
+            'submit #edit-partyrelationship-form':'saveEntity'
             
         },
-        editPartyRelationship: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var partyrelationship = $(event.currentTarget).serializeObject();
-            this.model.save(partyrelationship, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-partyrelationship');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-partyrelationship');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.partyRoleId = this.model.attributes.partyRole

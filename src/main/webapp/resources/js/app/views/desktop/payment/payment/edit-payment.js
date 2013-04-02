@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/payment/paymenttype/paymenttype',
     'app/collections/party/party/party',
     'app/collections/party/party/party',
@@ -14,7 +15,7 @@ define([
     'text!../../../../../../templates/desktop/payment/paymentmethodtypeprovider/paymentmethodtypeprovider-list-subview.html',
     'text!../../../../../../templates/desktop/payment/paymentmethodtype/paymentmethodtype-list-subview.html',
     'text!../../../../../../templates/desktop/payment/payment/edit-payment.html'
-], function (utilities, config, formUtilities, entities_strings, PaymentTypes, Partys, Partys, PaymentMethodTypeProviders, PaymentMethodTypes, paymentTypeListSubViewTemplate, partyListSubViewTemplate, partyListSubViewTemplate, paymentMethodTypeProviderListSubViewTemplate, paymentMethodTypeListSubViewTemplate, PaymentEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PaymentTypes, Partys, Partys, PaymentMethodTypeProviders, PaymentMethodTypes, paymentTypeListSubViewTemplate, partyListSubViewTemplate, partyListSubViewTemplate, paymentMethodTypeProviderListSubViewTemplate, paymentMethodTypeListSubViewTemplate, PaymentEditTemplate) {
 	
     var PaymentTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -23,14 +24,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#paymentTypeSelectContainerDiv'), paymentTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#paymentTypeSelectContainerDiv'), paymentTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var paymentTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             paymentTypesFetch.done(function (){
-                utilities.applyTemplate($('#paymentTypeSelectContainerDiv'), paymentTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#paymentTypeSelectContainerDiv'), paymentTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"paymentType", 
+            	fieldName:entities_strings.paymenttype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -41,14 +56,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"partyByToPartyId", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"partyByToPartyId", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyByToPartyId", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -59,14 +88,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"partyByFromPartyId", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"partyByFromPartyId", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyByFromPartyId", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -77,14 +120,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#paymentMethodTypeProviderSelectContainerDiv'), paymentMethodTypeProviderListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodTypeProvider", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#paymentMethodTypeProviderSelectContainerDiv'), paymentMethodTypeProviderListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var paymentMethodTypeProvidersFetch = this.model.fetch();
             // Re render the template when the data is available    
             paymentMethodTypeProvidersFetch.done(function (){
-                utilities.applyTemplate($('#paymentMethodTypeProviderSelectContainerDiv'), paymentMethodTypeProviderListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodTypeProvider", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#paymentMethodTypeProviderSelectContainerDiv'), paymentMethodTypeProviderListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"paymentMethodTypeProvider", 
+            	fieldName:entities_strings.paymentmethodtypeprovider, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -95,75 +152,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var paymentMethodTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             paymentMethodTypesFetch.done(function (){
-                utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"paymentMethodType", 
+            	fieldName:entities_strings.paymentmethodtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PaymentEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(payment)
-                    {
-                        utilities.applyTemplate($(self.el), PaymentEditTemplate,  
-                            {model:this.model, payment:payment, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PaymentEditTemplate,  
-                    {model:this.model, payment:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PaymentEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PaymentEditTemplate;
         },
         events:
         {
-            'submit #edit-payment-form':'editPayment'
+            'submit #edit-payment-form':'saveEntity'
             
         },
-        editPayment: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var payment = $(event.currentTarget).serializeObject();
-            this.model.save(payment, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-payment');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-payment');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.paymentTypeId = this.model.attributes.paymentType

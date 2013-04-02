@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/invoice/invoiceroletype/invoiceroletype',
     'app/collections/party/party/party',
     'app/collections/invoice/invoice/invoice',
@@ -10,7 +11,7 @@ define([
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoice/invoice-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoicerole/edit-invoicerole.html'
-], function (utilities, config, formUtilities, entities_strings, InvoiceRoleTypes, Partys, Invoices, invoiceRoleTypeListSubViewTemplate, partyListSubViewTemplate, invoiceListSubViewTemplate, InvoiceRoleEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, InvoiceRoleTypes, Partys, Invoices, invoiceRoleTypeListSubViewTemplate, partyListSubViewTemplate, invoiceListSubViewTemplate, InvoiceRoleEditTemplate) {
 	
     var InvoiceRoleTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -19,14 +20,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceRoleTypeSelectContainerDiv'), invoiceRoleTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceRoleType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceRoleTypeSelectContainerDiv'), invoiceRoleTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoiceRoleTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoiceRoleTypesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceRoleTypeSelectContainerDiv'), invoiceRoleTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceRoleType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceRoleTypeSelectContainerDiv'), invoiceRoleTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoiceRoleType", 
+            	fieldName:entities_strings.invoiceroletype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -37,14 +52,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"party", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -55,75 +84,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoicesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoicesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoice", 
+            	fieldName:entities_strings.invoice, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var InvoiceRoleEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(invoicerole)
-                    {
-                        utilities.applyTemplate($(self.el), InvoiceRoleEditTemplate,  
-                            {model:this.model, invoicerole:invoicerole, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), InvoiceRoleEditTemplate,  
-                    {model:this.model, invoicerole:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var InvoiceRoleEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = InvoiceRoleEditTemplate;
         },
         events:
         {
-            'submit #edit-invoicerole-form':'editInvoiceRole'
+            'submit #edit-invoicerole-form':'saveEntity'
             
         },
-        editInvoiceRole: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var invoicerole = $(event.currentTarget).serializeObject();
-            this.model.save(invoicerole, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-invoicerole');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-invoicerole');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.invoiceRoleTypeId = this.model.attributes.invoiceRoleType

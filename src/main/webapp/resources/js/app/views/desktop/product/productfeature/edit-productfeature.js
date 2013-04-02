@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/product/productfeaturetype/productfeaturetype',
     'app/collections/product/productfeaturecategory/productfeaturecategory',
     'text!../../../../../../templates/desktop/product/productfeaturetype/productfeaturetype-list-subview.html',
     'text!../../../../../../templates/desktop/product/productfeaturecategory/productfeaturecategory-list-subview.html',
     'text!../../../../../../templates/desktop/product/productfeature/edit-productfeature.html'
-], function (utilities, config, formUtilities, entities_strings, ProductFeatureTypes, ProductFeatureCategorys, productFeatureTypeListSubViewTemplate, productFeatureCategoryListSubViewTemplate, ProductFeatureEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ProductFeatureTypes, ProductFeatureCategorys, productFeatureTypeListSubViewTemplate, productFeatureCategoryListSubViewTemplate, ProductFeatureEditTemplate) {
 	
     var ProductFeatureTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,14 +18,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productFeatureTypeSelectContainerDiv'), productFeatureTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeatureType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productFeatureTypeSelectContainerDiv'), productFeatureTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productFeatureTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             productFeatureTypesFetch.done(function (){
-                utilities.applyTemplate($('#productFeatureTypeSelectContainerDiv'), productFeatureTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeatureType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productFeatureTypeSelectContainerDiv'), productFeatureTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productFeatureType", 
+            	fieldName:entities_strings.productfeaturetype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -35,75 +50,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productFeatureCategorySelectContainerDiv'), productFeatureCategoryListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeatureCategory", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productFeatureCategorySelectContainerDiv'), productFeatureCategoryListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productFeatureCategorysFetch = this.model.fetch();
             // Re render the template when the data is available    
             productFeatureCategorysFetch.done(function (){
-                utilities.applyTemplate($('#productFeatureCategorySelectContainerDiv'), productFeatureCategoryListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeatureCategory", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productFeatureCategorySelectContainerDiv'), productFeatureCategoryListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productFeatureCategory", 
+            	fieldName:entities_strings.productfeaturecategory, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var ProductFeatureEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(productfeature)
-                    {
-                        utilities.applyTemplate($(self.el), ProductFeatureEditTemplate,  
-                            {model:this.model, productfeature:productfeature, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), ProductFeatureEditTemplate,  
-                    {model:this.model, productfeature:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var ProductFeatureEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = ProductFeatureEditTemplate;
         },
         events:
         {
-            'submit #edit-productfeature-form':'editProductFeature'
+            'submit #edit-productfeature-form':'saveEntity'
             
         },
-        editProductFeature: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var productfeature = $(event.currentTarget).serializeObject();
-            this.model.save(productfeature, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-productfeature');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-productfeature');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.productFeatureTypeId = this.model.attributes.productFeatureType

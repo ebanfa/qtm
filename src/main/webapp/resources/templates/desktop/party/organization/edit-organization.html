@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= organization ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -13,13 +13,26 @@
 											<!-- Start field block. -->
 											<div class="row-fluid">
 												<!-- party. -->
-												<div id="partySelectContainerDiv" class="span6">
-	            								</div>
-												<% if (organization) { %>
+												
+												<% if (entity) { %>
+												<!-- Name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.alantra_entity_label_name %></label>
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.alantra_entity_label_name %>">
+												</div>		
+												<% } else {%>
+												<!-- Name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.alantra_entity_label_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.alantra_entity_label_name %>">
+												</div>		
+												<% } %>		
+
+												<% if (entity) { %>
 												<!-- taxIdNo. -->
 						            			<div class="span6">
 						            				<label for="taxIdNo"><%= entities_strings.organization_taxidno %></label>
-													<input type="text" id="taxIdNo" value="<%= organization.get('taxIdNo') ? organization.get('taxIdNo') : '' %>" name="taxIdNo" placeholder="<%= entities_strings.organization_taxidno %>">
+													<input type="text" id="taxIdNo" value="<%= entity.get('taxIdNo') ? entity.get('taxIdNo') : '' %>" name="taxIdNo" placeholder="<%= entities_strings.organization_taxidno %>">
 												</div>		
 												<% } else {%>
 												<!-- taxIdNo. -->
@@ -33,11 +46,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (organization) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.organization_code %></label>
-													<input type="text" id="code" value="<%= organization.get('code') ? organization.get('code') : '' %>" name="code" placeholder="<%= entities_strings.organization_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.organization_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -46,12 +59,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.organization_code %>">
 												</div>		
 												<% } %>									
-												<% if (organization) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.organization_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= organization.get('effectiveDt') ? organization.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

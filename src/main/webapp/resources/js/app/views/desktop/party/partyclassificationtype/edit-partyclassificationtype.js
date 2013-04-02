@@ -3,10 +3,11 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/partyclassificationtype/partyclassificationtype',
     'text!../../../../../../templates/desktop/party/partyclassificationtype/partyclassificationtype-list-subview.html',
     'text!../../../../../../templates/desktop/party/partyclassificationtype/edit-partyclassificationtype.html'
-], function (utilities, config, formUtilities, entities_strings, PartyClassificationTypes, partyClassificationTypeListSubViewTemplate, PartyClassificationTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PartyClassificationTypes, partyClassificationTypeListSubViewTemplate, PartyClassificationTypeEditTemplate) {
 	
     var PartyClassificationTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -15,75 +16,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyClassificationType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyClassificationTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyClassificationTypesFetch.done(function (){
-                utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyClassificationType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyClassificationType", 
+            	fieldName:entities_strings.partyclassificationtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PartyClassificationTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(partyclassificationtype)
-                    {
-                        utilities.applyTemplate($(self.el), PartyClassificationTypeEditTemplate,  
-                            {model:this.model, partyclassificationtype:partyclassificationtype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PartyClassificationTypeEditTemplate,  
-                    {model:this.model, partyclassificationtype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PartyClassificationTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PartyClassificationTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-partyclassificationtype-form':'editPartyClassificationType'
+            'submit #edit-partyclassificationtype-form':'saveEntity'
             
         },
-        editPartyClassificationType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var partyclassificationtype = $(event.currentTarget).serializeObject();
-            this.model.save(partyclassificationtype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-partyclassificationtype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-partyclassificationtype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.partyClassificationTypeId = this.model.attributes.partyClassificationType

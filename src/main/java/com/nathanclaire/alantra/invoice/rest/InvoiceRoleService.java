@@ -6,9 +6,6 @@ package com.nathanclaire.alantra.invoice.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -23,15 +20,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceRole;
 import com.nathanclaire.alantra.invoice.model.InvoiceRoleType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleRequest;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleTypeRequest;
+import com.nathanclaire.alantra.party.model.Party;
 
 /**
  * @author administrator

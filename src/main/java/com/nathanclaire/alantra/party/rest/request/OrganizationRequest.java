@@ -14,20 +14,12 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class OrganizationRequest extends BaseRequest {
 
-    private Integer id;
     private Integer party;
-    private String code;
     private String taxIdNo;
+    private Integer id;
+    private String code;
 
     public OrganizationRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getParty() {
@@ -38,20 +30,28 @@ public class OrganizationRequest extends BaseRequest {
         this.party = party;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getTaxIdNo() {
         return this.taxIdNo;
     }
     
     public void setTaxIdNo(String taxIdNo) {
         this.taxIdNo = taxIdNo;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

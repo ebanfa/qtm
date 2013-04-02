@@ -6,9 +6,6 @@ package com.nathanclaire.alantra.customer.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -27,7 +24,6 @@ import com.nathanclaire.alantra.base.rest.BaseEntityService;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
 import com.nathanclaire.alantra.customer.rest.request.CustomerBlacklistRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator

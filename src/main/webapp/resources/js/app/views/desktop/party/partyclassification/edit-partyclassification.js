@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/partytype/partytype',
     'app/collections/party/partyclassificationtype/partyclassificationtype',
     'app/collections/party/party/party',
@@ -10,7 +11,7 @@ define([
     'text!../../../../../../templates/desktop/party/partyclassificationtype/partyclassificationtype-list-subview.html',
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
     'text!../../../../../../templates/desktop/party/partyclassification/edit-partyclassification.html'
-], function (utilities, config, formUtilities, entities_strings, PartyTypes, PartyClassificationTypes, Partys, partyTypeListSubViewTemplate, partyClassificationTypeListSubViewTemplate, partyListSubViewTemplate, PartyClassificationEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PartyTypes, PartyClassificationTypes, Partys, partyTypeListSubViewTemplate, partyClassificationTypeListSubViewTemplate, partyListSubViewTemplate, PartyClassificationEditTemplate) {
 	
     var PartyTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -19,14 +20,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyTypesFetch.done(function (){
-                utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyType", 
+            	fieldName:entities_strings.partytype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -37,14 +52,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyClassificationType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyClassificationTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyClassificationTypesFetch.done(function (){
-                utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyClassificationType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyClassificationTypeSelectContainerDiv'), partyClassificationTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyClassificationType", 
+            	fieldName:entities_strings.partyclassificationtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -55,75 +84,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"party", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PartyClassificationEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(partyclassification)
-                    {
-                        utilities.applyTemplate($(self.el), PartyClassificationEditTemplate,  
-                            {model:this.model, partyclassification:partyclassification, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PartyClassificationEditTemplate,  
-                    {model:this.model, partyclassification:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PartyClassificationEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PartyClassificationEditTemplate;
         },
         events:
         {
-            'submit #edit-partyclassification-form':'editPartyClassification'
+            'submit #edit-partyclassification-form':'saveEntity'
             
         },
-        editPartyClassification: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var partyclassification = $(event.currentTarget).serializeObject();
-            this.model.save(partyclassification, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-partyclassification');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-partyclassification');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.partyTypeId = this.model.attributes.partyType

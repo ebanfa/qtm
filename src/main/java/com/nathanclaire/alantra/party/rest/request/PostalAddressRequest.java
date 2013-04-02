@@ -14,23 +14,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PostalAddressRequest extends BaseRequest {
 
-    private Integer id;
     private Integer contactMechanism;
-    private String code;
     private String address1;
     private String address2;
     private String directions;
     private String description;
+    private Integer id;
+    private String code;
 
     public PostalAddressRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getContactMechanism() {
@@ -39,14 +31,6 @@ public class PostalAddressRequest extends BaseRequest {
     
     public void setContactMechanism(Integer contactMechanism) {
         this.contactMechanism = contactMechanism;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getAddress1() {
@@ -79,6 +63,22 @@ public class PostalAddressRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

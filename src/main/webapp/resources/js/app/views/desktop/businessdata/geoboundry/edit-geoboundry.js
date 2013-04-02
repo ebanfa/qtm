@@ -3,10 +3,11 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/businessdata/geoboundarytype/geoboundarytype',
     'text!../../../../../../templates/desktop/businessdata/geoboundarytype/geoboundarytype-list-subview.html',
     'text!../../../../../../templates/desktop/businessdata/geoboundry/edit-geoboundry.html'
-], function (utilities, config, formUtilities, entities_strings, GeoBoundaryTypes, geoBoundaryTypeListSubViewTemplate, GeoBoundryEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, GeoBoundaryTypes, geoBoundaryTypeListSubViewTemplate, GeoBoundryEditTemplate) {
 	
     var GeoBoundaryTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -15,75 +16,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#geoBoundaryTypeSelectContainerDiv'), geoBoundaryTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"geoBoundaryType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#geoBoundaryTypeSelectContainerDiv'), geoBoundaryTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var geoBoundaryTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             geoBoundaryTypesFetch.done(function (){
-                utilities.applyTemplate($('#geoBoundaryTypeSelectContainerDiv'), geoBoundaryTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"geoBoundaryType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#geoBoundaryTypeSelectContainerDiv'), geoBoundaryTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"geoBoundaryType", 
+            	fieldName:entities_strings.geoboundarytype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var GeoBoundryEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(geoboundry)
-                    {
-                        utilities.applyTemplate($(self.el), GeoBoundryEditTemplate,  
-                            {model:this.model, geoboundry:geoboundry, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), GeoBoundryEditTemplate,  
-                    {model:this.model, geoboundry:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var GeoBoundryEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = GeoBoundryEditTemplate;
         },
         events:
         {
-            'submit #edit-geoboundry-form':'editGeoBoundry'
+            'submit #edit-geoboundry-form':'saveEntity'
             
         },
-        editGeoBoundry: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var geoboundry = $(event.currentTarget).serializeObject();
-            this.model.save(geoboundry, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-geoboundry');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-geoboundry');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.geoBoundaryTypeId = this.model.attributes.geoBoundaryType

@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= party ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -15,11 +15,11 @@
 												<!-- partyType. -->
 												<div id="partyTypeSelectContainerDiv" class="span6">
 	            								</div>
-												<% if (party) { %>
+												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
 						            				<label for="name"><%= entities_strings.party_name %></label>
-													<input type="text" id="name" value="<%= party.get('name') ? party.get('name') : '' %>" name="name" placeholder="<%= entities_strings.party_name %>">
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.party_name %>">
 												</div>		
 												<% } else {%>
 												<!-- name. -->
@@ -33,11 +33,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (party) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.party_description %></label>
-													<input type="text" id="description" value="<%= party.get('description') ? party.get('description') : '' %>" name="description" placeholder="<%= entities_strings.party_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.party_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -176,11 +176,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (party) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.party_code %></label>
-													<input type="text" id="code" value="<%= party.get('code') ? party.get('code') : '' %>" name="code" placeholder="<%= entities_strings.party_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.party_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -189,12 +189,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.party_code %>">
 												</div>		
 												<% } %>									
-												<% if (party) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.party_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= party.get('effectiveDt') ? party.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

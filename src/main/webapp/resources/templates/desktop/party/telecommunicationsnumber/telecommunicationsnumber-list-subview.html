@@ -1,13 +1,29 @@
-<label for="telecommunicationsNumberSelect"><%= entities_strings.telecommunicationsnumber %></label>
+<label for="telecommunicationsNumberSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="telecommunicationsNumberSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (telecommunicationsNumber) {
 	%>
 		<% if (selectedOption == telecommunicationsNumber.attributes.id) { %>
-	<option value="<%=telecommunicationsNumber.id%>" selected="selected" ><%=telecommunicationsNumber.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=telecommunicationsNumber.id%>" selected="selected" >
+					<%=telecommunicationsNumber.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=telecommunicationsNumber.attributes.code%>" selected="selected" >
+					<%=telecommunicationsNumber.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=telecommunicationsNumber.id%>" ><%=telecommunicationsNumber.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=telecommunicationsNumber.id%>" ><%=telecommunicationsNumber.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=telecommunicationsNumber.attributes.code%>" ><%=telecommunicationsNumber.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

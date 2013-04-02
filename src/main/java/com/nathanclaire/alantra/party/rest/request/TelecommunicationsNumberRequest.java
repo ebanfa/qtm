@@ -14,23 +14,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class TelecommunicationsNumberRequest extends BaseRequest {
 
-    private Integer id;
     private Integer contactMechanism;
-    private String code;
     private String areaCode;
     private String contactNo;
     private String countryCd;
     private String description;
+    private Integer id;
+    private String code;
 
     public TelecommunicationsNumberRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getContactMechanism() {
@@ -39,14 +31,6 @@ public class TelecommunicationsNumberRequest extends BaseRequest {
     
     public void setContactMechanism(Integer contactMechanism) {
         this.contactMechanism = contactMechanism;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getAreaCode() {
@@ -79,6 +63,22 @@ public class TelecommunicationsNumberRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

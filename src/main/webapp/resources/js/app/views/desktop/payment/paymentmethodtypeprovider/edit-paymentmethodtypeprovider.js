@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/payment/paymentmethodtype/paymentmethodtype',
     'app/collections/party/party/party',
     'text!../../../../../../templates/desktop/payment/paymentmethodtype/paymentmethodtype-list-subview.html',
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
     'text!../../../../../../templates/desktop/payment/paymentmethodtypeprovider/edit-paymentmethodtypeprovider.html'
-], function (utilities, config, formUtilities, entities_strings, PaymentMethodTypes, Partys, paymentMethodTypeListSubViewTemplate, partyListSubViewTemplate, PaymentMethodTypeProviderEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PaymentMethodTypes, Partys, paymentMethodTypeListSubViewTemplate, partyListSubViewTemplate, PaymentMethodTypeProviderEditTemplate) {
 	
     var PaymentMethodTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,14 +18,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var paymentMethodTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             paymentMethodTypesFetch.done(function (){
-                utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"paymentMethodType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#paymentMethodTypeSelectContainerDiv'), paymentMethodTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"paymentMethodType", 
+            	fieldName:entities_strings.paymentmethodtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -35,75 +50,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"party", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PaymentMethodTypeProviderEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(paymentmethodtypeprovider)
-                    {
-                        utilities.applyTemplate($(self.el), PaymentMethodTypeProviderEditTemplate,  
-                            {model:this.model, paymentmethodtypeprovider:paymentmethodtypeprovider, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PaymentMethodTypeProviderEditTemplate,  
-                    {model:this.model, paymentmethodtypeprovider:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PaymentMethodTypeProviderEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PaymentMethodTypeProviderEditTemplate;
         },
         events:
         {
-            'submit #edit-paymentmethodtypeprovider-form':'editPaymentMethodTypeProvider'
+            'submit #edit-paymentmethodtypeprovider-form':'saveEntity'
             
         },
-        editPaymentMethodTypeProvider: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var paymentmethodtypeprovider = $(event.currentTarget).serializeObject();
-            this.model.save(paymentmethodtypeprovider, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-paymentmethodtypeprovider');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-paymentmethodtypeprovider');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.paymentMethodTypeId = this.model.attributes.paymentMethodType

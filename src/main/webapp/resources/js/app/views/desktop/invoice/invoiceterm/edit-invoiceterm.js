@@ -3,10 +3,11 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/businessdata/termtype/termtype',
     'text!../../../../../../templates/desktop/businessdata/termtype/termtype-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoiceterm/edit-invoiceterm.html'
-], function (utilities, config, formUtilities, entities_strings, TermTypes, termTypeListSubViewTemplate, InvoiceTermEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, TermTypes, termTypeListSubViewTemplate, InvoiceTermEditTemplate) {
 	
     var TermTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -15,75 +16,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#termTypeSelectContainerDiv'), termTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"termType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#termTypeSelectContainerDiv'), termTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var termTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             termTypesFetch.done(function (){
-                utilities.applyTemplate($('#termTypeSelectContainerDiv'), termTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"termType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#termTypeSelectContainerDiv'), termTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"termType", 
+            	fieldName:entities_strings.termtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var InvoiceTermEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(invoiceterm)
-                    {
-                        utilities.applyTemplate($(self.el), InvoiceTermEditTemplate,  
-                            {model:this.model, invoiceterm:invoiceterm, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), InvoiceTermEditTemplate,  
-                    {model:this.model, invoiceterm:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var InvoiceTermEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = InvoiceTermEditTemplate;
         },
         events:
         {
-            'submit #edit-invoiceterm-form':'editInvoiceTerm'
+            'submit #edit-invoiceterm-form':'saveEntity'
             
         },
-        editInvoiceTerm: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var invoiceterm = $(event.currentTarget).serializeObject();
-            this.model.save(invoiceterm, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-invoiceterm');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-invoiceterm');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.termTypeId = this.model.attributes.termType

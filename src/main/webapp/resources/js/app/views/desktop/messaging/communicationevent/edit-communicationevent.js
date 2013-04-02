@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/messaging/communicationeventtype/communicationeventtype',
     'app/collections/messaging/communicationeventpurpose/communicationeventpurpose',
     'app/collections/party/contactmechanismtype/contactmechanismtype',
@@ -14,7 +15,7 @@ define([
     'text!../../../../../../templates/desktop/party/partyrelationship/partyrelationship-list-subview.html',
     'text!../../../../../../templates/desktop/messaging/communicationeventstatustype/communicationeventstatustype-list-subview.html',
     'text!../../../../../../templates/desktop/messaging/communicationevent/edit-communicationevent.html'
-], function (utilities, config, formUtilities, entities_strings, CommunicationEventTypes, CommunicationEventPurposes, ContactMechanismTypes, PartyRelationships, CommunicationEventStatusTypes, communicationEventTypeListSubViewTemplate, communicationEventPurposeListSubViewTemplate, contactMechanismTypeListSubViewTemplate, partyRelationshipListSubViewTemplate, communicationEventStatusTypeListSubViewTemplate, CommunicationEventEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, CommunicationEventTypes, CommunicationEventPurposes, ContactMechanismTypes, PartyRelationships, CommunicationEventStatusTypes, communicationEventTypeListSubViewTemplate, communicationEventPurposeListSubViewTemplate, contactMechanismTypeListSubViewTemplate, partyRelationshipListSubViewTemplate, communicationEventStatusTypeListSubViewTemplate, CommunicationEventEditTemplate) {
 	
     var CommunicationEventTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -23,14 +24,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#communicationEventTypeSelectContainerDiv'), communicationEventTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#communicationEventTypeSelectContainerDiv'), communicationEventTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var communicationEventTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             communicationEventTypesFetch.done(function (){
-                utilities.applyTemplate($('#communicationEventTypeSelectContainerDiv'), communicationEventTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#communicationEventTypeSelectContainerDiv'), communicationEventTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"communicationEventType", 
+            	fieldName:entities_strings.communicationeventtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -41,14 +56,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#communicationEventPurposeSelectContainerDiv'), communicationEventPurposeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventPurpose", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#communicationEventPurposeSelectContainerDiv'), communicationEventPurposeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var communicationEventPurposesFetch = this.model.fetch();
             // Re render the template when the data is available    
             communicationEventPurposesFetch.done(function (){
-                utilities.applyTemplate($('#communicationEventPurposeSelectContainerDiv'), communicationEventPurposeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventPurpose", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#communicationEventPurposeSelectContainerDiv'), communicationEventPurposeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"communicationEventPurpose", 
+            	fieldName:entities_strings.communicationeventpurpose, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -59,14 +88,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#contactMechanismTypeSelectContainerDiv'), contactMechanismTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#contactMechanismTypeSelectContainerDiv'), contactMechanismTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var contactMechanismTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             contactMechanismTypesFetch.done(function (){
-                utilities.applyTemplate($('#contactMechanismTypeSelectContainerDiv'), contactMechanismTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"contactMechanismType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#contactMechanismTypeSelectContainerDiv'), contactMechanismTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"contactMechanismType", 
+            	fieldName:entities_strings.contactmechanismtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -77,14 +120,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyRelationshipSelectContainerDiv'), partyRelationshipListSubViewTemplate,  {model:self.model, relatedFieldName:"partyRelationship", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyRelationshipSelectContainerDiv'), partyRelationshipListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyRelationshipsFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyRelationshipsFetch.done(function (){
-                utilities.applyTemplate($('#partyRelationshipSelectContainerDiv'), partyRelationshipListSubViewTemplate,  {model:self.model, relatedFieldName:"partyRelationship", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyRelationshipSelectContainerDiv'), partyRelationshipListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyRelationship", 
+            	fieldName:entities_strings.partyrelationship, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -95,75 +152,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#communicationEventStatusTypeSelectContainerDiv'), communicationEventStatusTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventStatusType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#communicationEventStatusTypeSelectContainerDiv'), communicationEventStatusTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var communicationEventStatusTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             communicationEventStatusTypesFetch.done(function (){
-                utilities.applyTemplate($('#communicationEventStatusTypeSelectContainerDiv'), communicationEventStatusTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEventStatusType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#communicationEventStatusTypeSelectContainerDiv'), communicationEventStatusTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"communicationEventStatusType", 
+            	fieldName:entities_strings.communicationeventstatustype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var CommunicationEventEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(communicationevent)
-                    {
-                        utilities.applyTemplate($(self.el), CommunicationEventEditTemplate,  
-                            {model:this.model, communicationevent:communicationevent, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), CommunicationEventEditTemplate,  
-                    {model:this.model, communicationevent:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var CommunicationEventEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = CommunicationEventEditTemplate;
         },
         events:
         {
-            'submit #edit-communicationevent-form':'editCommunicationEvent'
+            'submit #edit-communicationevent-form':'saveEntity'
             
         },
-        editCommunicationEvent: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var communicationevent = $(event.currentTarget).serializeObject();
-            this.model.save(communicationevent, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-communicationevent');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-communicationevent');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.communicationEventTypeId = this.model.attributes.communicationEventType

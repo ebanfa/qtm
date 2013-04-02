@@ -14,22 +14,14 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PartyRelationshipTypeRequest extends BaseRequest {
 
-    private Integer id;
     private Integer partyRoleTypeByFromRoleTyId;
     private Integer partyRoleTypeByToRoleTyId;
-    private String code;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public PartyRelationshipTypeRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPartyRoleTypeByFromRoleTyId() {
@@ -48,14 +40,6 @@ public class PartyRelationshipTypeRequest extends BaseRequest {
         this.partyRoleTypeByToRoleTyId = partyRoleTypeByToRoleTyId;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -70,6 +54,22 @@ public class PartyRelationshipTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= invoicestatus ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -23,11 +23,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (invoicestatus) { %>
+												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
 						            				<label for="name"><%= entities_strings.invoicestatus_name %></label>
-													<input type="text" id="name" value="<%= invoicestatus.get('name') ? invoicestatus.get('name') : '' %>" name="name" placeholder="<%= entities_strings.invoicestatus_name %>">
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.invoicestatus_name %>">
 												</div>		
 												<% } else {%>
 												<!-- name. -->
@@ -36,11 +36,11 @@
 													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.invoicestatus_name %>">
 												</div>		
 												<% } %>									
-												<% if (invoicestatus) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.invoicestatus_description %></label>
-													<input type="text" id="description" value="<%= invoicestatus.get('description') ? invoicestatus.get('description') : '' %>" name="description" placeholder="<%= entities_strings.invoicestatus_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.invoicestatus_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -54,11 +54,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (invoicestatus) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.invoicestatus_code %></label>
-													<input type="text" id="code" value="<%= invoicestatus.get('code') ? invoicestatus.get('code') : '' %>" name="code" placeholder="<%= entities_strings.invoicestatus_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.invoicestatus_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -67,12 +67,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.invoicestatus_code %>">
 												</div>		
 												<% } %>									
-												<% if (invoicestatus) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.invoicestatus_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= invoicestatus.get('effectiveDt') ? invoicestatus.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/invoice/invoicestatustype/invoicestatustype',
     'app/collections/invoice/invoice/invoice',
     'text!../../../../../../templates/desktop/invoice/invoicestatustype/invoicestatustype-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoice/invoice-list-subview.html',
     'text!../../../../../../templates/desktop/invoice/invoicestatus/edit-invoicestatus.html'
-], function (utilities, config, formUtilities, entities_strings, InvoiceStatusTypes, Invoices, invoiceStatusTypeListSubViewTemplate, invoiceListSubViewTemplate, InvoiceStatusEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, InvoiceStatusTypes, Invoices, invoiceStatusTypeListSubViewTemplate, invoiceListSubViewTemplate, InvoiceStatusEditTemplate) {
 	
     var InvoiceStatusTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,14 +18,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceStatusTypeSelectContainerDiv'), invoiceStatusTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceStatusType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceStatusTypeSelectContainerDiv'), invoiceStatusTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoiceStatusTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoiceStatusTypesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceStatusTypeSelectContainerDiv'), invoiceStatusTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"invoiceStatusType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceStatusTypeSelectContainerDiv'), invoiceStatusTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoiceStatusType", 
+            	fieldName:entities_strings.invoicestatustype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -35,75 +50,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var invoicesFetch = this.model.fetch();
             // Re render the template when the data is available    
             invoicesFetch.done(function (){
-                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  {model:self.model, relatedFieldName:"invoice", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#invoiceSelectContainerDiv'), invoiceListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"invoice", 
+            	fieldName:entities_strings.invoice, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var InvoiceStatusEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(invoicestatus)
-                    {
-                        utilities.applyTemplate($(self.el), InvoiceStatusEditTemplate,  
-                            {model:this.model, invoicestatus:invoicestatus, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), InvoiceStatusEditTemplate,  
-                    {model:this.model, invoicestatus:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var InvoiceStatusEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = InvoiceStatusEditTemplate;
         },
         events:
         {
-            'submit #edit-invoicestatus-form':'editInvoiceStatus'
+            'submit #edit-invoicestatus-form':'saveEntity'
             
         },
-        editInvoiceStatus: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var invoicestatus = $(event.currentTarget).serializeObject();
-            this.model.save(invoicestatus, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-invoicestatus');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-invoicestatus');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.invoiceStatusTypeId = this.model.attributes.invoiceStatusType

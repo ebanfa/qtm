@@ -9,6 +9,7 @@ define("router", [
     'app/views/desktop/login',
     'app/views/desktop/home',
     'app/views/desktop/home/customer-home',
+    'app/views/desktop/home/advice-home',
     'app/views/desktop/home/product-home',
     'app/views/desktop/home/order-home',
     'app/views/desktop/home/invoice-home',
@@ -16,7 +17,22 @@ define("router", [
     'app/views/desktop/home/messaging-home',
     'app/views/desktop/home/businessdata-home',
     'app/views/desktop/home/report-home',
-    
+    'app/models/advice/advicestatus/advicestatus',
+    'app/collections/advice/advicestatus/advicestatus',
+    'app/views/desktop/advice/advicestatus/edit-advicestatus',
+    'app/views/desktop/advice/advicestatus/list-advicestatus',
+    'app/models/advice/advicetype/advicetype',
+    'app/collections/advice/advicetype/advicetype',
+    'app/views/desktop/advice/advicetype/edit-advicetype',
+    'app/views/desktop/advice/advicetype/list-advicetype',
+    'app/models/advice/advicetypetag/advicetypetag',
+    'app/collections/advice/advicetypetag/advicetypetag',
+    'app/views/desktop/advice/advicetypetag/edit-advicetypetag',
+    'app/views/desktop/advice/advicetypetag/list-advicetypetag',
+    'app/models/advice/advice/advice',
+    'app/collections/advice/advice/advice',
+    'app/views/desktop/advice/advice/edit-advice',
+    'app/views/desktop/advice/advice/list-advice',
     'app/models/workeffort/workeffort/workeffort',
     'app/collections/workeffort/workeffort/workeffort',
     'app/views/desktop/workeffort/workeffort/edit-workeffort',
@@ -349,6 +365,7 @@ define("router", [
             LoginView,
             HomeView,
             CustomerHomeView,
+            AdviceHomeView,
             ProductHomeView,
             OrderHomeView,
             InvoiceHomeView,
@@ -356,6 +373,22 @@ define("router", [
             MessagingHomeView,
             BusinessDataHomeView,
             ReportsHomeView,
+            AdviceStatus,
+            AdviceStatuss,
+            AdviceStatusEditView,
+            AdviceStatusListView,
+            AdviceType,
+            AdviceTypes,
+            AdviceTypeEditView,
+            AdviceTypeListView,
+            AdviceTypeTag,
+            AdviceTypeTags,
+            AdviceTypeTagEditView,
+            AdviceTypeTagListView,
+            Advice,
+            Advices,
+            AdviceEditView,
+            AdviceListView,
             WorkEffort,
             WorkEfforts,
             WorkEffortEditView,
@@ -765,6 +798,7 @@ define("router", [
             "login":"login",
             "home":"home",
             "customer-module":"customerModuleIndex",
+            "advice-module":"adviceModuleIndex",
             "product-module":"productModuleIndex",
             "order-module":"orderModuleIndex",
             "invoice-module":"invoiceModuleIndex",
@@ -772,6 +806,18 @@ define("router", [
             "messaging-module":"messagingModuleIndex",
             "businessdata-module":"businessDataModuleIndex",
             "reports-module":"reportsModuleIndex",
+            "list-advicestatus":"listAdviceStatus",
+            "edit-advicestatus":"editAdviceStatus",
+            "edit-advicestatus/:id":"editAdviceStatus",
+            "list-advicetype":"listAdviceType",
+            "edit-advicetype":"editAdviceType",
+            "edit-advicetype/:id":"editAdviceType",
+            "list-advicetypetag":"listAdviceTypeTag",
+            "edit-advicetypetag":"editAdviceTypeTag",
+            "edit-advicetypetag/:id":"editAdviceTypeTag",
+            "list-advice":"listAdvice",
+            "edit-advice":"editAdvice",
+            "edit-advice/:id":"editAdvice",
             "list-workeffort":"listWorkEffort",
             "edit-workeffort":"editWorkEffort",
             "edit-workeffort/:id":"editWorkEffort",
@@ -1022,6 +1068,66 @@ define("router", [
             var loginView = new LoginView({el:$("#page-container")});
             utilities.viewManager.showView(loginView);
 
+        },
+        listAdviceStatus:function()
+        {
+            var model = new AdviceStatuss();
+            var adviceStatusListView = new AdviceStatusListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(adviceStatusListView);
+            }).fetch();
+        },
+        editAdviceStatus:function(id)
+        {
+            var model = new AdviceStatus({id:id});
+            var adviceStatusEditView = new AdviceStatusEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(adviceStatusEditView);
+        },
+        listAdviceType:function()
+        {
+            var model = new AdviceTypes();
+            var adviceTypeListView = new AdviceTypeListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(adviceTypeListView);
+            }).fetch();
+        },
+        editAdviceType:function(id)
+        {
+            var model = new AdviceType({id:id});
+            var adviceTypeEditView = new AdviceTypeEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(adviceTypeEditView);
+        },
+        listAdviceTypeTag:function()
+        {
+            var model = new AdviceTypeTags();
+            var adviceTypeTagListView = new AdviceTypeTagListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(adviceTypeTagListView);
+            }).fetch();
+        },
+        editAdviceTypeTag:function(id)
+        {
+            var model = new AdviceTypeTag({id:id});
+            var adviceTypeTagEditView = new AdviceTypeTagEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(adviceTypeTagEditView);
+        },
+        listAdvice:function()
+        {
+            var model = new Advices();
+            var adviceListView = new AdviceListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(adviceListView);
+            }).fetch();
+        },
+        editAdvice:function(id)
+        {
+            var model = new Advice({id:id});
+            var adviceEditView = new AdviceEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(adviceEditView);
         },
         listWorkEffort:function()
         {
@@ -2226,6 +2332,10 @@ define("router", [
         customerModuleIndex:function()
         {
             utilities.viewManager.showView(new CustomerHomeView({el:$("#content-container")}));
+        },
+        adviceModuleIndex:function()
+        {
+            utilities.viewManager.showView(new AdviceHomeView({el:$("#content-container")}));
         },
         productModuleIndex:function()
         {

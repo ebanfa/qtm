@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/order/productorderitemtype/productorderitemtype',
     'app/collections/order/productorder/productorder',
     'app/collections/product/product/product',
@@ -12,7 +13,7 @@ define([
     'text!../../../../../../templates/desktop/product/product/product-list-subview.html',
     'text!../../../../../../templates/desktop/product/productfeature/productfeature-list-subview.html',
     'text!../../../../../../templates/desktop/order/productorderitem/edit-productorderitem.html'
-], function (utilities, config, formUtilities, entities_strings, ProductOrderItemTypes, ProductOrders, Products, ProductFeatures, productOrderItemTypeListSubViewTemplate, productOrderListSubViewTemplate, productListSubViewTemplate, productFeatureListSubViewTemplate, ProductOrderItemEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ProductOrderItemTypes, ProductOrders, Products, ProductFeatures, productOrderItemTypeListSubViewTemplate, productOrderListSubViewTemplate, productListSubViewTemplate, productFeatureListSubViewTemplate, ProductOrderItemEditTemplate) {
 	
     var ProductOrderItemTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -21,14 +22,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productOrderItemTypeSelectContainerDiv'), productOrderItemTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"productOrderItemType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productOrderItemTypeSelectContainerDiv'), productOrderItemTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productOrderItemTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             productOrderItemTypesFetch.done(function (){
-                utilities.applyTemplate($('#productOrderItemTypeSelectContainerDiv'), productOrderItemTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"productOrderItemType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productOrderItemTypeSelectContainerDiv'), productOrderItemTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productOrderItemType", 
+            	fieldName:entities_strings.productorderitemtype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -39,14 +54,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productOrderSelectContainerDiv'), productOrderListSubViewTemplate,  {model:self.model, relatedFieldName:"productOrder", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productOrderSelectContainerDiv'), productOrderListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productOrdersFetch = this.model.fetch();
             // Re render the template when the data is available    
             productOrdersFetch.done(function (){
-                utilities.applyTemplate($('#productOrderSelectContainerDiv'), productOrderListSubViewTemplate,  {model:self.model, relatedFieldName:"productOrder", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productOrderSelectContainerDiv'), productOrderListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productOrder", 
+            	fieldName:entities_strings.productorder, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -57,14 +86,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productsFetch = this.model.fetch();
             // Re render the template when the data is available    
             productsFetch.done(function (){
-                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"product", 
+            	fieldName:entities_strings.product, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -75,75 +118,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productFeaturesFetch = this.model.fetch();
             // Re render the template when the data is available    
             productFeaturesFetch.done(function (){
-                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productFeature", 
+            	fieldName:entities_strings.productfeature, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var ProductOrderItemEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(productorderitem)
-                    {
-                        utilities.applyTemplate($(self.el), ProductOrderItemEditTemplate,  
-                            {model:this.model, productorderitem:productorderitem, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), ProductOrderItemEditTemplate,  
-                    {model:this.model, productorderitem:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var ProductOrderItemEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = ProductOrderItemEditTemplate;
         },
         events:
         {
-            'submit #edit-productorderitem-form':'editProductOrderItem'
+            'submit #edit-productorderitem-form':'saveEntity'
             
         },
-        editProductOrderItem: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var productorderitem = $(event.currentTarget).serializeObject();
-            this.model.save(productorderitem, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-productorderitem');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-productorderitem');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.productOrderItemTypeId = this.model.attributes.productOrderItemType

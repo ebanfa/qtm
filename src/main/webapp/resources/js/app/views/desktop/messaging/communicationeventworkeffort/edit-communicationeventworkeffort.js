@@ -3,12 +3,13 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/workeffort/workeffort/workeffort',
     'app/collections/messaging/communicationevent/communicationevent',
     'text!../../../../../../templates/desktop/workeffort/workeffort/workeffort-list-subview.html',
     'text!../../../../../../templates/desktop/messaging/communicationevent/communicationevent-list-subview.html',
     'text!../../../../../../templates/desktop/messaging/communicationeventworkeffort/edit-communicationeventworkeffort.html'
-], function (utilities, config, formUtilities, entities_strings, WorkEfforts, CommunicationEvents, workEffortListSubViewTemplate, communicationEventListSubViewTemplate, CommunicationEventWorkEffortEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, WorkEfforts, CommunicationEvents, workEffortListSubViewTemplate, communicationEventListSubViewTemplate, CommunicationEventWorkEffortEditTemplate) {
 	
     var WorkEffortListSubView = Backbone.View.extend({
         initialize: function () {
@@ -17,14 +18,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#workEffortSelectContainerDiv'), workEffortListSubViewTemplate,  {model:self.model, relatedFieldName:"workEffort", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#workEffortSelectContainerDiv'), workEffortListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var workEffortsFetch = this.model.fetch();
             // Re render the template when the data is available    
             workEffortsFetch.done(function (){
-                utilities.applyTemplate($('#workEffortSelectContainerDiv'), workEffortListSubViewTemplate,  {model:self.model, relatedFieldName:"workEffort", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#workEffortSelectContainerDiv'), workEffortListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"workEffort", 
+            	fieldName:entities_strings.workeffort, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -35,75 +50,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#communicationEventSelectContainerDiv'), communicationEventListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEvent", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#communicationEventSelectContainerDiv'), communicationEventListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var communicationEventsFetch = this.model.fetch();
             // Re render the template when the data is available    
             communicationEventsFetch.done(function (){
-                utilities.applyTemplate($('#communicationEventSelectContainerDiv'), communicationEventListSubViewTemplate,  {model:self.model, relatedFieldName:"communicationEvent", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#communicationEventSelectContainerDiv'), communicationEventListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"communicationEvent", 
+            	fieldName:entities_strings.communicationevent, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var CommunicationEventWorkEffortEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(communicationeventworkeffort)
-                    {
-                        utilities.applyTemplate($(self.el), CommunicationEventWorkEffortEditTemplate,  
-                            {model:this.model, communicationeventworkeffort:communicationeventworkeffort, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), CommunicationEventWorkEffortEditTemplate,  
-                    {model:this.model, communicationeventworkeffort:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var CommunicationEventWorkEffortEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = CommunicationEventWorkEffortEditTemplate;
         },
         events:
         {
-            'submit #edit-communicationeventworkeffort-form':'editCommunicationEventWorkEffort'
+            'submit #edit-communicationeventworkeffort-form':'saveEntity'
             
         },
-        editCommunicationEventWorkEffort: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var communicationeventworkeffort = $(event.currentTarget).serializeObject();
-            this.model.save(communicationeventworkeffort, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-communicationeventworkeffort');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-communicationeventworkeffort');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.workEffortId = this.model.attributes.workEffort

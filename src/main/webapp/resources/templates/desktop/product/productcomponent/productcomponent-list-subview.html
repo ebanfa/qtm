@@ -1,13 +1,29 @@
-<label for="productComponentSelect"><%= entities_strings.productcomponent %></label>
+<label for="productComponentSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="productComponentSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (productComponent) {
 	%>
 		<% if (selectedOption == productComponent.attributes.id) { %>
-	<option value="<%=productComponent.id%>" selected="selected" ><%=productComponent.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=productComponent.id%>" selected="selected" >
+					<%=productComponent.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=productComponent.attributes.code%>" selected="selected" >
+					<%=productComponent.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=productComponent.id%>" ><%=productComponent.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=productComponent.id%>" ><%=productComponent.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=productComponent.attributes.code%>" ><%=productComponent.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

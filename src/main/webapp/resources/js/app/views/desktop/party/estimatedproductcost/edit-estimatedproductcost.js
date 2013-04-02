@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/product/product/product',
     'app/collections/product/costcomponenttype/costcomponenttype',
     'app/collections/product/productfeature/productfeature',
@@ -12,7 +13,7 @@ define([
     'text!../../../../../../templates/desktop/product/productfeature/productfeature-list-subview.html',
     'text!../../../../../../templates/desktop/businessdata/geoboundry/geoboundry-list-subview.html',
     'text!../../../../../../templates/desktop/party/estimatedproductcost/edit-estimatedproductcost.html'
-], function (utilities, config, formUtilities, entities_strings, Products, CostComponentTypes, ProductFeatures, GeoBoundrys, productListSubViewTemplate, costComponentTypeListSubViewTemplate, productFeatureListSubViewTemplate, geoBoundryListSubViewTemplate, EstimatedProductCostEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, Products, CostComponentTypes, ProductFeatures, GeoBoundrys, productListSubViewTemplate, costComponentTypeListSubViewTemplate, productFeatureListSubViewTemplate, geoBoundryListSubViewTemplate, EstimatedProductCostEditTemplate) {
 	
     var ProductListSubView = Backbone.View.extend({
         initialize: function () {
@@ -21,14 +22,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productsFetch = this.model.fetch();
             // Re render the template when the data is available    
             productsFetch.done(function (){
-                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  {model:self.model, relatedFieldName:"product", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productSelectContainerDiv'), productListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"product", 
+            	fieldName:entities_strings.product, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -39,14 +54,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#costComponentTypeSelectContainerDiv'), costComponentTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"costComponentType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#costComponentTypeSelectContainerDiv'), costComponentTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var costComponentTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             costComponentTypesFetch.done(function (){
-                utilities.applyTemplate($('#costComponentTypeSelectContainerDiv'), costComponentTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"costComponentType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#costComponentTypeSelectContainerDiv'), costComponentTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"costComponentType", 
+            	fieldName:entities_strings.costcomponenttype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -57,14 +86,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var productFeaturesFetch = this.model.fetch();
             // Re render the template when the data is available    
             productFeaturesFetch.done(function (){
-                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  {model:self.model, relatedFieldName:"productFeature", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#productFeatureSelectContainerDiv'), productFeatureListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"productFeature", 
+            	fieldName:entities_strings.productfeature, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -75,75 +118,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#geoBoundrySelectContainerDiv'), geoBoundryListSubViewTemplate,  {model:self.model, relatedFieldName:"geoBoundry", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#geoBoundrySelectContainerDiv'), geoBoundryListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var geoBoundrysFetch = this.model.fetch();
             // Re render the template when the data is available    
             geoBoundrysFetch.done(function (){
-                utilities.applyTemplate($('#geoBoundrySelectContainerDiv'), geoBoundryListSubViewTemplate,  {model:self.model, relatedFieldName:"geoBoundry", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#geoBoundrySelectContainerDiv'), geoBoundryListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"geoBoundry", 
+            	fieldName:entities_strings.geoboundry, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var EstimatedProductCostEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(estimatedproductcost)
-                    {
-                        utilities.applyTemplate($(self.el), EstimatedProductCostEditTemplate,  
-                            {model:this.model, estimatedproductcost:estimatedproductcost, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), EstimatedProductCostEditTemplate,  
-                    {model:this.model, estimatedproductcost:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var EstimatedProductCostEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = EstimatedProductCostEditTemplate;
         },
         events:
         {
-            'submit #edit-estimatedproductcost-form':'editEstimatedProductCost'
+            'submit #edit-estimatedproductcost-form':'saveEntity'
             
         },
-        editEstimatedProductCost: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var estimatedproductcost = $(event.currentTarget).serializeObject();
-            this.model.save(estimatedproductcost, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-estimatedproductcost');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-estimatedproductcost');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.productId = this.model.attributes.product

@@ -1,13 +1,29 @@
-<label for="geoBoundaryTypeSelect"><%= entities_strings.geoboundarytype %></label>
+<label for="geoBoundaryTypeSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="geoBoundaryTypeSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (geoBoundaryType) {
 	%>
 		<% if (selectedOption == geoBoundaryType.attributes.id) { %>
-	<option value="<%=geoBoundaryType.id%>" selected="selected" ><%=geoBoundaryType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=geoBoundaryType.id%>" selected="selected" >
+					<%=geoBoundaryType.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=geoBoundaryType.attributes.code%>" selected="selected" >
+					<%=geoBoundaryType.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=geoBoundaryType.id%>" ><%=geoBoundaryType.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=geoBoundaryType.id%>" ><%=geoBoundaryType.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=geoBoundaryType.attributes.code%>" ><%=geoBoundaryType.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

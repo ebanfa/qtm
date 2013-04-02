@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/invoice/invoicetype/edit-invoicetype.html'
-], function (utilities, config, formUtilities, entities_strings, InvoiceTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, InvoiceTypeEditTemplate) {
 	
 	
-    var InvoiceTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(invoicetype)
-                    {
-                        utilities.applyTemplate($(self.el), InvoiceTypeEditTemplate,  
-                            {model:this.model, invoicetype:invoicetype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), InvoiceTypeEditTemplate,  
-                    {model:this.model, invoicetype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var InvoiceTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = InvoiceTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-invoicetype-form':'editInvoiceType'
+            'submit #edit-invoicetype-form':'saveEntity'
             
         },
-        editInvoiceType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var invoicetype = $(event.currentTarget).serializeObject();
-            this.model.save(invoicetype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-invoicetype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-invoicetype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }

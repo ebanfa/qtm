@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= partycontactmechanism ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -23,12 +23,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- fromDt. -->
 						            			<div class="span6">
 						            				<label for="fromDt"><%= entities_strings.partycontactmechanism_fromdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="fromDt" name="fromDt" type="text" value="<%= partycontactmechanism.get('fromDt') ? partycontactmechanism.get('fromDt') : '' %>" placeholder="" readonly></input>
+													    <input id="fromDt" name="fromDt" type="text" value="<%= entity.get('fromDt') ? entity.get('fromDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -46,12 +46,12 @@
 													</div>
 												</div>
 												<% } %>
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- toDt. -->
 						            			<div class="span6">
 						            				<label for="toDt"><%= entities_strings.partycontactmechanism_todt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="toDt" name="toDt" type="text" value="<%= partycontactmechanism.get('toDt') ? partycontactmechanism.get('toDt') : '' %>" placeholder="" readonly></input>
+													    <input id="toDt" name="toDt" type="text" value="<%= entity.get('toDt') ? entity.get('toDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -74,11 +74,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.partycontactmechanism_description %></label>
-													<input type="text" id="description" value="<%= partycontactmechanism.get('description') ? partycontactmechanism.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partycontactmechanism_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partycontactmechanism_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -87,11 +87,11 @@
 													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.partycontactmechanism_description %>">
 												</div>		
 												<% } %>									
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- noSolicitationFg. -->
 						            			<div class="span6">
 						            				<label for="noSolicitationFg"><%= entities_strings.partycontactmechanism_nosolicitationfg %></label>
-													<input type="text" id="noSolicitationFg" value="<%= partycontactmechanism.get('noSolicitationFg') ? partycontactmechanism.get('noSolicitationFg') : '' %>" name="noSolicitationFg" placeholder="<%= entities_strings.partycontactmechanism_nosolicitationfg %>">
+													<input type="text" id="noSolicitationFg" value="<%= entity.get('noSolicitationFg') ? entity.get('noSolicitationFg') : '' %>" name="noSolicitationFg" placeholder="<%= entities_strings.partycontactmechanism_nosolicitationfg %>">
 												</div>		
 												<% } else {%>
 												<!-- noSolicitationFg. -->
@@ -105,11 +105,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- extension. -->
 						            			<div class="span6">
 						            				<label for="extension"><%= entities_strings.partycontactmechanism_extension %></label>
-													<input type="text" id="extension" value="<%= partycontactmechanism.get('extension') ? partycontactmechanism.get('extension') : '' %>" name="extension" placeholder="<%= entities_strings.partycontactmechanism_extension %>">
+													<input type="text" id="extension" value="<%= entity.get('extension') ? entity.get('extension') : '' %>" name="extension" placeholder="<%= entities_strings.partycontactmechanism_extension %>">
 												</div>		
 												<% } else {%>
 												<!-- extension. -->
@@ -118,11 +118,11 @@
 													<input type="text" id="extension" name="extension" value="" placeholder="<%= entities_strings.partycontactmechanism_extension %>">
 												</div>		
 												<% } %>									
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- remarks. -->
 						            			<div class="span6">
 						            				<label for="remarks"><%= entities_strings.partycontactmechanism_remarks %></label>
-													<input type="text" id="remarks" value="<%= partycontactmechanism.get('remarks') ? partycontactmechanism.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.partycontactmechanism_remarks %>">
+													<input type="text" id="remarks" value="<%= entity.get('remarks') ? entity.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.partycontactmechanism_remarks %>">
 												</div>		
 												<% } else {%>
 												<!-- remarks. -->
@@ -136,11 +136,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.partycontactmechanism_code %></label>
-													<input type="text" id="code" value="<%= partycontactmechanism.get('code') ? partycontactmechanism.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partycontactmechanism_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partycontactmechanism_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -149,12 +149,12 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.partycontactmechanism_code %>">
 												</div>		
 												<% } %>									
-												<% if (partycontactmechanism) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.partycontactmechanism_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= partycontactmechanism.get('effectiveDt') ? partycontactmechanism.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

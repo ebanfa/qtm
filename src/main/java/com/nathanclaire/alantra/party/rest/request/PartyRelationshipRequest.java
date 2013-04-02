@@ -14,34 +14,34 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PartyRelationshipRequest extends BaseRequest {
 
-    private Integer id;
-    private Integer partyRole;
+    private Integer fromPartyRole;
+    private Integer toPartyRole;
     private Integer partyRelationshipType;
-    private int toRoleId;
-    private String code;
     private String name;
     private String description;
     private String comment;
     private Date fromDt;
     private Date thruDt;
+    private Integer id;
+    private String code;
 
     public PartyRelationshipRequest() {
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getFromPartyRole() {
+        return this.fromPartyRole;
     }
     
-    public void setId(Integer id) {
-        this.id = id;
+    public void setFromPartyRole(Integer fromPartyRole) {
+        this.fromPartyRole = fromPartyRole;
     }
 
-    public Integer getPartyRole() {
-        return this.partyRole;
+    public Integer getToPartyRole() {
+        return this.toPartyRole;
     }
     
-    public void setPartyRole(Integer partyRole) {
-        this.partyRole = partyRole;
+    public void setToPartyRole(Integer toPartyRole) {
+        this.toPartyRole = toPartyRole;
     }
 
     public Integer getPartyRelationshipType() {
@@ -50,22 +50,6 @@ public class PartyRelationshipRequest extends BaseRequest {
     
     public void setPartyRelationshipType(Integer partyRelationshipType) {
         this.partyRelationshipType = partyRelationshipType;
-    }
-
-    public int getToRoleId() {
-        return this.toRoleId;
-    }
-    
-    public void setToRoleId(int toRoleId) {
-        this.toRoleId = toRoleId;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -106,6 +90,22 @@ public class PartyRelationshipRequest extends BaseRequest {
     
     public void setThruDt(Date thruDt) {
         this.thruDt = thruDt;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

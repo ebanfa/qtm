@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/party/contactmechanismtype/edit-contactmechanismtype.html'
-], function (utilities, config, formUtilities, entities_strings, ContactMechanismTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ContactMechanismTypeEditTemplate) {
 	
 	
-    var ContactMechanismTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(contactmechanismtype)
-                    {
-                        utilities.applyTemplate($(self.el), ContactMechanismTypeEditTemplate,  
-                            {model:this.model, contactmechanismtype:contactmechanismtype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), ContactMechanismTypeEditTemplate,  
-                    {model:this.model, contactmechanismtype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var ContactMechanismTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = ContactMechanismTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-contactmechanismtype-form':'editContactMechanismType'
+            'submit #edit-contactmechanismtype-form':'saveEntity'
             
         },
-        editContactMechanismType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var contactmechanismtype = $(event.currentTarget).serializeObject();
-            this.model.save(contactmechanismtype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-contactmechanismtype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-contactmechanismtype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }

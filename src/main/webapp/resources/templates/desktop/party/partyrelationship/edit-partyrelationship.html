@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= partyrelationship ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -26,11 +26,11 @@
 												<!-- partyRelationshipType. -->
 												<div id="partyRelationshipTypeSelectContainerDiv" class="span6">
 	            								</div>
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
 						            				<label for="name"><%= entities_strings.partyrelationship_name %></label>
-													<input type="text" id="name" value="<%= partyrelationship.get('name') ? partyrelationship.get('name') : '' %>" name="name" placeholder="<%= entities_strings.partyrelationship_name %>">
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.partyrelationship_name %>">
 												</div>		
 												<% } else {%>
 												<!-- name. -->
@@ -44,11 +44,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.partyrelationship_description %></label>
-													<input type="text" id="description" value="<%= partyrelationship.get('description') ? partyrelationship.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partyrelationship_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partyrelationship_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -57,11 +57,11 @@
 													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.partyrelationship_description %>">
 												</div>		
 												<% } %>									
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- comment. -->
 						            			<div class="span6">
 						            				<label for="comment"><%= entities_strings.partyrelationship_comment %></label>
-													<input type="text" id="comment" value="<%= partyrelationship.get('comment') ? partyrelationship.get('comment') : '' %>" name="comment" placeholder="<%= entities_strings.partyrelationship_comment %>">
+													<input type="text" id="comment" value="<%= entity.get('comment') ? entity.get('comment') : '' %>" name="comment" placeholder="<%= entities_strings.partyrelationship_comment %>">
 												</div>		
 												<% } else {%>
 												<!-- comment. -->
@@ -75,12 +75,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- fromDt. -->
 						            			<div class="span6">
 						            				<label for="fromDt"><%= entities_strings.partyrelationship_fromdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="fromDt" name="fromDt" type="text" value="<%= partyrelationship.get('fromDt') ? partyrelationship.get('fromDt') : '' %>" placeholder="" readonly></input>
+													    <input id="fromDt" name="fromDt" type="text" value="<%= entity.get('fromDt') ? entity.get('fromDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -98,12 +98,12 @@
 													</div>
 												</div>
 												<% } %>
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- thruDt. -->
 						            			<div class="span6">
 						            				<label for="thruDt"><%= entities_strings.partyrelationship_thrudt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="thruDt" name="thruDt" type="text" value="<%= partyrelationship.get('thruDt') ? partyrelationship.get('thruDt') : '' %>" placeholder="" readonly></input>
+													    <input id="thruDt" name="thruDt" type="text" value="<%= entity.get('thruDt') ? entity.get('thruDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -132,11 +132,11 @@
 													<input type="text" id="communicationEvents" placeholder="One to Many communicationEvents">
 												</div>
 											</div> -->
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.partyrelationship_code %></label>
-													<input type="text" id="code" value="<%= partyrelationship.get('code') ? partyrelationship.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partyrelationship_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partyrelationship_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -150,12 +150,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyrelationship) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.partyrelationship_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= partyrelationship.get('effectiveDt') ? partyrelationship.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

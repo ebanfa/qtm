@@ -14,21 +14,13 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class ContactMechanismLinkRequest extends BaseRequest {
 
-    private Integer id;
     private Integer contactMechanismByToId;
     private Integer contactMechanismByFromId;
-    private String code;
     private String description;
+    private Integer id;
+    private String code;
 
     public ContactMechanismLinkRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getContactMechanismByToId() {
@@ -47,20 +39,28 @@ public class ContactMechanismLinkRequest extends BaseRequest {
         this.contactMechanismByFromId = contactMechanismByFromId;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

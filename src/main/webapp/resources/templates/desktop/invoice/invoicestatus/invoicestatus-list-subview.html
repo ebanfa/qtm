@@ -1,13 +1,29 @@
-<label for="invoiceStatusSelect"><%= entities_strings.invoicestatus %></label>
+<label for="invoiceStatusSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="invoiceStatusSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (invoiceStatus) {
 	%>
 		<% if (selectedOption == invoiceStatus.attributes.id) { %>
-	<option value="<%=invoiceStatus.id%>" selected="selected" ><%=invoiceStatus.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=invoiceStatus.id%>" selected="selected" >
+					<%=invoiceStatus.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=invoiceStatus.attributes.code%>" selected="selected" >
+					<%=invoiceStatus.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=invoiceStatus.id%>" ><%=invoiceStatus.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=invoiceStatus.id%>" ><%=invoiceStatus.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=invoiceStatus.attributes.code%>" ><%=invoiceStatus.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

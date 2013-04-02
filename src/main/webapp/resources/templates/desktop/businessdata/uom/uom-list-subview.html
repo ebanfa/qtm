@@ -1,13 +1,29 @@
-<label for="uomSelect"><%= entities_strings.uom %></label>
+<label for="uomSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="uomSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (uom) {
 	%>
 		<% if (selectedOption == uom.attributes.id) { %>
-	<option value="<%=uom.id%>" selected="selected" ><%=uom.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=uom.id%>" selected="selected" >
+					<%=uom.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=uom.attributes.code%>" selected="selected" >
+					<%=uom.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=uom.id%>" ><%=uom.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=uom.id%>" ><%=uom.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=uom.attributes.code%>" ><%=uom.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

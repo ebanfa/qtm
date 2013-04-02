@@ -14,9 +14,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PersonRequest extends BaseRequest {
 
-    private Integer id;
     private Integer party;
-    private String code;
     private String currentFNm;
     private String currentLNm;
     private String currentMNm;
@@ -34,16 +32,10 @@ public class PersonRequest extends BaseRequest {
     private Date birthDt;
     private Integer totYrWorkExp;
     private String remarks;
+    private Integer id;
+    private String code;
 
     public PersonRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getParty() {
@@ -52,14 +44,6 @@ public class PersonRequest extends BaseRequest {
     
     public void setParty(Integer party) {
         this.party = party;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getCurrentFNm() {
@@ -196,6 +180,22 @@ public class PersonRequest extends BaseRequest {
     
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

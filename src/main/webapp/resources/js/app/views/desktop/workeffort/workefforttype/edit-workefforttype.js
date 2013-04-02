@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/workeffort/workefforttype/edit-workefforttype.html'
-], function (utilities, config, formUtilities, entities_strings, WorkEffortTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, WorkEffortTypeEditTemplate) {
 	
 	
-    var WorkEffortTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(workefforttype)
-                    {
-                        utilities.applyTemplate($(self.el), WorkEffortTypeEditTemplate,  
-                            {model:this.model, workefforttype:workefforttype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), WorkEffortTypeEditTemplate,  
-                    {model:this.model, workefforttype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var WorkEffortTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = WorkEffortTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-workefforttype-form':'editWorkEffortType'
+            'submit #edit-workefforttype-form':'saveEntity'
             
         },
-        editWorkEffortType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var workefforttype = $(event.currentTarget).serializeObject();
-            this.model.save(workefforttype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-workefforttype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-workefforttype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }

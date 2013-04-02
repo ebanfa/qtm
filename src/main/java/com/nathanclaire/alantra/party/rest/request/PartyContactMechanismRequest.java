@@ -14,26 +14,18 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PartyContactMechanismRequest extends BaseRequest {
 
-    private Integer id;
     private Integer contactMechanism;
     private Integer party;
-    private String code;
     private Date fromDt;
     private Date toDt;
     private String description;
     private char noSolicitationFg;
     private String extension;
     private String remarks;
+    private Integer id;
+    private String code;
 
     public PartyContactMechanismRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getContactMechanism() {
@@ -50,14 +42,6 @@ public class PartyContactMechanismRequest extends BaseRequest {
     
     public void setParty(Integer party) {
         this.party = party;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public Date getFromDt() {
@@ -106,6 +90,22 @@ public class PartyContactMechanismRequest extends BaseRequest {
     
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -3,10 +3,11 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/party/partytype/partytype',
     'text!../../../../../../templates/desktop/party/partytype/partytype-list-subview.html',
     'text!../../../../../../templates/desktop/party/partytype/edit-partytype.html'
-], function (utilities, config, formUtilities, entities_strings, PartyTypes, partyTypeListSubViewTemplate, PartyTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, PartyTypes, partyTypeListSubViewTemplate, PartyTypeEditTemplate) {
 	
     var PartyTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -15,75 +16,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partyTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             partyTypesFetch.done(function (){
-                utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"partyType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partyTypeSelectContainerDiv'), partyTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"partyType", 
+            	fieldName:entities_strings.partytype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var PartyTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(partytype)
-                    {
-                        utilities.applyTemplate($(self.el), PartyTypeEditTemplate,  
-                            {model:this.model, partytype:partytype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), PartyTypeEditTemplate,  
-                    {model:this.model, partytype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var PartyTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = PartyTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-partytype-form':'editPartyType'
+            'submit #edit-partytype-form':'saveEntity'
             
         },
-        editPartyType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var partytype = $(event.currentTarget).serializeObject();
-            this.model.save(partytype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-partytype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-partytype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.partyTypeId = this.model.attributes.partyType

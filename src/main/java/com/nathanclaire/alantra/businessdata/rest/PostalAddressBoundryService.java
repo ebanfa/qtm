@@ -6,9 +6,6 @@ package com.nathanclaire.alantra.businessdata.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -23,13 +20,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.party.model.PostalAddress;
-import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.model.PostalAddressBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 import com.nathanclaire.alantra.businessdata.rest.request.PostalAddressBoundryRequest;
+import com.nathanclaire.alantra.party.model.PostalAddress;
 
 /**
  * @author administrator

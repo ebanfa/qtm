@@ -2,7 +2,7 @@
                             
                         <div class="widget-header">
                             <i class="icon-th-list"></i>
-                            <h3><%= partyclassification ? 'Edit' : 'Create' %></h3>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
                         </div> <!-- /widget-header -->
                         
                         <div class="widget-content">
@@ -26,11 +26,11 @@
 												<!-- party. -->
 												<div id="partySelectContainerDiv" class="span6">
 	            								</div>
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
 						            				<label for="name"><%= entities_strings.partyclassification_name %></label>
-													<input type="text" id="name" value="<%= partyclassification.get('name') ? partyclassification.get('name') : '' %>" name="name" placeholder="<%= entities_strings.partyclassification_name %>">
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.partyclassification_name %>">
 												</div>		
 												<% } else {%>
 												<!-- name. -->
@@ -44,11 +44,11 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
 						            				<label for="description"><%= entities_strings.partyclassification_description %></label>
-													<input type="text" id="description" value="<%= partyclassification.get('description') ? partyclassification.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partyclassification_description %>">
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.partyclassification_description %>">
 												</div>		
 												<% } else {%>
 												<!-- description. -->
@@ -57,12 +57,12 @@
 													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.partyclassification_description %>">
 												</div>		
 												<% } %>									
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- fromDt. -->
 						            			<div class="span6">
 						            				<label for="fromDt"><%= entities_strings.partyclassification_fromdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="fromDt" name="fromDt" type="text" value="<%= partyclassification.get('fromDt') ? partyclassification.get('fromDt') : '' %>" placeholder="" readonly></input>
+													    <input id="fromDt" name="fromDt" type="text" value="<%= entity.get('fromDt') ? entity.get('fromDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -85,12 +85,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- thruDt. -->
 						            			<div class="span6">
 						            				<label for="thruDt"><%= entities_strings.partyclassification_thrudt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="thruDt" name="thruDt" type="text" value="<%= partyclassification.get('thruDt') ? partyclassification.get('thruDt') : '' %>" placeholder="" readonly></input>
+													    <input id="thruDt" name="thruDt" type="text" value="<%= entity.get('thruDt') ? entity.get('thruDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>
@@ -108,11 +108,11 @@
 													</div>
 												</div>
 												<% } %>
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
 						            				<label for="code"><%= entities_strings.partyclassification_code %></label>
-													<input type="text" id="code" value="<%= partyclassification.get('code') ? partyclassification.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partyclassification_code %>">
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.partyclassification_code %>">
 												</div>		
 												<% } else {%>
 												<!-- code. -->
@@ -126,12 +126,12 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<% if (partyclassification) { %>
+												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
 						            				<label for="effectiveDt"><%= entities_strings.partyclassification_effectivedt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
-													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= partyclassification.get('effectiveDt') ? partyclassification.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
 													    <span class="add-on">
 													    	<i class="icon-th"></i>
 													    </span>

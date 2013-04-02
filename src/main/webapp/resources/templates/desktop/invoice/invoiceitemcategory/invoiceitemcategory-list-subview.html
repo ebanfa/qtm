@@ -1,13 +1,29 @@
-<label for="invoiceItemCategorySelect"><%= entities_strings.invoiceitemcategory %></label>
+<label for="invoiceItemCategorySelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="invoiceItemCategorySelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (invoiceItemCategory) {
 	%>
 		<% if (selectedOption == invoiceItemCategory.attributes.id) { %>
-	<option value="<%=invoiceItemCategory.id%>" selected="selected" ><%=invoiceItemCategory.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=invoiceItemCategory.id%>" selected="selected" >
+					<%=invoiceItemCategory.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=invoiceItemCategory.attributes.code%>" selected="selected" >
+					<%=invoiceItemCategory.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=invoiceItemCategory.id%>" ><%=invoiceItemCategory.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=invoiceItemCategory.id%>" ><%=invoiceItemCategory.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=invoiceItemCategory.attributes.code%>" ><%=invoiceItemCategory.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

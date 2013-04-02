@@ -1,13 +1,29 @@
-<label for="caseRoleSelect"><%= entities_strings.caserole %></label>
+<label for="caseRoleSelect"><%= fieldName %></label>
 <select name="<%=relatedFieldName%>" id="caseRoleSelect">
-	<option value="--"></option>
+	<option value=""></option>
+	<!-- For each -->
 	<%
 	_.each(model.models, function (caseRole) {
 	%>
 		<% if (selectedOption == caseRole.attributes.id) { %>
-	<option value="<%=caseRole.id%>" selected="selected" ><%=caseRole.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=caseRole.id%>" selected="selected" >
+					<%=caseRole.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=caseRole.attributes.code%>" selected="selected" >
+					<%=caseRole.attributes.code%>
+				</option>
+			<% } %>	
 		<% } else {%>
-	<option value="<%=caseRole.id%>" ><%=caseRole.attributes.code%></option>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=caseRole.id%>" ><%=caseRole.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=caseRole.attributes.code%>" ><%=caseRole.attributes.code%></option>
+			<% } %>	
 		<% } %>	
-	<% }); %>
+	<% }); %> 
+	<!-- End for each -->
 </select>

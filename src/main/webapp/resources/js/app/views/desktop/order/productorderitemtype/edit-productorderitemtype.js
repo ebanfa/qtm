@@ -3,67 +3,28 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'text!../../../../../../templates/desktop/order/productorderitemtype/edit-productorderitemtype.html'
-], function (utilities, config, formUtilities, entities_strings, ProductOrderItemTypeEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ProductOrderItemTypeEditTemplate) {
 	
 	
-    var ProductOrderItemTypeEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(productorderitemtype)
-                    {
-                        utilities.applyTemplate($(self.el), ProductOrderItemTypeEditTemplate,  
-                            {model:this.model, productorderitemtype:productorderitemtype, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), ProductOrderItemTypeEditTemplate,  
-                    {model:this.model, productorderitemtype:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var ProductOrderItemTypeEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = ProductOrderItemTypeEditTemplate;
         },
         events:
         {
-            'submit #edit-productorderitemtype-form':'editProductOrderItemType'
+            'submit #edit-productorderitemtype-form':'saveEntity'
             
         },
-        editProductOrderItemType: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var productorderitemtype = $(event.currentTarget).serializeObject();
-            this.model.save(productorderitemtype, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-productorderitemtype');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-productorderitemtype');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
             }
