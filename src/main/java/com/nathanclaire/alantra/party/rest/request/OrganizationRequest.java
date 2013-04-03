@@ -16,8 +16,6 @@ public class OrganizationRequest extends BaseRequest {
 
     private Integer party;
     private String taxIdNo;
-    private Integer id;
-    private String code;
 
     public OrganizationRequest() {
     }
@@ -37,24 +35,6 @@ public class OrganizationRequest extends BaseRequest {
     public void setTaxIdNo(String taxIdNo) {
         this.taxIdNo = taxIdNo;
     }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-
 }
 
 

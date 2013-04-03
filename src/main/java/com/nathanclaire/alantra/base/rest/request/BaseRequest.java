@@ -21,6 +21,7 @@ public class BaseRequest {
 
     private Integer id;
     private String code;
+    private String name;
     private Character encrpytedFg;
 	private Date effectiveDt;
     private char recSt;
@@ -63,6 +64,20 @@ public class BaseRequest {
 	 */
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

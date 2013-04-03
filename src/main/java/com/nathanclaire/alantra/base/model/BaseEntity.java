@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.base;
+package com.nathanclaire.alantra.base.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.nathanclaire.alantra.base.BaseEntity;
+import com.nathanclaire.alantra.base.model.BaseEntity;
 
 /**
  * AdviceType 

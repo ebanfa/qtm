@@ -6,10 +6,8 @@ package com.nathanclaire.alantra.party.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -26,8 +24,9 @@ import javax.ws.rs.core.Response;
 import com.nathanclaire.alantra.base.rest.BaseEntityService;
 import com.nathanclaire.alantra.party.model.Organization;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
+import com.nathanclaire.alantra.party.model.PartyType;
 import com.nathanclaire.alantra.party.rest.request.OrganizationRequest;
+import com.nathanclaire.alantra.party.service.PartyTypeService;
 
 /**
  * @author administrator
@@ -37,6 +36,8 @@ import com.nathanclaire.alantra.party.rest.request.OrganizationRequest;
 @Stateless
 public class OrganizationRESTService extends BaseEntityService<Organization> 
 {
+	@Inject 
+	PartyTypeService partyTypeService;
 	/**
 	 * @param entityClass
 	 */
@@ -132,6 +133,7 @@ public class OrganizationRESTService extends BaseEntityService<Organization>
     {
 		Organization organization = new Organization();
     	Integer organizationId = request.getId();
+    	PartyType customerType = partyTypeService.getOrganizationalPartyType();
     	// Are we editing a Organization
     	if(organizationId != null) 
     	{
@@ -139,6 +141,7 @@ public class OrganizationRESTService extends BaseEntityService<Organization>
     		organization.setLastModifiedDt(request.getLastModifiedDt());
         	organization.setLastModifiedUsr(getCurrentUserName(request));
     	}
+    	//  or are we creating a new records
     	else
     	{
         	organization.setCreatedDt(getCurrentDate());

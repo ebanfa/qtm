@@ -756,7 +756,7 @@ define({
 		"productcategory_lastmodifiedusr": "Last Modified By",
     	/* Customer user strings*/
     	"customer": "Customer",
-    	"customer_customertype": "Customerz Type",
+    	"customer_customertype": "Customer Type",
 	    "customer_party": "Party",
 	    "customer_id": "Id",
 	    "customer_code": "Code",
@@ -1211,7 +1211,7 @@ define({
     	/* Organization user strings*/
     	"organization": "Organization",
 	    "organization_party": "Party",
-	    "organization_taxidno": "TaxIdNo",
+	    "organization_taxidno": "Tax Id No",
 	    "organization_id": "Id",
 	    "organization_code": "Code",
 	    "organization_effectivedt": "Effective Date",
