@@ -13,8 +13,8 @@
       <connection-url>jdbc:mysql://127.10.106.129:3306/alantra</connection-url>
       <driver>mysql</driver>
       <security>
-          <user-name>root</user-name>
-          <password>netfilter</password>
+          <user-name>adminX4iB2fP</user-name>
+          <password>dZvc29j3jVGa</password>
       </security>
    </datasource>
 </datasources>
