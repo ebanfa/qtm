@@ -10,7 +10,7 @@
    <datasource jndi-name="java:jboss/datasources/alantraDS"
       pool-name="{artifactId}" enabled="true"
       use-java-context="true">
-      <connection-url>jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/alantra</connection-url>
+      <connection-url>jdbc:mysql://127.10.106.129:3306/alantra</connection-url>
       <driver>mysql</driver>
       <security>
           <user-name>root</user-name>
