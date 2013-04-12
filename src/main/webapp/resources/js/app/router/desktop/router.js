@@ -10,6 +10,7 @@ define("router", [
     'app/views/desktop/home',
     'app/views/desktop/home/customer-home',
     'app/views/desktop/home/advice-home',
+    'app/views/desktop/home/channel-home',
     'app/views/desktop/home/product-home',
     'app/views/desktop/home/order-home',
     'app/views/desktop/home/invoice-home',
@@ -33,6 +34,42 @@ define("router", [
     'app/collections/advice/advice/advice',
     'app/views/desktop/advice/advice/edit-advice',
     'app/views/desktop/advice/advice/list-advice',
+    'app/models/channel/service/service',
+    'app/collections/channel/service/service',
+    'app/views/desktop/channel/service/edit-service',
+    'app/views/desktop/channel/service/list-service',
+    'app/models/channel/servicetype/servicetype',
+    'app/collections/channel/servicetype/servicetype',
+    'app/views/desktop/channel/servicetype/edit-servicetype',
+    'app/views/desktop/channel/servicetype/list-servicetype',
+    'app/models/channel/servicemode/servicemode',
+    'app/collections/channel/servicemode/servicemode',
+    'app/views/desktop/channel/servicemode/edit-servicemode',
+    'app/views/desktop/channel/servicemode/list-servicemode',
+    'app/models/channel/servicetransactiontype/servicetransactiontype',
+    'app/collections/channel/servicetransactiontype/servicetransactiontype',
+    'app/views/desktop/channel/servicetransactiontype/edit-servicetransactiontype',
+    'app/views/desktop/channel/servicetransactiontype/list-servicetransactiontype',
+    'app/models/channel/hosttype/hosttype',
+    'app/collections/channel/hosttype/hosttype',
+    'app/views/desktop/channel/hosttype/edit-hosttype',
+    'app/views/desktop/channel/hosttype/list-hosttype',
+    'app/models/channel/servicepeer/servicepeer',
+    'app/collections/channel/servicepeer/servicepeer',
+    'app/views/desktop/channel/servicepeer/edit-servicepeer',
+    'app/views/desktop/channel/servicepeer/list-servicepeer',
+    'app/models/channel/servicetransaction/servicetransaction',
+    'app/collections/channel/servicetransaction/servicetransaction',
+    'app/views/desktop/channel/servicetransaction/edit-servicetransaction',
+    'app/views/desktop/channel/servicetransaction/list-servicetransaction',
+    'app/models/channel/serviceprotocoladapter/serviceprotocoladapter',
+    'app/collections/channel/serviceprotocoladapter/serviceprotocoladapter',
+    'app/views/desktop/channel/serviceprotocoladapter/edit-serviceprotocoladapter',
+    'app/views/desktop/channel/serviceprotocoladapter/list-serviceprotocoladapter',
+    'app/models/channel/host/host',
+    'app/collections/channel/host/host',
+    'app/views/desktop/channel/host/edit-host',
+    'app/views/desktop/channel/host/list-host',
     'app/models/workeffort/workeffort/workeffort',
     'app/collections/workeffort/workeffort/workeffort',
     'app/views/desktop/workeffort/workeffort/edit-workeffort',
@@ -366,6 +403,7 @@ define("router", [
             HomeView,
             CustomerHomeView,
             AdviceHomeView,
+            ChannelHomeView,
             ProductHomeView,
             OrderHomeView,
             InvoiceHomeView,
@@ -389,6 +427,42 @@ define("router", [
             Advices,
             AdviceEditView,
             AdviceListView,
+            Service,
+            Services,
+            ServiceEditView,
+            ServiceListView,
+            ServiceType,
+            ServiceTypes,
+            ServiceTypeEditView,
+            ServiceTypeListView,
+            ServiceMode,
+            ServiceModes,
+            ServiceModeEditView,
+            ServiceModeListView,
+            ServiceTransactionType,
+            ServiceTransactionTypes,
+            ServiceTransactionTypeEditView,
+            ServiceTransactionTypeListView,
+            HostType,
+            HostTypes,
+            HostTypeEditView,
+            HostTypeListView,
+            ServicePeer,
+            ServicePeers,
+            ServicePeerEditView,
+            ServicePeerListView,
+            ServiceTransaction,
+            ServiceTransactions,
+            ServiceTransactionEditView,
+            ServiceTransactionListView,
+            ServiceProtocolAdapter,
+            ServiceProtocolAdapters,
+            ServiceProtocolAdapterEditView,
+            ServiceProtocolAdapterListView,
+            Host,
+            Hosts,
+            HostEditView,
+            HostListView,
             WorkEffort,
             WorkEfforts,
             WorkEffortEditView,
@@ -799,6 +873,7 @@ define("router", [
             "home":"home",
             "customer-module":"customerModuleIndex",
             "advice-module":"adviceModuleIndex",
+            "channel-module":"channelModuleIndex",
             "product-module":"productModuleIndex",
             "order-module":"orderModuleIndex",
             "invoice-module":"invoiceModuleIndex",
@@ -818,6 +893,33 @@ define("router", [
             "list-advice":"listAdvice",
             "edit-advice":"editAdvice",
             "edit-advice/:id":"editAdvice",
+            "list-service":"listService",
+            "edit-service":"editService",
+            "edit-service/:id":"editService",
+            "list-servicetype":"listServiceType",
+            "edit-servicetype":"editServiceType",
+            "edit-servicetype/:id":"editServiceType",
+            "list-servicemode":"listServiceMode",
+            "edit-servicemode":"editServiceMode",
+            "edit-servicemode/:id":"editServiceMode",
+            "list-servicetransactiontype":"listServiceTransactionType",
+            "edit-servicetransactiontype":"editServiceTransactionType",
+            "edit-servicetransactiontype/:id":"editServiceTransactionType",
+            "list-hosttype":"listHostType",
+            "edit-hosttype":"editHostType",
+            "edit-hosttype/:id":"editHostType",
+            "list-servicepeer":"listServicePeer",
+            "edit-servicepeer":"editServicePeer",
+            "edit-servicepeer/:id":"editServicePeer",
+            "list-servicetransaction":"listServiceTransaction",
+            "edit-servicetransaction":"editServiceTransaction",
+            "edit-servicetransaction/:id":"editServiceTransaction",
+            "list-serviceprotocoladapter":"listServiceProtocolAdapter",
+            "edit-serviceprotocoladapter":"editServiceProtocolAdapter",
+            "edit-serviceprotocoladapter/:id":"editServiceProtocolAdapter",
+            "list-host":"listHost",
+            "edit-host":"editHost",
+            "edit-host/:id":"editHost",
             "list-workeffort":"listWorkEffort",
             "edit-workeffort":"editWorkEffort",
             "edit-workeffort/:id":"editWorkEffort",
@@ -1128,6 +1230,141 @@ define("router", [
             var model = new Advice({id:id});
             var adviceEditView = new AdviceEditView({model:model, el:$("#content-container")});
             utilities.viewManager.showView(adviceEditView);
+        },
+        listService:function()
+        {
+            var model = new Services();
+            var serviceListView = new ServiceListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceListView);
+            }).fetch();
+        },
+        editService:function(id)
+        {
+            var model = new Service({id:id});
+            var serviceEditView = new ServiceEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceEditView);
+        },
+        listServiceType:function()
+        {
+            var model = new ServiceTypes();
+            var serviceTypeListView = new ServiceTypeListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceTypeListView);
+            }).fetch();
+        },
+        editServiceType:function(id)
+        {
+            var model = new ServiceType({id:id});
+            var serviceTypeEditView = new ServiceTypeEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceTypeEditView);
+        },
+        listServiceMode:function()
+        {
+            var model = new ServiceModes();
+            var serviceModeListView = new ServiceModeListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceModeListView);
+            }).fetch();
+        },
+        editServiceMode:function(id)
+        {
+            var model = new ServiceMode({id:id});
+            var serviceModeEditView = new ServiceModeEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceModeEditView);
+        },
+        listServiceTransactionType:function()
+        {
+            var model = new ServiceTransactionTypes();
+            var serviceTransactionTypeListView = new ServiceTransactionTypeListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceTransactionTypeListView);
+            }).fetch();
+        },
+        editServiceTransactionType:function(id)
+        {
+            var model = new ServiceTransactionType({id:id});
+            var serviceTransactionTypeEditView = new ServiceTransactionTypeEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceTransactionTypeEditView);
+        },
+        listHostType:function()
+        {
+            var model = new HostTypes();
+            var hostTypeListView = new HostTypeListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(hostTypeListView);
+            }).fetch();
+        },
+        editHostType:function(id)
+        {
+            var model = new HostType({id:id});
+            var hostTypeEditView = new HostTypeEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(hostTypeEditView);
+        },
+        listServicePeer:function()
+        {
+            var model = new ServicePeers();
+            var servicePeerListView = new ServicePeerListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(servicePeerListView);
+            }).fetch();
+        },
+        editServicePeer:function(id)
+        {
+            var model = new ServicePeer({id:id});
+            var servicePeerEditView = new ServicePeerEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(servicePeerEditView);
+        },
+        listServiceTransaction:function()
+        {
+            var model = new ServiceTransactions();
+            var serviceTransactionListView = new ServiceTransactionListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceTransactionListView);
+            }).fetch();
+        },
+        editServiceTransaction:function(id)
+        {
+            var model = new ServiceTransaction({id:id});
+            var serviceTransactionEditView = new ServiceTransactionEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceTransactionEditView);
+        },
+        listServiceProtocolAdapter:function()
+        {
+            var model = new ServiceProtocolAdapters();
+            var serviceProtocolAdapterListView = new ServiceProtocolAdapterListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceProtocolAdapterListView);
+            }).fetch();
+        },
+        editServiceProtocolAdapter:function(id)
+        {
+            var model = new ServiceProtocolAdapter({id:id});
+            var serviceProtocolAdapterEditView = new ServiceProtocolAdapterEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceProtocolAdapterEditView);
+        },
+        listHost:function()
+        {
+            var model = new Hosts();
+            var hostListView = new HostListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(hostListView);
+            }).fetch();
+        },
+        editHost:function(id)
+        {
+            var model = new Host({id:id});
+            var hostEditView = new HostEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(hostEditView);
         },
         listWorkEffort:function()
         {
@@ -2336,6 +2573,10 @@ define("router", [
         adviceModuleIndex:function()
         {
             utilities.viewManager.showView(new AdviceHomeView({el:$("#content-container")}));
+        },
+        channelModuleIndex:function()
+        {
+            utilities.viewManager.showView(new ChannelHomeView({el:$("#content-container")}));
         },
         productModuleIndex:function()
         {

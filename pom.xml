@@ -177,23 +177,40 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.12</version>
             <scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.12</version>
             <scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.j8583</groupId>
+			<artifactId>j8583</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+            
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.9.Final</version>
+            <scope>provided</scope>
+		</dependency>
+            
 
     </dependencies>
 
@@ -221,7 +238,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
 			            <manifestEntries>
-			               <Dependencies>org.codehaus.jackson.jackson-core-asl, org.codehaus.jackson.jackson-mapper-asl</Dependencies>
+			               <Dependencies>org.codehaus.jackson.jackson-core-asl, org.codehaus.jackson.jackson-mapper-asl, org.jboss.netty</Dependencies>
 			            </manifestEntries>
 			         </archive>
                 </configuration>

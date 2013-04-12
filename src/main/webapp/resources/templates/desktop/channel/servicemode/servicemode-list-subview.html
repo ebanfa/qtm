@@ -1,0 +1,29 @@
+<label for="serviceModeSelect"><%= fieldName %></label>
+<select name="<%=relatedFieldName%>" id="serviceModeSelect">
+	<option value=""></option>
+	<!-- For each -->
+	<%
+	_.each(model.models, function (serviceMode) {
+	%>
+		<% if (selectedOption == serviceMode.attributes.id) { %>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=serviceMode.id%>" selected="selected" >
+					<%=serviceMode.attributes.code%>
+				</option>
+			<% } else {%>
+				<option value="<%=serviceMode.attributes.code%>" selected="selected" >
+					<%=serviceMode.attributes.code%>
+				</option>
+			<% } %>	
+		<% } else {%>
+			<!-- Depending on the value of idField we either use the id or code field-->
+			<% if (idField == 'id') { %>
+				<option value="<%=serviceMode.id%>" ><%=serviceMode.attributes.code%></option>
+			<% } else {%>
+				<option value="<%=serviceMode.attributes.code%>" ><%=serviceMode.attributes.code%></option>
+			<% } %>	
+		<% } %>	
+	<% }); %> 
+	<!-- End for each -->
+</select>

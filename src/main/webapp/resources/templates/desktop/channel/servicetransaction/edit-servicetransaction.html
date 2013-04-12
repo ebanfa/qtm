@@ -1,0 +1,185 @@
+<div class="widget widget-table action-table">
+                            
+                        <div class="widget-header">
+                            <i class="icon-th-list"></i>
+                            <h3><%= entity ? 'Edit' : 'Create' %></h3>
+                        </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            <div class="container-fluid form-container">
+	                            <form id="edit-servicetransaction-form">
+								    <fieldset>
+								    	<legend><%= entities_strings.servicetransaction %></legend>
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<!-- service. -->
+												<div id="serviceSelectContainerDiv" class="span6">
+	            								</div>
+												<!-- serviceTransactionType. -->
+												<div id="serviceTransactionTypeSelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.servicetransaction_name %></label>
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.servicetransaction_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.servicetransaction_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.servicetransaction_name %>">
+												</div>		
+												<% } %>									
+												<% if (entity) { %>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.servicetransaction_amount %></label>
+													<input type="text" id="amount" value="<%= entity.get('amount') ? entity.get('amount') : '' %>" name="amount" placeholder="<%= entities_strings.servicetransaction_amount %>">
+												</div>		
+												<% } else {%>
+												<!-- amount. -->
+						            			<div class="span6">
+						            				<label for="amount"><%= entities_strings.servicetransaction_amount %></label>
+													<input type="text" id="amount" name="amount" value="" placeholder="<%= entities_strings.servicetransaction_amount %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- txnDate. -->
+						            			<div class="span6">
+						            				<label for="txnDate"><%= entities_strings.servicetransaction_txndate %></label>
+													<input type="text" id="txnDate" value="<%= entity.get('txnDate') ? entity.get('txnDate') : '' %>" name="txnDate" placeholder="<%= entities_strings.servicetransaction_txndate %>">
+												</div>		
+												<% } else {%>
+												<!-- txnDate. -->
+						            			<div class="span6">
+						            				<label for="txnDate"><%= entities_strings.servicetransaction_txndate %></label>
+													<input type="text" id="txnDate" name="txnDate" value="" placeholder="<%= entities_strings.servicetransaction_txndate %>">
+												</div>		
+												<% } %>									
+												<% if (entity) { %>
+												<!-- accountNo. -->
+						            			<div class="span6">
+						            				<label for="accountNo"><%= entities_strings.servicetransaction_accountno %></label>
+													<input type="text" id="accountNo" value="<%= entity.get('accountNo') ? entity.get('accountNo') : '' %>" name="accountNo" placeholder="<%= entities_strings.servicetransaction_accountno %>">
+												</div>		
+												<% } else {%>
+												<!-- accountNo. -->
+						            			<div class="span6">
+						            				<label for="accountNo"><%= entities_strings.servicetransaction_accountno %></label>
+													<input type="text" id="accountNo" name="accountNo" value="" placeholder="<%= entities_strings.servicetransaction_accountno %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- accountNm. -->
+						            			<div class="span6">
+						            				<label for="accountNm"><%= entities_strings.servicetransaction_accountnm %></label>
+													<input type="text" id="accountNm" value="<%= entity.get('accountNm') ? entity.get('accountNm') : '' %>" name="accountNm" placeholder="<%= entities_strings.servicetransaction_accountnm %>">
+												</div>		
+												<% } else {%>
+												<!-- accountNm. -->
+						            			<div class="span6">
+						            				<label for="accountNm"><%= entities_strings.servicetransaction_accountnm %></label>
+													<input type="text" id="accountNm" name="accountNm" value="" placeholder="<%= entities_strings.servicetransaction_accountnm %>">
+												</div>		
+												<% } %>									
+												<% if (entity) { %>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.servicetransaction_description %></label>
+													<input type="text" id="description" value="<%= entity.get('description') ? entity.get('description') : '' %>" name="description" placeholder="<%= entities_strings.servicetransaction_description %>">
+												</div>		
+												<% } else {%>
+												<!-- description. -->
+						            			<div class="span6">
+						            				<label for="description"><%= entities_strings.servicetransaction_description %></label>
+													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.servicetransaction_description %>">
+												</div>		
+												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.servicetransaction_code %></label>
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.servicetransaction_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.servicetransaction_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.servicetransaction_code %>">
+												</div>		
+												<% } %>									
+												<% if (entity) { %>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.servicetransaction_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="<%= entity.get('effectiveDt') ? entity.get('effectiveDt') : '' %>" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } else {%>
+												<!-- effectiveDt. -->
+						            			<div class="span6">
+						            				<label for="effectiveDt"><%= entities_strings.servicetransaction_effectivedt %></label>
+						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+													    <input id="effectiveDt" name="effectiveDt" type="text" value="" placeholder="" readonly></input>
+													    <span class="add-on">
+													    	<i class="icon-th"></i>
+													    </span>
+													</div>
+												</div>
+												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												
+												<!-- recSt. -->
+						            			<div class="span12">
+						            				<label for="recSt"><%= entities_strings.servicetransaction_recst %></label>
+						            				<select id="recSt" name="recSt">
+						            					<option value="A">Active</option>
+						            				</select>
+												</div>
+												
+											</div> 
+								    	
+									    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+									    <a class="btn" href="#list-servicetransaction"><%= entities_strings.alantra_label_cancel %></a>
+								    </fieldset>
+							    </form>
+						    </div> <!-- /form container -->
+                            
+                        </div> <!-- /widget-content -->
+                    
+                    </div> <!-- /widget -->
+
+
+
+
+
+
