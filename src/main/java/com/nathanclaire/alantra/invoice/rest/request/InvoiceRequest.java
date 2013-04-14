@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.invoice.model.Invoice;
 
 /**
  * InvoiceRequest 
@@ -14,26 +15,18 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class InvoiceRequest extends BaseRequest {
 
-    private Integer id;
     private Integer invoiceType;
     private Integer partyByToPartyId;
     private Integer contactMechanism;
     private Integer partyByFromPartyId;
     private Integer invoiceTerm;
-    private String code;
     private String message;
     private String description;
     private Date invoiceDt;
+    private Integer id;
+    private String code;
 
     public InvoiceRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getInvoiceType() {
@@ -76,14 +69,6 @@ public class InvoiceRequest extends BaseRequest {
         this.invoiceTerm = invoiceTerm;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getMessage() {
         return this.message;
     }
@@ -106,6 +91,22 @@ public class InvoiceRequest extends BaseRequest {
     
     public void setInvoiceDt(Date invoiceDt) {
         this.invoiceDt = invoiceDt;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

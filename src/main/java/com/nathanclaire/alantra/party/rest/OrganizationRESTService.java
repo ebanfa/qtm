@@ -3,30 +3,19 @@
  */
 package com.nathanclaire.alantra.party.rest;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.Organization;
-import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.model.PartyType;
 import com.nathanclaire.alantra.party.rest.request.OrganizationRequest;
-import com.nathanclaire.alantra.party.service.PartyTypeService;
+import com.nathanclaire.alantra.party.service.entity.OrganizationService;
 
 /**
  * @author administrator
@@ -34,131 +23,52 @@ import com.nathanclaire.alantra.party.service.PartyTypeService;
  */
 @Path("/organization")
 @Stateless
-public class OrganizationRESTService extends BaseEntityRESTService<Organization> 
+public class OrganizationRESTService extends BaseEntityRESTService<Organization, OrganizationRequest> 
 {
-	@Inject 
-	PartyTypeService partyTypeService;
-	/**
-	 * @param entityClass
+	@Inject
+	OrganizationService organizationService;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getAll(javax.ws.rs.core.MultivaluedMap)
 	 */
-	public OrganizationRESTService() {
-		super(Organization.class);
+	@Override
+	protected List<Organization> getAll(MultivaluedMap<String, String> queryParameters) {
+		return organizationService.findAll(queryParameters);
 	}
 
-    /**
-     * <p>
-     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
-     *     criteria) by overriding this method.
-     * </p>
-     * @param queryParameters - the HTTP query parameters received by the endpoint
-     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
-     * @param root  @{link Root} used by the invoker
-     * @return a list of {@link Predicate}s that will added as query parameters
-     */
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters,
-            CriteriaBuilder criteriaBuilder, Root<Organization> root) 
-    {
-    	List<Predicate> predicates = new ArrayList<Predicate>() ;
-        if (queryParameters.containsKey(CODE_CRITERIA)) {
-             String code = queryParameters.getFirst(CODE_CRITERIA) + "%";
-            //predicates.add(criteriaBuilder.equal(root.get(CODE_CRITERIA), code));
-            predicates.add(criteriaBuilder.like(root.<String>get(CODE_CRITERIA), code));
-        }
-        return predicates.toArray(new Predicate[]{});
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getSingleInstance(java.lang.Integer)
+	 */
+	@Override
+	protected Organization getSingleInstance(Integer id) {
+		return organizationService.findById(id);
 	}
-    
-    /**
-     * <p>
-     *   Create a Organization. Data is contained in the OrganizationRequest object
-     * </p>
-     * @param OrganizationRequest
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @POST
-    /**
-     * <p> Data is received in JSON format. For easy handling, it will be unmarshalled in the support
-     * {@link BookingRequest} class.
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createOrganization(OrganizationRequest request) {
-        try 
-        {
-        	Organization organization = this.loadModelFromRequest(request);
-        	entityManager.persist(organization);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @PUT 
-    @Path("/{id:[0-9][0-9]*}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editOrganization(OrganizationRequest request) 
-    {
-    	try 
-        {
-    		this.loadModelFromRequest(request);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    private Organization loadModelFromRequest(OrganizationRequest request) 
-    {
-		Organization organization = new Organization();
-    	Integer organizationId = request.getId();
-    	PartyType customerType = partyTypeService.getOrganizationalPartyType();
-    	// Are we editing a Organization
-    	if(organizationId != null) 
-    	{
-    		organization = getEntityManager().find(Organization.class, request.getId());
-    		organization.setLastModifiedDt(request.getLastModifiedDt());
-        	organization.setLastModifiedUsr(getCurrentUserName(request));
-    	}
-    	//  or are we creating a new records
-    	else
-    	{
-        	organization.setCreatedDt(getCurrentDate());
-        	organization.setCreatedByUsr(getCurrentUserName(request));
-    	}
-    	organization.setCode(request.getCode());
-    	organization.setEffectiveDt(getCurrentDate());
-    	//Process many to one relationships
-    	if (request.getParty() != null)
-    	{
-    		Party party = entityManager.find(Party.class, request.getParty());
-    		organization.setParty(party);
-    	}
-    	organization.setTaxIdNo(request.getTaxIdNo()); 
-    	organization.setCode(request.getCode()); 
-    	organization.setEffectiveDt(request.getEffectiveDt()); 
-    	organization.setRecSt(request.getRecSt()); 
-		return organization;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getInstanceCount(javax.ws.rs.core.MultivaluedMap)
+	 */
+	@Override
+	protected Map<String, Long> getInstanceCount(
+			MultivaluedMap<String, String> queryParameters) {
+		return organizationService.getCount(queryParameters);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#createInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response createInstance(OrganizationRequest request) {
+		organizationService.createInstance(request);
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#editInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response editInstance(OrganizationRequest request) {
+		organizationService.updateInstance(request);
+		return null;
+	}
+	
 }

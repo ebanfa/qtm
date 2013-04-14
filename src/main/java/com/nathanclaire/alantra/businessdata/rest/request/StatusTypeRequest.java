@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.businessdata.model.StatusType;
 
 /**
  * StatusTypeRequest 
@@ -14,20 +15,12 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class StatusTypeRequest extends BaseRequest {
 
-    private Integer id;
     private String name;
     private String description;
+    private Integer id;
     private String code;
 
     public StatusTypeRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,6 +37,14 @@ public class StatusTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCode() {

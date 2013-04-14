@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.businessdata.model.UomConversion;
 
 /**
  * UomConversionRequest 
@@ -14,23 +15,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class UomConversionRequest extends BaseRequest {
 
-    private Integer id;
     private int fromUomId;
     private int toUomId;
     private int conversionFactor;
-    private String code;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public UomConversionRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public int getFromUomId() {
@@ -57,14 +50,6 @@ public class UomConversionRequest extends BaseRequest {
         this.conversionFactor = conversionFactor;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -79,6 +64,22 @@ public class UomConversionRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -46,25 +46,25 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     public Advice() {
     }
 
-    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String code, String name, String accountNo, Date effectiveDt, char recSt) 
+    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String name, String accountNo, String code, Date effectiveDt, char recSt) 
     {
-		this.code = code;
 		this.name = name;
 		this.accountNo = accountNo;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
     }
-    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String code, String name, String description, String adviceTxt, String accountNo, Date effectiveDt, char recSt) 
+    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String name, String description, String adviceTxt, String accountNo, String code, Date effectiveDt, char recSt) 
     {
 		this.party = party;
 		this.adviceStatus = adviceStatus;
 		this.communicationEvent = communicationEvent;
 		this.adviceType = adviceType;
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.adviceTxt = adviceTxt;
 		this.accountNo = accountNo;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
     }

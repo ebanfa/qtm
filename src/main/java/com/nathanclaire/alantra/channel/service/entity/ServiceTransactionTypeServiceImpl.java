@@ -5,21 +5,31 @@ package com.nathanclaire.alantra.channel.service.entity;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeRequest;
 
+
 /**
- * @author Edward Banfa 
+ * @author administrator
  *
  */
-public class ServiceTransactionTypeServiceImpl extends BaseEntityService<ServiceTransactionType> implements
-		ServiceTransactionTypeService {
+@Stateless
+public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<ServiceTransactionType> implements ServiceTransactionTypeService
+{
+	/**
+	 * @param entityClass
+	 */
+	public ServiceTransactionTypeServiceImpl() {
+		super(ServiceTransactionType.class);
+	}
 
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#findById(java.lang.Integer)
+    /* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#findById(java.lang.Integer)
 	 */
 	@Override
 	public ServiceTransactionType findById(Integer id) {
@@ -27,7 +37,7 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityService<Service
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#findByCode(java.lang.String)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#findByCode(java.lang.String)
 	 */
 	@Override
 	public ServiceTransactionType findByCode(String code) {
@@ -35,7 +45,7 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityService<Service
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#findByName(java.lang.String)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#findByName(java.lang.String)
 	 */
 	@Override
 	public ServiceTransactionType findByName(String name) {
@@ -43,38 +53,66 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityService<Service
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#findAll(javax.ws.rs.core.MultivaluedMap)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ServiceTransactionType> findAll(
-			MultivaluedMap<String, String> queryParameters) {
+	public List<ServiceTransactionType> findAll(MultivaluedMap<String, String> queryParameters) {
 		return findAllInstances(queryParameters);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#createChannelService(com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeRequest)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#createServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType createChannelService(
-			ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
+	public ServiceTransactionType createInstance(BaseRequest serviceTransactionTypeRequest) {
 		return createInsance(serviceTransactionTypeRequest);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#deleteChannelService(java.lang.Integer)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#deleteServiceTransactionType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteChannelService(Integer id) {
+	public void deleteInstance(Integer id) {
 		deleteInstance(id);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionTypeService#updateChannelService(com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeRequest)
+	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#updateServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType updateChannelService(
-			ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
+	public ServiceTransactionType updateInstance(BaseRequest serviceTransactionTypeRequest) {
 		return updateInstance(serviceTransactionTypeRequest);
 	}
-
+	
+	/**
+     * @param request
+     * @return
+     */
+    protected ServiceTransactionType loadModelFromRequest(BaseRequest request) 
+    {
+    	ServiceTransactionTypeRequest serviceTransactionTypeRequest = (ServiceTransactionTypeRequest) request;
+		ServiceTransactionType serviceTransactionType = new ServiceTransactionType();
+    	Integer serviceTransactionTypeId = serviceTransactionTypeRequest.getId();
+    	// Are we editing a ServiceTransactionType
+    	if(serviceTransactionTypeId != null) 
+    	{
+    		serviceTransactionType = getEntityManager().find(ServiceTransactionType.class, serviceTransactionTypeRequest.getId());
+    		serviceTransactionType.setLastModifiedDt(serviceTransactionTypeRequest.getLastModifiedDt());
+        	serviceTransactionType.setLastModifiedUsr(getCurrentUserName(serviceTransactionTypeRequest));
+    	}
+    	else
+    	{
+        	serviceTransactionType.setCreatedDt(getCurrentSystemDate());
+        	serviceTransactionType.setCreatedByUsr(getCurrentUserName(serviceTransactionTypeRequest));
+    	}
+    	serviceTransactionType.setCode(serviceTransactionTypeRequest.getCode());
+    	serviceTransactionType.setEffectiveDt(getCurrentSystemDate());
+    	//Process many to one relationships
+    	serviceTransactionType.setName(serviceTransactionTypeRequest.getName()); 
+    	serviceTransactionType.setDescription(serviceTransactionTypeRequest.getDescription()); 
+    	serviceTransactionType.setCode(serviceTransactionTypeRequest.getCode()); 
+    	serviceTransactionType.setEffectiveDt(serviceTransactionTypeRequest.getEffectiveDt()); 
+    	serviceTransactionType.setRecSt(serviceTransactionTypeRequest.getRecSt()); 
+		return serviceTransactionType;
+	}
 }

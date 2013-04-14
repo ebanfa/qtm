@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.product.model.ProductFeatureApplicability;
 
 /**
  * ProductFeatureApplicabilityRequest 
@@ -14,25 +15,17 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class ProductFeatureApplicabilityRequest extends BaseRequest {
 
-    private Integer id;
     private Integer product;
     private Integer productFeature;
     private Integer productFeatureApplicabilityType;
-    private String code;
     private String name;
     private String description;
     private Date fromDt;
     private Date toDt;
+    private Integer id;
+    private String code;
 
     public ProductFeatureApplicabilityRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getProduct() {
@@ -57,14 +50,6 @@ public class ProductFeatureApplicabilityRequest extends BaseRequest {
     
     public void setProductFeatureApplicabilityType(Integer productFeatureApplicabilityType) {
         this.productFeatureApplicabilityType = productFeatureApplicabilityType;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -97,6 +82,22 @@ public class ProductFeatureApplicabilityRequest extends BaseRequest {
     
     public void setToDt(Date toDt) {
         this.toDt = toDt;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

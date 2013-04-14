@@ -1,0 +1,125 @@
+/**
+ * 
+ */
+package com.nathanclaire.alantra.party.service.entity;
+
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.ws.rs.core.MultivaluedMap;
+
+import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.party.model.PartyClassificationType;
+import com.nathanclaire.alantra.party.rest.request.PartyClassificationTypeRequest;
+
+import com.nathanclaire.alantra.party.model.PartyClassificationType;
+import com.nathanclaire.alantra.party.rest.request.PartyClassificationTypeRequest;
+
+/**
+ * @author administrator
+ *
+ */
+@Stateless
+public class PartyClassificationTypeServiceImpl extends BaseEntityServiceImpl<PartyClassificationType> implements PartyClassificationTypeService
+{
+	/**
+	 * @param entityClass
+	 */
+	public PartyClassificationTypeServiceImpl() {
+		super(PartyClassificationType.class);
+	}
+
+    /* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#findById(java.lang.Integer)
+	 */
+	@Override
+	public PartyClassificationType findById(Integer id) {
+		return getSingleInstance(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#findByCode(java.lang.String)
+	 */
+	@Override
+	public PartyClassificationType findByCode(String code) {
+		return findInstanceByCode(code);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#findByName(java.lang.String)
+	 */
+	@Override
+	public PartyClassificationType findByName(String name) {
+		return findInstanceByName(name);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#findAll(java.util.Map)
+	 */
+	@Override
+	public List<PartyClassificationType> findAll(MultivaluedMap<String, String> queryParameters) {
+		return findAllInstances(queryParameters);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#createPartyClassificationType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
+	 */
+	@Override
+	public PartyClassificationType createInstance(BaseRequest partyClassificationTypeRequest) {
+		return createInsance(partyClassificationTypeRequest);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#deletePartyClassificationType(java.lang.Integer)
+	 */
+	@Override
+	public void deleteInstance(Integer id) {
+		deleteInstance(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#updatePartyClassificationType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
+	 */
+	@Override
+	public PartyClassificationType updateInstance(BaseRequest partyClassificationTypeRequest) {
+		return updateInstance(partyClassificationTypeRequest);
+	}
+	
+	/**
+     * @param request
+     * @return
+     */
+    protected PartyClassificationType loadModelFromRequest(BaseRequest request) 
+    {
+    	PartyClassificationTypeRequest partyClassificationTypeRequest = (PartyClassificationTypeRequest) request;
+		PartyClassificationType partyClassificationType = new PartyClassificationType();
+    	Integer partyClassificationTypeId = partyClassificationTypeRequest.getId();
+    	// Are we editing a PartyClassificationType
+    	if(partyClassificationTypeId != null) 
+    	{
+    		partyClassificationType = getEntityManager().find(PartyClassificationType.class, partyClassificationTypeRequest.getId());
+    		partyClassificationType.setLastModifiedDt(partyClassificationTypeRequest.getLastModifiedDt());
+        	partyClassificationType.setLastModifiedUsr(getCurrentUserName(partyClassificationTypeRequest));
+    	}
+    	else
+    	{
+        	partyClassificationType.setCreatedDt(getCurrentSystemDate());
+        	partyClassificationType.setCreatedByUsr(getCurrentUserName(partyClassificationTypeRequest));
+    	}
+    	partyClassificationType.setCode(partyClassificationTypeRequest.getCode());
+    	partyClassificationType.setEffectiveDt(getCurrentSystemDate());
+    	//Process many to one relationships
+    	if (partyClassificationTypeRequest.getPartyClassificationType() != null)
+    	{
+    		PartyClassificationType parentPartyClassificationType = getEntityManager().find(PartyClassificationType.class, partyClassificationTypeRequest.getPartyClassificationType());
+    		partyClassificationType.setPartyClassificationType(parentPartyClassificationType);
+    	}
+    	partyClassificationType.setName(partyClassificationTypeRequest.getName()); 
+    	partyClassificationType.setDescription(partyClassificationTypeRequest.getDescription()); 
+    	partyClassificationType.setCode(partyClassificationTypeRequest.getCode()); 
+    	partyClassificationType.setEffectiveDt(partyClassificationTypeRequest.getEffectiveDt()); 
+    	partyClassificationType.setRecSt(partyClassificationTypeRequest.getRecSt()); 
+		return partyClassificationType;
+	}
+}

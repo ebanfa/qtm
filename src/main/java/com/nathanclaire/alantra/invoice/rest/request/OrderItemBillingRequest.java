@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.invoice.model.OrderItemBilling;
 
 /**
  * OrderItemBillingRequest 
@@ -14,23 +15,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class OrderItemBillingRequest extends BaseRequest {
 
-    private Integer id;
     private Integer invoiceItem;
     private Integer productOrderItem;
     private int quantity;
     private BigDecimal amount;
-    private String code;
     private String description;
+    private Integer id;
+    private String code;
 
     public OrderItemBillingRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getInvoiceItem() {
@@ -65,20 +58,28 @@ public class OrderItemBillingRequest extends BaseRequest {
         this.amount = amount;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

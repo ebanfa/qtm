@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
 
 /**
  * PaymentMethodTypeProviderRequest 
@@ -14,24 +15,16 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PaymentMethodTypeProviderRequest extends BaseRequest {
 
-    private Integer id;
     private Integer paymentMethodType;
     private Integer party;
-    private String code;
     private String name;
     private String description;
     private Date fromDt;
     private Date thruDt;
+    private Integer id;
+    private String code;
 
     public PaymentMethodTypeProviderRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPaymentMethodType() {
@@ -48,14 +41,6 @@ public class PaymentMethodTypeProviderRequest extends BaseRequest {
     
     public void setParty(Integer party) {
         this.party = party;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -88,6 +73,22 @@ public class PaymentMethodTypeProviderRequest extends BaseRequest {
     
     public void setThruDt(Date thruDt) {
         this.thruDt = thruDt;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

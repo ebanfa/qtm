@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.payment.model.Payment;
 
 /**
  * PaymentRequest 
@@ -14,27 +15,19 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PaymentRequest extends BaseRequest {
 
-    private Integer id;
     private Integer paymentType;
     private Integer partyByToPartyId;
     private Integer partyByFromPartyId;
     private Integer paymentMethodTypeProvider;
     private Integer paymentMethodType;
-    private String code;
     private String name;
     private String description;
     private String comment;
     private BigDecimal amount;
+    private Integer id;
+    private String code;
 
     public PaymentRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPaymentType() {
@@ -77,14 +70,6 @@ public class PaymentRequest extends BaseRequest {
         this.paymentMethodType = paymentMethodType;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -115,6 +100,22 @@ public class PaymentRequest extends BaseRequest {
     
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

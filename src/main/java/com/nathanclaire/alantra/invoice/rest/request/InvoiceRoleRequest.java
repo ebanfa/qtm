@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.invoice.model.InvoiceRole;
 
 /**
  * InvoiceRoleRequest 
@@ -14,23 +15,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class InvoiceRoleRequest extends BaseRequest {
 
-    private Integer id;
     private Integer invoiceRoleType;
     private Integer party;
     private Integer invoice;
-    private String code;
     private String description;
     private Integer percentage;
+    private Integer id;
+    private String code;
 
     public InvoiceRoleRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getInvoiceRoleType() {
@@ -57,14 +50,6 @@ public class InvoiceRoleRequest extends BaseRequest {
         this.invoice = invoice;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -79,6 +64,22 @@ public class InvoiceRoleRequest extends BaseRequest {
     
     public void setPercentage(Integer percentage) {
         this.percentage = percentage;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

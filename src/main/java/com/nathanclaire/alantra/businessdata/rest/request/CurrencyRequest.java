@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.businessdata.model.Currency;
 
 /**
  * CurrencyRequest 
@@ -14,29 +15,13 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class CurrencyRequest extends BaseRequest {
 
-    private Integer id;
-    private String code;
     private String crncyNm;
     private String crncySym;
     private String remarks;
+    private Integer id;
+    private String code;
 
     public CurrencyRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getCrncyNm() {
@@ -61,6 +46,22 @@ public class CurrencyRequest extends BaseRequest {
     
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.messaging.model.CommunicationEventPurpose;
 
 /**
  * CommunicationEventPurposeRequest 
@@ -14,21 +15,13 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class CommunicationEventPurposeRequest extends BaseRequest {
 
-    private Integer id;
     private Integer communicationEventPurposeType;
-    private String code;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public CommunicationEventPurposeRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getCommunicationEventPurposeType() {
@@ -37,14 +30,6 @@ public class CommunicationEventPurposeRequest extends BaseRequest {
     
     public void setCommunicationEventPurposeType(Integer communicationEventPurposeType) {
         this.communicationEventPurposeType = communicationEventPurposeType;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -61,6 +46,22 @@ public class CommunicationEventPurposeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

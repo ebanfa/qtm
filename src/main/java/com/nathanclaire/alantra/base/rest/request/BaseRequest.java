@@ -16,7 +16,7 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
  *
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class BaseRequest<T> {
+public class BaseRequest {
 
     private Integer id;
     private String code;

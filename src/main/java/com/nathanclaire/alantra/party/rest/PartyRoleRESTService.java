@@ -3,33 +3,19 @@
  */
 package com.nathanclaire.alantra.party.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.inject.Inject;
 import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.PartyRole;
-import com.nathanclaire.alantra.party.model.PartyRoleType;
-import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
-import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.party.rest.request.PartyRoleRequest;
+import com.nathanclaire.alantra.party.service.entity.PartyRoleService;
 
 /**
  * @author administrator
@@ -37,135 +23,52 @@ import com.nathanclaire.alantra.party.rest.request.PartyRoleRequest;
  */
 @Path("/partyrole")
 @Stateless
-public class PartyRoleRESTService extends BaseEntityRESTService<PartyRole> 
+public class PartyRoleRESTService extends BaseEntityRESTService<PartyRole, PartyRoleRequest> 
 {
-	/**
-	 * @param entityClass
+	@Inject
+	PartyRoleService partyRoleService;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getAll(javax.ws.rs.core.MultivaluedMap)
 	 */
-	public PartyRoleRESTService() {
-		super(PartyRole.class);
+	@Override
+	protected List<PartyRole> getAll(MultivaluedMap<String, String> queryParameters) {
+		return partyRoleService.findAll(queryParameters);
 	}
 
-    /**
-     * <p>
-     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
-     *     criteria) by overriding this method.
-     * </p>
-     * @param queryParameters - the HTTP query parameters received by the endpoint
-     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
-     * @param root  @{link Root} used by the invoker
-     * @return a list of {@link Predicate}s that will added as query parameters
-     */
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters,
-            CriteriaBuilder criteriaBuilder, Root<PartyRole> root) 
-    {
-    	List<Predicate> predicates = new ArrayList<Predicate>() ;
-        if (queryParameters.containsKey(CODE_CRITERIA)) {
-             String code = queryParameters.getFirst(CODE_CRITERIA) + "%";
-            //predicates.add(criteriaBuilder.equal(root.get(CODE_CRITERIA), code));
-            predicates.add(criteriaBuilder.like(root.<String>get(CODE_CRITERIA), code));
-        }
-        return predicates.toArray(new Predicate[]{});
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getSingleInstance(java.lang.Integer)
+	 */
+	@Override
+	protected PartyRole getSingleInstance(Integer id) {
+		return partyRoleService.findById(id);
 	}
-    
-    /**
-     * <p>
-     *   Create a PartyRole. Data is contained in the PartyRoleRequest object
-     * </p>
-     * @param PartyRoleRequest
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @POST
-    /**
-     * <p> Data is received in JSON format. For easy handling, it will be unmarshalled in the support
-     * {@link BookingRequest} class.
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createPartyRole(PartyRoleRequest request) {
-        try 
-        {
-        	PartyRole partyRole = this.loadModelFromRequest(request);
-        	entityManager.persist(partyRole);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @PUT 
-    @Path("/{id:[0-9][0-9]*}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editPartyRole(PartyRoleRequest request) 
-    {
-    	try 
-        {
-    		this.loadModelFromRequest(request);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    private PartyRole loadModelFromRequest(PartyRoleRequest request) 
-    {
-		PartyRole partyRole = new PartyRole();
-    	Integer partyRoleId = request.getId();
-    	// Are we editing a PartyRole
-    	if(partyRoleId != null) 
-    	{
-    		partyRole = getEntityManager().find(PartyRole.class, request.getId());
-    		partyRole.setLastModifiedDt(request.getLastModifiedDt());
-        	partyRole.setLastModifiedUsr(getCurrentUserName(request));
-    	}
-    	else
-    	{
-        	partyRole.setCreatedDt(getCurrentDate());
-        	partyRole.setCreatedByUsr(getCurrentUserName(request));
-    	}
-    	partyRole.setCode(request.getCode());
-    	partyRole.setEffectiveDt(getCurrentDate());
-    	//Process many to one relationships
-    	if (request.getPartyRoleType() != null)
-    	{
-    		PartyRoleType partyRoleType = entityManager.find(PartyRoleType.class, request.getPartyRoleType());
-    		partyRole.setPartyRoleType(partyRoleType);
-    	}
-    	if (request.getParty() != null)
-    	{
-    		Party party = entityManager.find(Party.class, request.getParty());
-    		partyRole.setParty(party);
-    	}
-    	partyRole.setName(request.getName()); 
-    	partyRole.setDescription(request.getDescription()); 
-    	partyRole.setFromDt(request.getFromDt()); 
-    	partyRole.setThruDt(request.getThruDt()); 
-    	partyRole.setCode(request.getCode()); 
-    	partyRole.setEffectiveDt(request.getEffectiveDt()); 
-    	partyRole.setRecSt(request.getRecSt()); 
-		return partyRole;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getInstanceCount(javax.ws.rs.core.MultivaluedMap)
+	 */
+	@Override
+	protected Map<String, Long> getInstanceCount(
+			MultivaluedMap<String, String> queryParameters) {
+		return partyRoleService.getCount(queryParameters);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#createInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response createInstance(PartyRoleRequest request) {
+		partyRoleService.createInstance(request);
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#editInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response editInstance(PartyRoleRequest request) {
+		partyRoleService.updateInstance(request);
+		return null;
+	}
+	
 }

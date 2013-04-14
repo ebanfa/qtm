@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.product.model.ProductComponent;
 
 /**
  * ProductComponentRequest 
@@ -14,27 +15,19 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class ProductComponentRequest extends BaseRequest {
 
-    private Integer id;
     private Integer productByInProdId;
     private Integer productByForProdId;
     private Integer locationId;
-    private String code;
     private String description;
     private String instruction;
     private String remarks;
     private Integer quantitiyUsed;
     private Date fromDt;
     private Date toDt;
+    private Integer id;
+    private String code;
 
     public ProductComponentRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getProductByInProdId() {
@@ -59,14 +52,6 @@ public class ProductComponentRequest extends BaseRequest {
     
     public void setLocationId(Integer locationId) {
         this.locationId = locationId;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getDescription() {
@@ -115,6 +100,22 @@ public class ProductComponentRequest extends BaseRequest {
     
     public void setToDt(Date toDt) {
         this.toDt = toDt;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

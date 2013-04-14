@@ -3,6 +3,9 @@
  */
 package com.nathanclaire.alantra.channel.rest.request;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 
@@ -10,7 +13,7 @@ import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
  * ServiceTransactionTypeRequest 
  * @author Edward Banfa
  */
-public class ServiceTransactionTypeRequest extends BaseRequest<ServiceTransactionType> {
+public class ServiceTransactionTypeRequest extends BaseRequest {
 
     private String name;
     private String description;

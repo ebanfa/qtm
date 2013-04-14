@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.payment.model.PaymentApplication;
 
 /**
  * PaymentApplicationRequest 
@@ -14,23 +15,15 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class PaymentApplicationRequest extends BaseRequest {
 
-    private Integer id;
     private Integer payment;
     private Integer billingAccount;
     private Integer invoiceItem;
-    private String code;
     private String description;
     private BigDecimal amountAppl;
+    private Integer id;
+    private String code;
 
     public PaymentApplicationRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPayment() {
@@ -57,14 +50,6 @@ public class PaymentApplicationRequest extends BaseRequest {
         this.invoiceItem = invoiceItem;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -79,6 +64,22 @@ public class PaymentApplicationRequest extends BaseRequest {
     
     public void setAmountAppl(BigDecimal amountAppl) {
         this.amountAppl = amountAppl;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -43,24 +43,24 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
     public AdviceType() {
     }
 
-    public AdviceType(String code, String name, Date effectiveDt, char recSt) 
+    public AdviceType(String name, String code, Date effectiveDt, char recSt) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
     }
-    public AdviceType(String code, String name, String description, Character reqFeedback, String feedbackMsg, Date effectiveDt, char recSt, Set<Advice> advices, Set<AdviceTypeTag> adviceTypeTags ) 
+    public AdviceType(String name, String description, Character reqFeedback, String feedbackMsg, Set<Advice> advices, Set<AdviceTypeTag> adviceTypeTags, String code, Date effectiveDt, char recSt) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.reqFeedback = reqFeedback;
 		this.feedbackMsg = feedbackMsg;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
 		this.advices = advices;
 		this.adviceTypeTags = adviceTypeTags;
+		this.code = code;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
     }
     
 		

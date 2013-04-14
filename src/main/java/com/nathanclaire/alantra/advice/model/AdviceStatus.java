@@ -35,26 +35,26 @@ public class AdviceStatus  extends BaseEntity implements java.io.Serializable {
 
     private String name;
     private String description;
-	private Set<com.nathanclaire.alantra.advice.model.Advice> advices = new HashSet<com.nathanclaire.alantra.advice.model.Advice>(0);
+	private Set<Advice> advices = new HashSet<Advice>(0);
 
     public AdviceStatus() {
     }
 
-    public AdviceStatus(String code, String name, Date effectiveDt, char recSt) 
+    public AdviceStatus(String name, String code, Date effectiveDt, char recSt) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
     }
-    public AdviceStatus(String code, String name, String description, Date effectiveDt, char recSt, Set<Advice> advices ) 
+    public AdviceStatus(String name, String description, Set<Advice> advices, String code, Date effectiveDt, char recSt) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.advices = advices;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
-		this.advices = advices;
     }
     
 		

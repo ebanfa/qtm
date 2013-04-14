@@ -3,6 +3,9 @@
  */
 package com.nathanclaire.alantra.channel.rest.request;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.channel.model.Service;
 
@@ -10,11 +13,12 @@ import com.nathanclaire.alantra.channel.model.Service;
  * ServiceRequest 
  * @author Edward Banfa
  */
-public class ServiceRequest extends BaseRequest<Service> {
+public class ServiceRequest extends BaseRequest {
 
     private Integer serviceType;
     private Integer serviceProtocolAdapter;
     private Integer serviceMode;
+    private Integer serviceCategory;
     private String name;
     private String description;
     private int portNo;
@@ -47,6 +51,14 @@ public class ServiceRequest extends BaseRequest<Service> {
     
     public void setServiceMode(Integer serviceMode) {
         this.serviceMode = serviceMode;
+    }
+
+    public Integer getServiceCategory() {
+        return this.serviceCategory;
+    }
+    
+    public void setServiceCategory(Integer serviceCategory) {
+        this.serviceCategory = serviceCategory;
     }
 
     public String getName() {

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.invoice.model.InvoiceStatus;
 
 /**
  * InvoiceStatusRequest 
@@ -14,22 +15,14 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class InvoiceStatusRequest extends BaseRequest {
 
-    private Integer id;
     private Integer invoiceStatusType;
     private Integer invoice;
-    private String code;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public InvoiceStatusRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getInvoiceStatusType() {
@@ -48,14 +41,6 @@ public class InvoiceStatusRequest extends BaseRequest {
         this.invoice = invoice;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -70,6 +55,22 @@ public class InvoiceStatusRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

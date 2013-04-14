@@ -3,28 +3,21 @@
  */
 package com.nathanclaire.alantra.base.rest;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 
 /**
  * <p>
@@ -70,51 +63,12 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  * </p>
  *
  */
-public abstract class BaseEntityRESTService<T> {
-
-    /*@PersistenceContext(unitName = "primary")
-    protected EntityManager entityManager;*/
-    
-    /**
-     * Entity
-     */
-    @Inject
-    protected EntityManager entityManager;
-
-    /**
-     * Type
-     */
-    private Class<T> entityClass;
-
-	/**
-	 * Id criteria
-	 */
-	protected static final String ID_CRITERIA = "id";
-	/**
-	 * Code criteria
-	 */
-	protected static final String CODE_CRITERIA = "code";
+public abstract class BaseEntityRESTService<T,V> {
 
     /**
      * Default constructor
      */
     public BaseEntityRESTService() {}
-
-    /**
-     * Parameterized constructor
-     * @param entityClass
-     */
-    public BaseEntityRESTService(Class<T> entityClass) {
-        this.entityClass = entityClass;
-    }
-
-    /**
-     * Getter for the entity manager
-     * @return
-     */
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
     
     /**
      * <p>
@@ -127,37 +81,24 @@ public abstract class BaseEntityRESTService<T> {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<T> getAll(@Context UriInfo uriInfo) {
+    public List<T> getAll(@Context UriInfo uriInfo) 
+    {
         return getAll(uriInfo.getQueryParameters());
     }
-    
+
     /**
-     * @param queryParameters
+     * <p>
+     *     A method for retrieving individual entity instances.
+     * </p>
+     * @param id entity id
      * @return
      */
-    public List<T> getAll(MultivaluedMap<String, String> queryParameters) 
+    @GET
+    @Path("/{id:[0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public T findById(@PathParam("id") Integer id) 
     {
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
-        
-        Root<T> root = criteriaQuery.from(entityClass);
-        Predicate[] predicates = extractPredicates(queryParameters, criteriaBuilder, root);
-        
-        criteriaQuery.select(criteriaQuery.getSelection()).where(predicates);
-        criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
-        TypedQuery<T> query = entityManager.createQuery(criteriaQuery);
-        
-        if (queryParameters.containsKey("first")) 
-        {
-        	Integer firstRecord = Integer.parseInt(queryParameters.getFirst("first"))-1;
-        	query.setFirstResult(firstRecord);
-        }
-        if (queryParameters.containsKey("maxResults")) 
-        {
-        	Integer maxResults = Integer.parseInt(queryParameters.getFirst("maxResults"));
-        	query.setMaxResults(maxResults);
-        }
-		return query.getResultList();
+        return getSingleInstance(id);
     }
 
     /**
@@ -172,79 +113,65 @@ public abstract class BaseEntityRESTService<T> {
     @Path("/count")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Long> getCount(@Context UriInfo uriInfo) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
-        Root<T> root = criteriaQuery.from(entityClass);
-        criteriaQuery.select(criteriaBuilder.count(root));
-        Predicate[] predicates = extractPredicates(uriInfo.getQueryParameters(), criteriaBuilder, root);
-        criteriaQuery.where(predicates);
-        Map<String, Long> result = new HashMap<String, Long>();
-        result.put("count", entityManager.createQuery(criteriaQuery).getSingleResult());
-        return result;
-    }
-
-    /**
-     * <p>
-     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
-     *     criteria on search and count) by overriding this method.
-     * </p>
-     * @param queryParameters - the HTTP query parameters received by the endpoint
-     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
-     * @param root  @{link Root} used by the invoker
-     * @return a list of {@link Predicate}s that will added as query parameters
-     */
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters, 
-    		CriteriaBuilder criteriaBuilder, Root<T> root) {
-        return new Predicate[]{};
-    }
-
-    /**
-     * <p>
-     *     A method for retrieving individual entity instances.
-     * </p>
-     * @param id entity id
-     * @return
-     */
-    @GET
-    @Path("/{id:[0-9][0-9]*}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public T getSingleInstance(@PathParam("id") Long id) {
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
-        Root<T> root = criteriaQuery.from(entityClass);
-        Predicate condition = criteriaBuilder.equal(root.get("id"), id);
-        criteriaQuery.select(criteriaBuilder.createQuery(entityClass).getSelection()).where(condition);
-        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    	return getInstanceCount(uriInfo.getQueryParameters());
     }
     
     /**
+     * <p>  Create a Host. Data is contained in the HostRequest object </p>
+     * @param HostRequest
      * @return
      */
-    protected Date getCurrentDate(){return new Date();}
+    @POST
+    /**
+     * <p> Data is received in JSON format. For easy handling, it will be unmarshalled in the support
+     * {@link HostRequest} class.
+     */
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createHost(V request) {
+        return createInstance(request);
+    }
+    
+    /**
+     * <p>  Edit a Host. Data is contained in the HostRequest object </p>
+     * @param request
+     * @return
+     */
+    @PUT 
+    @Path("/{id:[0-9][0-9]*}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response edit(V request) 
+    {
+    	return editInstance(request);
+    }
+    
+    /**
+     * @param queryParameters
+     * @return
+     */
+    protected abstract List<T> getAll(MultivaluedMap<String, String> queryParameters);
+    
+    /**
+     * @param queryParameters
+     * @return
+     */
+    protected abstract T getSingleInstance(Integer id);
     
     /**
      * @param request
      * @return
      */
-    protected String getCurrentUserName(BaseRequest request){return "User";}
+    protected abstract Response createInstance(V request);
     
     /**
+     * @param request
      * @return
      */
-    protected String getCurrentUserName(){return "User";}
+    protected abstract Response editInstance(V request);
     
     /**
+     * @param queryParameters
      * @return
      */
-    protected String getDefaultUserName(){return "System";}
-    
-    /**
-     * @return
-     */
-    protected String getDefaultUserRSM() {return "System";}
-    
-    /**
-     * @return
-     */
-    protected String getDefaultSenderAddress(){return "ebanfa@gmail.com";}
+    protected abstract Map<String, Long> getInstanceCount(MultivaluedMap<String, String> queryParameters);
+
 }

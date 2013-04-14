@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.customer.model.Customer;
 
 /**
  * CustomerRequest 
@@ -14,19 +15,11 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class CustomerRequest extends BaseRequest {
 
-    private Integer id;
     private Integer party;
+    private Integer id;
     private String code;
 
     public CustomerRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getParty() {
@@ -35,6 +28,14 @@ public class CustomerRequest extends BaseRequest {
     
     public void setParty(Integer party) {
         this.party = party;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCode() {

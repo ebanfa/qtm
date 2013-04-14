@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.order.model.ProductOrderItem;
 
 /**
  * ProductOrderItemRequest 
@@ -14,12 +15,10 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class ProductOrderItemRequest extends BaseRequest {
 
-    private Integer id;
     private Integer productOrderItemType;
     private Integer productOrder;
     private Integer product;
     private Integer productFeature;
-    private String code;
     private String name;
     private String description;
     private int quantity;
@@ -27,16 +26,10 @@ public class ProductOrderItemRequest extends BaseRequest {
     private Date expectDeliveryDt;
     private String instructions;
     private String remarks;
+    private Integer id;
+    private String code;
 
     public ProductOrderItemRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getProductOrderItemType() {
@@ -69,14 +62,6 @@ public class ProductOrderItemRequest extends BaseRequest {
     
     public void setProductFeature(Integer productFeature) {
         this.productFeature = productFeature;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -133,6 +118,22 @@ public class ProductOrderItemRequest extends BaseRequest {
     
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -5,12 +5,14 @@ package com.nathanclaire.alantra.channel.rest.request;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+
 /**
  * ServiceTransactionRequest 
  * @author Edward Banfa
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class ServiceTransactionRequest {
+public class ServiceTransactionRequest extends BaseRequest {
 	// Service Channels
 	public static String CHANNEL_EFT = "EFT";
 	public static String CHANNEL_ATM = "ATM";

@@ -1,10 +1,12 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.base.service;
+package com.nathanclaire.alantra.base.service.entity;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -15,7 +17,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 
@@ -23,7 +27,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  * @author Edward Banfa 
  *
  */
-public abstract class BaseEntityService<T> {
+public abstract class BaseEntityServiceImpl<T> {
 	
 	public static final char ENTITY_STATUS_ACTIVE = 'A';
 	public static final char ENTITY_STATUS_INACTIVE = 'I';
@@ -60,13 +64,13 @@ public abstract class BaseEntityService<T> {
     /**
      * Default constructor
      */
-    public BaseEntityService() {}
+    public BaseEntityServiceImpl() {}
 
     /**
      * Parameterized constructor
      * @param ENTITY_CLASS
      */
-    public BaseEntityService(Class<T> entityClass) {
+    public BaseEntityServiceImpl(Class<T> entityClass) {
         this.ENTITY_CLASS = entityClass;
     }
 
@@ -153,25 +157,10 @@ public abstract class BaseEntityService<T> {
     }
     
     /**
-     * <p>
-     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
-     *     criteria on search and count) by overriding this method.
-     * </p>
-     * @param queryParameters - the HTTP query parameters received by the endpoint
-     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
-     * @param root  @{link Root} used by the invoker
-     * @return a list of {@link Predicate}s that will added as query parameters
-     */
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters, 
-    		CriteriaBuilder criteriaBuilder, Root<T> root) {
-        return new Predicate[]{};
-    }
-    
-    /**
      * @param request
      * @return
      */
-    protected T createInsance(BaseRequest<T> request) {
+    protected T createInsance(BaseRequest request) {
         try 
         {
         	T instance = this.loadModelFromRequest(request);
@@ -213,7 +202,7 @@ public abstract class BaseEntityService<T> {
     /**
      * @param id
      */
-    protected T updateInstance(BaseRequest<T> request)
+    protected T updateInstance(BaseRequest request)
     {
     	try 
         {
@@ -232,38 +221,61 @@ public abstract class BaseEntityService<T> {
         }
     }
     
+    /**
+     * <p>
+     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
+     *     criteria on search and count) by overriding this method.
+     * </p>
+     * @param queryParameters - the HTTP query parameters received by the endpoint
+     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
+     * @param root  @{link Root} used by the invoker
+     * @return a list of {@link Predicate}s that will added as query parameters
+     */
+    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters, 
+    		CriteriaBuilder criteriaBuilder, Root<T> root) {
+        return new Predicate[]{};
+    }
+    
+    /**
+     * <p> A method for counting all entities of a given type </p>
+     * @param queryParameters
+     * @return
+     */
+    public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<T> root = criteriaQuery.from(ENTITY_CLASS);
+        criteriaQuery.select(criteriaBuilder.count(root));
+        Predicate[] predicates = extractPredicates(queryParameters, criteriaBuilder, root);
+        criteriaQuery.where(predicates);
+        Map<String, Long> result = new HashMap<String, Long>();
+        result.put("count", entityManager.createQuery(criteriaQuery).getSingleResult());
+        return result;
+    }
     
     /**
      * @param request
      * @return
      */
-    private T loadModelFromRequest(BaseRequest<T> request) 
-    {
-		return null;
-	}
-
+    protected abstract T loadModelFromRequest(BaseRequest request);
+    
 	/**
 	 * @return
 	 */
-	protected Date getCurrentSystemDate()
-    {
+	protected Date getCurrentSystemDate(){
     	return new Date();
     }
-    
     /**
      * @param request
      * @return
      */
-    protected String getCurrentUserName(BaseRequest<T> request)
-    {
+    protected String getCurrentUserName(BaseRequest request){
     	return SYS_USR_NM;
     }
-
     /**
      * @return
      */
-    protected String getDefaultUserName()
-    {
+    protected String getDefaultUserName(){
     	return SYS_USR_NM;
     }
 

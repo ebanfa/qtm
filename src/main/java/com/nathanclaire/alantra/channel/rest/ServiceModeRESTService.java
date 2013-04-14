@@ -3,29 +3,19 @@
  */
 package com.nathanclaire.alantra.channel.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.inject.Inject;
 import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.channel.model.ServiceMode;
 import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
+import com.nathanclaire.alantra.channel.service.entity.ServiceModeService;
 
 /**
  * @author administrator
@@ -33,123 +23,52 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
  */
 @Path("/servicemode")
 @Stateless
-public class ServiceModeRESTService extends BaseEntityRESTService<ServiceMode> 
+public class ServiceModeRESTService extends BaseEntityRESTService<ServiceMode, ServiceModeRequest> 
 {
-	/**
-	 * @param entityClass
+	@Inject
+	ServiceModeService serviceModeService;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getAll(javax.ws.rs.core.MultivaluedMap)
 	 */
-	public ServiceModeRESTService() {
-		super(ServiceMode.class);
+	@Override
+	protected List<ServiceMode> getAll(MultivaluedMap<String, String> queryParameters) {
+		return serviceModeService.findAll(queryParameters);
 	}
 
-    /**
-     * <p>
-     *     Subclasses may choose to expand the set of supported query parameters (for adding more filtering
-     *     criteria) by overriding this method.
-     * </p>
-     * @param queryParameters - the HTTP query parameters received by the endpoint
-     * @param criteriaBuilder - @{link CriteriaBuilder} used by the invoker
-     * @param root  @{link Root} used by the invoker
-     * @return a list of {@link Predicate}s that will added as query parameters
-     */
-    protected Predicate[] extractPredicates(MultivaluedMap<String, String> queryParameters,
-            CriteriaBuilder criteriaBuilder, Root<ServiceMode> root) 
-    {
-    	List<Predicate> predicates = new ArrayList<Predicate>() ;
-        if (queryParameters.containsKey(CODE_CRITERIA)) {
-             String code = queryParameters.getFirst(CODE_CRITERIA) + "%";
-            //predicates.add(criteriaBuilder.equal(root.get(CODE_CRITERIA), code));
-            predicates.add(criteriaBuilder.like(root.<String>get(CODE_CRITERIA), code));
-        }
-        return predicates.toArray(new Predicate[]{});
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getSingleInstance(java.lang.Integer)
+	 */
+	@Override
+	protected ServiceMode getSingleInstance(Integer id) {
+		return serviceModeService.findById(id);
 	}
-    
-    /**
-     * <p>
-     *   Create a ServiceMode. Data is contained in the ServiceModeRequest object
-     * </p>
-     * @param ServiceModeRequest
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @POST
-    /**
-     * <p> Data is received in JSON format. For easy handling, it will be unmarshalled in the support
-     * {@link BookingRequest} class.
-     */
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createServiceMode(ServiceModeRequest request) {
-        try 
-        {
-        	ServiceMode serviceMode = this.loadModelFromRequest(request);
-        	entityManager.persist(serviceMode);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    @SuppressWarnings("unchecked")
-    @PUT 
-    @Path("/{id:[0-9][0-9]*}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editServiceMode(ServiceModeRequest request) 
-    {
-    	try 
-        {
-    		this.loadModelFromRequest(request);
-            return null;
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
-    }
-    
-    /**
-     * @param request
-     * @return
-     */
-    private ServiceMode loadModelFromRequest(ServiceModeRequest request) 
-    {
-		ServiceMode serviceMode = new ServiceMode();
-    	Integer serviceModeId = request.getId();
-    	// Are we editing a ServiceMode
-    	if(serviceModeId != null) 
-    	{
-    		serviceMode = getEntityManager().find(ServiceMode.class, request.getId());
-    		serviceMode.setLastModifiedDt(request.getLastModifiedDt());
-        	serviceMode.setLastModifiedUsr(getCurrentUserName(request));
-    	}
-    	else
-    	{
-        	serviceMode.setCreatedDt(getCurrentDate());
-        	serviceMode.setCreatedByUsr(getCurrentUserName(request));
-    	}
-    	serviceMode.setCode(request.getCode());
-    	serviceMode.setEffectiveDt(getCurrentDate());
-    	//Process many to one relationships
-    	serviceMode.setName(request.getName()); 
-    	serviceMode.setDescription(request.getDescription()); 
-    	serviceMode.setCode(request.getCode()); 
-    	serviceMode.setEffectiveDt(request.getEffectiveDt()); 
-    	serviceMode.setRecSt(request.getRecSt()); 
-		return serviceMode;
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#getInstanceCount(javax.ws.rs.core.MultivaluedMap)
+	 */
+	@Override
+	protected Map<String, Long> getInstanceCount(
+			MultivaluedMap<String, String> queryParameters) {
+		return serviceModeService.getCount(queryParameters);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#createInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response createInstance(ServiceModeRequest request) {
+		serviceModeService.createInstance(request);
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseEntityRESTService#editInstance(com.nathanclaire.alantra.base.rest.request.BaseRequest)
+	 */
+	@Override
+	protected Response editInstance(ServiceModeRequest request) {
+		serviceModeService.updateInstance(request);
+		return null;
+	}
+	
 }

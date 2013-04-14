@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 
 /**
  * GeoBoundryRequest 
@@ -14,22 +15,14 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class GeoBoundryRequest extends BaseRequest {
 
-    private Integer id;
     private Integer geoBoundaryType;
-    private String code;
     private String name;
     private String abbreviation;
     private String description;
+    private Integer id;
+    private String code;
 
     public GeoBoundryRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getGeoBoundaryType() {
@@ -38,14 +31,6 @@ public class GeoBoundryRequest extends BaseRequest {
     
     public void setGeoBoundaryType(Integer geoBoundaryType) {
         this.geoBoundaryType = geoBoundaryType;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -70,6 +55,22 @@ public class GeoBoundryRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

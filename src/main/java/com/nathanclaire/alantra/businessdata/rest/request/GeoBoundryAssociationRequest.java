@@ -7,6 +7,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.businessdata.model.GeoBoundryAssociation;
 
 /**
  * GeoBoundryAssociationRequest 
@@ -14,21 +15,13 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  */
 public class GeoBoundryAssociationRequest extends BaseRequest {
 
-    private Integer id;
     private Integer geoBoundryByToGeoId;
     private Integer geoBoundryByFromGeoId;
-    private String code;
     private String description;
+    private Integer id;
+    private String code;
 
     public GeoBoundryAssociationRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getGeoBoundryByToGeoId() {
@@ -47,20 +40,28 @@ public class GeoBoundryAssociationRequest extends BaseRequest {
         this.geoBoundryByFromGeoId = geoBoundryByFromGeoId;
     }
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 
