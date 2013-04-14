@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
 import com.nathanclaire.alantra.customer.model.BillingAccountRole;
 import com.nathanclaire.alantra.customer.model.BillingAccountRoleType;
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.party.model.Party;
  */
 @Path("/billingaccountrole")
 @Stateless
-public class BillingAccountRoleService extends BaseEntityService<BillingAccountRole> 
+public class BillingAccountRoleService extends BaseEntityRESTService<BillingAccountRole> 
 {
 	/**
 	 * @param entityClass

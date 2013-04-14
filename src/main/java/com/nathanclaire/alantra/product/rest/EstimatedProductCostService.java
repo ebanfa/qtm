@@ -31,7 +31,7 @@ import com.nathanclaire.alantra.product.rest.request.CostComponentTypeRequest;
 import com.nathanclaire.alantra.product.rest.request.EstimatedProductCostRequest;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 import com.nathanclaire.alantra.product.rest.request.ProductRequest;
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
@@ -41,7 +41,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
  */
 @Path("/estimatedproductcost")
 @Stateless
-public class EstimatedProductCostService extends BaseEntityService<EstimatedProductCost> 
+public class EstimatedProductCostService extends BaseEntityRESTService<EstimatedProductCost> 
 {
 	/**
 	 * @param entityClass

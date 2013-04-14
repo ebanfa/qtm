@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.Organization;
 import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.party.model.PartyType;
@@ -34,7 +34,7 @@ import com.nathanclaire.alantra.party.service.PartyTypeService;
  */
 @Path("/organization")
 @Stateless
-public class OrganizationRESTService extends BaseEntityService<Organization> 
+public class OrganizationRESTService extends BaseEntityRESTService<Organization> 
 {
 	@Inject 
 	PartyTypeService partyTypeService;

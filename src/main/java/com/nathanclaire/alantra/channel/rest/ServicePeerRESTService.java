@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.channel.model.ServicePeer;
 import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.rest.request.ServiceRequest;
@@ -37,7 +37,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServicePeerRequest;
  */
 @Path("/servicepeer")
 @Stateless
-public class ServicePeerRESTService extends BaseEntityService<ServicePeer> 
+public class ServicePeerRESTService extends BaseEntityRESTService<ServicePeer> 
 {
 	/**
 	 * @param entityClass

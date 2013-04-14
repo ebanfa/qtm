@@ -10,7 +10,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.BaseService;
+import com.nathanclaire.alantra.base.service.BaseEntityService;
 import com.nathanclaire.alantra.base.util.Messages;
 import com.nathanclaire.alantra.party.model.PartyType;
 import com.nathanclaire.alantra.party.service.PartyTypeService;
@@ -20,7 +20,7 @@ import com.nathanclaire.alantra.party.service.PartyTypeService;
  *
  */
 @Stateless
-public class PartyTypeServiceImpl extends BaseService<PartyType> implements PartyTypeService 
+public class PartyTypeServiceImpl extends BaseEntityService<PartyType> implements PartyTypeService 
 {
 	private static final String ORG_PARTY_TY_CD = Messages.getString("PartyType.Organization");
 	private static final String INDV_PARTY_TY_CD = Messages.getString("PartyType.Individual");
@@ -41,7 +41,7 @@ public class PartyTypeServiceImpl extends BaseService<PartyType> implements Part
 	public PartyType getOrganizationalPartyType() 
 	{
 		//return this.getEntityManager();
-		this.getAll(queryParameters);
+		this.findAllInstances(queryParameters);
 		return null;
 	}
 

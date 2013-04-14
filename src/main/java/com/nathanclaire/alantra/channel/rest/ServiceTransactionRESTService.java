@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.rest.request.ServiceRequest;
@@ -37,7 +37,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionRequest;
  */
 @Path("/servicetransaction")
 @Stateless
-public class ServiceTransactionRESTService extends BaseEntityService<ServiceTransaction> 
+public class ServiceTransactionRESTService extends BaseEntityRESTService<ServiceTransaction> 
 {
 	/**
 	 * @param entityClass
@@ -133,8 +133,8 @@ public class ServiceTransactionRESTService extends BaseEntityService<ServiceTran
     private ServiceTransaction loadModelFromRequest(ServiceTransactionRequest request) 
     {
 		ServiceTransaction serviceTransaction = new ServiceTransaction();
-    	Integer serviceTransactionId = request.getId();
-    	// Are we editing a ServiceTransaction
+    	//Integer serviceTransactionId = request.getId();
+    	/*// Are we editing a ServiceTransaction
     	if(serviceTransactionId != null) 
     	{
     		serviceTransaction = getEntityManager().find(ServiceTransaction.class, request.getId());
@@ -167,7 +167,7 @@ public class ServiceTransactionRESTService extends BaseEntityService<ServiceTran
     	serviceTransaction.setDescription(request.getDescription()); 
     	serviceTransaction.setCode(request.getCode()); 
     	serviceTransaction.setEffectiveDt(request.getEffectiveDt()); 
-    	serviceTransaction.setRecSt(request.getRecSt()); 
+    	serviceTransaction.setRecSt(request.getRecSt()); */
 		return serviceTransaction;
 	}
 }

@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.EstimatedProductCost;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.rest.request.ProductRequest;
@@ -41,7 +41,7 @@ import com.nathanclaire.alantra.party.rest.request.EstimatedProductCostRequest;
  */
 @Path("/estimatedproductcost")
 @Stateless
-public class EstimatedProductCostRESTService extends BaseEntityService<EstimatedProductCost> 
+public class EstimatedProductCostRESTService extends BaseEntityRESTService<EstimatedProductCost> 
 {
 	/**
 	 * @param entityClass

@@ -29,7 +29,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 /**
  * <p>
  *   A number of RESTful services implement GET operations on a particular type of entity. For
- *   observing the DRY principle, the generic operations are implemented in the <code>BaseEntityService</code>
+ *   observing the DRY principle, the generic operations are implemented in the <code>BaseEntityRESTService</code>
  *   class, and the other services can inherit from here.
  * </p>
  *
@@ -40,7 +40,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  * <pre>
  * <code>
  * &#064;Path("/widgets")
- * public class WidgetService extends BaseEntityService<Widget> {
+ * public class WidgetService extends BaseEntityRESTService<Widget> {
  * ...
  * }
  * </code>
@@ -70,7 +70,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  * </p>
  *
  */
-public abstract class BaseEntityService<T> {
+public abstract class BaseEntityRESTService<T> {
 
     /*@PersistenceContext(unitName = "primary")
     protected EntityManager entityManager;*/
@@ -98,13 +98,13 @@ public abstract class BaseEntityService<T> {
     /**
      * Default constructor
      */
-    public BaseEntityService() {}
+    public BaseEntityRESTService() {}
 
     /**
      * Parameterized constructor
      * @param entityClass
      */
-    public BaseEntityService(Class<T> entityClass) {
+    public BaseEntityRESTService(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

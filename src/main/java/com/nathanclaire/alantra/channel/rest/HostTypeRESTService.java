@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.channel.model.HostType;
 import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
  */
 @Path("/hosttype")
 @Stateless
-public class HostTypeRESTService extends BaseEntityService<HostType> 
+public class HostTypeRESTService extends BaseEntityRESTService<HostType> 
 {
 	/**
 	 * @param entityClass

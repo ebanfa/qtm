@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.ContactMechanismType;
 import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
  */
 @Path("/contactmechanismtype")
 @Stateless
-public class ContactMechanismTypeRESTService extends BaseEntityService<ContactMechanismType> 
+public class ContactMechanismTypeRESTService extends BaseEntityRESTService<ContactMechanismType> 
 {
 	/**
 	 * @param entityClass

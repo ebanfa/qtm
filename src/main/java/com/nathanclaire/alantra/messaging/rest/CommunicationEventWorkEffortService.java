@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventWorkEffort;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
@@ -37,7 +37,7 @@ import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
  */
 @Path("/communicationeventworkeffort")
 @Stateless
-public class CommunicationEventWorkEffortService extends BaseEntityService<CommunicationEventWorkEffort> 
+public class CommunicationEventWorkEffortService extends BaseEntityRESTService<CommunicationEventWorkEffort> 
 {
 	/**
 	 * @param entityClass

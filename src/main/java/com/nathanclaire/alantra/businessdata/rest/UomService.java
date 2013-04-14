@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.Uom;
 import com.nathanclaire.alantra.businessdata.rest.request.UomRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.UomRequest;
  */
 @Path("/uom")
 @Stateless
-public class UomService extends BaseEntityService<Uom> 
+public class UomService extends BaseEntityRESTService<Uom> 
 {
 	/**
 	 * @param entityClass

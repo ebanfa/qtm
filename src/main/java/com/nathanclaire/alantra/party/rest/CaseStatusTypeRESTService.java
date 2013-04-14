@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.CaseStatusType;
 import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
  */
 @Path("/casestatustype")
 @Stateless
-public class CaseStatusTypeRESTService extends BaseEntityService<CaseStatusType> 
+public class CaseStatusTypeRESTService extends BaseEntityRESTService<CaseStatusType> 
 {
 	/**
 	 * @param entityClass

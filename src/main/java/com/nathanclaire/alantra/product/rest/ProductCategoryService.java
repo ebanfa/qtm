@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.product.model.ProductCategory;
 import com.nathanclaire.alantra.product.model.ProductCategoryType;
 import com.nathanclaire.alantra.product.rest.request.ProductCategoryRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductCategoryTypeRequest;
  */
 @Path("/productcategory")
 @Stateless
-public class ProductCategoryService extends BaseEntityService<ProductCategory> 
+public class ProductCategoryService extends BaseEntityRESTService<ProductCategory> 
 {
 	/**
 	 * @param entityClass

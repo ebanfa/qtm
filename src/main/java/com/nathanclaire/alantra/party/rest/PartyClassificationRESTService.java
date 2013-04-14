@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.PartyClassification;
 import com.nathanclaire.alantra.party.model.PartyType;
 import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
@@ -39,7 +39,7 @@ import com.nathanclaire.alantra.party.rest.request.PartyClassificationRequest;
  */
 @Path("/partyclassification")
 @Stateless
-public class PartyClassificationRESTService extends BaseEntityService<PartyClassification> 
+public class PartyClassificationRESTService extends BaseEntityRESTService<PartyClassification> 
 {
 	/**
 	 * @param entityClass

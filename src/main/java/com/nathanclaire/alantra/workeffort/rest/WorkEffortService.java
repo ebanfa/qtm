@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
 import com.nathanclaire.alantra.workeffort.model.WorkEffortType;
 import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortTypeRequest;
  */
 @Path("/workeffort")
 @Stateless
-public class WorkEffortService extends BaseEntityService<WorkEffort> 
+public class WorkEffortService extends BaseEntityRESTService<WorkEffort> 
 {
 	/**
 	 * @param entityClass

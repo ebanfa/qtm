@@ -3,16 +3,14 @@
  */
 package com.nathanclaire.alantra.channel.rest.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import com.nathanclaire.alantra.channel.model.Service;
 
 /**
  * ServiceRequest 
  * @author Edward Banfa
  */
-public class ServiceRequest extends BaseRequest {
+public class ServiceRequest extends BaseRequest<Service> {
 
     private Integer serviceType;
     private Integer serviceProtocolAdapter;

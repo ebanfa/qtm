@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.Person;
 import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.party.rest.request.PartyRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.party.rest.request.PersonRequest;
  */
 @Path("/person")
 @Stateless
-public class PersonRESTService extends BaseEntityService<Person> 
+public class PersonRESTService extends BaseEntityRESTService<Person> 
 {
 	/**
 	 * @param entityClass

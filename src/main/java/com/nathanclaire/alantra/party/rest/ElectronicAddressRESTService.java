@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.ElectronicAddress;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.party.rest.request.ElectronicAddressRequest;
  */
 @Path("/electronicaddress")
 @Stateless
-public class ElectronicAddressRESTService extends BaseEntityService<ElectronicAddress> 
+public class ElectronicAddressRESTService extends BaseEntityRESTService<ElectronicAddress> 
 {
 	/**
 	 * @param entityClass

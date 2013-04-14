@@ -57,8 +57,8 @@ public class HttpSnoopServerHandler extends SimpleChannelUpstreamHandler
             }*/
 
             buf.setLength(0);
-            buf.append("WELCOME TO THE WILD WILD WEB SERVER\r\n");
-            buf.append("===================================\r\n");
+            buf.append("WELCOME TO THE NATHANCLAIRE HTTP ISO 8583 SNOOP SERVER\r\n");
+            buf.append("======================================================\r\n");
 
             buf.append("VERSION: " + request.getProtocolVersion() + "\r\n");
            // buf.append("HOSTNAME: " + getHost(request, "unknown") + "\r\n");

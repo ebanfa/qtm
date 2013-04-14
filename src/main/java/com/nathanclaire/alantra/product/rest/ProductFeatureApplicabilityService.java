@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicability;
@@ -39,7 +39,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductRequest;
  */
 @Path("/productfeatureapplicability")
 @Stateless
-public class ProductFeatureApplicabilityService extends BaseEntityService<ProductFeatureApplicability> 
+public class ProductFeatureApplicabilityService extends BaseEntityRESTService<ProductFeatureApplicability> 
 {
 	/**
 	 * @param entityClass

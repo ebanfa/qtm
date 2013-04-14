@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.CaseRoleType;
 import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
  */
 @Path("/caseroletype")
 @Stateless
-public class CaseRoleTypeRESTService extends BaseEntityService<CaseRoleType> 
+public class CaseRoleTypeRESTService extends BaseEntityRESTService<CaseRoleType> 
 {
 	/**
 	 * @param entityClass

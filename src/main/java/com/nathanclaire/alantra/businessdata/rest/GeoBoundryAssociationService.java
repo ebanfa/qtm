@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundryAssociation;
 import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryAssociationRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
  */
 @Path("/geoboundryassociation")
 @Stateless
-public class GeoBoundryAssociationService extends BaseEntityService<GeoBoundryAssociation> 
+public class GeoBoundryAssociationService extends BaseEntityRESTService<GeoBoundryAssociation> 
 {
 	/**
 	 * @param entityClass

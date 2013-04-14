@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.payment.model.PaymentMethodType;
 import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
@@ -32,7 +32,7 @@ import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeProviderRe
  */
 @Path("/paymentmethodtypeprovider")
 @Stateless
-public class PaymentMethodTypeProviderService extends BaseEntityService<PaymentMethodTypeProvider> 
+public class PaymentMethodTypeProviderService extends BaseEntityRESTService<PaymentMethodTypeProvider> 
 {
 	/**
 	 * @param entityClass

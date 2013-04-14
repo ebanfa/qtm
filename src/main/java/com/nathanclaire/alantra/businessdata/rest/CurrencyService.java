@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.businessdata.rest.request.CurrencyRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.CurrencyRequest;
  */
 @Path("/currency")
 @Stateless
-public class CurrencyService extends BaseEntityService<Currency> 
+public class CurrencyService extends BaseEntityRESTService<Currency> 
 {
 	/**
 	 * @param entityClass

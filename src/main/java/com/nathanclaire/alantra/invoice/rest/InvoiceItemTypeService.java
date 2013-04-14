@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemType;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
  */
 @Path("/invoiceitemtype")
 @Stateless
-public class InvoiceItemTypeService extends BaseEntityService<InvoiceItemType> 
+public class InvoiceItemTypeService extends BaseEntityRESTService<InvoiceItemType> 
 {
 	/**
 	 * @param entityClass

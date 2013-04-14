@@ -27,7 +27,7 @@ import com.nathanclaire.alantra.payment.model.Payment;
 import com.nathanclaire.alantra.payment.model.PaymentApplication;
 import com.nathanclaire.alantra.payment.rest.request.PaymentApplicationRequest;
 import com.nathanclaire.alantra.payment.rest.request.PaymentRequest;
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
 import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
@@ -39,7 +39,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemRequest;
  */
 @Path("/paymentapplication")
 @Stateless
-public class PaymentApplicationService extends BaseEntityService<PaymentApplication> 
+public class PaymentApplicationService extends BaseEntityRESTService<PaymentApplication> 
 {
 	/**
 	 * @param entityClass

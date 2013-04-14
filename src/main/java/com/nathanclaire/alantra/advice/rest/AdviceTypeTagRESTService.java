@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.advice.model.AdviceTypeTag;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.advice.rest.request.AdviceTypeTagRequest;
  */
 @Path("/advicetypetag")
 @Stateless
-public class AdviceTypeTagRESTService extends BaseEntityService<AdviceTypeTag> 
+public class AdviceTypeTagRESTService extends BaseEntityRESTService<AdviceTypeTag> 
 {
 	/**
 	 * @param entityClass

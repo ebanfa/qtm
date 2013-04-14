@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.model.PostalAddressBoundry;
 import com.nathanclaire.alantra.businessdata.rest.request.PostalAddressBoundryRequest;
@@ -32,7 +32,7 @@ import com.nathanclaire.alantra.party.model.PostalAddress;
  */
 @Path("/postaladdressboundry")
 @Stateless
-public class PostalAddressBoundryService extends BaseEntityService<PostalAddressBoundry> 
+public class PostalAddressBoundryService extends BaseEntityRESTService<PostalAddressBoundry> 
 {
 	/**
 	 * @param entityClass

@@ -3,9 +3,7 @@
  */
 package com.nathanclaire.alantra.channel.server;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.util.concurrent.Executors;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -16,14 +14,11 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.base.util.Messages;
-
 /**
  * @author Edward Banfa 
  *
  */
 public class ServiceImpl implements ServiceChannel {
-
 
 	private ChannelGroup allChannels = null;
 	private ServerBootstrap bootstrap = null;

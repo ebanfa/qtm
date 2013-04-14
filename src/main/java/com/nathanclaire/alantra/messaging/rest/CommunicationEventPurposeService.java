@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurpose;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurposeType;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeRequest;
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurpose
  */
 @Path("/communicationeventpurpose")
 @Stateless
-public class CommunicationEventPurposeService extends BaseEntityService<CommunicationEventPurpose> 
+public class CommunicationEventPurposeService extends BaseEntityRESTService<CommunicationEventPurpose> 
 {
 	/**
 	 * @param entityClass

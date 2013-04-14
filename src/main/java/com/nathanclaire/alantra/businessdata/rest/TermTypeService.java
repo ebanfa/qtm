@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.TermType;
 import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
  */
 @Path("/termtype")
 @Stateless
-public class TermTypeService extends BaseEntityService<TermType> 
+public class TermTypeService extends BaseEntityRESTService<TermType> 
 {
 	/**
 	 * @param entityClass

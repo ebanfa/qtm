@@ -5,7 +5,6 @@ package com.nathanclaire.alantra.base.rest.request;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonWriteNullProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -17,7 +16,7 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
  *
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class BaseRequest {
+public class BaseRequest<T> {
 
     private Integer id;
     private String code;

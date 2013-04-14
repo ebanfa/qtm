@@ -27,7 +27,7 @@ import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 import com.nathanclaire.alantra.product.rest.request.ProductRequest;
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemCategory;
@@ -43,7 +43,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
  */
 @Path("/invoiceitem")
 @Stateless
-public class InvoiceItemService extends BaseEntityService<InvoiceItem> 
+public class InvoiceItemService extends BaseEntityRESTService<InvoiceItem> 
 {
 	/**
 	 * @param entityClass

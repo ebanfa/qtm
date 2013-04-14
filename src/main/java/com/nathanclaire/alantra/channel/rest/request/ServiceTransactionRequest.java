@@ -3,110 +3,165 @@
  */
 package com.nathanclaire.alantra.channel.rest.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  * ServiceTransactionRequest 
  * @author Edward Banfa
  */
-public class ServiceTransactionRequest extends BaseRequest {
-
-    private Integer service;
-    private Integer serviceTransactionType;
-    private String name;
-    private BigDecimal amount;
-    private Date txnDate;
-    private String accountNo;
-    private String accountNm;
-    private String description;
-    private Integer id;
-    private String code;
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+public class ServiceTransactionRequest {
+	// Service Channels
+	public static String CHANNEL_EFT = "EFT";
+	public static String CHANNEL_ATM = "ATM";
+	public static String CHANNEL_MOBILE_BANKING = "MOBILE";
+	public static String CHANNEL_ONLINE_BANKING = "ONLINE";
+	
+	private String bankIdentificationNo;
+	private String accountNo;
+	private String customerName;
+	private String transactionAmount;
+	private String transactionDate;
+	private String transactionChannel;
+	private String transactionType;
+	private int returnCode;
 
     public ServiceTransactionRequest() {
     }
 
-    public Integer getService() {
-        return this.service;
-    }
-    
-    public void setService(Integer service) {
-        this.service = service;
-    }
+	/**
+	 * @param bankIdentificationNo
+	 * @param accountNo
+	 * @param customerName
+	 * @param transactionAmount
+	 * @param transactionDate
+	 * @param transactionChannel
+	 * @param returnCode
+	 */
+	public ServiceTransactionRequest(String bankIdentificationNo,
+			String accountNo, String customerName, String transactionAmount,
+			String transactionDate, String transactionChannel, int returnCode) {
+		this.bankIdentificationNo = bankIdentificationNo;
+		this.accountNo = accountNo;
+		this.customerName = customerName;
+		this.transactionAmount = transactionAmount;
+		this.transactionDate = transactionDate;
+		this.transactionChannel = transactionChannel;
+		this.returnCode = returnCode;
+	}
 
-    public Integer getServiceTransactionType() {
-        return this.serviceTransactionType;
-    }
-    
-    public void setServiceTransactionType(Integer serviceTransactionType) {
-        this.serviceTransactionType = serviceTransactionType;
-    }
+	/**
+	 * @return the bankIdentificationNo
+	 */
+	public String getBankIdentificationNo() {
+		return bankIdentificationNo;
+	}
 
-    public String getName() {
-        return this.name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param bankIdentificationNo the bankIdentificationNo to set
+	 */
+	public void setBankIdentificationNo(String bankIdentificationNo) {
+		this.bankIdentificationNo = bankIdentificationNo;
+	}
 
-    public BigDecimal getAmount() {
-        return this.amount;
-    }
-    
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	/**
+	 * @return the accountNo
+	 */
+	public String getAccountNo() {
+		return accountNo;
+	}
 
-    public Date getTxnDate() {
-        return this.txnDate;
-    }
-    
-    public void setTxnDate(Date txnDate) {
-        this.txnDate = txnDate;
-    }
+	/**
+	 * @param accountNo the accountNo to set
+	 */
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
 
-    public String getAccountNo() {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
-    }
+	/**
+	 * @return the customerName
+	 */
+	public String getCustomerName() {
+		return customerName;
+	}
 
-    public String getAccountNm() {
-        return this.accountNm;
-    }
-    
-    public void setAccountNm(String accountNm) {
-        this.accountNm = accountNm;
-    }
+	/**
+	 * @param customerName the customerName to set
+	 */
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 
-    public String getDescription() {
-        return this.description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @return the transactionAmount
+	 */
+	public String getTransactionAmount() {
+		return transactionAmount;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/**
+	 * @param transactionAmount the transactionAmount to set
+	 */
+	public void setTransactionAmount(String transactionAmount) {
+		this.transactionAmount = transactionAmount;
+	}
 
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
+	/**
+	 * @return the transactionDate
+	 */
+	public String getTransactionDate() {
+		return transactionDate;
+	}
+
+	/**
+	 * @param transactionDate the transactionDate to set
+	 */
+	public void setTransactionDate(String transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+	/**
+	 * @return the transactionChannel
+	 */
+	public String getTransactionChannel() {
+		return transactionChannel;
+	}
+
+	/**
+	 * @param transactionChannel the transactionChannel to set
+	 */
+	public void setTransactionChannel(String transactionChannel) {
+		this.transactionChannel = transactionChannel;
+	}
+
+	/**
+	 * @return the returnCode
+	 */
+	public int getReturnCode() {
+		return returnCode;
+	}
+
+	/**
+	 * @param returnCode the returnCode to set
+	 */
+	public void setReturnCode(int returnCode) {
+		this.returnCode = returnCode;
+	}
+
+	/**
+	 * @return the transactionType
+	 */
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	/**
+	 * @param transactionType the transactionType to set
+	 */
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+
 
 
 }

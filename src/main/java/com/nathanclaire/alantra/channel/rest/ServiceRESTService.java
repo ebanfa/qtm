@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.model.ServiceType;
 import com.nathanclaire.alantra.channel.rest.request.ServiceTypeRequest;
@@ -39,7 +39,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceRequest;
  */
 @Path("/service")
 @Stateless
-public class ServiceRESTService extends BaseEntityService<Service> 
+public class ServiceRESTService extends BaseEntityRESTService<Service> 
 {
 	/**
 	 * @param entityClass

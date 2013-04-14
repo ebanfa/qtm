@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-import com.nathanclaire.alantra.base.rest.BaseEntityService;
+import com.nathanclaire.alantra.base.rest.BaseEntityRESTService;
 import com.nathanclaire.alantra.businessdata.model.StatusType;
 import com.nathanclaire.alantra.businessdata.rest.request.StatusTypeRequest;
 
@@ -33,7 +33,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.StatusTypeRequest;
  */
 @Path("/statustype")
 @Stateless
-public class StatusTypeService extends BaseEntityService<StatusType> 
+public class StatusTypeService extends BaseEntityRESTService<StatusType> 
 {
 	/**
 	 * @param entityClass

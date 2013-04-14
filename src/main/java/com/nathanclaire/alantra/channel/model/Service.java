@@ -23,7 +23,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 
 /**
- * ServiceChannel 
+ * Service 
  * @author Edward Banfa
  */
 @Entity
@@ -38,6 +38,7 @@ public class Service  extends BaseEntity implements java.io.Serializable {
 	private ServiceType serviceType;
 	private ServiceProtocolAdapter serviceProtocolAdapter;
 	private ServiceMode serviceMode;
+	private ServiceCategory serviceCategory;
     private String name;
     private String description;
     private int portNo;
@@ -48,7 +49,7 @@ public class Service  extends BaseEntity implements java.io.Serializable {
     public Service() {
     }
 
-    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, String code, String name, int portNo, String ipAddress, Date effectiveDt, char recSt) 
+    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String code, String name, int portNo, String ipAddress, Date effectiveDt, char recSt) 
     {
 		this.code = code;
 		this.name = name;
@@ -57,11 +58,12 @@ public class Service  extends BaseEntity implements java.io.Serializable {
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
     }
-    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, String code, String name, String description, int portNo, String ipAddress, Date effectiveDt, char recSt, Set<ServiceTransaction> serviceTransactions, Set<ServicePeer> servicePeers ) 
+    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String code, String name, String description, int portNo, String ipAddress, Date effectiveDt, char recSt, Set<ServiceTransaction> serviceTransactions, Set<ServicePeer> servicePeers ) 
     {
 		this.serviceType = serviceType;
 		this.serviceProtocolAdapter = serviceProtocolAdapter;
 		this.serviceMode = serviceMode;
+		this.serviceCategory = serviceCategory;
 		this.code = code;
 		this.name = name;
 		this.description = description;
@@ -111,6 +113,19 @@ public class Service  extends BaseEntity implements java.io.Serializable {
     public void setServiceMode(ServiceMode serviceMode)
     {
         this.serviceMode = serviceMode;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="SERVICE_CATEGORY_ID", nullable=false)
+    @JsonIgnore
+    public ServiceCategory getServiceCategory() 
+    {
+        return this.serviceCategory;
+    }
+    
+    public void setServiceCategory(ServiceCategory serviceCategory)
+    {
+        this.serviceCategory = serviceCategory;
     }
 		
     @Column(name="NAME" , nullable=false, length=75)
