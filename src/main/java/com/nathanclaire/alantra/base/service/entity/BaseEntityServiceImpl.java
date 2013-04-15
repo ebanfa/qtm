@@ -17,17 +17,13 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
-
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 
 /**
  * @author Edward Banfa 
  *
  */
-public abstract class BaseEntityServiceImpl<T> {
+public abstract class BaseEntityServiceImpl<T,V> {
 	
 	public static final char ENTITY_STATUS_ACTIVE = 'A';
 	public static final char ENTITY_STATUS_INACTIVE = 'I';
@@ -160,7 +156,7 @@ public abstract class BaseEntityServiceImpl<T> {
      * @param request
      * @return
      */
-    protected T createInsance(BaseRequest request) {
+    protected T createInsance(V request) {
         try 
         {
         	T instance = this.loadModelFromRequest(request);
@@ -202,7 +198,7 @@ public abstract class BaseEntityServiceImpl<T> {
     /**
      * @param id
      */
-    protected T updateInstance(BaseRequest request)
+    protected T updateInstance(V request)
     {
     	try 
         {
@@ -257,7 +253,7 @@ public abstract class BaseEntityServiceImpl<T> {
      * @param request
      * @return
      */
-    protected abstract T loadModelFromRequest(BaseRequest request);
+    protected abstract T loadModelFromRequest(V request);
     
 	/**
 	 * @return
@@ -269,7 +265,7 @@ public abstract class BaseEntityServiceImpl<T> {
      * @param request
      * @return
      */
-    protected String getCurrentUserName(BaseRequest request){
+    protected String getCurrentUserName(V request){
     	return SYS_USR_NM;
     }
     /**

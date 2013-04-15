@@ -8,28 +8,22 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
 
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurpose;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanismType;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
 import com.nathanclaire.alantra.party.model.PartyRelationship;
-import com.nathanclaire.alantra.party.rest.request.PartyRelationshipRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventStatusType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventStatusTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class CommunicationEventServiceImpl extends BaseEntityServiceImpl<CommunicationEvent> implements CommunicationEventService
+public class CommunicationEventServiceImpl extends BaseEntityServiceImpl<CommunicationEvent, CommunicationEventRequest> implements CommunicationEventService
 {
 	/**
 	 * @param entityClass
@@ -74,7 +68,7 @@ public class CommunicationEventServiceImpl extends BaseEntityServiceImpl<Communi
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEvent#createCommunicationEvent(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEvent createInstance(BaseRequest communicationEventRequest) {
+	public CommunicationEvent createInstance(CommunicationEventRequest communicationEventRequest) {
 		return createInsance(communicationEventRequest);
 	}
 
@@ -90,7 +84,7 @@ public class CommunicationEventServiceImpl extends BaseEntityServiceImpl<Communi
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEvent#updateCommunicationEvent(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEvent updateInstance(BaseRequest communicationEventRequest) {
+	public CommunicationEvent updateInstance(CommunicationEventRequest communicationEventRequest) {
 		return updateInstance(communicationEventRequest);
 	}
 	
@@ -98,9 +92,9 @@ public class CommunicationEventServiceImpl extends BaseEntityServiceImpl<Communi
      * @param request
      * @return
      */
-    protected CommunicationEvent loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CommunicationEvent loadModelFromRequest(CommunicationEventRequest communicationEventRequest) 
     {
-    	CommunicationEventRequest communicationEventRequest = (CommunicationEventRequest) request;
 		CommunicationEvent communicationEvent = new CommunicationEvent();
     	Integer communicationEventId = communicationEventRequest.getId();
     	// Are we editing a CommunicationEvent

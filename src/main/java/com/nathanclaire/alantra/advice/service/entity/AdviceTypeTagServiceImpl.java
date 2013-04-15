@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.AdviceTypeTag;
 import com.nathanclaire.alantra.advice.rest.request.AdviceTypeTagRequest;
 
 import com.nathanclaire.alantra.advice.model.AdviceType;
-import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTag> implements AdviceTypeTagService
+public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTag, AdviceTypeTagRequest> implements AdviceTypeTagService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTa
 	 * @see com.nathanclaire.alantra.advice.service.AdviceTypeTag#createAdviceTypeTag(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceTypeTag createInstance(BaseRequest adviceTypeTagRequest) {
+	public AdviceTypeTag createInstance(AdviceTypeTagRequest adviceTypeTagRequest) {
 		return createInsance(adviceTypeTagRequest);
 	}
 
@@ -82,7 +80,7 @@ public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTa
 	 * @see com.nathanclaire.alantra.advice.service.AdviceTypeTag#updateAdviceTypeTag(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceTypeTag updateInstance(BaseRequest adviceTypeTagRequest) {
+	public AdviceTypeTag updateInstance(AdviceTypeTagRequest adviceTypeTagRequest) {
 		return updateInstance(adviceTypeTagRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTa
      * @param request
      * @return
      */
-    protected AdviceTypeTag loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected AdviceTypeTag loadModelFromRequest(AdviceTypeTagRequest adviceTypeTagRequest) 
     {
-    	AdviceTypeTagRequest adviceTypeTagRequest = (AdviceTypeTagRequest) request;
 		AdviceTypeTag adviceTypeTag = new AdviceTypeTag();
     	Integer adviceTypeTagId = adviceTypeTagRequest.getId();
     	// Are we editing a AdviceTypeTag

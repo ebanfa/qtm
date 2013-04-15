@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceType;
 import com.nathanclaire.alantra.channel.rest.request.ServiceTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceTypeRequest;
  *
  */
 @Stateless
-public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType> implements ServiceTypeService
+public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType, ServiceTypeRequest> implements ServiceTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType> i
 	 * @see com.nathanclaire.alantra.channel.service.ServiceType#createServiceType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceType createInstance(BaseRequest serviceTypeRequest) {
+	public ServiceType createInstance(ServiceTypeRequest serviceTypeRequest) {
 		return createInsance(serviceTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType> i
 	 * @see com.nathanclaire.alantra.channel.service.ServiceType#updateServiceType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceType updateInstance(BaseRequest serviceTypeRequest) {
+	public ServiceType updateInstance(ServiceTypeRequest serviceTypeRequest) {
 		return updateInstance(serviceTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType> i
      * @param request
      * @return
      */
-    protected ServiceType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceType loadModelFromRequest(ServiceTypeRequest serviceTypeRequest) 
     {
-    	ServiceTypeRequest serviceTypeRequest = (ServiceTypeRequest) request;
 		ServiceType serviceType = new ServiceType();
     	Integer serviceTypeId = serviceTypeRequest.getId();
     	// Are we editing a ServiceType

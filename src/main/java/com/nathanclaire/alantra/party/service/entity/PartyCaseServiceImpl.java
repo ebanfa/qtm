@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyCase;
 import com.nathanclaire.alantra.party.rest.request.PartyCaseRequest;
 
 import com.nathanclaire.alantra.party.model.CaseRole;
-import com.nathanclaire.alantra.party.rest.request.CaseRoleRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
 import com.nathanclaire.alantra.party.model.CaseStatusType;
-import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase> implements PartyCaseService
+public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase, PartyCaseRequest> implements PartyCaseService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyCase#createPartyCase(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyCase createInstance(BaseRequest partyCaseRequest) {
+	public PartyCase createInstance(PartyCaseRequest partyCaseRequest) {
 		return createInsance(partyCaseRequest);
 	}
 
@@ -86,7 +82,7 @@ public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyCase#updatePartyCase(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyCase updateInstance(BaseRequest partyCaseRequest) {
+	public PartyCase updateInstance(PartyCaseRequest partyCaseRequest) {
 		return updateInstance(partyCaseRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase> imple
      * @param request
      * @return
      */
-    protected PartyCase loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyCase loadModelFromRequest(PartyCaseRequest partyCaseRequest) 
     {
-    	PartyCaseRequest partyCaseRequest = (PartyCaseRequest) request;
 		PartyCase partyCase = new PartyCase();
     	Integer partyCaseId = partyCaseRequest.getId();
     	// Are we editing a PartyCase

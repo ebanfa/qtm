@@ -13,21 +13,8 @@
 											<!-- Start field block. -->
 											<div class="row-fluid">
 												<!-- party. -->
-												
-												<% if (entity) { %>
-												<!-- Name. -->
-						            			<div class="span6">
-						            				<label for="name"><%= entities_strings.alantra_entity_label_name %></label>
-													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.alantra_entity_label_name %>">
-												</div>		
-												<% } else {%>
-												<!-- Name. -->
-						            			<div class="span6">
-						            				<label for="name"><%= entities_strings.alantra_entity_label_name %></label>
-													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.alantra_entity_label_name %>">
-												</div>		
-												<% } %>		
-
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
 												<% if (entity) { %>
 												<!-- taxIdNo. -->
 						            			<div class="span6">

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventStatusType;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventStatusTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventStatusT
  *
  */
 @Stateless
-public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventStatusType> implements CommunicationEventStatusTypeService
+public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventStatusType, CommunicationEventStatusTypeRequest> implements CommunicationEventStatusTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventStatusType#createCommunicationEventStatusType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventStatusType createInstance(BaseRequest communicationEventStatusTypeRequest) {
+	public CommunicationEventStatusType createInstance(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
 		return createInsance(communicationEventStatusTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventStatusType#updateCommunicationEventStatusType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventStatusType updateInstance(BaseRequest communicationEventStatusTypeRequest) {
+	public CommunicationEventStatusType updateInstance(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
 		return updateInstance(communicationEventStatusTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceIm
      * @param request
      * @return
      */
-    protected CommunicationEventStatusType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CommunicationEventStatusType loadModelFromRequest(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) 
     {
-    	CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest = (CommunicationEventStatusTypeRequest) request;
 		CommunicationEventStatusType communicationEventStatusType = new CommunicationEventStatusType();
     	Integer communicationEventStatusTypeId = communicationEventStatusTypeRequest.getId();
     	// Are we editing a CommunicationEventStatusType

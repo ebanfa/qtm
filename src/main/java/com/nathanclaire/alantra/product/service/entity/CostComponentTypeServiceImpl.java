@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.CostComponentType;
 import com.nathanclaire.alantra.product.rest.request.CostComponentTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.product.rest.request.CostComponentTypeRequest;
  *
  */
 @Stateless
-public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComponentType> implements CostComponentTypeService
+public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComponentType, CostComponentTypeRequest> implements CostComponentTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComp
 	 * @see com.nathanclaire.alantra.product.service.CostComponentType#createCostComponentType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CostComponentType createInstance(BaseRequest costComponentTypeRequest) {
+	public CostComponentType createInstance(CostComponentTypeRequest costComponentTypeRequest) {
 		return createInsance(costComponentTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComp
 	 * @see com.nathanclaire.alantra.product.service.CostComponentType#updateCostComponentType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CostComponentType updateInstance(BaseRequest costComponentTypeRequest) {
+	public CostComponentType updateInstance(CostComponentTypeRequest costComponentTypeRequest) {
 		return updateInstance(costComponentTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComp
      * @param request
      * @return
      */
-    protected CostComponentType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CostComponentType loadModelFromRequest(CostComponentTypeRequest costComponentTypeRequest) 
     {
-    	CostComponentTypeRequest costComponentTypeRequest = (CostComponentTypeRequest) request;
 		CostComponentType costComponentType = new CostComponentType();
     	Integer costComponentTypeId = costComponentTypeRequest.getId();
     	// Are we editing a CostComponentType

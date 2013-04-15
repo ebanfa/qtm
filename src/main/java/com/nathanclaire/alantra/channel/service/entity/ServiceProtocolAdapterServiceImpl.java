@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceProtocolAdapter;
 import com.nathanclaire.alantra.channel.rest.request.ServiceProtocolAdapterRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceProtocolAdapterReque
  *
  */
 @Stateless
-public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<ServiceProtocolAdapter> implements ServiceProtocolAdapterService
+public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<ServiceProtocolAdapter, ServiceProtocolAdapterRequest> implements ServiceProtocolAdapterService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceProtocolAdapter#createServiceProtocolAdapter(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceProtocolAdapter createInstance(BaseRequest serviceProtocolAdapterRequest) {
+	public ServiceProtocolAdapter createInstance(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
 		return createInsance(serviceProtocolAdapterRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceProtocolAdapter#updateServiceProtocolAdapter(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceProtocolAdapter updateInstance(BaseRequest serviceProtocolAdapterRequest) {
+	public ServiceProtocolAdapter updateInstance(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
 		return updateInstance(serviceProtocolAdapterRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<Ser
      * @param request
      * @return
      */
-    protected ServiceProtocolAdapter loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceProtocolAdapter loadModelFromRequest(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) 
     {
-    	ServiceProtocolAdapterRequest serviceProtocolAdapterRequest = (ServiceProtocolAdapterRequest) request;
 		ServiceProtocolAdapter serviceProtocolAdapter = new ServiceProtocolAdapter();
     	Integer serviceProtocolAdapterId = serviceProtocolAdapterRequest.getId();
     	// Are we editing a ServiceProtocolAdapter

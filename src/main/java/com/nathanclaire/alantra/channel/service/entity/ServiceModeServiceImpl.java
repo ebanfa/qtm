@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceMode;
 import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
  *
  */
 @Stateless
-public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode> implements ServiceModeService
+public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode, ServiceModeRequest> implements ServiceModeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode> i
 	 * @see com.nathanclaire.alantra.channel.service.ServiceMode#createServiceMode(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceMode createInstance(BaseRequest serviceModeRequest) {
+	public ServiceMode createInstance(ServiceModeRequest serviceModeRequest) {
 		return createInsance(serviceModeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode> i
 	 * @see com.nathanclaire.alantra.channel.service.ServiceMode#updateServiceMode(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceMode updateInstance(BaseRequest serviceModeRequest) {
+	public ServiceMode updateInstance(ServiceModeRequest serviceModeRequest) {
 		return updateInstance(serviceModeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode> i
      * @param request
      * @return
      */
-    protected ServiceMode loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceMode loadModelFromRequest(ServiceModeRequest serviceModeRequest) 
     {
-    	ServiceModeRequest serviceModeRequest = (ServiceModeRequest) request;
 		ServiceMode serviceMode = new ServiceMode();
     	Integer serviceModeId = serviceModeRequest.getId();
     	// Are we editing a ServiceMode

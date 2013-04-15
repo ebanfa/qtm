@@ -24,6 +24,9 @@ define([
             if (!attrs.serviceMode) {
             	errors.push({name: 'serviceMode', message: entities_strings.alantra_form_field_required + entities_strings.service_servicemode + '.'});
         	}	
+            if (!attrs.serviceCategory) {
+            	errors.push({name: 'serviceCategory', message: entities_strings.alantra_form_field_required + entities_strings.service_servicecategory + '.'});
+        	}	
             if (!attrs.name) {
             	errors.push({name: 'name', message: entities_strings.alantra_form_field_required + entities_strings.service_name + '.'});
         	}	

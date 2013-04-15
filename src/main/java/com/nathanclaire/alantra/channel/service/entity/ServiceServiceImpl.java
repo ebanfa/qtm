@@ -8,26 +8,21 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.rest.request.ServiceRequest;
 
 import com.nathanclaire.alantra.channel.model.ServiceType;
-import com.nathanclaire.alantra.channel.rest.request.ServiceTypeRequest;
 import com.nathanclaire.alantra.channel.model.ServiceProtocolAdapter;
-import com.nathanclaire.alantra.channel.rest.request.ServiceProtocolAdapterRequest;
 import com.nathanclaire.alantra.channel.model.ServiceMode;
-import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
 import com.nathanclaire.alantra.channel.model.ServiceCategory;
-import com.nathanclaire.alantra.channel.rest.request.ServiceCategoryRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ServiceServiceImpl extends BaseEntityServiceImpl<Service> implements ServiceService
+public class ServiceServiceImpl extends BaseEntityServiceImpl<Service, ServiceRequest> implements ServiceService
 {
 	/**
 	 * @param entityClass
@@ -72,7 +67,7 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service> implement
 	 * @see com.nathanclaire.alantra.channel.service.Service#createService(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Service createInstance(BaseRequest serviceRequest) {
+	public Service createInstance(ServiceRequest serviceRequest) {
 		return createInsance(serviceRequest);
 	}
 
@@ -88,7 +83,7 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service> implement
 	 * @see com.nathanclaire.alantra.channel.service.Service#updateService(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Service updateInstance(BaseRequest serviceRequest) {
+	public Service updateInstance(ServiceRequest serviceRequest) {
 		return updateInstance(serviceRequest);
 	}
 	
@@ -96,9 +91,9 @@ public class ServiceServiceImpl extends BaseEntityServiceImpl<Service> implement
      * @param request
      * @return
      */
-    protected Service loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Service loadModelFromRequest(ServiceRequest serviceRequest) 
     {
-    	ServiceRequest serviceRequest = (ServiceRequest) request;
 		Service service = new Service();
     	Integer serviceId = serviceRequest.getId();
     	// Are we editing a Service

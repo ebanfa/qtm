@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServicePeer;
 import com.nathanclaire.alantra.channel.rest.request.ServicePeerRequest;
 
 import com.nathanclaire.alantra.channel.model.Service;
-import com.nathanclaire.alantra.channel.rest.request.ServiceRequest;
 import com.nathanclaire.alantra.channel.model.Host;
-import com.nathanclaire.alantra.channel.rest.request.HostRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer> implements ServicePeerService
+public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer, ServicePeerRequest> implements ServicePeerService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer> i
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#createServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer createInstance(BaseRequest servicePeerRequest) {
+	public ServicePeer createInstance(ServicePeerRequest servicePeerRequest) {
 		return createInsance(servicePeerRequest);
 	}
 
@@ -84,7 +81,7 @@ public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer> i
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#updateServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer updateInstance(BaseRequest servicePeerRequest) {
+	public ServicePeer updateInstance(ServicePeerRequest servicePeerRequest) {
 		return updateInstance(servicePeerRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer> i
      * @param request
      * @return
      */
-    protected ServicePeer loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServicePeer loadModelFromRequest(ServicePeerRequest servicePeerRequest) 
     {
-    	ServicePeerRequest servicePeerRequest = (ServicePeerRequest) request;
 		ServicePeer servicePeer = new ServicePeer();
     	Integer servicePeerId = servicePeerRequest.getId();
     	// Are we editing a ServicePeer

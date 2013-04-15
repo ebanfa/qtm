@@ -8,28 +8,22 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.Invoice;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceTerm;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceTermRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice> implements InvoiceService
+public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice, InvoiceRequest> implements InvoiceService
 {
 	/**
 	 * @param entityClass
@@ -74,7 +68,7 @@ public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice> implement
 	 * @see com.nathanclaire.alantra.invoice.service.Invoice#createInvoice(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Invoice createInstance(BaseRequest invoiceRequest) {
+	public Invoice createInstance(InvoiceRequest invoiceRequest) {
 		return createInsance(invoiceRequest);
 	}
 
@@ -90,7 +84,7 @@ public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice> implement
 	 * @see com.nathanclaire.alantra.invoice.service.Invoice#updateInvoice(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Invoice updateInstance(BaseRequest invoiceRequest) {
+	public Invoice updateInstance(InvoiceRequest invoiceRequest) {
 		return updateInstance(invoiceRequest);
 	}
 	
@@ -98,9 +92,9 @@ public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice> implement
      * @param request
      * @return
      */
-    protected Invoice loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Invoice loadModelFromRequest(InvoiceRequest invoiceRequest) 
     {
-    	InvoiceRequest invoiceRequest = (InvoiceRequest) request;
 		Invoice invoice = new Invoice();
     	Integer invoiceId = invoiceRequest.getId();
     	// Are we editing a Invoice

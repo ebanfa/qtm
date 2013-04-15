@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.rest.request.CustomerRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer> implements CustomerService
+public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer, CustomerRequest> implements CustomerService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer> impleme
 	 * @see com.nathanclaire.alantra.customer.service.Customer#createCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer createInstance(BaseRequest customerRequest) {
+	public Customer createInstance(CustomerRequest customerRequest) {
 		return createInsance(customerRequest);
 	}
 
@@ -82,7 +80,7 @@ public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer> impleme
 	 * @see com.nathanclaire.alantra.customer.service.Customer#updateCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer updateInstance(BaseRequest customerRequest) {
+	public Customer updateInstance(CustomerRequest customerRequest) {
 		return updateInstance(customerRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer> impleme
      * @param request
      * @return
      */
-    protected Customer loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Customer loadModelFromRequest(CustomerRequest customerRequest) 
     {
-    	CustomerRequest customerRequest = (CustomerRequest) request;
 		Customer customer = new Customer();
     	Integer customerId = customerRequest.getId();
     	// Are we editing a Customer

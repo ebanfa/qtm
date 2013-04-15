@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeReque
  *
  */
 @Stateless
-public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<ServiceTransactionType> implements ServiceTransactionTypeService
+public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<ServiceTransactionType, ServiceTransactionTypeRequest> implements ServiceTransactionTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#createServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType createInstance(BaseRequest serviceTransactionTypeRequest) {
+	public ServiceTransactionType createInstance(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
 		return createInsance(serviceTransactionTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#updateServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType updateInstance(BaseRequest serviceTransactionTypeRequest) {
+	public ServiceTransactionType updateInstance(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
 		return updateInstance(serviceTransactionTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<Ser
      * @param request
      * @return
      */
-    protected ServiceTransactionType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceTransactionType loadModelFromRequest(ServiceTransactionTypeRequest serviceTransactionTypeRequest) 
     {
-    	ServiceTransactionTypeRequest serviceTransactionTypeRequest = (ServiceTransactionTypeRequest) request;
 		ServiceTransactionType serviceTransactionType = new ServiceTransactionType();
     	Integer serviceTransactionTypeId = serviceTransactionTypeRequest.getId();
     	// Are we editing a ServiceTransactionType

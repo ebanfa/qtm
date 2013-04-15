@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyClassification;
 import com.nathanclaire.alantra.party.rest.request.PartyClassificationRequest;
 
 import com.nathanclaire.alantra.party.model.PartyType;
-import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
 import com.nathanclaire.alantra.party.model.PartyClassificationType;
-import com.nathanclaire.alantra.party.rest.request.PartyClassificationTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyClassificationServiceImpl extends BaseEntityServiceImpl<PartyClassification> implements PartyClassificationService
+public class PartyClassificationServiceImpl extends BaseEntityServiceImpl<PartyClassification, PartyClassificationRequest> implements PartyClassificationService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class PartyClassificationServiceImpl extends BaseEntityServiceImpl<PartyC
 	 * @see com.nathanclaire.alantra.party.service.PartyClassification#createPartyClassification(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyClassification createInstance(BaseRequest partyClassificationRequest) {
+	public PartyClassification createInstance(PartyClassificationRequest partyClassificationRequest) {
 		return createInsance(partyClassificationRequest);
 	}
 
@@ -86,7 +82,7 @@ public class PartyClassificationServiceImpl extends BaseEntityServiceImpl<PartyC
 	 * @see com.nathanclaire.alantra.party.service.PartyClassification#updatePartyClassification(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyClassification updateInstance(BaseRequest partyClassificationRequest) {
+	public PartyClassification updateInstance(PartyClassificationRequest partyClassificationRequest) {
 		return updateInstance(partyClassificationRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class PartyClassificationServiceImpl extends BaseEntityServiceImpl<PartyC
      * @param request
      * @return
      */
-    protected PartyClassification loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyClassification loadModelFromRequest(PartyClassificationRequest partyClassificationRequest) 
     {
-    	PartyClassificationRequest partyClassificationRequest = (PartyClassificationRequest) request;
 		PartyClassification partyClassification = new PartyClassification();
     	Integer partyClassificationId = partyClassificationRequest.getId();
     	// Are we editing a PartyClassification

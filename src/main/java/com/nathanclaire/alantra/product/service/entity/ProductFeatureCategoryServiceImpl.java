@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureCategory;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureCategoryRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductFeatureCategoryReque
  *
  */
 @Stateless
-public class ProductFeatureCategoryServiceImpl extends BaseEntityServiceImpl<ProductFeatureCategory> implements ProductFeatureCategoryService
+public class ProductFeatureCategoryServiceImpl extends BaseEntityServiceImpl<ProductFeatureCategory, ProductFeatureCategoryRequest> implements ProductFeatureCategoryService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductFeatureCategoryServiceImpl extends BaseEntityServiceImpl<Pro
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureCategory#createProductFeatureCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureCategory createInstance(BaseRequest productFeatureCategoryRequest) {
+	public ProductFeatureCategory createInstance(ProductFeatureCategoryRequest productFeatureCategoryRequest) {
 		return createInsance(productFeatureCategoryRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductFeatureCategoryServiceImpl extends BaseEntityServiceImpl<Pro
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureCategory#updateProductFeatureCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureCategory updateInstance(BaseRequest productFeatureCategoryRequest) {
+	public ProductFeatureCategory updateInstance(ProductFeatureCategoryRequest productFeatureCategoryRequest) {
 		return updateInstance(productFeatureCategoryRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductFeatureCategoryServiceImpl extends BaseEntityServiceImpl<Pro
      * @param request
      * @return
      */
-    protected ProductFeatureCategory loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductFeatureCategory loadModelFromRequest(ProductFeatureCategoryRequest productFeatureCategoryRequest) 
     {
-    	ProductFeatureCategoryRequest productFeatureCategoryRequest = (ProductFeatureCategoryRequest) request;
 		ProductFeatureCategory productFeatureCategory = new ProductFeatureCategory();
     	Integer productFeatureCategoryId = productFeatureCategoryRequest.getId();
     	// Are we editing a ProductFeatureCategory

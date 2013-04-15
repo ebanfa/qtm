@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Organization;
 import com.nathanclaire.alantra.party.rest.request.OrganizationRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization> implements OrganizationService
+public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization, OrganizationRequest> implements OrganizationService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization>
 	 * @see com.nathanclaire.alantra.party.service.Organization#createOrganization(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Organization createInstance(BaseRequest organizationRequest) {
+	public Organization createInstance(OrganizationRequest organizationRequest) {
 		return createInsance(organizationRequest);
 	}
 
@@ -82,7 +80,7 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization>
 	 * @see com.nathanclaire.alantra.party.service.Organization#updateOrganization(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Organization updateInstance(BaseRequest organizationRequest) {
+	public Organization updateInstance(OrganizationRequest organizationRequest) {
 		return updateInstance(organizationRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization>
      * @param request
      * @return
      */
-    protected Organization loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Organization loadModelFromRequest(OrganizationRequest organizationRequest) 
     {
-    	OrganizationRequest organizationRequest = (OrganizationRequest) request;
 		Organization organization = new Organization();
     	Integer organizationId = organizationRequest.getId();
     	// Are we editing a Organization

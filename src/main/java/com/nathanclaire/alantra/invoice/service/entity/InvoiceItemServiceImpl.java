@@ -8,28 +8,22 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceItemType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemCategory;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemCategoryRequest;
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.ProductFeature;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class InvoiceItemServiceImpl extends BaseEntityServiceImpl<InvoiceItem> implements InvoiceItemService
+public class InvoiceItemServiceImpl extends BaseEntityServiceImpl<InvoiceItem, InvoiceItemRequest> implements InvoiceItemService
 {
 	/**
 	 * @param entityClass
@@ -74,7 +68,7 @@ public class InvoiceItemServiceImpl extends BaseEntityServiceImpl<InvoiceItem> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItem#createInvoiceItem(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItem createInstance(BaseRequest invoiceItemRequest) {
+	public InvoiceItem createInstance(InvoiceItemRequest invoiceItemRequest) {
 		return createInsance(invoiceItemRequest);
 	}
 
@@ -90,7 +84,7 @@ public class InvoiceItemServiceImpl extends BaseEntityServiceImpl<InvoiceItem> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItem#updateInvoiceItem(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItem updateInstance(BaseRequest invoiceItemRequest) {
+	public InvoiceItem updateInstance(InvoiceItemRequest invoiceItemRequest) {
 		return updateInstance(invoiceItemRequest);
 	}
 	
@@ -98,9 +92,9 @@ public class InvoiceItemServiceImpl extends BaseEntityServiceImpl<InvoiceItem> i
      * @param request
      * @return
      */
-    protected InvoiceItem loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceItem loadModelFromRequest(InvoiceItemRequest invoiceItemRequest) 
     {
-    	InvoiceItemRequest invoiceItemRequest = (InvoiceItemRequest) request;
 		InvoiceItem invoiceItem = new InvoiceItem();
     	Integer invoiceItemId = invoiceItemRequest.getId();
     	// Are we editing a InvoiceItem

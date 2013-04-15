@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicabilityType;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicability
  *
  */
 @Stateless
-public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServiceImpl<ProductFeatureApplicabilityType> implements ProductFeatureApplicabilityTypeService
+public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServiceImpl<ProductFeatureApplicabilityType, ProductFeatureApplicabilityTypeRequest> implements ProductFeatureApplicabilityTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServic
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicabilityType#createProductFeatureApplicabilityType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicabilityType createInstance(BaseRequest productFeatureApplicabilityTypeRequest) {
+	public ProductFeatureApplicabilityType createInstance(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
 		return createInsance(productFeatureApplicabilityTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServic
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicabilityType#updateProductFeatureApplicabilityType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicabilityType updateInstance(BaseRequest productFeatureApplicabilityTypeRequest) {
+	public ProductFeatureApplicabilityType updateInstance(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
 		return updateInstance(productFeatureApplicabilityTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServic
      * @param request
      * @return
      */
-    protected ProductFeatureApplicabilityType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductFeatureApplicabilityType loadModelFromRequest(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) 
     {
-    	ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest = (ProductFeatureApplicabilityTypeRequest) request;
 		ProductFeatureApplicabilityType productFeatureApplicabilityType = new ProductFeatureApplicabilityType();
     	Integer productFeatureApplicabilityTypeId = productFeatureApplicabilityTypeRequest.getId();
     	// Are we editing a ProductFeatureApplicabilityType

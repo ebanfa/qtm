@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceCategory;
 import com.nathanclaire.alantra.channel.rest.request.ServiceCategoryRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.ServiceCategoryRequest;
  *
  */
 @Stateless
-public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCategory> implements ServiceCategoryService
+public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCategory, ServiceCategoryRequest> implements ServiceCategoryService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCat
 	 * @see com.nathanclaire.alantra.channel.service.ServiceCategory#createServiceCategory(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceCategory createInstance(BaseRequest serviceCategoryRequest) {
+	public ServiceCategory createInstance(ServiceCategoryRequest serviceCategoryRequest) {
 		return createInsance(serviceCategoryRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCat
 	 * @see com.nathanclaire.alantra.channel.service.ServiceCategory#updateServiceCategory(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceCategory updateInstance(BaseRequest serviceCategoryRequest) {
+	public ServiceCategory updateInstance(ServiceCategoryRequest serviceCategoryRequest) {
 		return updateInstance(serviceCategoryRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCat
      * @param request
      * @return
      */
-    protected ServiceCategory loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceCategory loadModelFromRequest(ServiceCategoryRequest serviceCategoryRequest) 
     {
-    	ServiceCategoryRequest serviceCategoryRequest = (ServiceCategoryRequest) request;
 		ServiceCategory serviceCategory = new ServiceCategory();
     	Integer serviceCategoryId = serviceCategoryRequest.getId();
     	// Are we editing a ServiceCategory

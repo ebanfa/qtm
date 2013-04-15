@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.TelecommunicationsNumber;
 import com.nathanclaire.alantra.party.rest.request.TelecommunicationsNumberRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<TelecommunicationsNumber> implements TelecommunicationsNumberService
+public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<TelecommunicationsNumber, TelecommunicationsNumberRequest> implements TelecommunicationsNumberService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<T
 	 * @see com.nathanclaire.alantra.party.service.TelecommunicationsNumber#createTelecommunicationsNumber(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TelecommunicationsNumber createInstance(BaseRequest telecommunicationsNumberRequest) {
+	public TelecommunicationsNumber createInstance(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
 		return createInsance(telecommunicationsNumberRequest);
 	}
 
@@ -82,7 +80,7 @@ public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<T
 	 * @see com.nathanclaire.alantra.party.service.TelecommunicationsNumber#updateTelecommunicationsNumber(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TelecommunicationsNumber updateInstance(BaseRequest telecommunicationsNumberRequest) {
+	public TelecommunicationsNumber updateInstance(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
 		return updateInstance(telecommunicationsNumberRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<T
      * @param request
      * @return
      */
-    protected TelecommunicationsNumber loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected TelecommunicationsNumber loadModelFromRequest(TelecommunicationsNumberRequest telecommunicationsNumberRequest) 
     {
-    	TelecommunicationsNumberRequest telecommunicationsNumberRequest = (TelecommunicationsNumberRequest) request;
 		TelecommunicationsNumber telecommunicationsNumber = new TelecommunicationsNumber();
     	Integer telecommunicationsNumberId = telecommunicationsNumberRequest.getId();
     	// Are we editing a TelecommunicationsNumber

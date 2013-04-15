@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicability;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.ProductFeature;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicabilityType;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImpl<ProductFeatureApplicability> implements ProductFeatureApplicabilityService
+public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImpl<ProductFeatureApplicability, ProductFeatureApplicabilityRequest> implements ProductFeatureApplicabilityService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicability#createProductFeatureApplicability(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicability createInstance(BaseRequest productFeatureApplicabilityRequest) {
+	public ProductFeatureApplicability createInstance(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
 		return createInsance(productFeatureApplicabilityRequest);
 	}
 
@@ -86,7 +82,7 @@ public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicability#updateProductFeatureApplicability(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicability updateInstance(BaseRequest productFeatureApplicabilityRequest) {
+	public ProductFeatureApplicability updateInstance(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
 		return updateInstance(productFeatureApplicabilityRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImp
      * @param request
      * @return
      */
-    protected ProductFeatureApplicability loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductFeatureApplicability loadModelFromRequest(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) 
     {
-    	ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest = (ProductFeatureApplicabilityRequest) request;
 		ProductFeatureApplicability productFeatureApplicability = new ProductFeatureApplicability();
     	Integer productFeatureApplicabilityId = productFeatureApplicabilityRequest.getId();
     	// Are we editing a ProductFeatureApplicability

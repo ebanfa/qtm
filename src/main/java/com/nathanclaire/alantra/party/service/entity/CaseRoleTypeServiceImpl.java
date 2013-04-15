@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.CaseRoleType;
 import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
  *
  */
 @Stateless
-public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType> implements CaseRoleTypeService
+public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType, CaseRoleTypeRequest> implements CaseRoleTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType>
 	 * @see com.nathanclaire.alantra.party.service.CaseRoleType#createCaseRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRoleType createInstance(BaseRequest caseRoleTypeRequest) {
+	public CaseRoleType createInstance(CaseRoleTypeRequest caseRoleTypeRequest) {
 		return createInsance(caseRoleTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType>
 	 * @see com.nathanclaire.alantra.party.service.CaseRoleType#updateCaseRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRoleType updateInstance(BaseRequest caseRoleTypeRequest) {
+	public CaseRoleType updateInstance(CaseRoleTypeRequest caseRoleTypeRequest) {
 		return updateInstance(caseRoleTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType>
      * @param request
      * @return
      */
-    protected CaseRoleType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CaseRoleType loadModelFromRequest(CaseRoleTypeRequest caseRoleTypeRequest) 
     {
-    	CaseRoleTypeRequest caseRoleTypeRequest = (CaseRoleTypeRequest) request;
 		CaseRoleType caseRoleType = new CaseRoleType();
     	Integer caseRoleTypeId = caseRoleTypeRequest.getId();
     	// Are we editing a CaseRoleType

@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.Host;
 import com.nathanclaire.alantra.channel.rest.request.HostRequest;
 
 import com.nathanclaire.alantra.channel.model.ServiceProtocolAdapter;
-import com.nathanclaire.alantra.channel.rest.request.ServiceProtocolAdapterRequest;
 import com.nathanclaire.alantra.channel.model.HostType;
-import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class HostServiceImpl extends BaseEntityServiceImpl<Host> implements HostService
+public class HostServiceImpl extends BaseEntityServiceImpl<Host, HostRequest> implements HostService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class HostServiceImpl extends BaseEntityServiceImpl<Host> implements Host
 	 * @see com.nathanclaire.alantra.channel.service.Host#createHost(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Host createInstance(BaseRequest hostRequest) {
+	public Host createInstance(HostRequest hostRequest) {
 		return createInsance(hostRequest);
 	}
 
@@ -84,7 +81,7 @@ public class HostServiceImpl extends BaseEntityServiceImpl<Host> implements Host
 	 * @see com.nathanclaire.alantra.channel.service.Host#updateHost(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Host updateInstance(BaseRequest hostRequest) {
+	public Host updateInstance(HostRequest hostRequest) {
 		return updateInstance(hostRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class HostServiceImpl extends BaseEntityServiceImpl<Host> implements Host
      * @param request
      * @return
      */
-    protected Host loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Host loadModelFromRequest(HostRequest hostRequest) 
     {
-    	HostRequest hostRequest = (HostRequest) request;
 		Host host = new Host();
     	Integer hostId = hostRequest.getId();
     	// Are we editing a Host

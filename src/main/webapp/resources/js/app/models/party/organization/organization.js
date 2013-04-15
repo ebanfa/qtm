@@ -15,8 +15,8 @@ define([
         
         validate: function (attrs) {
             var errors = [];
-            if (!attrs.name) {
-            	errors.push({name: 'party', message: entities_strings.alantra_form_field_required + entities_strings.alantra_entity_label_name + '.'});
+            if (!attrs.party) {
+            	errors.push({name: 'party', message: entities_strings.alantra_form_field_required + entities_strings.organization_party + '.'});
         	}	
             if (!attrs.code) {
             	errors.push({name: 'code', message: entities_strings.alantra_form_field_required + entities_strings.organization_code + '.'});

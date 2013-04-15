@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceTerm;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceTermRequest;
 
 import com.nathanclaire.alantra.businessdata.model.TermType;
-import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm> implements InvoiceTermService
+public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm, InvoiceTermRequest> implements InvoiceTermService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceTerm#createInvoiceTerm(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceTerm createInstance(BaseRequest invoiceTermRequest) {
+	public InvoiceTerm createInstance(InvoiceTermRequest invoiceTermRequest) {
 		return createInsance(invoiceTermRequest);
 	}
 
@@ -82,7 +80,7 @@ public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceTerm#updateInvoiceTerm(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceTerm updateInstance(BaseRequest invoiceTermRequest) {
+	public InvoiceTerm updateInstance(InvoiceTermRequest invoiceTermRequest) {
 		return updateInstance(invoiceTermRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm> i
      * @param request
      * @return
      */
-    protected InvoiceTerm loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceTerm loadModelFromRequest(InvoiceTermRequest invoiceTermRequest) 
     {
-    	InvoiceTermRequest invoiceTermRequest = (InvoiceTermRequest) request;
 		InvoiceTerm invoiceTerm = new InvoiceTerm();
     	Integer invoiceTermId = invoiceTermRequest.getId();
     	// Are we editing a InvoiceTerm

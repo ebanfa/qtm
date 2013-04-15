@@ -10,17 +10,27 @@
 	                            <form id="edit-customer-form">
 								    <fieldset>
 								    	<legend><%= entities_strings.customer %></legend>
-
-								    		<!-- Start field block. -->
+											<!-- Start field block. -->
 											<div class="row-fluid">
 												<!-- party. -->
-												<div id="partyTypeSelectContainerDiv" class="span12">
-	            								</div>							
+												<div id="partySelectContainerDiv" class="span6">
+	            								</div>
+												<% if (entity) { %>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.customer_code %></label>
+													<input type="text" id="code" value="<%= entity.get('code') ? entity.get('code') : '' %>" name="code" placeholder="<%= entities_strings.customer_code %>">
+												</div>		
+												<% } else {%>
+												<!-- code. -->
+						            			<div class="span6">
+						            				<label for="code"><%= entities_strings.customer_code %></label>
+													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.customer_code %>">
+												</div>		
+												<% } %>									
+												
+												
 											</div> 
-											<div id="personFormFieldsContainerDiv">
-	            							</div>	
-											<div id="organizationFormFieldsContainerDiv">
-	            							</div>	
 											<!-- Start field block. -->
 											<div class="row-fluid">
 												<% if (entity) { %>

@@ -8,26 +8,21 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.order.model.ProductOrderItem;
 import com.nathanclaire.alantra.order.rest.request.ProductOrderItemRequest;
 
 import com.nathanclaire.alantra.order.model.ProductOrderItemType;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderItemTypeRequest;
 import com.nathanclaire.alantra.order.model.ProductOrder;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderRequest;
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.ProductFeature;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOrderItem> implements ProductOrderItemService
+public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOrderItem, ProductOrderItemRequest> implements ProductOrderItemService
 {
 	/**
 	 * @param entityClass
@@ -72,7 +67,7 @@ public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItem#createProductOrderItem(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItem createInstance(BaseRequest productOrderItemRequest) {
+	public ProductOrderItem createInstance(ProductOrderItemRequest productOrderItemRequest) {
 		return createInsance(productOrderItemRequest);
 	}
 
@@ -88,7 +83,7 @@ public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItem#updateProductOrderItem(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItem updateInstance(BaseRequest productOrderItemRequest) {
+	public ProductOrderItem updateInstance(ProductOrderItemRequest productOrderItemRequest) {
 		return updateInstance(productOrderItemRequest);
 	}
 	
@@ -96,9 +91,9 @@ public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOr
      * @param request
      * @return
      */
-    protected ProductOrderItem loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductOrderItem loadModelFromRequest(ProductOrderItemRequest productOrderItemRequest) 
     {
-    	ProductOrderItemRequest productOrderItemRequest = (ProductOrderItemRequest) request;
 		ProductOrderItem productOrderItem = new ProductOrderItem();
     	Integer productOrderItemId = productOrderItemRequest.getId();
     	// Are we editing a ProductOrderItem

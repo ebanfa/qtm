@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 
 import com.nathanclaire.alantra.product.model.ProductType;
-import com.nathanclaire.alantra.product.rest.request.ProductTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductServiceImpl extends BaseEntityServiceImpl<Product> implements ProductService
+public class ProductServiceImpl extends BaseEntityServiceImpl<Product, ProductRequest> implements ProductService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class ProductServiceImpl extends BaseEntityServiceImpl<Product> implement
 	 * @see com.nathanclaire.alantra.product.service.Product#createProduct(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Product createInstance(BaseRequest productRequest) {
+	public Product createInstance(ProductRequest productRequest) {
 		return createInsance(productRequest);
 	}
 
@@ -82,7 +80,7 @@ public class ProductServiceImpl extends BaseEntityServiceImpl<Product> implement
 	 * @see com.nathanclaire.alantra.product.service.Product#updateProduct(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Product updateInstance(BaseRequest productRequest) {
+	public Product updateInstance(ProductRequest productRequest) {
 		return updateInstance(productRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class ProductServiceImpl extends BaseEntityServiceImpl<Product> implement
      * @param request
      * @return
      */
-    protected Product loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Product loadModelFromRequest(ProductRequest productRequest) 
     {
-    	ProductRequest productRequest = (ProductRequest) request;
 		Product product = new Product();
     	Integer productId = productRequest.getId();
     	// Are we editing a Product

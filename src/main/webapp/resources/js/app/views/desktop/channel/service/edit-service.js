@@ -7,11 +7,13 @@ define([
         'app/collections/channel/servicetype/servicetype',
     'app/collections/channel/serviceprotocoladapter/serviceprotocoladapter',
     'app/collections/channel/servicemode/servicemode',
+    'app/collections/channel/servicecategory/servicecategory',
     'text!../../../../../../templates/desktop/channel/servicetype/servicetype-list-subview.html',
     'text!../../../../../../templates/desktop/channel/serviceprotocoladapter/serviceprotocoladapter-list-subview.html',
     'text!../../../../../../templates/desktop/channel/servicemode/servicemode-list-subview.html',
+    'text!../../../../../../templates/desktop/channel/servicecategory/servicecategory-list-subview.html',
     'text!../../../../../../templates/desktop/channel/service/edit-service.html'
-], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ServiceTypes, ServiceProtocolAdapters, ServiceModes, serviceTypeListSubViewTemplate, serviceProtocolAdapterListSubViewTemplate, serviceModeListSubViewTemplate, ServiceEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, ServiceTypes, ServiceProtocolAdapters, ServiceModes, ServiceCategorys, serviceTypeListSubViewTemplate, serviceProtocolAdapterListSubViewTemplate, serviceModeListSubViewTemplate, serviceCategoryListSubViewTemplate, ServiceEditTemplate) {
 	
     var ServiceTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -109,6 +111,38 @@ define([
         }
     });
     
+    var ServiceCategoryListSubView = Backbone.View.extend({
+        initialize: function () {
+            _.bindAll(this, 'render');
+        },
+        render:function () 
+        {     
+            var self = this;            
+            utilities.applyTemplate($('#serviceCategorySelectContainerDiv'), serviceCategoryListSubViewTemplate,  this.getTemplateData());
+            // Fetch data
+            var serviceCategorysFetch = this.model.fetch();
+            // Re render the template when the data is available    
+            serviceCategorysFetch.done(function (){
+                utilities.applyTemplate($('#serviceCategorySelectContainerDiv'), serviceCategoryListSubViewTemplate,  self.getTemplateData());
+            });
+            return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"serviceCategory", 
+            	fieldName:entities_strings.servicecategory, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
+        }
+    });
+    
 	
     var ServiceEditView = BaseEntityEditView.extend({
     
@@ -132,6 +166,7 @@ define([
 		    	this.serviceTypeId = this.model.attributes.serviceType
 		    	this.serviceProtocolAdapterId = this.model.attributes.serviceProtocolAdapter
 		    	this.serviceModeId = this.model.attributes.serviceMode
+		    	this.serviceCategoryId = this.model.attributes.serviceCategory
             }
             // ServiceTypes
             var serviceTypes = new ServiceTypes();
@@ -145,6 +180,10 @@ define([
             var serviceModes = new ServiceModes();
             serviceModeListSubView = new ServiceModeListSubView({model:serviceModes, el:$('#serviceModeSelectContainerDiv'), selectedOption:this.serviceModeId});
             serviceModeListSubView.render();
+            // ServiceCategorys
+            var serviceCategorys = new ServiceCategorys();
+            serviceCategoryListSubView = new ServiceCategoryListSubView({model:serviceCategorys, el:$('#serviceCategorySelectContainerDiv'), selectedOption:this.serviceCategoryId});
+            serviceCategoryListSubView.render();
         }
     });
 

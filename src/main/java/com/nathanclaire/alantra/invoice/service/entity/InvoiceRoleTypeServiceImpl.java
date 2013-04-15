@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceRoleType;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleTypeRequest;
  *
  */
 @Stateless
-public class InvoiceRoleTypeServiceImpl extends BaseEntityServiceImpl<InvoiceRoleType> implements InvoiceRoleTypeService
+public class InvoiceRoleTypeServiceImpl extends BaseEntityServiceImpl<InvoiceRoleType, InvoiceRoleTypeRequest> implements InvoiceRoleTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class InvoiceRoleTypeServiceImpl extends BaseEntityServiceImpl<InvoiceRol
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceRoleType#createInvoiceRoleType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceRoleType createInstance(BaseRequest invoiceRoleTypeRequest) {
+	public InvoiceRoleType createInstance(InvoiceRoleTypeRequest invoiceRoleTypeRequest) {
 		return createInsance(invoiceRoleTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class InvoiceRoleTypeServiceImpl extends BaseEntityServiceImpl<InvoiceRol
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceRoleType#updateInvoiceRoleType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceRoleType updateInstance(BaseRequest invoiceRoleTypeRequest) {
+	public InvoiceRoleType updateInstance(InvoiceRoleTypeRequest invoiceRoleTypeRequest) {
 		return updateInstance(invoiceRoleTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class InvoiceRoleTypeServiceImpl extends BaseEntityServiceImpl<InvoiceRol
      * @param request
      * @return
      */
-    protected InvoiceRoleType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceRoleType loadModelFromRequest(InvoiceRoleTypeRequest invoiceRoleTypeRequest) 
     {
-    	InvoiceRoleTypeRequest invoiceRoleTypeRequest = (InvoiceRoleTypeRequest) request;
 		InvoiceRoleType invoiceRoleType = new InvoiceRoleType();
     	Integer invoiceRoleTypeId = invoiceRoleTypeRequest.getId();
     	// Are we editing a InvoiceRoleType

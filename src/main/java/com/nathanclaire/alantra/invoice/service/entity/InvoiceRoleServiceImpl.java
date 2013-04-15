@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceRole;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceRoleType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRoleTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class InvoiceRoleServiceImpl extends BaseEntityServiceImpl<InvoiceRole> implements InvoiceRoleService
+public class InvoiceRoleServiceImpl extends BaseEntityServiceImpl<InvoiceRole, InvoiceRoleRequest> implements InvoiceRoleService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class InvoiceRoleServiceImpl extends BaseEntityServiceImpl<InvoiceRole> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceRole#createInvoiceRole(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceRole createInstance(BaseRequest invoiceRoleRequest) {
+	public InvoiceRole createInstance(InvoiceRoleRequest invoiceRoleRequest) {
 		return createInsance(invoiceRoleRequest);
 	}
 
@@ -86,7 +82,7 @@ public class InvoiceRoleServiceImpl extends BaseEntityServiceImpl<InvoiceRole> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceRole#updateInvoiceRole(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceRole updateInstance(BaseRequest invoiceRoleRequest) {
+	public InvoiceRole updateInstance(InvoiceRoleRequest invoiceRoleRequest) {
 		return updateInstance(invoiceRoleRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class InvoiceRoleServiceImpl extends BaseEntityServiceImpl<InvoiceRole> i
      * @param request
      * @return
      */
-    protected InvoiceRole loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceRole loadModelFromRequest(InvoiceRoleRequest invoiceRoleRequest) 
     {
-    	InvoiceRoleRequest invoiceRoleRequest = (InvoiceRoleRequest) request;
 		InvoiceRole invoiceRole = new InvoiceRole();
     	Integer invoiceRoleId = invoiceRoleRequest.getId();
     	// Are we editing a InvoiceRole

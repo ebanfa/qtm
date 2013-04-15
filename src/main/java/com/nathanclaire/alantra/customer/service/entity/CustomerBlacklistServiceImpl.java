@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
 import com.nathanclaire.alantra.customer.rest.request.CustomerBlacklistRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<CustomerBlacklist> implements CustomerBlacklistService
+public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<CustomerBlacklist, CustomerBlacklistRequest> implements CustomerBlacklistService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<Customer
 	 * @see com.nathanclaire.alantra.customer.service.CustomerBlacklist#createCustomerBlacklist(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerBlacklist createInstance(BaseRequest customerBlacklistRequest) {
+	public CustomerBlacklist createInstance(CustomerBlacklistRequest customerBlacklistRequest) {
 		return createInsance(customerBlacklistRequest);
 	}
 
@@ -82,7 +80,7 @@ public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<Customer
 	 * @see com.nathanclaire.alantra.customer.service.CustomerBlacklist#updateCustomerBlacklist(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerBlacklist updateInstance(BaseRequest customerBlacklistRequest) {
+	public CustomerBlacklist updateInstance(CustomerBlacklistRequest customerBlacklistRequest) {
 		return updateInstance(customerBlacklistRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<Customer
      * @param request
      * @return
      */
-    protected CustomerBlacklist loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CustomerBlacklist loadModelFromRequest(CustomerBlacklistRequest customerBlacklistRequest) 
     {
-    	CustomerBlacklistRequest customerBlacklistRequest = (CustomerBlacklistRequest) request;
 		CustomerBlacklist customerBlacklist = new CustomerBlacklist();
     	Integer customerBlacklistId = customerBlacklistRequest.getId();
     	// Are we editing a CustomerBlacklist

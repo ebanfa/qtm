@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
 import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
 import com.nathanclaire.alantra.businessdata.model.GeoBoundaryType;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundaryTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry> implements GeoBoundryService
+public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry, GeoBoundryRequest> implements GeoBoundryService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry> imp
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundry#createGeoBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundry createInstance(BaseRequest geoBoundryRequest) {
+	public GeoBoundry createInstance(GeoBoundryRequest geoBoundryRequest) {
 		return createInsance(geoBoundryRequest);
 	}
 
@@ -82,7 +80,7 @@ public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry> imp
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundry#updateGeoBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundry updateInstance(BaseRequest geoBoundryRequest) {
+	public GeoBoundry updateInstance(GeoBoundryRequest geoBoundryRequest) {
 		return updateInstance(geoBoundryRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry> imp
      * @param request
      * @return
      */
-    protected GeoBoundry loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected GeoBoundry loadModelFromRequest(GeoBoundryRequest geoBoundryRequest) 
     {
-    	GeoBoundryRequest geoBoundryRequest = (GeoBoundryRequest) request;
 		GeoBoundry geoBoundry = new GeoBoundry();
     	Integer geoBoundryId = geoBoundryRequest.getId();
     	// Are we editing a GeoBoundry

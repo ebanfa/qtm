@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeReq
  *
  */
 @Stateless
-public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventType> implements CommunicationEventTypeService
+public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventType, CommunicationEventTypeRequest> implements CommunicationEventTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<Com
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventType#createCommunicationEventType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventType createInstance(BaseRequest communicationEventTypeRequest) {
+	public CommunicationEventType createInstance(CommunicationEventTypeRequest communicationEventTypeRequest) {
 		return createInsance(communicationEventTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<Com
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventType#updateCommunicationEventType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventType updateInstance(BaseRequest communicationEventTypeRequest) {
+	public CommunicationEventType updateInstance(CommunicationEventTypeRequest communicationEventTypeRequest) {
 		return updateInstance(communicationEventTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<Com
      * @param request
      * @return
      */
-    protected CommunicationEventType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CommunicationEventType loadModelFromRequest(CommunicationEventTypeRequest communicationEventTypeRequest) 
     {
-    	CommunicationEventTypeRequest communicationEventTypeRequest = (CommunicationEventTypeRequest) request;
 		CommunicationEventType communicationEventType = new CommunicationEventType();
     	Integer communicationEventTypeId = communicationEventTypeRequest.getId();
     	// Are we editing a CommunicationEventType

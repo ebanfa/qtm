@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeature;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 
 import com.nathanclaire.alantra.product.model.ProductFeatureType;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureTypeRequest;
 import com.nathanclaire.alantra.product.model.ProductFeatureCategory;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureCategoryRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductFeatureServiceImpl extends BaseEntityServiceImpl<ProductFeature> implements ProductFeatureService
+public class ProductFeatureServiceImpl extends BaseEntityServiceImpl<ProductFeature, ProductFeatureRequest> implements ProductFeatureService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class ProductFeatureServiceImpl extends BaseEntityServiceImpl<ProductFeat
 	 * @see com.nathanclaire.alantra.product.service.ProductFeature#createProductFeature(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeature createInstance(BaseRequest productFeatureRequest) {
+	public ProductFeature createInstance(ProductFeatureRequest productFeatureRequest) {
 		return createInsance(productFeatureRequest);
 	}
 
@@ -84,7 +81,7 @@ public class ProductFeatureServiceImpl extends BaseEntityServiceImpl<ProductFeat
 	 * @see com.nathanclaire.alantra.product.service.ProductFeature#updateProductFeature(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeature updateInstance(BaseRequest productFeatureRequest) {
+	public ProductFeature updateInstance(ProductFeatureRequest productFeatureRequest) {
 		return updateInstance(productFeatureRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class ProductFeatureServiceImpl extends BaseEntityServiceImpl<ProductFeat
      * @param request
      * @return
      */
-    protected ProductFeature loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductFeature loadModelFromRequest(ProductFeatureRequest productFeatureRequest) 
     {
-    	ProductFeatureRequest productFeatureRequest = (ProductFeatureRequest) request;
 		ProductFeature productFeature = new ProductFeature();
     	Integer productFeatureId = productFeatureRequest.getId();
     	// Are we editing a ProductFeature

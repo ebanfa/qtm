@@ -9,7 +9,7 @@ define([
     'text!../../../../../../templates/desktop/party/organization/edit-organization.html'
 ], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, Partys, partyListSubViewTemplate, OrganizationEditTemplate) {
 	
-    /*var PartyListSubView = Backbone.View.extend({
+    var PartyListSubView = Backbone.View.extend({
         initialize: function () {
             _.bindAll(this, 'render');
         },
@@ -39,7 +39,7 @@ define([
             };
             return templateData;
         }
-    });*/
+    });
     
 	
     var OrganizationEditView = BaseEntityEditView.extend({
@@ -55,7 +55,7 @@ define([
         },
         navigateToEntityList:function()
         {
-            utilities.navigate('list-customer');
+            utilities.navigate('list-organization');
         },
         renderSubViews:function()
         {
@@ -63,10 +63,10 @@ define([
             {
 		    	this.partyId = this.model.attributes.party
             }
-            /*// Partys
+            // Partys
             var partys = new Partys();
             partyListSubView = new PartyListSubView({model:partys, el:$('#partySelectContainerDiv'), selectedOption:this.partyId});
-            partyListSubView.render();*/
+            partyListSubView.render();
         }
     });
 

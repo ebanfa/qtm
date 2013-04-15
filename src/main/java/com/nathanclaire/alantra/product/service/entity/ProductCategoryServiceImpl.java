@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductCategory;
 import com.nathanclaire.alantra.product.rest.request.ProductCategoryRequest;
 
 import com.nathanclaire.alantra.product.model.ProductCategoryType;
-import com.nathanclaire.alantra.product.rest.request.ProductCategoryTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCategory> implements ProductCategoryService
+public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCategory, ProductCategoryRequest> implements ProductCategoryService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCat
 	 * @see com.nathanclaire.alantra.product.service.ProductCategory#createProductCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductCategory createInstance(BaseRequest productCategoryRequest) {
+	public ProductCategory createInstance(ProductCategoryRequest productCategoryRequest) {
 		return createInsance(productCategoryRequest);
 	}
 
@@ -82,7 +80,7 @@ public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCat
 	 * @see com.nathanclaire.alantra.product.service.ProductCategory#updateProductCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductCategory updateInstance(BaseRequest productCategoryRequest) {
+	public ProductCategory updateInstance(ProductCategoryRequest productCategoryRequest) {
 		return updateInstance(productCategoryRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCat
      * @param request
      * @return
      */
-    protected ProductCategory loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductCategory loadModelFromRequest(ProductCategoryRequest productCategoryRequest) 
     {
-    	ProductCategoryRequest productCategoryRequest = (ProductCategoryRequest) request;
 		ProductCategory productCategory = new ProductCategory();
     	Integer productCategoryId = productCategoryRequest.getId();
     	// Are we editing a ProductCategory

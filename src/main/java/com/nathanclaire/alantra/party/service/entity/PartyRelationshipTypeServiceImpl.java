@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyRelationshipType;
 import com.nathanclaire.alantra.party.rest.request.PartyRelationshipTypeRequest;
 
 import com.nathanclaire.alantra.party.model.PartyRoleType;
-import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 import com.nathanclaire.alantra.party.model.PartyRoleType;
-import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyRelationshipTypeServiceImpl extends BaseEntityServiceImpl<PartyRelationshipType> implements PartyRelationshipTypeService
+public class PartyRelationshipTypeServiceImpl extends BaseEntityServiceImpl<PartyRelationshipType, PartyRelationshipTypeRequest> implements PartyRelationshipTypeService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PartyRelationshipTypeServiceImpl extends BaseEntityServiceImpl<Part
 	 * @see com.nathanclaire.alantra.party.service.PartyRelationshipType#createPartyRelationshipType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRelationshipType createInstance(BaseRequest partyRelationshipTypeRequest) {
+	public PartyRelationshipType createInstance(PartyRelationshipTypeRequest partyRelationshipTypeRequest) {
 		return createInsance(partyRelationshipTypeRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PartyRelationshipTypeServiceImpl extends BaseEntityServiceImpl<Part
 	 * @see com.nathanclaire.alantra.party.service.PartyRelationshipType#updatePartyRelationshipType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRelationshipType updateInstance(BaseRequest partyRelationshipTypeRequest) {
+	public PartyRelationshipType updateInstance(PartyRelationshipTypeRequest partyRelationshipTypeRequest) {
 		return updateInstance(partyRelationshipTypeRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PartyRelationshipTypeServiceImpl extends BaseEntityServiceImpl<Part
      * @param request
      * @return
      */
-    protected PartyRelationshipType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyRelationshipType loadModelFromRequest(PartyRelationshipTypeRequest partyRelationshipTypeRequest) 
     {
-    	PartyRelationshipTypeRequest partyRelationshipTypeRequest = (PartyRelationshipTypeRequest) request;
 		PartyRelationshipType partyRelationshipType = new PartyRelationshipType();
     	Integer partyRelationshipTypeId = partyRelationshipTypeRequest.getId();
     	// Are we editing a PartyRelationshipType

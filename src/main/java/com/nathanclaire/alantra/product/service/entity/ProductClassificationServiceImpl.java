@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductClassification;
 import com.nathanclaire.alantra.product.rest.request.ProductClassificationRequest;
 
 import com.nathanclaire.alantra.product.model.ProductCategory;
-import com.nathanclaire.alantra.product.rest.request.ProductCategoryRequest;
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<ProductClassification> implements ProductClassificationService
+public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<ProductClassification, ProductClassificationRequest> implements ProductClassificationService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<Prod
 	 * @see com.nathanclaire.alantra.product.service.ProductClassification#createProductClassification(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductClassification createInstance(BaseRequest productClassificationRequest) {
+	public ProductClassification createInstance(ProductClassificationRequest productClassificationRequest) {
 		return createInsance(productClassificationRequest);
 	}
 
@@ -84,7 +81,7 @@ public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<Prod
 	 * @see com.nathanclaire.alantra.product.service.ProductClassification#updateProductClassification(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductClassification updateInstance(BaseRequest productClassificationRequest) {
+	public ProductClassification updateInstance(ProductClassificationRequest productClassificationRequest) {
 		return updateInstance(productClassificationRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<Prod
      * @param request
      * @return
      */
-    protected ProductClassification loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductClassification loadModelFromRequest(ProductClassificationRequest productClassificationRequest) 
     {
-    	ProductClassificationRequest productClassificationRequest = (ProductClassificationRequest) request;
 		ProductClassification productClassification = new ProductClassification();
     	Integer productClassificationId = productClassificationRequest.getId();
     	// Are we editing a ProductClassification

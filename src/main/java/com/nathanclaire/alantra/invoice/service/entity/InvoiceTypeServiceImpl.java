@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceType;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceTypeRequest;
  *
  */
 @Stateless
-public class InvoiceTypeServiceImpl extends BaseEntityServiceImpl<InvoiceType> implements InvoiceTypeService
+public class InvoiceTypeServiceImpl extends BaseEntityServiceImpl<InvoiceType, InvoiceTypeRequest> implements InvoiceTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class InvoiceTypeServiceImpl extends BaseEntityServiceImpl<InvoiceType> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceType#createInvoiceType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceType createInstance(BaseRequest invoiceTypeRequest) {
+	public InvoiceType createInstance(InvoiceTypeRequest invoiceTypeRequest) {
 		return createInsance(invoiceTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class InvoiceTypeServiceImpl extends BaseEntityServiceImpl<InvoiceType> i
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceType#updateInvoiceType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceType updateInstance(BaseRequest invoiceTypeRequest) {
+	public InvoiceType updateInstance(InvoiceTypeRequest invoiceTypeRequest) {
 		return updateInstance(invoiceTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class InvoiceTypeServiceImpl extends BaseEntityServiceImpl<InvoiceType> i
      * @param request
      * @return
      */
-    protected InvoiceType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceType loadModelFromRequest(InvoiceTypeRequest invoiceTypeRequest) 
     {
-    	InvoiceTypeRequest invoiceTypeRequest = (InvoiceTypeRequest) request;
 		InvoiceType invoiceType = new InvoiceType();
     	Integer invoiceTypeId = invoiceTypeRequest.getId();
     	// Are we editing a InvoiceType

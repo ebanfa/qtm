@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PostalAddress;
 import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddress> implements PostalAddressService
+public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddress, PostalAddressRequest> implements PostalAddressService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddres
 	 * @see com.nathanclaire.alantra.party.service.PostalAddress#createPostalAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddress createInstance(BaseRequest postalAddressRequest) {
+	public PostalAddress createInstance(PostalAddressRequest postalAddressRequest) {
 		return createInsance(postalAddressRequest);
 	}
 
@@ -82,7 +80,7 @@ public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddres
 	 * @see com.nathanclaire.alantra.party.service.PostalAddress#updatePostalAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddress updateInstance(BaseRequest postalAddressRequest) {
+	public PostalAddress updateInstance(PostalAddressRequest postalAddressRequest) {
 		return updateInstance(postalAddressRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddres
      * @param request
      * @return
      */
-    protected PostalAddress loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PostalAddress loadModelFromRequest(PostalAddressRequest postalAddressRequest) 
     {
-    	PostalAddressRequest postalAddressRequest = (PostalAddressRequest) request;
 		PostalAddress postalAddress = new PostalAddress();
     	Integer postalAddressId = postalAddressRequest.getId();
     	// Are we editing a PostalAddress

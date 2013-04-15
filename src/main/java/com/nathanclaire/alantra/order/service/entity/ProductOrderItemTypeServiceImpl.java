@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.order.model.ProductOrderItemType;
 import com.nathanclaire.alantra.order.rest.request.ProductOrderItemTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.order.rest.request.ProductOrderItemTypeRequest;
  *
  */
 @Stateless
-public class ProductOrderItemTypeServiceImpl extends BaseEntityServiceImpl<ProductOrderItemType> implements ProductOrderItemTypeService
+public class ProductOrderItemTypeServiceImpl extends BaseEntityServiceImpl<ProductOrderItemType, ProductOrderItemTypeRequest> implements ProductOrderItemTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductOrderItemTypeServiceImpl extends BaseEntityServiceImpl<Produ
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItemType#createProductOrderItemType(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItemType createInstance(BaseRequest productOrderItemTypeRequest) {
+	public ProductOrderItemType createInstance(ProductOrderItemTypeRequest productOrderItemTypeRequest) {
 		return createInsance(productOrderItemTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductOrderItemTypeServiceImpl extends BaseEntityServiceImpl<Produ
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItemType#updateProductOrderItemType(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItemType updateInstance(BaseRequest productOrderItemTypeRequest) {
+	public ProductOrderItemType updateInstance(ProductOrderItemTypeRequest productOrderItemTypeRequest) {
 		return updateInstance(productOrderItemTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductOrderItemTypeServiceImpl extends BaseEntityServiceImpl<Produ
      * @param request
      * @return
      */
-    protected ProductOrderItemType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductOrderItemType loadModelFromRequest(ProductOrderItemTypeRequest productOrderItemTypeRequest) 
     {
-    	ProductOrderItemTypeRequest productOrderItemTypeRequest = (ProductOrderItemTypeRequest) request;
 		ProductOrderItemType productOrderItemType = new ProductOrderItemType();
     	Integer productOrderItemTypeId = productOrderItemTypeRequest.getId();
     	// Are we editing a ProductOrderItemType

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.businessdata.rest.request.CurrencyRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.CurrencyRequest;
  *
  */
 @Stateless
-public class CurrencyServiceImpl extends BaseEntityServiceImpl<Currency> implements CurrencyService
+public class CurrencyServiceImpl extends BaseEntityServiceImpl<Currency, CurrencyRequest> implements CurrencyService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CurrencyServiceImpl extends BaseEntityServiceImpl<Currency> impleme
 	 * @see com.nathanclaire.alantra.businessdata.service.Currency#createCurrency(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Currency createInstance(BaseRequest currencyRequest) {
+	public Currency createInstance(CurrencyRequest currencyRequest) {
 		return createInsance(currencyRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CurrencyServiceImpl extends BaseEntityServiceImpl<Currency> impleme
 	 * @see com.nathanclaire.alantra.businessdata.service.Currency#updateCurrency(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Currency updateInstance(BaseRequest currencyRequest) {
+	public Currency updateInstance(CurrencyRequest currencyRequest) {
 		return updateInstance(currencyRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CurrencyServiceImpl extends BaseEntityServiceImpl<Currency> impleme
      * @param request
      * @return
      */
-    protected Currency loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Currency loadModelFromRequest(CurrencyRequest currencyRequest) 
     {
-    	CurrencyRequest currencyRequest = (CurrencyRequest) request;
 		Currency currency = new Currency();
     	Integer currencyId = currencyRequest.getId();
     	// Are we editing a Currency

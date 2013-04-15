@@ -26,6 +26,14 @@
 												<!-- serviceMode. -->
 												<div id="serviceModeSelectContainerDiv" class="span6">
 	            								</div>
+												<!-- serviceCategory. -->
+												<div id="serviceCategorySelectContainerDiv" class="span6">
+	            								</div>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- name. -->
 						            			<div class="span6">
@@ -39,11 +47,6 @@
 													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.service_name %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- description. -->
 						            			<div class="span6">
@@ -57,6 +60,11 @@
 													<input type="text" id="description" name="description" value="" placeholder="<%= entities_strings.service_description %>">
 												</div>		
 												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- portNo. -->
 						            			<div class="span6">
@@ -70,11 +78,6 @@
 													<input type="text" id="portNo" name="portNo" value="" placeholder="<%= entities_strings.service_portno %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- ipAddress. -->
 						            			<div class="span6">
@@ -88,10 +91,21 @@
 													<input type="text" id="ipAddress" name="ipAddress" value="" placeholder="<%= entities_strings.service_ipaddress %>">
 												</div>		
 												<% } %>									
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
 											<!-- serviceTransactions. 
 											<div class="row-fluid">
 						            			<div class="span12">
 													<input type="text" id="serviceTransactions" placeholder="One to Many serviceTransactions">
+												</div>
+											</div> -->
+											<!-- servicePeers. 
+											<div class="row-fluid">
+						            			<div class="span12">
+													<input type="text" id="servicePeers" placeholder="One to Many servicePeers">
 												</div>
 											</div> -->
 												
@@ -99,12 +113,6 @@
 											</div> 
 											<!-- Start field block. -->
 											<div class="row-fluid">
-											<!-- servicePeers. 
-											<div class="row-fluid">
-						            			<div class="span12">
-													<input type="text" id="servicePeers" placeholder="One to Many servicePeers">
-												</div>
-											</div> -->
 												<% if (entity) { %>
 												<!-- code. -->
 						            			<div class="span6">
@@ -118,11 +126,6 @@
 													<input type="text" id="code" name="code" value="" placeholder="<%= entities_strings.service_code %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- effectiveDt. -->
 						            			<div class="span6">
@@ -146,14 +149,19 @@
 													</div>
 												</div>
 												<% } %>
+												
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+												
 												<!-- recSt. -->
-						            			<div class="span6">
+						            			<div class="span12">
 						            				<label for="recSt"><%= entities_strings.service_recst %></label>
 						            				<select id="recSt" name="recSt">
 						            					<option value="A">Active</option>
 						            				</select>
 												</div>
-												
 												
 											</div> 
 								    	

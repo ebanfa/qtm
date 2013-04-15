@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.TermType;
 import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
  *
  */
 @Stateless
-public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType> implements TermTypeService
+public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType, TermTypeRequest> implements TermTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType> impleme
 	 * @see com.nathanclaire.alantra.businessdata.service.TermType#createTermType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TermType createInstance(BaseRequest termTypeRequest) {
+	public TermType createInstance(TermTypeRequest termTypeRequest) {
 		return createInsance(termTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType> impleme
 	 * @see com.nathanclaire.alantra.businessdata.service.TermType#updateTermType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TermType updateInstance(BaseRequest termTypeRequest) {
+	public TermType updateInstance(TermTypeRequest termTypeRequest) {
 		return updateInstance(termTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType> impleme
      * @param request
      * @return
      */
-    protected TermType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected TermType loadModelFromRequest(TermTypeRequest termTypeRequest) 
     {
-    	TermTypeRequest termTypeRequest = (TermTypeRequest) request;
 		TermType termType = new TermType();
     	Integer termTypeId = termTypeRequest.getId();
     	// Are we editing a TermType

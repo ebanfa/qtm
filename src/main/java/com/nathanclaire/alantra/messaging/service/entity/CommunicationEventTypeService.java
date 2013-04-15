@@ -5,12 +5,13 @@ package com.nathanclaire.alantra.messaging.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
+import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
 
 /**
  * @author Edward Banfa
  *
  */
-public interface CommunicationEventTypeService extends BaseEntityService<CommunicationEventType>
+public interface CommunicationEventTypeService extends BaseEntityService<CommunicationEventType, CommunicationEventTypeRequest>
 {
 	
 }

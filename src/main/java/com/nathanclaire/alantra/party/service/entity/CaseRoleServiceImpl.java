@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.CaseRole;
 import com.nathanclaire.alantra.party.rest.request.CaseRoleRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.party.model.CaseRoleType;
-import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class CaseRoleServiceImpl extends BaseEntityServiceImpl<CaseRole> implements CaseRoleService
+public class CaseRoleServiceImpl extends BaseEntityServiceImpl<CaseRole, CaseRoleRequest> implements CaseRoleService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class CaseRoleServiceImpl extends BaseEntityServiceImpl<CaseRole> impleme
 	 * @see com.nathanclaire.alantra.party.service.CaseRole#createCaseRole(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRole createInstance(BaseRequest caseRoleRequest) {
+	public CaseRole createInstance(CaseRoleRequest caseRoleRequest) {
 		return createInsance(caseRoleRequest);
 	}
 
@@ -84,7 +81,7 @@ public class CaseRoleServiceImpl extends BaseEntityServiceImpl<CaseRole> impleme
 	 * @see com.nathanclaire.alantra.party.service.CaseRole#updateCaseRole(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRole updateInstance(BaseRequest caseRoleRequest) {
+	public CaseRole updateInstance(CaseRoleRequest caseRoleRequest) {
 		return updateInstance(caseRoleRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class CaseRoleServiceImpl extends BaseEntityServiceImpl<CaseRole> impleme
      * @param request
      * @return
      */
-    protected CaseRole loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CaseRole loadModelFromRequest(CaseRoleRequest caseRoleRequest) 
     {
-    	CaseRoleRequest caseRoleRequest = (CaseRoleRequest) request;
 		CaseRole caseRole = new CaseRole();
     	Integer caseRoleId = caseRoleRequest.getId();
     	// Are we editing a CaseRole

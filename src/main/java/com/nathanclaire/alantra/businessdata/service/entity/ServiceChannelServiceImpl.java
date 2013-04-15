@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.ServiceChannel;
 import com.nathanclaire.alantra.businessdata.rest.request.ServiceChannelRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.ServiceChannelRequest;
  *
  */
 @Stateless
-public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChannel> implements ServiceChannelService
+public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChannel, ServiceChannelRequest> implements ServiceChannelService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChan
 	 * @see com.nathanclaire.alantra.businessdata.service.ServiceChannel#createServiceChannel(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceChannel createInstance(BaseRequest serviceChannelRequest) {
+	public ServiceChannel createInstance(ServiceChannelRequest serviceChannelRequest) {
 		return createInsance(serviceChannelRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChan
 	 * @see com.nathanclaire.alantra.businessdata.service.ServiceChannel#updateServiceChannel(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceChannel updateInstance(BaseRequest serviceChannelRequest) {
+	public ServiceChannel updateInstance(ServiceChannelRequest serviceChannelRequest) {
 		return updateInstance(serviceChannelRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChan
      * @param request
      * @return
      */
-    protected ServiceChannel loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceChannel loadModelFromRequest(ServiceChannelRequest serviceChannelRequest) 
     {
-    	ServiceChannelRequest serviceChannelRequest = (ServiceChannelRequest) request;
 		ServiceChannel serviceChannel = new ServiceChannel();
     	Integer serviceChannelId = serviceChannelRequest.getId();
     	// Are we editing a ServiceChannel

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ContactMechanismType;
 import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.party.rest.request.ContactMechanismTypeRequest;
  *
  */
 @Stateless
-public class ContactMechanismTypeServiceImpl extends BaseEntityServiceImpl<ContactMechanismType> implements ContactMechanismTypeService
+public class ContactMechanismTypeServiceImpl extends BaseEntityServiceImpl<ContactMechanismType, ContactMechanismTypeRequest> implements ContactMechanismTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ContactMechanismTypeServiceImpl extends BaseEntityServiceImpl<Conta
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismType#createContactMechanismType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismType createInstance(BaseRequest contactMechanismTypeRequest) {
+	public ContactMechanismType createInstance(ContactMechanismTypeRequest contactMechanismTypeRequest) {
 		return createInsance(contactMechanismTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ContactMechanismTypeServiceImpl extends BaseEntityServiceImpl<Conta
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismType#updateContactMechanismType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismType updateInstance(BaseRequest contactMechanismTypeRequest) {
+	public ContactMechanismType updateInstance(ContactMechanismTypeRequest contactMechanismTypeRequest) {
 		return updateInstance(contactMechanismTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ContactMechanismTypeServiceImpl extends BaseEntityServiceImpl<Conta
      * @param request
      * @return
      */
-    protected ContactMechanismType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ContactMechanismType loadModelFromRequest(ContactMechanismTypeRequest contactMechanismTypeRequest) 
     {
-    	ContactMechanismTypeRequest contactMechanismTypeRequest = (ContactMechanismTypeRequest) request;
 		ContactMechanismType contactMechanismType = new ContactMechanismType();
     	Integer contactMechanismTypeId = contactMechanismTypeRequest.getId();
     	// Are we editing a ContactMechanismType

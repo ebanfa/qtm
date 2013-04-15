@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
 import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
  *
  */
 @Stateless
-public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAccount> implements BillingAccountService
+public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAccount, BillingAccountRequest> implements BillingAccountService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAcco
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccount#createBillingAccount(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccount createInstance(BaseRequest billingAccountRequest) {
+	public BillingAccount createInstance(BillingAccountRequest billingAccountRequest) {
 		return createInsance(billingAccountRequest);
 	}
 
@@ -80,7 +79,7 @@ public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAcco
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccount#updateBillingAccount(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccount updateInstance(BaseRequest billingAccountRequest) {
+	public BillingAccount updateInstance(BillingAccountRequest billingAccountRequest) {
 		return updateInstance(billingAccountRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAcco
      * @param request
      * @return
      */
-    protected BillingAccount loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected BillingAccount loadModelFromRequest(BillingAccountRequest billingAccountRequest) 
     {
-    	BillingAccountRequest billingAccountRequest = (BillingAccountRequest) request;
 		BillingAccount billingAccount = new BillingAccount();
     	Integer billingAccountId = billingAccountRequest.getId();
     	// Are we editing a BillingAccount

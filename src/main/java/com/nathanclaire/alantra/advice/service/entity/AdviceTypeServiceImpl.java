@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
  *
  */
 @Stateless
-public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType> implements AdviceTypeService
+public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType, AdviceTypeRequest> implements AdviceTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType> imp
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#createAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType createInstance(BaseRequest adviceTypeRequest) {
+	public AdviceType createInstance(AdviceTypeRequest adviceTypeRequest) {
 		return createInsance(adviceTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType> imp
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#updateAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType updateInstance(BaseRequest adviceTypeRequest) {
+	public AdviceType updateInstance(AdviceTypeRequest adviceTypeRequest) {
 		return updateInstance(adviceTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType> imp
      * @param request
      * @return
      */
-    protected AdviceType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected AdviceType loadModelFromRequest(AdviceTypeRequest adviceTypeRequest) 
     {
-    	AdviceTypeRequest adviceTypeRequest = (AdviceTypeRequest) request;
 		AdviceType adviceType = new AdviceType();
     	Integer adviceTypeId = adviceTypeRequest.getId();
     	// Are we editing a AdviceType

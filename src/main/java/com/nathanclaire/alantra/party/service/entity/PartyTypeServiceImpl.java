@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyType;
 import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
 
 import com.nathanclaire.alantra.party.model.PartyType;
-import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType> implements PartyTypeService
+public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType, PartyTypeRequest> implements PartyTypeService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyType#createPartyType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyType createInstance(BaseRequest partyTypeRequest) {
+	public PartyType createInstance(PartyTypeRequest partyTypeRequest) {
 		return createInsance(partyTypeRequest);
 	}
 
@@ -82,7 +80,7 @@ public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyType#updatePartyType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyType updateInstance(BaseRequest partyTypeRequest) {
+	public PartyType updateInstance(PartyTypeRequest partyTypeRequest) {
 		return updateInstance(partyTypeRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType> imple
      * @param request
      * @return
      */
-    protected PartyType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyType loadModelFromRequest(PartyTypeRequest partyTypeRequest) 
     {
-    	PartyTypeRequest partyTypeRequest = (PartyTypeRequest) request;
 		PartyType partyType = new PartyType();
     	Integer partyTypeId = partyTypeRequest.getId();
     	// Are we editing a PartyType

@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.PostalAddressBoundry;
 import com.nathanclaire.alantra.businessdata.rest.request.PostalAddressBoundryRequest;
 
 import com.nathanclaire.alantra.party.model.PostalAddress;
-import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<PostalAddressBoundry> implements PostalAddressBoundryService
+public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<PostalAddressBoundry, PostalAddressBoundryRequest> implements PostalAddressBoundryService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<Posta
 	 * @see com.nathanclaire.alantra.businessdata.service.PostalAddressBoundry#createPostalAddressBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddressBoundry createInstance(BaseRequest postalAddressBoundryRequest) {
+	public PostalAddressBoundry createInstance(PostalAddressBoundryRequest postalAddressBoundryRequest) {
 		return createInsance(postalAddressBoundryRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<Posta
 	 * @see com.nathanclaire.alantra.businessdata.service.PostalAddressBoundry#updatePostalAddressBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddressBoundry updateInstance(BaseRequest postalAddressBoundryRequest) {
+	public PostalAddressBoundry updateInstance(PostalAddressBoundryRequest postalAddressBoundryRequest) {
 		return updateInstance(postalAddressBoundryRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<Posta
      * @param request
      * @return
      */
-    protected PostalAddressBoundry loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PostalAddressBoundry loadModelFromRequest(PostalAddressBoundryRequest postalAddressBoundryRequest) 
     {
-    	PostalAddressBoundryRequest postalAddressBoundryRequest = (PostalAddressBoundryRequest) request;
 		PostalAddressBoundry postalAddressBoundry = new PostalAddressBoundry();
     	Integer postalAddressBoundryId = postalAddressBoundryRequest.getId();
     	// Are we editing a PostalAddressBoundry

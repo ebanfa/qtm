@@ -8,26 +8,21 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.EstimatedProductCost;
 import com.nathanclaire.alantra.party.rest.request.EstimatedProductCostRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.CostComponentType;
-import com.nathanclaire.alantra.product.rest.request.CostComponentTypeRequest;
 import com.nathanclaire.alantra.product.model.ProductFeature;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureRequest;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<EstimatedProductCost> implements EstimatedProductCostService
+public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<EstimatedProductCost, EstimatedProductCostRequest> implements EstimatedProductCostService
 {
 	/**
 	 * @param entityClass
@@ -72,7 +67,7 @@ public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<Estim
 	 * @see com.nathanclaire.alantra.party.service.EstimatedProductCost#createEstimatedProductCost(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public EstimatedProductCost createInstance(BaseRequest estimatedProductCostRequest) {
+	public EstimatedProductCost createInstance(EstimatedProductCostRequest estimatedProductCostRequest) {
 		return createInsance(estimatedProductCostRequest);
 	}
 
@@ -88,7 +83,7 @@ public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<Estim
 	 * @see com.nathanclaire.alantra.party.service.EstimatedProductCost#updateEstimatedProductCost(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public EstimatedProductCost updateInstance(BaseRequest estimatedProductCostRequest) {
+	public EstimatedProductCost updateInstance(EstimatedProductCostRequest estimatedProductCostRequest) {
 		return updateInstance(estimatedProductCostRequest);
 	}
 	
@@ -96,9 +91,9 @@ public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<Estim
      * @param request
      * @return
      */
-    protected EstimatedProductCost loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected EstimatedProductCost loadModelFromRequest(EstimatedProductCostRequest estimatedProductCostRequest) 
     {
-    	EstimatedProductCostRequest estimatedProductCostRequest = (EstimatedProductCostRequest) request;
 		EstimatedProductCost estimatedProductCost = new EstimatedProductCost();
     	Integer estimatedProductCostId = estimatedProductCostRequest.getId();
     	// Are we editing a EstimatedProductCost

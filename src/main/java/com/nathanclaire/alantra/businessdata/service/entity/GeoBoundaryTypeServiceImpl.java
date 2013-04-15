@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundaryType;
 import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundaryTypeRequest;
 
 import com.nathanclaire.alantra.businessdata.model.GeoBoundaryType;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundaryTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class GeoBoundaryTypeServiceImpl extends BaseEntityServiceImpl<GeoBoundaryType> implements GeoBoundaryTypeService
+public class GeoBoundaryTypeServiceImpl extends BaseEntityServiceImpl<GeoBoundaryType, GeoBoundaryTypeRequest> implements GeoBoundaryTypeService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class GeoBoundaryTypeServiceImpl extends BaseEntityServiceImpl<GeoBoundar
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundaryType#createGeoBoundaryType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundaryType createInstance(BaseRequest geoBoundaryTypeRequest) {
+	public GeoBoundaryType createInstance(GeoBoundaryTypeRequest geoBoundaryTypeRequest) {
 		return createInsance(geoBoundaryTypeRequest);
 	}
 
@@ -82,7 +80,7 @@ public class GeoBoundaryTypeServiceImpl extends BaseEntityServiceImpl<GeoBoundar
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundaryType#updateGeoBoundaryType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundaryType updateInstance(BaseRequest geoBoundaryTypeRequest) {
+	public GeoBoundaryType updateInstance(GeoBoundaryTypeRequest geoBoundaryTypeRequest) {
 		return updateInstance(geoBoundaryTypeRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class GeoBoundaryTypeServiceImpl extends BaseEntityServiceImpl<GeoBoundar
      * @param request
      * @return
      */
-    protected GeoBoundaryType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected GeoBoundaryType loadModelFromRequest(GeoBoundaryTypeRequest geoBoundaryTypeRequest) 
     {
-    	GeoBoundaryTypeRequest geoBoundaryTypeRequest = (GeoBoundaryTypeRequest) request;
 		GeoBoundaryType geoBoundaryType = new GeoBoundaryType();
     	Integer geoBoundaryTypeId = geoBoundaryTypeRequest.getId();
     	// Are we editing a GeoBoundaryType

@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentApplication;
 import com.nathanclaire.alantra.payment.rest.request.PaymentApplicationRequest;
 
 import com.nathanclaire.alantra.payment.model.Payment;
-import com.nathanclaire.alantra.payment.rest.request.PaymentRequest;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
-import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PaymentApplicationServiceImpl extends BaseEntityServiceImpl<PaymentApplication> implements PaymentApplicationService
+public class PaymentApplicationServiceImpl extends BaseEntityServiceImpl<PaymentApplication, PaymentApplicationRequest> implements PaymentApplicationService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class PaymentApplicationServiceImpl extends BaseEntityServiceImpl<Payment
 	 * @see com.nathanclaire.alantra.payment.service.PaymentApplication#createPaymentApplication(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentApplication createInstance(BaseRequest paymentApplicationRequest) {
+	public PaymentApplication createInstance(PaymentApplicationRequest paymentApplicationRequest) {
 		return createInsance(paymentApplicationRequest);
 	}
 
@@ -86,7 +82,7 @@ public class PaymentApplicationServiceImpl extends BaseEntityServiceImpl<Payment
 	 * @see com.nathanclaire.alantra.payment.service.PaymentApplication#updatePaymentApplication(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentApplication updateInstance(BaseRequest paymentApplicationRequest) {
+	public PaymentApplication updateInstance(PaymentApplicationRequest paymentApplicationRequest) {
 		return updateInstance(paymentApplicationRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class PaymentApplicationServiceImpl extends BaseEntityServiceImpl<Payment
      * @param request
      * @return
      */
-    protected PaymentApplication loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PaymentApplication loadModelFromRequest(PaymentApplicationRequest paymentApplicationRequest) 
     {
-    	PaymentApplicationRequest paymentApplicationRequest = (PaymentApplicationRequest) request;
 		PaymentApplication paymentApplication = new PaymentApplication();
     	Integer paymentApplicationId = paymentApplicationRequest.getId();
     	// Are we editing a PaymentApplication

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductType;
 import com.nathanclaire.alantra.product.rest.request.ProductTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductTypeRequest;
  *
  */
 @Stateless
-public class ProductTypeServiceImpl extends BaseEntityServiceImpl<ProductType> implements ProductTypeService
+public class ProductTypeServiceImpl extends BaseEntityServiceImpl<ProductType, ProductTypeRequest> implements ProductTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductTypeServiceImpl extends BaseEntityServiceImpl<ProductType> i
 	 * @see com.nathanclaire.alantra.product.service.ProductType#createProductType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductType createInstance(BaseRequest productTypeRequest) {
+	public ProductType createInstance(ProductTypeRequest productTypeRequest) {
 		return createInsance(productTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductTypeServiceImpl extends BaseEntityServiceImpl<ProductType> i
 	 * @see com.nathanclaire.alantra.product.service.ProductType#updateProductType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductType updateInstance(BaseRequest productTypeRequest) {
+	public ProductType updateInstance(ProductTypeRequest productTypeRequest) {
 		return updateInstance(productTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductTypeServiceImpl extends BaseEntityServiceImpl<ProductType> i
      * @param request
      * @return
      */
-    protected ProductType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductType loadModelFromRequest(ProductTypeRequest productTypeRequest) 
     {
-    	ProductTypeRequest productTypeRequest = (ProductTypeRequest) request;
 		ProductType productType = new ProductType();
     	Integer productTypeId = productTypeRequest.getId();
     	// Are we editing a ProductType

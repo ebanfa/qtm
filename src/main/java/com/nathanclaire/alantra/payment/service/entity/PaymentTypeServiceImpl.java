@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentType;
 import com.nathanclaire.alantra.payment.rest.request.PaymentTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.payment.rest.request.PaymentTypeRequest;
  *
  */
 @Stateless
-public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType> implements PaymentTypeService
+public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType, PaymentTypeRequest> implements PaymentTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType> i
 	 * @see com.nathanclaire.alantra.payment.service.PaymentType#createPaymentType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentType createInstance(BaseRequest paymentTypeRequest) {
+	public PaymentType createInstance(PaymentTypeRequest paymentTypeRequest) {
 		return createInsance(paymentTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType> i
 	 * @see com.nathanclaire.alantra.payment.service.PaymentType#updatePaymentType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentType updateInstance(BaseRequest paymentTypeRequest) {
+	public PaymentType updateInstance(PaymentTypeRequest paymentTypeRequest) {
 		return updateInstance(paymentTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType> i
      * @param request
      * @return
      */
-    protected PaymentType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PaymentType loadModelFromRequest(PaymentTypeRequest paymentTypeRequest) 
     {
-    	PaymentTypeRequest paymentTypeRequest = (PaymentTypeRequest) request;
 		PaymentType paymentType = new PaymentType();
     	Integer paymentTypeId = paymentTypeRequest.getId();
     	// Are we editing a PaymentType

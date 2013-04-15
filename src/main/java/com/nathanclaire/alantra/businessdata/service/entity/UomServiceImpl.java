@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.Uom;
 import com.nathanclaire.alantra.businessdata.rest.request.UomRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.UomRequest;
  *
  */
 @Stateless
-public class UomServiceImpl extends BaseEntityServiceImpl<Uom> implements UomService
+public class UomServiceImpl extends BaseEntityServiceImpl<Uom, UomRequest> implements UomService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class UomServiceImpl extends BaseEntityServiceImpl<Uom> implements UomSer
 	 * @see com.nathanclaire.alantra.businessdata.service.Uom#createUom(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Uom createInstance(BaseRequest uomRequest) {
+	public Uom createInstance(UomRequest uomRequest) {
 		return createInsance(uomRequest);
 	}
 
@@ -80,7 +79,7 @@ public class UomServiceImpl extends BaseEntityServiceImpl<Uom> implements UomSer
 	 * @see com.nathanclaire.alantra.businessdata.service.Uom#updateUom(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Uom updateInstance(BaseRequest uomRequest) {
+	public Uom updateInstance(UomRequest uomRequest) {
 		return updateInstance(uomRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class UomServiceImpl extends BaseEntityServiceImpl<Uom> implements UomSer
      * @param request
      * @return
      */
-    protected Uom loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Uom loadModelFromRequest(UomRequest uomRequest) 
     {
-    	UomRequest uomRequest = (UomRequest) request;
 		Uom uom = new Uom();
     	Integer uomId = uomRequest.getId();
     	// Are we editing a Uom

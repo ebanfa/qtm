@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.order.model.ProductOrder;
 import com.nathanclaire.alantra.order.rest.request.ProductOrderRequest;
 
 import com.nathanclaire.alantra.order.model.ProductOrderType;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductOrderServiceImpl extends BaseEntityServiceImpl<ProductOrder> implements ProductOrderService
+public class ProductOrderServiceImpl extends BaseEntityServiceImpl<ProductOrder, ProductOrderRequest> implements ProductOrderService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class ProductOrderServiceImpl extends BaseEntityServiceImpl<ProductOrder>
 	 * @see com.nathanclaire.alantra.order.service.ProductOrder#createProductOrder(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrder createInstance(BaseRequest productOrderRequest) {
+	public ProductOrder createInstance(ProductOrderRequest productOrderRequest) {
 		return createInsance(productOrderRequest);
 	}
 
@@ -86,7 +82,7 @@ public class ProductOrderServiceImpl extends BaseEntityServiceImpl<ProductOrder>
 	 * @see com.nathanclaire.alantra.order.service.ProductOrder#updateProductOrder(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrder updateInstance(BaseRequest productOrderRequest) {
+	public ProductOrder updateInstance(ProductOrderRequest productOrderRequest) {
 		return updateInstance(productOrderRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class ProductOrderServiceImpl extends BaseEntityServiceImpl<ProductOrder>
      * @param request
      * @return
      */
-    protected ProductOrder loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductOrder loadModelFromRequest(ProductOrderRequest productOrderRequest) 
     {
-    	ProductOrderRequest productOrderRequest = (ProductOrderRequest) request;
 		ProductOrder productOrder = new ProductOrder();
     	Integer productOrderId = productOrderRequest.getId();
     	// Are we editing a ProductOrder

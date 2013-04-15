@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventWorkEffort;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventWorkEffortRequest;
 
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
-import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceImpl<CommunicationEventWorkEffort> implements CommunicationEventWorkEffortService
+public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceImpl<CommunicationEventWorkEffort, CommunicationEventWorkEffortRequest> implements CommunicationEventWorkEffortService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventWorkEffort#createCommunicationEventWorkEffort(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventWorkEffort createInstance(BaseRequest communicationEventWorkEffortRequest) {
+	public CommunicationEventWorkEffort createInstance(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
 		return createInsance(communicationEventWorkEffortRequest);
 	}
 
@@ -84,7 +81,7 @@ public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventWorkEffort#updateCommunicationEventWorkEffort(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventWorkEffort updateInstance(BaseRequest communicationEventWorkEffortRequest) {
+	public CommunicationEventWorkEffort updateInstance(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
 		return updateInstance(communicationEventWorkEffortRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceIm
      * @param request
      * @return
      */
-    protected CommunicationEventWorkEffort loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CommunicationEventWorkEffort loadModelFromRequest(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) 
     {
-    	CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest = (CommunicationEventWorkEffortRequest) request;
 		CommunicationEventWorkEffort communicationEventWorkEffort = new CommunicationEventWorkEffort();
     	Integer communicationEventWorkEffortId = communicationEventWorkEffortRequest.getId();
     	// Are we editing a CommunicationEventWorkEffort

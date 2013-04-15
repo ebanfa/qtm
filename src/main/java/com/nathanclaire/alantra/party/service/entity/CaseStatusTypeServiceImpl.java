@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.CaseStatusType;
 import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
  *
  */
 @Stateless
-public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusType> implements CaseStatusTypeService
+public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusType, CaseStatusTypeRequest> implements CaseStatusTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusT
 	 * @see com.nathanclaire.alantra.party.service.CaseStatusType#createCaseStatusType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseStatusType createInstance(BaseRequest caseStatusTypeRequest) {
+	public CaseStatusType createInstance(CaseStatusTypeRequest caseStatusTypeRequest) {
 		return createInsance(caseStatusTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusT
 	 * @see com.nathanclaire.alantra.party.service.CaseStatusType#updateCaseStatusType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseStatusType updateInstance(BaseRequest caseStatusTypeRequest) {
+	public CaseStatusType updateInstance(CaseStatusTypeRequest caseStatusTypeRequest) {
 		return updateInstance(caseStatusTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusT
      * @param request
      * @return
      */
-    protected CaseStatusType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CaseStatusType loadModelFromRequest(CaseStatusTypeRequest caseStatusTypeRequest) 
     {
-    	CaseStatusTypeRequest caseStatusTypeRequest = (CaseStatusTypeRequest) request;
 		CaseStatusType caseStatusType = new CaseStatusType();
     	Integer caseStatusTypeId = caseStatusTypeRequest.getId();
     	// Are we editing a CaseStatusType

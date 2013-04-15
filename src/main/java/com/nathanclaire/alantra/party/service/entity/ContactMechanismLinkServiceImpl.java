@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ContactMechanismLink;
 import com.nathanclaire.alantra.party.rest.request.ContactMechanismLinkRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ContactMechanismLinkServiceImpl extends BaseEntityServiceImpl<ContactMechanismLink> implements ContactMechanismLinkService
+public class ContactMechanismLinkServiceImpl extends BaseEntityServiceImpl<ContactMechanismLink, ContactMechanismLinkRequest> implements ContactMechanismLinkService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class ContactMechanismLinkServiceImpl extends BaseEntityServiceImpl<Conta
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismLink#createContactMechanismLink(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismLink createInstance(BaseRequest contactMechanismLinkRequest) {
+	public ContactMechanismLink createInstance(ContactMechanismLinkRequest contactMechanismLinkRequest) {
 		return createInsance(contactMechanismLinkRequest);
 	}
 
@@ -84,7 +81,7 @@ public class ContactMechanismLinkServiceImpl extends BaseEntityServiceImpl<Conta
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismLink#updateContactMechanismLink(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismLink updateInstance(BaseRequest contactMechanismLinkRequest) {
+	public ContactMechanismLink updateInstance(ContactMechanismLinkRequest contactMechanismLinkRequest) {
 		return updateInstance(contactMechanismLinkRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class ContactMechanismLinkServiceImpl extends BaseEntityServiceImpl<Conta
      * @param request
      * @return
      */
-    protected ContactMechanismLink loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ContactMechanismLink loadModelFromRequest(ContactMechanismLinkRequest contactMechanismLinkRequest) 
     {
-    	ContactMechanismLinkRequest contactMechanismLinkRequest = (ContactMechanismLinkRequest) request;
 		ContactMechanismLink contactMechanismLink = new ContactMechanismLink();
     	Integer contactMechanismLinkId = contactMechanismLinkRequest.getId();
     	// Are we editing a ContactMechanismLink

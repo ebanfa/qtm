@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundryAssociation;
 import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryAssociationRequest;
 
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class GeoBoundryAssociationServiceImpl extends BaseEntityServiceImpl<GeoBoundryAssociation> implements GeoBoundryAssociationService
+public class GeoBoundryAssociationServiceImpl extends BaseEntityServiceImpl<GeoBoundryAssociation, GeoBoundryAssociationRequest> implements GeoBoundryAssociationService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class GeoBoundryAssociationServiceImpl extends BaseEntityServiceImpl<GeoB
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundryAssociation#createGeoBoundryAssociation(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundryAssociation createInstance(BaseRequest geoBoundryAssociationRequest) {
+	public GeoBoundryAssociation createInstance(GeoBoundryAssociationRequest geoBoundryAssociationRequest) {
 		return createInsance(geoBoundryAssociationRequest);
 	}
 
@@ -84,7 +81,7 @@ public class GeoBoundryAssociationServiceImpl extends BaseEntityServiceImpl<GeoB
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundryAssociation#updateGeoBoundryAssociation(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundryAssociation updateInstance(BaseRequest geoBoundryAssociationRequest) {
+	public GeoBoundryAssociation updateInstance(GeoBoundryAssociationRequest geoBoundryAssociationRequest) {
 		return updateInstance(geoBoundryAssociationRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class GeoBoundryAssociationServiceImpl extends BaseEntityServiceImpl<GeoB
      * @param request
      * @return
      */
-    protected GeoBoundryAssociation loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected GeoBoundryAssociation loadModelFromRequest(GeoBoundryAssociationRequest geoBoundryAssociationRequest) 
     {
-    	GeoBoundryAssociationRequest geoBoundryAssociationRequest = (GeoBoundryAssociationRequest) request;
 		GeoBoundryAssociation geoBoundryAssociation = new GeoBoundryAssociation();
     	Integer geoBoundryAssociationId = geoBoundryAssociationRequest.getId();
     	// Are we editing a GeoBoundryAssociation

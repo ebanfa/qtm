@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductComponent;
 import com.nathanclaire.alantra.product.rest.request.ProductComponentRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 import com.nathanclaire.alantra.product.model.Product;
-import com.nathanclaire.alantra.product.rest.request.ProductRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductComponent> implements ProductComponentService
+public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductComponent, ProductComponentRequest> implements ProductComponentService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductCo
 	 * @see com.nathanclaire.alantra.product.service.ProductComponent#createProductComponent(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductComponent createInstance(BaseRequest productComponentRequest) {
+	public ProductComponent createInstance(ProductComponentRequest productComponentRequest) {
 		return createInsance(productComponentRequest);
 	}
 
@@ -84,7 +81,7 @@ public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductCo
 	 * @see com.nathanclaire.alantra.product.service.ProductComponent#updateProductComponent(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductComponent updateInstance(BaseRequest productComponentRequest) {
+	public ProductComponent updateInstance(ProductComponentRequest productComponentRequest) {
 		return updateInstance(productComponentRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductCo
      * @param request
      * @return
      */
-    protected ProductComponent loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductComponent loadModelFromRequest(ProductComponentRequest productComponentRequest) 
     {
-    	ProductComponentRequest productComponentRequest = (ProductComponentRequest) request;
 		ProductComponent productComponent = new ProductComponent();
     	Integer productComponentId = productComponentRequest.getId();
     	// Are we editing a ProductComponent

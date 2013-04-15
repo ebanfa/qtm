@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
 import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
 
 import com.nathanclaire.alantra.workeffort.model.WorkEffortType;
-import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort> implements WorkEffortService
+public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort, WorkEffortRequest> implements WorkEffortService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort> imp
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffort#createWorkEffort(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffort createInstance(BaseRequest workEffortRequest) {
+	public WorkEffort createInstance(WorkEffortRequest workEffortRequest) {
 		return createInsance(workEffortRequest);
 	}
 
@@ -82,7 +80,7 @@ public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort> imp
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffort#updateWorkEffort(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffort updateInstance(BaseRequest workEffortRequest) {
+	public WorkEffort updateInstance(WorkEffortRequest workEffortRequest) {
 		return updateInstance(workEffortRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort> imp
      * @param request
      * @return
      */
-    protected WorkEffort loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected WorkEffort loadModelFromRequest(WorkEffortRequest workEffortRequest) 
     {
-    	WorkEffortRequest workEffortRequest = (WorkEffortRequest) request;
 		WorkEffort workEffort = new WorkEffort();
     	Integer workEffortId = workEffortRequest.getId();
     	// Are we editing a WorkEffort

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.UomConversion;
 import com.nathanclaire.alantra.businessdata.rest.request.UomConversionRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.UomConversionRequest;
  *
  */
 @Stateless
-public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversion> implements UomConversionService
+public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversion, UomConversionRequest> implements UomConversionService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversio
 	 * @see com.nathanclaire.alantra.businessdata.service.UomConversion#createUomConversion(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public UomConversion createInstance(BaseRequest uomConversionRequest) {
+	public UomConversion createInstance(UomConversionRequest uomConversionRequest) {
 		return createInsance(uomConversionRequest);
 	}
 
@@ -80,7 +79,7 @@ public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversio
 	 * @see com.nathanclaire.alantra.businessdata.service.UomConversion#updateUomConversion(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public UomConversion updateInstance(BaseRequest uomConversionRequest) {
+	public UomConversion updateInstance(UomConversionRequest uomConversionRequest) {
 		return updateInstance(uomConversionRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversio
      * @param request
      * @return
      */
-    protected UomConversion loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected UomConversion loadModelFromRequest(UomConversionRequest uomConversionRequest) 
     {
-    	UomConversionRequest uomConversionRequest = (UomConversionRequest) request;
 		UomConversion uomConversion = new UomConversion();
     	Integer uomConversionId = uomConversionRequest.getId();
     	// Are we editing a UomConversion

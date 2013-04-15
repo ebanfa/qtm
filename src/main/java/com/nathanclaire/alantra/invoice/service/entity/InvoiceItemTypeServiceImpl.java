@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemType;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemTypeRequest;
  *
  */
 @Stateless
-public class InvoiceItemTypeServiceImpl extends BaseEntityServiceImpl<InvoiceItemType> implements InvoiceItemTypeService
+public class InvoiceItemTypeServiceImpl extends BaseEntityServiceImpl<InvoiceItemType, InvoiceItemTypeRequest> implements InvoiceItemTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class InvoiceItemTypeServiceImpl extends BaseEntityServiceImpl<InvoiceIte
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemType#createInvoiceItemType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemType createInstance(BaseRequest invoiceItemTypeRequest) {
+	public InvoiceItemType createInstance(InvoiceItemTypeRequest invoiceItemTypeRequest) {
 		return createInsance(invoiceItemTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class InvoiceItemTypeServiceImpl extends BaseEntityServiceImpl<InvoiceIte
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemType#updateInvoiceItemType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemType updateInstance(BaseRequest invoiceItemTypeRequest) {
+	public InvoiceItemType updateInstance(InvoiceItemTypeRequest invoiceItemTypeRequest) {
 		return updateInstance(invoiceItemTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class InvoiceItemTypeServiceImpl extends BaseEntityServiceImpl<InvoiceIte
      * @param request
      * @return
      */
-    protected InvoiceItemType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceItemType loadModelFromRequest(InvoiceItemTypeRequest invoiceItemTypeRequest) 
     {
-    	InvoiceItemTypeRequest invoiceItemTypeRequest = (InvoiceItemTypeRequest) request;
 		InvoiceItemType invoiceItemType = new InvoiceItemType();
     	Integer invoiceItemTypeId = invoiceItemTypeRequest.getId();
     	// Are we editing a InvoiceItemType

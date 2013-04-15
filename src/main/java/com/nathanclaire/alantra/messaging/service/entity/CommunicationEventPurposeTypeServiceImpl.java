@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurposeType;
 import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurpose
  *
  */
 @Stateless
-public class CommunicationEventPurposeTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventPurposeType> implements CommunicationEventPurposeTypeService
+public class CommunicationEventPurposeTypeServiceImpl extends BaseEntityServiceImpl<CommunicationEventPurposeType, CommunicationEventPurposeTypeRequest> implements CommunicationEventPurposeTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class CommunicationEventPurposeTypeServiceImpl extends BaseEntityServiceI
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventPurposeType#createCommunicationEventPurposeType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventPurposeType createInstance(BaseRequest communicationEventPurposeTypeRequest) {
+	public CommunicationEventPurposeType createInstance(CommunicationEventPurposeTypeRequest communicationEventPurposeTypeRequest) {
 		return createInsance(communicationEventPurposeTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class CommunicationEventPurposeTypeServiceImpl extends BaseEntityServiceI
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventPurposeType#updateCommunicationEventPurposeType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventPurposeType updateInstance(BaseRequest communicationEventPurposeTypeRequest) {
+	public CommunicationEventPurposeType updateInstance(CommunicationEventPurposeTypeRequest communicationEventPurposeTypeRequest) {
 		return updateInstance(communicationEventPurposeTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class CommunicationEventPurposeTypeServiceImpl extends BaseEntityServiceI
      * @param request
      * @return
      */
-    protected CommunicationEventPurposeType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected CommunicationEventPurposeType loadModelFromRequest(CommunicationEventPurposeTypeRequest communicationEventPurposeTypeRequest) 
     {
-    	CommunicationEventPurposeTypeRequest communicationEventPurposeTypeRequest = (CommunicationEventPurposeTypeRequest) request;
 		CommunicationEventPurposeType communicationEventPurposeType = new CommunicationEventPurposeType();
     	Integer communicationEventPurposeTypeId = communicationEventPurposeTypeRequest.getId();
     	// Are we editing a CommunicationEventPurposeType

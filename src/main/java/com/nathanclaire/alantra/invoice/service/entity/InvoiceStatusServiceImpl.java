@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceStatus;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceStatusType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusTypeRequest;
 import com.nathanclaire.alantra.invoice.model.Invoice;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class InvoiceStatusServiceImpl extends BaseEntityServiceImpl<InvoiceStatus> implements InvoiceStatusService
+public class InvoiceStatusServiceImpl extends BaseEntityServiceImpl<InvoiceStatus, InvoiceStatusRequest> implements InvoiceStatusService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class InvoiceStatusServiceImpl extends BaseEntityServiceImpl<InvoiceStatu
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatus#createInvoiceStatus(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatus createInstance(BaseRequest invoiceStatusRequest) {
+	public InvoiceStatus createInstance(InvoiceStatusRequest invoiceStatusRequest) {
 		return createInsance(invoiceStatusRequest);
 	}
 
@@ -84,7 +81,7 @@ public class InvoiceStatusServiceImpl extends BaseEntityServiceImpl<InvoiceStatu
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatus#updateInvoiceStatus(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatus updateInstance(BaseRequest invoiceStatusRequest) {
+	public InvoiceStatus updateInstance(InvoiceStatusRequest invoiceStatusRequest) {
 		return updateInstance(invoiceStatusRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class InvoiceStatusServiceImpl extends BaseEntityServiceImpl<InvoiceStatu
      * @param request
      * @return
      */
-    protected InvoiceStatus loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceStatus loadModelFromRequest(InvoiceStatusRequest invoiceStatusRequest) 
     {
-    	InvoiceStatusRequest invoiceStatusRequest = (InvoiceStatusRequest) request;
 		InvoiceStatus invoiceStatus = new InvoiceStatus();
     	Integer invoiceStatusId = invoiceStatusRequest.getId();
     	// Are we editing a InvoiceStatus

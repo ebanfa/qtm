@@ -8,24 +8,20 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.BillingAccountRole;
 import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleRequest;
 
 import com.nathanclaire.alantra.customer.model.BillingAccountRoleType;
-import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
-import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class BillingAccountRoleServiceImpl extends BaseEntityServiceImpl<BillingAccountRole> implements BillingAccountRoleService
+public class BillingAccountRoleServiceImpl extends BaseEntityServiceImpl<BillingAccountRole, BillingAccountRoleRequest> implements BillingAccountRoleService
 {
 	/**
 	 * @param entityClass
@@ -70,7 +66,7 @@ public class BillingAccountRoleServiceImpl extends BaseEntityServiceImpl<Billing
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRole#createBillingAccountRole(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRole createInstance(BaseRequest billingAccountRoleRequest) {
+	public BillingAccountRole createInstance(BillingAccountRoleRequest billingAccountRoleRequest) {
 		return createInsance(billingAccountRoleRequest);
 	}
 
@@ -86,7 +82,7 @@ public class BillingAccountRoleServiceImpl extends BaseEntityServiceImpl<Billing
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRole#updateBillingAccountRole(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRole updateInstance(BaseRequest billingAccountRoleRequest) {
+	public BillingAccountRole updateInstance(BillingAccountRoleRequest billingAccountRoleRequest) {
 		return updateInstance(billingAccountRoleRequest);
 	}
 	
@@ -94,9 +90,9 @@ public class BillingAccountRoleServiceImpl extends BaseEntityServiceImpl<Billing
      * @param request
      * @return
      */
-    protected BillingAccountRole loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected BillingAccountRole loadModelFromRequest(BillingAccountRoleRequest billingAccountRoleRequest) 
     {
-    	BillingAccountRoleRequest billingAccountRoleRequest = (BillingAccountRoleRequest) request;
 		BillingAccountRole billingAccountRole = new BillingAccountRole();
     	Integer billingAccountRoleId = billingAccountRoleRequest.getId();
     	// Are we editing a BillingAccountRole

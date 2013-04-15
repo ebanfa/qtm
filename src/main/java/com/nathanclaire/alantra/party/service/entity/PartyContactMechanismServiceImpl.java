@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyContactMechanism;
 import com.nathanclaire.alantra.party.rest.request.PartyContactMechanismRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyContactMechanismServiceImpl extends BaseEntityServiceImpl<PartyContactMechanism> implements PartyContactMechanismService
+public class PartyContactMechanismServiceImpl extends BaseEntityServiceImpl<PartyContactMechanism, PartyContactMechanismRequest> implements PartyContactMechanismService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PartyContactMechanismServiceImpl extends BaseEntityServiceImpl<Part
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanism#createPartyContactMechanism(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanism createInstance(BaseRequest partyContactMechanismRequest) {
+	public PartyContactMechanism createInstance(PartyContactMechanismRequest partyContactMechanismRequest) {
 		return createInsance(partyContactMechanismRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PartyContactMechanismServiceImpl extends BaseEntityServiceImpl<Part
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanism#updatePartyContactMechanism(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanism updateInstance(BaseRequest partyContactMechanismRequest) {
+	public PartyContactMechanism updateInstance(PartyContactMechanismRequest partyContactMechanismRequest) {
 		return updateInstance(partyContactMechanismRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PartyContactMechanismServiceImpl extends BaseEntityServiceImpl<Part
      * @param request
      * @return
      */
-    protected PartyContactMechanism loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyContactMechanism loadModelFromRequest(PartyContactMechanismRequest partyContactMechanismRequest) 
     {
-    	PartyContactMechanismRequest partyContactMechanismRequest = (PartyContactMechanismRequest) request;
 		PartyContactMechanism partyContactMechanism = new PartyContactMechanism();
     	Integer partyContactMechanismId = partyContactMechanismRequest.getId();
     	// Are we editing a PartyContactMechanism

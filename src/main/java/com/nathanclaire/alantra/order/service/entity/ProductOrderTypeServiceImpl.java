@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.order.model.ProductOrderType;
 import com.nathanclaire.alantra.order.rest.request.ProductOrderTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.order.rest.request.ProductOrderTypeRequest;
  *
  */
 @Stateless
-public class ProductOrderTypeServiceImpl extends BaseEntityServiceImpl<ProductOrderType> implements ProductOrderTypeService
+public class ProductOrderTypeServiceImpl extends BaseEntityServiceImpl<ProductOrderType, ProductOrderTypeRequest> implements ProductOrderTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductOrderTypeServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderType#createProductOrderType(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderType createInstance(BaseRequest productOrderTypeRequest) {
+	public ProductOrderType createInstance(ProductOrderTypeRequest productOrderTypeRequest) {
 		return createInsance(productOrderTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductOrderTypeServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderType#updateProductOrderType(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderType updateInstance(BaseRequest productOrderTypeRequest) {
+	public ProductOrderType updateInstance(ProductOrderTypeRequest productOrderTypeRequest) {
 		return updateInstance(productOrderTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductOrderTypeServiceImpl extends BaseEntityServiceImpl<ProductOr
      * @param request
      * @return
      */
-    protected ProductOrderType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductOrderType loadModelFromRequest(ProductOrderTypeRequest productOrderTypeRequest) 
     {
-    	ProductOrderTypeRequest productOrderTypeRequest = (ProductOrderTypeRequest) request;
 		ProductOrderType productOrderType = new ProductOrderType();
     	Integer productOrderTypeId = productOrderTypeRequest.getId();
     	// Are we editing a ProductOrderType

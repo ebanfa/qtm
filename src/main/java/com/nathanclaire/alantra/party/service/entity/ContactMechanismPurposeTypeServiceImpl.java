@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ContactMechanismPurposeType;
 import com.nathanclaire.alantra.party.rest.request.ContactMechanismPurposeTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.party.rest.request.ContactMechanismPurposeTypeRe
  *
  */
 @Stateless
-public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImpl<ContactMechanismPurposeType> implements ContactMechanismPurposeTypeService
+public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImpl<ContactMechanismPurposeType, ContactMechanismPurposeTypeRequest> implements ContactMechanismPurposeTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismPurposeType#createContactMechanismPurposeType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismPurposeType createInstance(BaseRequest contactMechanismPurposeTypeRequest) {
+	public ContactMechanismPurposeType createInstance(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
 		return createInsance(contactMechanismPurposeTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismPurposeType#updateContactMechanismPurposeType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismPurposeType updateInstance(BaseRequest contactMechanismPurposeTypeRequest) {
+	public ContactMechanismPurposeType updateInstance(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
 		return updateInstance(contactMechanismPurposeTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImp
      * @param request
      * @return
      */
-    protected ContactMechanismPurposeType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ContactMechanismPurposeType loadModelFromRequest(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) 
     {
-    	ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest = (ContactMechanismPurposeTypeRequest) request;
 		ContactMechanismPurposeType contactMechanismPurposeType = new ContactMechanismPurposeType();
     	Integer contactMechanismPurposeTypeId = contactMechanismPurposeTypeRequest.getId();
     	// Are we editing a ContactMechanismPurposeType

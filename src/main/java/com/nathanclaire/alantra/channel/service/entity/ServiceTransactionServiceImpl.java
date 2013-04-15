@@ -8,19 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.model.ServiceTransaction;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionRequest;
+
+import com.nathanclaire.alantra.channel.model.Service;
+import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<ServiceTransaction> implements ServiceTransactionService
+public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<ServiceTransaction, ServiceTransactionRequest> implements ServiceTransactionService
 {
 	/**
 	 * @param entityClass
@@ -65,7 +65,7 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransaction#createServiceTransaction(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransaction createInstance(BaseRequest serviceTransactionRequest) {
+	public ServiceTransaction createInstance(ServiceTransactionRequest serviceTransactionRequest) {
 		return createInsance(serviceTransactionRequest);
 	}
 
@@ -81,7 +81,7 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransaction#updateServiceTransaction(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransaction updateInstance(BaseRequest serviceTransactionRequest) {
+	public ServiceTransaction updateInstance(ServiceTransactionRequest serviceTransactionRequest) {
 		return updateInstance(serviceTransactionRequest);
 	}
 	
@@ -89,11 +89,11 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
      * @param request
      * @return
      */
-    protected ServiceTransaction loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ServiceTransaction loadModelFromRequest(ServiceTransactionRequest serviceTransactionRequest) 
     {
-    	ServiceTransactionRequest serviceTransactionRequest = (ServiceTransactionRequest) request;
 		ServiceTransaction serviceTransaction = new ServiceTransaction();
-    	Integer serviceTransactionId = serviceTransactionRequest.getId();
+    	/*Integer serviceTransactionId = serviceTransactionRequest.getId();
     	// Are we editing a ServiceTransaction
     	if(serviceTransactionId != null) 
     	{
@@ -109,7 +109,7 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
     	serviceTransaction.setCode(serviceTransactionRequest.getCode());
     	serviceTransaction.setEffectiveDt(getCurrentSystemDate());
     	//Process many to one relationships
-    	/*if (serviceTransactionRequest.getService() != null)
+    	if (serviceTransactionRequest.getService() != null)
     	{
     		Service service = getEntityManager().find(Service.class, serviceTransactionRequest.getService());
     		serviceTransaction.setService(service);
@@ -120,7 +120,7 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
     		serviceTransaction.setServiceTransactionType(serviceTransactionType);
     	}
     	serviceTransaction.setName(serviceTransactionRequest.getName()); 
-    	serviceTransaction.setAmount(serviceTransactionRequest.getTransactionAmount()); 
+    	serviceTransaction.setAmount(serviceTransactionRequest.getAmount()); 
     	serviceTransaction.setTxnDate(serviceTransactionRequest.getTxnDate()); 
     	serviceTransaction.setAccountNo(serviceTransactionRequest.getAccountNo()); 
     	serviceTransaction.setAccountNm(serviceTransactionRequest.getAccountNm()); 

@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
 import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeProviderRequest;
 
 import com.nathanclaire.alantra.payment.model.PaymentMethodType;
-import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<PaymentMethodTypeProvider> implements PaymentMethodTypeProviderService
+public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<PaymentMethodTypeProvider, PaymentMethodTypeProviderRequest> implements PaymentMethodTypeProviderService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodTypeProvider#createPaymentMethodTypeProvider(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodTypeProvider createInstance(BaseRequest paymentMethodTypeProviderRequest) {
+	public PaymentMethodTypeProvider createInstance(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
 		return createInsance(paymentMethodTypeProviderRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodTypeProvider#updatePaymentMethodTypeProvider(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodTypeProvider updateInstance(BaseRequest paymentMethodTypeProviderRequest) {
+	public PaymentMethodTypeProvider updateInstance(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
 		return updateInstance(paymentMethodTypeProviderRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<
      * @param request
      * @return
      */
-    protected PaymentMethodTypeProvider loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PaymentMethodTypeProvider loadModelFromRequest(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) 
     {
-    	PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest = (PaymentMethodTypeProviderRequest) request;
 		PaymentMethodTypeProvider paymentMethodTypeProvider = new PaymentMethodTypeProvider();
     	Integer paymentMethodTypeProviderId = paymentMethodTypeProviderRequest.getId();
     	// Are we editing a PaymentMethodTypeProvider

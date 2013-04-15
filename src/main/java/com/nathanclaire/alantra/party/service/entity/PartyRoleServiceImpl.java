@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyRole;
 import com.nathanclaire.alantra.party.rest.request.PartyRoleRequest;
 
 import com.nathanclaire.alantra.party.model.PartyRoleType;
-import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyRoleServiceImpl extends BaseEntityServiceImpl<PartyRole> implements PartyRoleService
+public class PartyRoleServiceImpl extends BaseEntityServiceImpl<PartyRole, PartyRoleRequest> implements PartyRoleService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PartyRoleServiceImpl extends BaseEntityServiceImpl<PartyRole> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyRole#createPartyRole(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRole createInstance(BaseRequest partyRoleRequest) {
+	public PartyRole createInstance(PartyRoleRequest partyRoleRequest) {
 		return createInsance(partyRoleRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PartyRoleServiceImpl extends BaseEntityServiceImpl<PartyRole> imple
 	 * @see com.nathanclaire.alantra.party.service.PartyRole#updatePartyRole(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRole updateInstance(BaseRequest partyRoleRequest) {
+	public PartyRole updateInstance(PartyRoleRequest partyRoleRequest) {
 		return updateInstance(partyRoleRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PartyRoleServiceImpl extends BaseEntityServiceImpl<PartyRole> imple
      * @param request
      * @return
      */
-    protected PartyRole loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyRole loadModelFromRequest(PartyRoleRequest partyRoleRequest) 
     {
-    	PartyRoleRequest partyRoleRequest = (PartyRoleRequest) request;
 		PartyRole partyRole = new PartyRole();
     	Integer partyRoleId = partyRoleRequest.getId();
     	// Are we editing a PartyRole

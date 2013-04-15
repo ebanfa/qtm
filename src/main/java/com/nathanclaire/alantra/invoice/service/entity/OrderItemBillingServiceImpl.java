@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.OrderItemBilling;
 import com.nathanclaire.alantra.invoice.rest.request.OrderItemBillingRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemRequest;
 import com.nathanclaire.alantra.order.model.ProductOrderItem;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderItemRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItemBilling> implements OrderItemBillingService
+public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItemBilling, OrderItemBillingRequest> implements OrderItemBillingService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItem
 	 * @see com.nathanclaire.alantra.invoice.service.OrderItemBilling#createOrderItemBilling(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public OrderItemBilling createInstance(BaseRequest orderItemBillingRequest) {
+	public OrderItemBilling createInstance(OrderItemBillingRequest orderItemBillingRequest) {
 		return createInsance(orderItemBillingRequest);
 	}
 
@@ -84,7 +81,7 @@ public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItem
 	 * @see com.nathanclaire.alantra.invoice.service.OrderItemBilling#updateOrderItemBilling(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public OrderItemBilling updateInstance(BaseRequest orderItemBillingRequest) {
+	public OrderItemBilling updateInstance(OrderItemBillingRequest orderItemBillingRequest) {
 		return updateInstance(orderItemBillingRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItem
      * @param request
      * @return
      */
-    protected OrderItemBilling loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected OrderItemBilling loadModelFromRequest(OrderItemBillingRequest orderItemBillingRequest) 
     {
-    	OrderItemBillingRequest orderItemBillingRequest = (OrderItemBillingRequest) request;
 		OrderItemBilling orderItemBilling = new OrderItemBilling();
     	Integer orderItemBillingId = orderItemBillingRequest.getId();
     	// Are we editing a OrderItemBilling

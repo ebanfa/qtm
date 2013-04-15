@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentMethodType;
 import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeRequest;
  *
  */
 @Stateless
-public class PaymentMethodTypeServiceImpl extends BaseEntityServiceImpl<PaymentMethodType> implements PaymentMethodTypeService
+public class PaymentMethodTypeServiceImpl extends BaseEntityServiceImpl<PaymentMethodType, PaymentMethodTypeRequest> implements PaymentMethodTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class PaymentMethodTypeServiceImpl extends BaseEntityServiceImpl<PaymentM
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodType#createPaymentMethodType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodType createInstance(BaseRequest paymentMethodTypeRequest) {
+	public PaymentMethodType createInstance(PaymentMethodTypeRequest paymentMethodTypeRequest) {
 		return createInsance(paymentMethodTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class PaymentMethodTypeServiceImpl extends BaseEntityServiceImpl<PaymentM
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodType#updatePaymentMethodType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodType updateInstance(BaseRequest paymentMethodTypeRequest) {
+	public PaymentMethodType updateInstance(PaymentMethodTypeRequest paymentMethodTypeRequest) {
 		return updateInstance(paymentMethodTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class PaymentMethodTypeServiceImpl extends BaseEntityServiceImpl<PaymentM
      * @param request
      * @return
      */
-    protected PaymentMethodType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PaymentMethodType loadModelFromRequest(PaymentMethodTypeRequest paymentMethodTypeRequest) 
     {
-    	PaymentMethodTypeRequest paymentMethodTypeRequest = (PaymentMethodTypeRequest) request;
 		PaymentMethodType paymentMethodType = new PaymentMethodType();
     	Integer paymentMethodTypeId = paymentMethodTypeRequest.getId();
     	// Are we editing a PaymentMethodType

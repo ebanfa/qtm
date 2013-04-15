@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemCategory;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemCategoryRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemCategoryRequest;
  *
  */
 @Stateless
-public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<InvoiceItemCategory> implements InvoiceItemCategoryService
+public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<InvoiceItemCategory, InvoiceItemCategoryRequest> implements InvoiceItemCategoryService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<Invoic
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemCategory#createInvoiceItemCategory(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemCategory createInstance(BaseRequest invoiceItemCategoryRequest) {
+	public InvoiceItemCategory createInstance(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
 		return createInsance(invoiceItemCategoryRequest);
 	}
 
@@ -80,7 +79,7 @@ public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<Invoic
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemCategory#updateInvoiceItemCategory(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemCategory updateInstance(BaseRequest invoiceItemCategoryRequest) {
+	public InvoiceItemCategory updateInstance(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
 		return updateInstance(invoiceItemCategoryRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<Invoic
      * @param request
      * @return
      */
-    protected InvoiceItemCategory loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceItemCategory loadModelFromRequest(InvoiceItemCategoryRequest invoiceItemCategoryRequest) 
     {
-    	InvoiceItemCategoryRequest invoiceItemCategoryRequest = (InvoiceItemCategoryRequest) request;
 		InvoiceItemCategory invoiceItemCategory = new InvoiceItemCategory();
     	Integer invoiceItemCategoryId = invoiceItemCategoryRequest.getId();
     	// Are we editing a InvoiceItemCategory

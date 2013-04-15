@@ -8,26 +8,21 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.rest.request.AdviceRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
-import com.nathanclaire.alantra.advice.rest.request.AdviceStatusRequest;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventRequest;
 import com.nathanclaire.alantra.advice.model.AdviceType;
-import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice> implements AdviceService
+public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice, AdviceRequest> implements AdviceService
 {
 	/**
 	 * @param entityClass
@@ -72,7 +67,7 @@ public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice> implements 
 	 * @see com.nathanclaire.alantra.advice.service.Advice#createAdvice(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Advice createInstance(BaseRequest adviceRequest) {
+	public Advice createInstance(AdviceRequest adviceRequest) {
 		return createInsance(adviceRequest);
 	}
 
@@ -88,7 +83,7 @@ public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice> implements 
 	 * @see com.nathanclaire.alantra.advice.service.Advice#updateAdvice(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Advice updateInstance(BaseRequest adviceRequest) {
+	public Advice updateInstance(AdviceRequest adviceRequest) {
 		return updateInstance(adviceRequest);
 	}
 	
@@ -96,9 +91,9 @@ public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice> implements 
      * @param request
      * @return
      */
-    protected Advice loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Advice loadModelFromRequest(AdviceRequest adviceRequest) 
     {
-    	AdviceRequest adviceRequest = (AdviceRequest) request;
 		Advice advice = new Advice();
     	Integer adviceId = adviceRequest.getId();
     	// Are we editing a Advice

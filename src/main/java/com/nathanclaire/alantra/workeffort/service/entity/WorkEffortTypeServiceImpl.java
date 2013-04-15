@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.workeffort.model.WorkEffortType;
 import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortTypeRequest;
  *
  */
 @Stateless
-public class WorkEffortTypeServiceImpl extends BaseEntityServiceImpl<WorkEffortType> implements WorkEffortTypeService
+public class WorkEffortTypeServiceImpl extends BaseEntityServiceImpl<WorkEffortType, WorkEffortTypeRequest> implements WorkEffortTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class WorkEffortTypeServiceImpl extends BaseEntityServiceImpl<WorkEffortT
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffortType#createWorkEffortType(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffortType createInstance(BaseRequest workEffortTypeRequest) {
+	public WorkEffortType createInstance(WorkEffortTypeRequest workEffortTypeRequest) {
 		return createInsance(workEffortTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class WorkEffortTypeServiceImpl extends BaseEntityServiceImpl<WorkEffortT
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffortType#updateWorkEffortType(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffortType updateInstance(BaseRequest workEffortTypeRequest) {
+	public WorkEffortType updateInstance(WorkEffortTypeRequest workEffortTypeRequest) {
 		return updateInstance(workEffortTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class WorkEffortTypeServiceImpl extends BaseEntityServiceImpl<WorkEffortT
      * @param request
      * @return
      */
-    protected WorkEffortType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected WorkEffortType loadModelFromRequest(WorkEffortTypeRequest workEffortTypeRequest) 
     {
-    	WorkEffortTypeRequest workEffortTypeRequest = (WorkEffortTypeRequest) request;
 		WorkEffortType workEffortType = new WorkEffortType();
     	Integer workEffortTypeId = workEffortTypeRequest.getId();
     	// Are we editing a WorkEffortType

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.HostType;
 import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
  *
  */
 @Stateless
-public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType> implements HostTypeService
+public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType, HostTypeRequest> implements HostTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType> impleme
 	 * @see com.nathanclaire.alantra.channel.service.HostType#createHostType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public HostType createInstance(BaseRequest hostTypeRequest) {
+	public HostType createInstance(HostTypeRequest hostTypeRequest) {
 		return createInsance(hostTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType> impleme
 	 * @see com.nathanclaire.alantra.channel.service.HostType#updateHostType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public HostType updateInstance(BaseRequest hostTypeRequest) {
+	public HostType updateInstance(HostTypeRequest hostTypeRequest) {
 		return updateInstance(hostTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType> impleme
      * @param request
      * @return
      */
-    protected HostType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected HostType loadModelFromRequest(HostTypeRequest hostTypeRequest) 
     {
-    	HostTypeRequest hostTypeRequest = (HostTypeRequest) request;
 		HostType hostType = new HostType();
     	Integer hostTypeId = hostTypeRequest.getId();
     	// Are we editing a HostType

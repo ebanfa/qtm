@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.BillingAccountRoleType;
 import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleTypeRequ
  *
  */
 @Stateless
-public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<BillingAccountRoleType> implements BillingAccountRoleTypeService
+public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<BillingAccountRoleType, BillingAccountRoleTypeRequest> implements BillingAccountRoleTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<Bil
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRoleType#createBillingAccountRoleType(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRoleType createInstance(BaseRequest billingAccountRoleTypeRequest) {
+	public BillingAccountRoleType createInstance(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
 		return createInsance(billingAccountRoleTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<Bil
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRoleType#updateBillingAccountRoleType(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRoleType updateInstance(BaseRequest billingAccountRoleTypeRequest) {
+	public BillingAccountRoleType updateInstance(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
 		return updateInstance(billingAccountRoleTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<Bil
      * @param request
      * @return
      */
-    protected BillingAccountRoleType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected BillingAccountRoleType loadModelFromRequest(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) 
     {
-    	BillingAccountRoleTypeRequest billingAccountRoleTypeRequest = (BillingAccountRoleTypeRequest) request;
 		BillingAccountRoleType billingAccountRoleType = new BillingAccountRoleType();
     	Integer billingAccountRoleTypeId = billingAccountRoleTypeRequest.getId();
     	// Are we editing a BillingAccountRoleType

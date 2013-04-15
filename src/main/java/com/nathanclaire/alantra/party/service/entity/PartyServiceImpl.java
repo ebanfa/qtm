@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 import com.nathanclaire.alantra.party.model.PartyType;
-import com.nathanclaire.alantra.party.rest.request.PartyTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyServiceImpl extends BaseEntityServiceImpl<Party> implements PartyService
+public class PartyServiceImpl extends BaseEntityServiceImpl<Party, PartyRequest> implements PartyService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party> implements Pa
 	 * @see com.nathanclaire.alantra.party.service.Party#createParty(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Party createInstance(BaseRequest partyRequest) {
+	public Party createInstance(PartyRequest partyRequest) {
 		return createInsance(partyRequest);
 	}
 
@@ -82,7 +80,7 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party> implements Pa
 	 * @see com.nathanclaire.alantra.party.service.Party#updateParty(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Party updateInstance(BaseRequest partyRequest) {
+	public Party updateInstance(PartyRequest partyRequest) {
 		return updateInstance(partyRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party> implements Pa
      * @param request
      * @return
      */
-    protected Party loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Party loadModelFromRequest(PartyRequest partyRequest) 
     {
-    	PartyRequest partyRequest = (PartyRequest) request;
 		Party party = new Party();
     	Integer partyId = partyRequest.getId();
     	// Are we editing a Party

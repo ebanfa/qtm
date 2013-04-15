@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureType;
 import com.nathanclaire.alantra.product.rest.request.ProductFeatureTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.product.rest.request.ProductFeatureTypeRequest;
  *
  */
 @Stateless
-public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<ProductFeatureType> implements ProductFeatureTypeService
+public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<ProductFeatureType, ProductFeatureTypeRequest> implements ProductFeatureTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<Product
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureType#createProductFeatureType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureType createInstance(BaseRequest productFeatureTypeRequest) {
+	public ProductFeatureType createInstance(ProductFeatureTypeRequest productFeatureTypeRequest) {
 		return createInsance(productFeatureTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<Product
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureType#updateProductFeatureType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureType updateInstance(BaseRequest productFeatureTypeRequest) {
+	public ProductFeatureType updateInstance(ProductFeatureTypeRequest productFeatureTypeRequest) {
 		return updateInstance(productFeatureTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<Product
      * @param request
      * @return
      */
-    protected ProductFeatureType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ProductFeatureType loadModelFromRequest(ProductFeatureTypeRequest productFeatureTypeRequest) 
     {
-    	ProductFeatureTypeRequest productFeatureTypeRequest = (ProductFeatureTypeRequest) request;
 		ProductFeatureType productFeatureType = new ProductFeatureType();
     	Integer productFeatureTypeId = productFeatureTypeRequest.getId();
     	// Are we editing a ProductFeatureType

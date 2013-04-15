@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
 import com.nathanclaire.alantra.advice.rest.request.AdviceStatusRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.advice.rest.request.AdviceStatusRequest;
  *
  */
 @Stateless
-public class AdviceStatusServiceImpl extends BaseEntityServiceImpl<AdviceStatus> implements AdviceStatusService
+public class AdviceStatusServiceImpl extends BaseEntityServiceImpl<AdviceStatus, AdviceStatusRequest> implements AdviceStatusService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class AdviceStatusServiceImpl extends BaseEntityServiceImpl<AdviceStatus>
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#createAdviceStatus(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceStatus createInstance(BaseRequest adviceStatusRequest) {
+	public AdviceStatus createInstance(AdviceStatusRequest adviceStatusRequest) {
 		return createInsance(adviceStatusRequest);
 	}
 
@@ -80,7 +79,7 @@ public class AdviceStatusServiceImpl extends BaseEntityServiceImpl<AdviceStatus>
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#updateAdviceStatus(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceStatus updateInstance(BaseRequest adviceStatusRequest) {
+	public AdviceStatus updateInstance(AdviceStatusRequest adviceStatusRequest) {
 		return updateInstance(adviceStatusRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class AdviceStatusServiceImpl extends BaseEntityServiceImpl<AdviceStatus>
      * @param request
      * @return
      */
-    protected AdviceStatus loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected AdviceStatus loadModelFromRequest(AdviceStatusRequest adviceStatusRequest) 
     {
-    	AdviceStatusRequest adviceStatusRequest = (AdviceStatusRequest) request;
 		AdviceStatus adviceStatus = new AdviceStatus();
     	Integer adviceStatusId = adviceStatusRequest.getId();
     	// Are we editing a AdviceStatus

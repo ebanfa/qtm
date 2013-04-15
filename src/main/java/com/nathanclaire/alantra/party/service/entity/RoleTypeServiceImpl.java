@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.RoleType;
 import com.nathanclaire.alantra.party.rest.request.RoleTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.party.rest.request.RoleTypeRequest;
  *
  */
 @Stateless
-public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType> implements RoleTypeService
+public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType, RoleTypeRequest> implements RoleTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType> impleme
 	 * @see com.nathanclaire.alantra.party.service.RoleType#createRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RoleType createInstance(BaseRequest roleTypeRequest) {
+	public RoleType createInstance(RoleTypeRequest roleTypeRequest) {
 		return createInsance(roleTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType> impleme
 	 * @see com.nathanclaire.alantra.party.service.RoleType#updateRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RoleType updateInstance(BaseRequest roleTypeRequest) {
+	public RoleType updateInstance(RoleTypeRequest roleTypeRequest) {
 		return updateInstance(roleTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType> impleme
      * @param request
      * @return
      */
-    protected RoleType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected RoleType loadModelFromRequest(RoleTypeRequest roleTypeRequest) 
     {
-    	RoleTypeRequest roleTypeRequest = (RoleTypeRequest) request;
 		RoleType roleType = new RoleType();
     	Integer roleTypeId = roleTypeRequest.getId();
     	// Are we editing a RoleType

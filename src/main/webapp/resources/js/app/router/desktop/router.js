@@ -42,6 +42,10 @@ define("router", [
     'app/collections/channel/servicetype/servicetype',
     'app/views/desktop/channel/servicetype/edit-servicetype',
     'app/views/desktop/channel/servicetype/list-servicetype',
+    'app/models/channel/servicecategory/servicecategory',
+    'app/collections/channel/servicecategory/servicecategory',
+    'app/views/desktop/channel/servicecategory/edit-servicecategory',
+    'app/views/desktop/channel/servicecategory/list-servicecategory',
     'app/models/channel/servicemode/servicemode',
     'app/collections/channel/servicemode/servicemode',
     'app/views/desktop/channel/servicemode/edit-servicemode',
@@ -435,6 +439,10 @@ define("router", [
             ServiceTypes,
             ServiceTypeEditView,
             ServiceTypeListView,
+            ServiceCategory,
+            ServiceCategorys,
+            ServiceCategoryEditView,
+            ServiceCategoryListView,
             ServiceMode,
             ServiceModes,
             ServiceModeEditView,
@@ -899,6 +907,9 @@ define("router", [
             "list-servicetype":"listServiceType",
             "edit-servicetype":"editServiceType",
             "edit-servicetype/:id":"editServiceType",
+            "list-servicecategory":"listServiceCategory",
+            "edit-servicecategory":"editServiceCategory",
+            "edit-servicecategory/:id":"editServiceCategory",
             "list-servicemode":"listServiceMode",
             "edit-servicemode":"editServiceMode",
             "edit-servicemode/:id":"editServiceMode",
@@ -1260,6 +1271,21 @@ define("router", [
             var model = new ServiceType({id:id});
             var serviceTypeEditView = new ServiceTypeEditView({model:model, el:$("#content-container")});
             utilities.viewManager.showView(serviceTypeEditView);
+        },
+        listServiceCategory:function()
+        {
+            var model = new ServiceCategorys();
+            var serviceCategoryListView = new ServiceCategoryListView({model:model, el:$("#content-container")});
+            model.bind("reset",
+                function () {
+                    utilities.viewManager.showView(serviceCategoryListView);
+            }).fetch();
+        },
+        editServiceCategory:function(id)
+        {
+            var model = new ServiceCategory({id:id});
+            var serviceCategoryEditView = new ServiceCategoryEditView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(serviceCategoryEditView);
         },
         listServiceMode:function()
         {

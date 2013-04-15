@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceStatusType;
 import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusTypeRequest;
  *
  */
 @Stateless
-public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceStatusType> implements InvoiceStatusTypeService
+public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceStatusType, InvoiceStatusTypeRequest> implements InvoiceStatusTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceS
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatusType#createInvoiceStatusType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatusType createInstance(BaseRequest invoiceStatusTypeRequest) {
+	public InvoiceStatusType createInstance(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
 		return createInsance(invoiceStatusTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceS
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatusType#updateInvoiceStatusType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatusType updateInstance(BaseRequest invoiceStatusTypeRequest) {
+	public InvoiceStatusType updateInstance(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
 		return updateInstance(invoiceStatusTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceS
      * @param request
      * @return
      */
-    protected InvoiceStatusType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected InvoiceStatusType loadModelFromRequest(InvoiceStatusTypeRequest invoiceStatusTypeRequest) 
     {
-    	InvoiceStatusTypeRequest invoiceStatusTypeRequest = (InvoiceStatusTypeRequest) request;
 		InvoiceStatusType invoiceStatusType = new InvoiceStatusType();
     	Integer invoiceStatusTypeId = invoiceStatusTypeRequest.getId();
     	// Are we editing a InvoiceStatusType

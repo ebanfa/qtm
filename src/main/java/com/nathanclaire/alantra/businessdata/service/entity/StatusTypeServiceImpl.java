@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.StatusType;
 import com.nathanclaire.alantra.businessdata.rest.request.StatusTypeRequest;
@@ -19,7 +18,7 @@ import com.nathanclaire.alantra.businessdata.rest.request.StatusTypeRequest;
  *
  */
 @Stateless
-public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType> implements StatusTypeService
+public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType, StatusTypeRequest> implements StatusTypeService
 {
 	/**
 	 * @param entityClass
@@ -64,7 +63,7 @@ public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType> imp
 	 * @see com.nathanclaire.alantra.businessdata.service.StatusType#createStatusType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public StatusType createInstance(BaseRequest statusTypeRequest) {
+	public StatusType createInstance(StatusTypeRequest statusTypeRequest) {
 		return createInsance(statusTypeRequest);
 	}
 
@@ -80,7 +79,7 @@ public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType> imp
 	 * @see com.nathanclaire.alantra.businessdata.service.StatusType#updateStatusType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public StatusType updateInstance(BaseRequest statusTypeRequest) {
+	public StatusType updateInstance(StatusTypeRequest statusTypeRequest) {
 		return updateInstance(statusTypeRequest);
 	}
 	
@@ -88,9 +87,9 @@ public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType> imp
      * @param request
      * @return
      */
-    protected StatusType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected StatusType loadModelFromRequest(StatusTypeRequest statusTypeRequest) 
     {
-    	StatusTypeRequest statusTypeRequest = (StatusTypeRequest) request;
 		StatusType statusType = new StatusType();
     	Integer statusTypeId = statusTypeRequest.getId();
     	// Are we editing a StatusType

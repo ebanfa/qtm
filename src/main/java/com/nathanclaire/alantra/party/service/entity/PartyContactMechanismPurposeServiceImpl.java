@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyContactMechanismPurpose;
 import com.nathanclaire.alantra.party.rest.request.PartyContactMechanismPurposeRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanismPurposeType;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismPurposeTypeRequest;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceImpl<PartyContactMechanismPurpose> implements PartyContactMechanismPurposeService
+public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceImpl<PartyContactMechanismPurpose, PartyContactMechanismPurposeRequest> implements PartyContactMechanismPurposeService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanismPurpose#createPartyContactMechanismPurpose(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanismPurpose createInstance(BaseRequest partyContactMechanismPurposeRequest) {
+	public PartyContactMechanismPurpose createInstance(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
 		return createInsance(partyContactMechanismPurposeRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanismPurpose#updatePartyContactMechanismPurpose(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanismPurpose updateInstance(BaseRequest partyContactMechanismPurposeRequest) {
+	public PartyContactMechanismPurpose updateInstance(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
 		return updateInstance(partyContactMechanismPurposeRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceIm
      * @param request
      * @return
      */
-    protected PartyContactMechanismPurpose loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyContactMechanismPurpose loadModelFromRequest(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) 
     {
-    	PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest = (PartyContactMechanismPurposeRequest) request;
 		PartyContactMechanismPurpose partyContactMechanismPurpose = new PartyContactMechanismPurpose();
     	Integer partyContactMechanismPurposeId = partyContactMechanismPurposeRequest.getId();
     	// Are we editing a PartyContactMechanismPurpose

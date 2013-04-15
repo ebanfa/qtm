@@ -14,7 +14,7 @@ import com.nathanclaire.alantra.base.rest.request.BaseRequest;
  * @author Edward Banfa 
  *
  */
-public interface BaseEntityService<T> {
+public interface BaseEntityService<T,V> {
 	
 	public T findById(Integer id);
 	
@@ -26,9 +26,9 @@ public interface BaseEntityService<T> {
 
 	public void deleteInstance(Integer id);
 
-	public T updateInstance(BaseRequest hostRequest);
+	public T updateInstance(V hostRequest);
 
-	public T createInstance(BaseRequest hostRequest);
+	public T createInstance(V hostRequest);
 	
 	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters);
 

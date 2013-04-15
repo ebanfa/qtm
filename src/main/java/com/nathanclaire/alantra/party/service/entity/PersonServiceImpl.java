@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Person;
 import com.nathanclaire.alantra.party.rest.request.PersonRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PersonServiceImpl extends BaseEntityServiceImpl<Person> implements PersonService
+public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonRequest> implements PersonService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person> implements 
 	 * @see com.nathanclaire.alantra.party.service.Person#createPerson(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Person createInstance(BaseRequest personRequest) {
+	public Person createInstance(PersonRequest personRequest) {
 		return createInsance(personRequest);
 	}
 
@@ -82,7 +80,7 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person> implements 
 	 * @see com.nathanclaire.alantra.party.service.Person#updatePerson(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Person updateInstance(BaseRequest personRequest) {
+	public Person updateInstance(PersonRequest personRequest) {
 		return updateInstance(personRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person> implements 
      * @param request
      * @return
      */
-    protected Person loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected Person loadModelFromRequest(PersonRequest personRequest) 
     {
-    	PersonRequest personRequest = (PersonRequest) request;
 		Person person = new Person();
     	Integer personId = personRequest.getId();
     	// Are we editing a Person

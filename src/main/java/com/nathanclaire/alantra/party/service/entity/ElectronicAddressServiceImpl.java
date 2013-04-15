@@ -8,20 +8,18 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ElectronicAddress;
 import com.nathanclaire.alantra.party.rest.request.ElectronicAddressRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<ElectronicAddress> implements ElectronicAddressService
+public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<ElectronicAddress, ElectronicAddressRequest> implements ElectronicAddressService
 {
 	/**
 	 * @param entityClass
@@ -66,7 +64,7 @@ public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<Electron
 	 * @see com.nathanclaire.alantra.party.service.ElectronicAddress#createElectronicAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ElectronicAddress createInstance(BaseRequest electronicAddressRequest) {
+	public ElectronicAddress createInstance(ElectronicAddressRequest electronicAddressRequest) {
 		return createInsance(electronicAddressRequest);
 	}
 
@@ -82,7 +80,7 @@ public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<Electron
 	 * @see com.nathanclaire.alantra.party.service.ElectronicAddress#updateElectronicAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ElectronicAddress updateInstance(BaseRequest electronicAddressRequest) {
+	public ElectronicAddress updateInstance(ElectronicAddressRequest electronicAddressRequest) {
 		return updateInstance(electronicAddressRequest);
 	}
 	
@@ -90,9 +88,9 @@ public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<Electron
      * @param request
      * @return
      */
-    protected ElectronicAddress loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected ElectronicAddress loadModelFromRequest(ElectronicAddressRequest electronicAddressRequest) 
     {
-    	ElectronicAddressRequest electronicAddressRequest = (ElectronicAddressRequest) request;
 		ElectronicAddress electronicAddress = new ElectronicAddress();
     	Integer electronicAddressId = electronicAddressRequest.getId();
     	// Are we editing a ElectronicAddress

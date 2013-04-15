@@ -8,22 +8,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyRoleType;
 import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 
 import com.nathanclaire.alantra.party.model.RoleType;
-import com.nathanclaire.alantra.party.rest.request.RoleTypeRequest;
 import com.nathanclaire.alantra.party.model.PartyRoleType;
-import com.nathanclaire.alantra.party.rest.request.PartyRoleTypeRequest;
 
 /**
  * @author administrator
  *
  */
 @Stateless
-public class PartyRoleTypeServiceImpl extends BaseEntityServiceImpl<PartyRoleType> implements PartyRoleTypeService
+public class PartyRoleTypeServiceImpl extends BaseEntityServiceImpl<PartyRoleType, PartyRoleTypeRequest> implements PartyRoleTypeService
 {
 	/**
 	 * @param entityClass
@@ -68,7 +65,7 @@ public class PartyRoleTypeServiceImpl extends BaseEntityServiceImpl<PartyRoleTyp
 	 * @see com.nathanclaire.alantra.party.service.PartyRoleType#createPartyRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRoleType createInstance(BaseRequest partyRoleTypeRequest) {
+	public PartyRoleType createInstance(PartyRoleTypeRequest partyRoleTypeRequest) {
 		return createInsance(partyRoleTypeRequest);
 	}
 
@@ -84,7 +81,7 @@ public class PartyRoleTypeServiceImpl extends BaseEntityServiceImpl<PartyRoleTyp
 	 * @see com.nathanclaire.alantra.party.service.PartyRoleType#updatePartyRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRoleType updateInstance(BaseRequest partyRoleTypeRequest) {
+	public PartyRoleType updateInstance(PartyRoleTypeRequest partyRoleTypeRequest) {
 		return updateInstance(partyRoleTypeRequest);
 	}
 	
@@ -92,9 +89,9 @@ public class PartyRoleTypeServiceImpl extends BaseEntityServiceImpl<PartyRoleTyp
      * @param request
      * @return
      */
-    protected PartyRoleType loadModelFromRequest(BaseRequest request) 
+	@Override
+    protected PartyRoleType loadModelFromRequest(PartyRoleTypeRequest partyRoleTypeRequest) 
     {
-    	PartyRoleTypeRequest partyRoleTypeRequest = (PartyRoleTypeRequest) request;
 		PartyRoleType partyRoleType = new PartyRoleType();
     	Integer partyRoleTypeId = partyRoleTypeRequest.getId();
     	// Are we editing a PartyRoleType

@@ -3,6 +3,7 @@ define([
     'configuration',
     'app/util/form-utilities',
     'i18n!app/nls/entities',
+    'app/views/desktop/base/baseentityeditview',
         'app/collections/customer/billingaccountroletype/billingaccountroletype',
     'app/collections/party/party/party',
     'app/collections/customer/billingaccount/billingaccount',
@@ -10,7 +11,7 @@ define([
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
     'text!../../../../../../templates/desktop/customer/billingaccount/billingaccount-list-subview.html',
     'text!../../../../../../templates/desktop/customer/billingaccountrole/edit-billingaccountrole.html'
-], function (utilities, config, formUtilities, entities_strings, BillingAccountRoleTypes, Partys, BillingAccounts, billingAccountRoleTypeListSubViewTemplate, partyListSubViewTemplate, billingAccountListSubViewTemplate, BillingAccountRoleEditTemplate) {
+], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, BillingAccountRoleTypes, Partys, BillingAccounts, billingAccountRoleTypeListSubViewTemplate, partyListSubViewTemplate, billingAccountListSubViewTemplate, BillingAccountRoleEditTemplate) {
 	
     var BillingAccountRoleTypeListSubView = Backbone.View.extend({
         initialize: function () {
@@ -19,14 +20,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#billingAccountRoleTypeSelectContainerDiv'), billingAccountRoleTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"billingAccountRoleType", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#billingAccountRoleTypeSelectContainerDiv'), billingAccountRoleTypeListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var billingAccountRoleTypesFetch = this.model.fetch();
             // Re render the template when the data is available    
             billingAccountRoleTypesFetch.done(function (){
-                utilities.applyTemplate($('#billingAccountRoleTypeSelectContainerDiv'), billingAccountRoleTypeListSubViewTemplate,  {model:self.model, relatedFieldName:"billingAccountRoleType", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#billingAccountRoleTypeSelectContainerDiv'), billingAccountRoleTypeListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"billingAccountRoleType", 
+            	fieldName:entities_strings.billingaccountroletype, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -37,14 +52,28 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var partysFetch = this.model.fetch();
             // Re render the template when the data is available    
             partysFetch.done(function (){
-                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  {model:self.model, relatedFieldName:"party", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#partySelectContainerDiv'), partyListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"party", 
+            	fieldName:entities_strings.party, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
@@ -55,75 +84,49 @@ define([
         render:function () 
         {     
             var self = this;            
-            utilities.applyTemplate($('#billingAccountSelectContainerDiv'), billingAccountListSubViewTemplate,  {model:self.model, relatedFieldName:"billingAccount", entities_strings:entities_strings, selectedOption:this.options.selectedOption});
+            utilities.applyTemplate($('#billingAccountSelectContainerDiv'), billingAccountListSubViewTemplate,  this.getTemplateData());
             // Fetch data
             var billingAccountsFetch = this.model.fetch();
             // Re render the template when the data is available    
             billingAccountsFetch.done(function (){
-                utilities.applyTemplate($('#billingAccountSelectContainerDiv'), billingAccountListSubViewTemplate,  {model:self.model, relatedFieldName:"billingAccount", entities_strings:entities_strings, selectedOption:self.options.selectedOption});
+                utilities.applyTemplate($('#billingAccountSelectContainerDiv'), billingAccountListSubViewTemplate,  self.getTemplateData());
             });
             return this;
+        },
+        getTemplateData: function()
+        {
+            var self = this;
+            var templateData = 
+            {
+                idField:'id', 
+            	model:self.model, 
+            	relatedFieldName:"billingAccount", 
+            	fieldName:entities_strings.billingaccount, 
+            	entities_strings:entities_strings, 
+            	selectedOption:self.options.selectedOption
+            };
+            return templateData;
         }
     });
     
 	
-    var BillingAccountRoleEditView = Backbone.View.extend({
-        render:function () {
-            var self = this;
-            if (this.model.attributes.id)
-            {
-                var self = this;
-                this.model.fetch(
-                {
-                    success: function(billingaccountrole)
-                    {
-                        utilities.applyTemplate($(self.el), BillingAccountRoleEditTemplate,  
-                            {model:this.model, billingaccountrole:billingaccountrole, entities_strings:entities_strings}); 
-                        $(self.el).trigger('pagecreate');
-                		self.renderSubViews();
-                    }
-                });
-            }
-            else
-            {
-                utilities.applyTemplate($(this.el), BillingAccountRoleEditTemplate,  
-                    {model:this.model, billingaccountrole:null, entities_strings:entities_strings});
-                $(this.el).trigger('pagecreate');
-                this.renderSubViews();
-            }
-            return this;
+    var BillingAccountRoleEditView = BaseEntityEditView.extend({
+    
+        initialize: function(options)
+        {
+            this.entityTemplate = BillingAccountRoleEditTemplate;
         },
         events:
         {
-            'submit #edit-billingaccountrole-form':'editBillingAccountRole'
+            'submit #edit-billingaccountrole-form':'saveEntity'
             
         },
-        editBillingAccountRole: function(event)
+        navigateToEntityList:function()
         {
-            event.preventDefault();
-            var billingaccountrole = $(event.currentTarget).serializeObject();
-            this.model.save(billingaccountrole, { 
-                'success': function ()
-                {
-                    utilities.navigate('list-billingaccountrole');
-                },
-                error: function (model, errors) 
-                {
-                    var errorMessage = "";
-                     _.each(errors, function (error) {
-                        errorMessage += error.message + "\n";
-                    }, this);
-                    alert(errorMessage);
-                }
-            });
-            return false;
+            utilities.navigate('list-billingaccountrole');
         },
         renderSubViews:function()
         {
-            $('.date-picker').datetimepicker({
-              format: 'dd/MM/yyyy',
-              pickTime: false
-            });
             if (this.model.attributes.id)
             {
 		    	this.billingAccountRoleTypeId = this.model.attributes.billingAccountRoleType
