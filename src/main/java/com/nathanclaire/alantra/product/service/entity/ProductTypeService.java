@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.product.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.product.model.ProductType;
-import com.nathanclaire.alantra.product.rest.request.ProductTypeRequest;
+import com.nathanclaire.alantra.product.request.ProductTypeRequest;
 
 /**
  * @author Edward Banfa

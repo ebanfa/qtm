@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.StatusType;
-import com.nathanclaire.alantra.businessdata.rest.request.StatusTypeRequest;
+import com.nathanclaire.alantra.businessdata.request.StatusTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType, Sta
 	 * @see com.nathanclaire.alantra.businessdata.service.StatusType#createStatusType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public StatusType createInstance(StatusTypeRequest statusTypeRequest) {
-		return createInsance(statusTypeRequest);
+	public StatusType create(StatusTypeRequest statusTypeRequest) {
+		return createInstance(statusTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.StatusType#deleteStatusType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class StatusTypeServiceImpl extends BaseEntityServiceImpl<StatusType, Sta
 	 * @see com.nathanclaire.alantra.businessdata.service.StatusType#updateStatusType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public StatusType updateInstance(StatusTypeRequest statusTypeRequest) {
+	public StatusType update(StatusTypeRequest statusTypeRequest) {
 		return updateInstance(statusTypeRequest);
 	}
 	

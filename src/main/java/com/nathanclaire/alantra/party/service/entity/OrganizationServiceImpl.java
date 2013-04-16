@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Organization;
-import com.nathanclaire.alantra.party.rest.request.OrganizationRequest;
+import com.nathanclaire.alantra.party.request.OrganizationRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
 
@@ -64,15 +64,15 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization,
 	 * @see com.nathanclaire.alantra.party.service.Organization#createOrganization(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Organization createInstance(OrganizationRequest organizationRequest) {
-		return createInsance(organizationRequest);
+	public Organization create(OrganizationRequest organizationRequest) {
+		return createInstance(organizationRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.Organization#deleteOrganization(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization,
 	 * @see com.nathanclaire.alantra.party.service.Organization#updateOrganization(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Organization updateInstance(OrganizationRequest organizationRequest) {
+	public Organization update(OrganizationRequest organizationRequest) {
 		return updateInstance(organizationRequest);
 	}
 	

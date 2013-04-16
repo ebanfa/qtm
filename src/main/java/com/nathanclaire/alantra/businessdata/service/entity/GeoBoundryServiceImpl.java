@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.GeoBoundryRequest;
+import com.nathanclaire.alantra.businessdata.request.GeoBoundryRequest;
 
 import com.nathanclaire.alantra.businessdata.model.GeoBoundaryType;
 
@@ -64,15 +64,15 @@ public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry, Geo
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundry#createGeoBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundry createInstance(GeoBoundryRequest geoBoundryRequest) {
-		return createInsance(geoBoundryRequest);
+	public GeoBoundry create(GeoBoundryRequest geoBoundryRequest) {
+		return createInstance(geoBoundryRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundry#deleteGeoBoundry(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class GeoBoundryServiceImpl extends BaseEntityServiceImpl<GeoBoundry, Geo
 	 * @see com.nathanclaire.alantra.businessdata.service.GeoBoundry#updateGeoBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public GeoBoundry updateInstance(GeoBoundryRequest geoBoundryRequest) {
+	public GeoBoundry update(GeoBoundryRequest geoBoundryRequest) {
 		return updateInstance(geoBoundryRequest);
 	}
 	

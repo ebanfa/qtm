@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.OrderItemBilling;
-import com.nathanclaire.alantra.invoice.rest.request.OrderItemBillingRequest;
+import com.nathanclaire.alantra.invoice.request.OrderItemBillingRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceItem;
 import com.nathanclaire.alantra.order.model.ProductOrderItem;
@@ -65,15 +65,15 @@ public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItem
 	 * @see com.nathanclaire.alantra.invoice.service.OrderItemBilling#createOrderItemBilling(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public OrderItemBilling createInstance(OrderItemBillingRequest orderItemBillingRequest) {
-		return createInsance(orderItemBillingRequest);
+	public OrderItemBilling create(OrderItemBillingRequest orderItemBillingRequest) {
+		return createInstance(orderItemBillingRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.invoice.service.OrderItemBilling#deleteOrderItemBilling(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class OrderItemBillingServiceImpl extends BaseEntityServiceImpl<OrderItem
 	 * @see com.nathanclaire.alantra.invoice.service.OrderItemBilling#updateOrderItemBilling(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public OrderItemBilling updateInstance(OrderItemBillingRequest orderItemBillingRequest) {
+	public OrderItemBilling update(OrderItemBillingRequest orderItemBillingRequest) {
 		return updateInstance(orderItemBillingRequest);
 	}
 	

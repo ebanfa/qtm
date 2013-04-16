@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceStatusType;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceStatusTypeRequest;
+import com.nathanclaire.alantra.invoice.request.InvoiceStatusTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceS
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatusType#createInvoiceStatusType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatusType createInstance(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
-		return createInsance(invoiceStatusTypeRequest);
+	public InvoiceStatusType create(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
+		return createInstance(invoiceStatusTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatusType#deleteInvoiceStatusType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class InvoiceStatusTypeServiceImpl extends BaseEntityServiceImpl<InvoiceS
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceStatusType#updateInvoiceStatusType(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceStatusType updateInstance(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
+	public InvoiceStatusType update(InvoiceStatusTypeRequest invoiceStatusTypeRequest) {
 		return updateInstance(invoiceStatusTypeRequest);
 	}
 	

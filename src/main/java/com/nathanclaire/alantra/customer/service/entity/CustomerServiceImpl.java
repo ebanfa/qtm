@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.Customer;
-import com.nathanclaire.alantra.customer.rest.request.CustomerRequest;
+import com.nathanclaire.alantra.customer.request.CustomerRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
 
@@ -64,15 +64,15 @@ public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer, Custome
 	 * @see com.nathanclaire.alantra.customer.service.Customer#createCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer createInstance(CustomerRequest customerRequest) {
-		return createInsance(customerRequest);
+	public Customer create(CustomerRequest customerRequest) {
+		return createInstance(customerRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.Customer#deleteCustomer(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class CustomerServiceImpl extends BaseEntityServiceImpl<Customer, Custome
 	 * @see com.nathanclaire.alantra.customer.service.Customer#updateCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer updateInstance(CustomerRequest customerRequest) {
+	public Customer update(CustomerRequest customerRequest) {
 		return updateInstance(customerRequest);
 	}
 	

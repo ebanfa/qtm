@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.AdviceType;
-import com.nathanclaire.alantra.advice.rest.request.AdviceTypeRequest;
+import com.nathanclaire.alantra.advice.request.AdviceTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType, Adv
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#createAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType createInstance(AdviceTypeRequest adviceTypeRequest) {
-		return createInsance(adviceTypeRequest);
+	public AdviceType create(AdviceTypeRequest adviceTypeRequest) {
+		return createInstance(adviceTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#deleteAdviceType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class AdviceTypeServiceImpl extends BaseEntityServiceImpl<AdviceType, Adv
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#updateAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType updateInstance(AdviceTypeRequest adviceTypeRequest) {
+	public AdviceType update(AdviceTypeRequest adviceTypeRequest) {
 		return updateInstance(adviceTypeRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ElectronicAddress;
-import com.nathanclaire.alantra.party.rest.request.ElectronicAddressRequest;
+import com.nathanclaire.alantra.party.request.ElectronicAddressRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 
@@ -64,15 +64,15 @@ public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<Electron
 	 * @see com.nathanclaire.alantra.party.service.ElectronicAddress#createElectronicAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ElectronicAddress createInstance(ElectronicAddressRequest electronicAddressRequest) {
-		return createInsance(electronicAddressRequest);
+	public ElectronicAddress create(ElectronicAddressRequest electronicAddressRequest) {
+		return createInstance(electronicAddressRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.ElectronicAddress#deleteElectronicAddress(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class ElectronicAddressServiceImpl extends BaseEntityServiceImpl<Electron
 	 * @see com.nathanclaire.alantra.party.service.ElectronicAddress#updateElectronicAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ElectronicAddress updateInstance(ElectronicAddressRequest electronicAddressRequest) {
+	public ElectronicAddress update(ElectronicAddressRequest electronicAddressRequest) {
 		return updateInstance(electronicAddressRequest);
 	}
 	

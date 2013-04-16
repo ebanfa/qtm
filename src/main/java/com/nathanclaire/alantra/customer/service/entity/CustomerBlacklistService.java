@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.customer.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
-import com.nathanclaire.alantra.customer.rest.request.CustomerBlacklistRequest;
+import com.nathanclaire.alantra.customer.request.CustomerBlacklistRequest;
 
 /**
  * @author Edward Banfa

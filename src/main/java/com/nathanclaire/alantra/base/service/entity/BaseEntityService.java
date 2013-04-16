@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.rest.request.BaseRequest;
-
 /**
  * @author Edward Banfa 
  *
@@ -24,11 +22,11 @@ public interface BaseEntityService<T,V> {
 
 	public List<T> findAll(MultivaluedMap<String, String> queryParameters);
 
-	public void deleteInstance(Integer id);
+	public void delete(Integer id);
 
-	public T updateInstance(V hostRequest);
+	public T update(V hostRequest);
 
-	public T createInstance(V hostRequest);
+	public T create(V hostRequest);
 	
 	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters);
 

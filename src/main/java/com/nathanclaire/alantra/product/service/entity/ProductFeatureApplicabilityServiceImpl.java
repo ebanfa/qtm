@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicability;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityRequest;
+import com.nathanclaire.alantra.product.request.ProductFeatureApplicabilityRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.ProductFeature;
@@ -66,15 +66,15 @@ public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicability#createProductFeatureApplicability(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicability createInstance(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
-		return createInsance(productFeatureApplicabilityRequest);
+	public ProductFeatureApplicability create(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
+		return createInstance(productFeatureApplicabilityRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicability#deleteProductFeatureApplicability(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -82,7 +82,7 @@ public class ProductFeatureApplicabilityServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicability#updateProductFeatureApplicability(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicability updateInstance(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
+	public ProductFeatureApplicability update(ProductFeatureApplicabilityRequest productFeatureApplicabilityRequest) {
 		return updateInstance(productFeatureApplicabilityRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.BillingAccount;
-import com.nathanclaire.alantra.customer.rest.request.BillingAccountRequest;
+import com.nathanclaire.alantra.customer.request.BillingAccountRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAcco
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccount#createBillingAccount(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccount createInstance(BillingAccountRequest billingAccountRequest) {
-		return createInsance(billingAccountRequest);
+	public BillingAccount create(BillingAccountRequest billingAccountRequest) {
+		return createInstance(billingAccountRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccount#deleteBillingAccount(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class BillingAccountServiceImpl extends BaseEntityServiceImpl<BillingAcco
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccount#updateBillingAccount(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccount updateInstance(BillingAccountRequest billingAccountRequest) {
+	public BillingAccount update(BillingAccountRequest billingAccountRequest) {
 		return updateInstance(billingAccountRequest);
 	}
 	

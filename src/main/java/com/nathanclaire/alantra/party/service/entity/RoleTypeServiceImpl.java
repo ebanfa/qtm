@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.RoleType;
-import com.nathanclaire.alantra.party.rest.request.RoleTypeRequest;
+import com.nathanclaire.alantra.party.request.RoleTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType, RoleTyp
 	 * @see com.nathanclaire.alantra.party.service.RoleType#createRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RoleType createInstance(RoleTypeRequest roleTypeRequest) {
-		return createInsance(roleTypeRequest);
+	public RoleType create(RoleTypeRequest roleTypeRequest) {
+		return createInstance(roleTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.RoleType#deleteRoleType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class RoleTypeServiceImpl extends BaseEntityServiceImpl<RoleType, RoleTyp
 	 * @see com.nathanclaire.alantra.party.service.RoleType#updateRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RoleType updateInstance(RoleTypeRequest roleTypeRequest) {
+	public RoleType update(RoleTypeRequest roleTypeRequest) {
 		return updateInstance(roleTypeRequest);
 	}
 	

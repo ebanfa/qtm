@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceTerm;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceTermRequest;
+import com.nathanclaire.alantra.invoice.request.InvoiceTermRequest;
 
 import com.nathanclaire.alantra.businessdata.model.TermType;
 
@@ -64,15 +64,15 @@ public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm, I
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceTerm#createInvoiceTerm(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceTerm createInstance(InvoiceTermRequest invoiceTermRequest) {
-		return createInsance(invoiceTermRequest);
+	public InvoiceTerm create(InvoiceTermRequest invoiceTermRequest) {
+		return createInstance(invoiceTermRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceTerm#deleteInvoiceTerm(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class InvoiceTermServiceImpl extends BaseEntityServiceImpl<InvoiceTerm, I
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceTerm#updateInvoiceTerm(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceTerm updateInstance(InvoiceTermRequest invoiceTermRequest) {
+	public InvoiceTerm update(InvoiceTermRequest invoiceTermRequest) {
 		return updateInstance(invoiceTermRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductComponent;
-import com.nathanclaire.alantra.product.rest.request.ProductComponentRequest;
+import com.nathanclaire.alantra.product.request.ProductComponentRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.Product;
@@ -65,15 +65,15 @@ public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductCo
 	 * @see com.nathanclaire.alantra.product.service.ProductComponent#createProductComponent(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductComponent createInstance(ProductComponentRequest productComponentRequest) {
-		return createInsance(productComponentRequest);
+	public ProductComponent create(ProductComponentRequest productComponentRequest) {
+		return createInstance(productComponentRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductComponent#deleteProductComponent(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class ProductComponentServiceImpl extends BaseEntityServiceImpl<ProductCo
 	 * @see com.nathanclaire.alantra.product.service.ProductComponent#updateProductComponent(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductComponent updateInstance(ProductComponentRequest productComponentRequest) {
+	public ProductComponent update(ProductComponentRequest productComponentRequest) {
 		return updateInstance(productComponentRequest);
 	}
 	

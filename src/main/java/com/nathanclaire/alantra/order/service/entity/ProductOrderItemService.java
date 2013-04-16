@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.order.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.order.model.ProductOrderItem;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderItemRequest;
+import com.nathanclaire.alantra.order.request.ProductOrderItemRequest;
 
 /**
  * @author Edward Banfa

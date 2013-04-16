@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentMethodTypeProvider;
-import com.nathanclaire.alantra.payment.rest.request.PaymentMethodTypeProviderRequest;
+import com.nathanclaire.alantra.payment.request.PaymentMethodTypeProviderRequest;
 
 import com.nathanclaire.alantra.payment.model.PaymentMethodType;
 import com.nathanclaire.alantra.party.model.Party;
@@ -65,15 +65,15 @@ public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodTypeProvider#createPaymentMethodTypeProvider(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodTypeProvider createInstance(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
-		return createInsance(paymentMethodTypeProviderRequest);
+	public PaymentMethodTypeProvider create(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
+		return createInstance(paymentMethodTypeProviderRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodTypeProvider#deletePaymentMethodTypeProvider(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class PaymentMethodTypeProviderServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.payment.service.PaymentMethodTypeProvider#updatePaymentMethodTypeProvider(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentMethodTypeProvider updateInstance(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
+	public PaymentMethodTypeProvider update(PaymentMethodTypeProviderRequest paymentMethodTypeProviderRequest) {
 		return updateInstance(paymentMethodTypeProviderRequest);
 	}
 	

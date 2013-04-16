@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceCategory;
-import com.nathanclaire.alantra.channel.rest.request.ServiceCategoryRequest;
+import com.nathanclaire.alantra.channel.request.ServiceCategoryRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCat
 	 * @see com.nathanclaire.alantra.channel.service.ServiceCategory#createServiceCategory(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceCategory createInstance(ServiceCategoryRequest serviceCategoryRequest) {
-		return createInsance(serviceCategoryRequest);
+	public ServiceCategory create(ServiceCategoryRequest serviceCategoryRequest) {
+		return createInstance(serviceCategoryRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServiceCategory#deleteServiceCategory(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceCategoryServiceImpl extends BaseEntityServiceImpl<ServiceCat
 	 * @see com.nathanclaire.alantra.channel.service.ServiceCategory#updateServiceCategory(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceCategory updateInstance(ServiceCategoryRequest serviceCategoryRequest) {
+	public ServiceCategory update(ServiceCategoryRequest serviceCategoryRequest) {
 		return updateInstance(serviceCategoryRequest);
 	}
 	

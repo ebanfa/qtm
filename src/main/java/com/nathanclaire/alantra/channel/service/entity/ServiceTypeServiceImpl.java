@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceType;
-import com.nathanclaire.alantra.channel.rest.request.ServiceTypeRequest;
+import com.nathanclaire.alantra.channel.request.ServiceTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType, S
 	 * @see com.nathanclaire.alantra.channel.service.ServiceType#createServiceType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceType createInstance(ServiceTypeRequest serviceTypeRequest) {
-		return createInsance(serviceTypeRequest);
+	public ServiceType create(ServiceTypeRequest serviceTypeRequest) {
+		return createInstance(serviceTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServiceType#deleteServiceType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceTypeServiceImpl extends BaseEntityServiceImpl<ServiceType, S
 	 * @see com.nathanclaire.alantra.channel.service.ServiceType#updateServiceType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceType updateInstance(ServiceTypeRequest serviceTypeRequest) {
+	public ServiceType update(ServiceTypeRequest serviceTypeRequest) {
 		return updateInstance(serviceTypeRequest);
 	}
 	

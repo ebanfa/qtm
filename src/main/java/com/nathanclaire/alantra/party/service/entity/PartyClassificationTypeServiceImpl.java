@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyClassificationType;
-import com.nathanclaire.alantra.party.rest.request.PartyClassificationTypeRequest;
+import com.nathanclaire.alantra.party.request.PartyClassificationTypeRequest;
 
 import com.nathanclaire.alantra.party.model.PartyClassificationType;
 
@@ -64,15 +64,15 @@ public class PartyClassificationTypeServiceImpl extends BaseEntityServiceImpl<Pa
 	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#createPartyClassificationType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyClassificationType createInstance(PartyClassificationTypeRequest partyClassificationTypeRequest) {
-		return createInsance(partyClassificationTypeRequest);
+	public PartyClassificationType create(PartyClassificationTypeRequest partyClassificationTypeRequest) {
+		return createInstance(partyClassificationTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#deletePartyClassificationType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class PartyClassificationTypeServiceImpl extends BaseEntityServiceImpl<Pa
 	 * @see com.nathanclaire.alantra.party.service.PartyClassificationType#updatePartyClassificationType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyClassificationType updateInstance(PartyClassificationTypeRequest partyClassificationTypeRequest) {
+	public PartyClassificationType update(PartyClassificationTypeRequest partyClassificationTypeRequest) {
 		return updateInstance(partyClassificationTypeRequest);
 	}
 	

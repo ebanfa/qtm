@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.CaseStatusType;
-import com.nathanclaire.alantra.party.rest.request.CaseStatusTypeRequest;
+import com.nathanclaire.alantra.party.request.CaseStatusTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusT
 	 * @see com.nathanclaire.alantra.party.service.CaseStatusType#createCaseStatusType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseStatusType createInstance(CaseStatusTypeRequest caseStatusTypeRequest) {
-		return createInsance(caseStatusTypeRequest);
+	public CaseStatusType create(CaseStatusTypeRequest caseStatusTypeRequest) {
+		return createInstance(caseStatusTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.CaseStatusType#deleteCaseStatusType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class CaseStatusTypeServiceImpl extends BaseEntityServiceImpl<CaseStatusT
 	 * @see com.nathanclaire.alantra.party.service.CaseStatusType#updateCaseStatusType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseStatusType updateInstance(CaseStatusTypeRequest caseStatusTypeRequest) {
+	public CaseStatusType update(CaseStatusTypeRequest caseStatusTypeRequest) {
 		return updateInstance(caseStatusTypeRequest);
 	}
 	

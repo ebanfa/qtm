@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyCase;
-import com.nathanclaire.alantra.party.rest.request.PartyCaseRequest;
+import com.nathanclaire.alantra.party.request.PartyCaseRequest;
 
 import com.nathanclaire.alantra.party.model.CaseRole;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
@@ -66,15 +66,15 @@ public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase, Party
 	 * @see com.nathanclaire.alantra.party.service.PartyCase#createPartyCase(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyCase createInstance(PartyCaseRequest partyCaseRequest) {
-		return createInsance(partyCaseRequest);
+	public PartyCase create(PartyCaseRequest partyCaseRequest) {
+		return createInstance(partyCaseRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.PartyCase#deletePartyCase(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -82,7 +82,7 @@ public class PartyCaseServiceImpl extends BaseEntityServiceImpl<PartyCase, Party
 	 * @see com.nathanclaire.alantra.party.service.PartyCase#updatePartyCase(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyCase updateInstance(PartyCaseRequest partyCaseRequest) {
+	public PartyCase update(PartyCaseRequest partyCaseRequest) {
 		return updateInstance(partyCaseRequest);
 	}
 	

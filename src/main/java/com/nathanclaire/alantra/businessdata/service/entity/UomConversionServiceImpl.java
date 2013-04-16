@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.UomConversion;
-import com.nathanclaire.alantra.businessdata.rest.request.UomConversionRequest;
+import com.nathanclaire.alantra.businessdata.request.UomConversionRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversio
 	 * @see com.nathanclaire.alantra.businessdata.service.UomConversion#createUomConversion(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public UomConversion createInstance(UomConversionRequest uomConversionRequest) {
-		return createInsance(uomConversionRequest);
+	public UomConversion create(UomConversionRequest uomConversionRequest) {
+		return createInstance(uomConversionRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.UomConversion#deleteUomConversion(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class UomConversionServiceImpl extends BaseEntityServiceImpl<UomConversio
 	 * @see com.nathanclaire.alantra.businessdata.service.UomConversion#updateUomConversion(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public UomConversion updateInstance(UomConversionRequest uomConversionRequest) {
+	public UomConversion update(UomConversionRequest uomConversionRequest) {
 		return updateInstance(uomConversionRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.TermType;
-import com.nathanclaire.alantra.businessdata.rest.request.TermTypeRequest;
+import com.nathanclaire.alantra.businessdata.request.TermTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType, TermTyp
 	 * @see com.nathanclaire.alantra.businessdata.service.TermType#createTermType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TermType createInstance(TermTypeRequest termTypeRequest) {
-		return createInsance(termTypeRequest);
+	public TermType create(TermTypeRequest termTypeRequest) {
+		return createInstance(termTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.TermType#deleteTermType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class TermTypeServiceImpl extends BaseEntityServiceImpl<TermType, TermTyp
 	 * @see com.nathanclaire.alantra.businessdata.service.TermType#updateTermType(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TermType updateInstance(TermTypeRequest termTypeRequest) {
+	public TermType update(TermTypeRequest termTypeRequest) {
 		return updateInstance(termTypeRequest);
 	}
 	

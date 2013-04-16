@@ -16,8 +16,8 @@ define([
                 {
                     success: function(entity)
                     {
-                        utilities.applyTemplate($(self.el), this.entityTemplate,  
-                            {model:this.model, entity:entity, entities_strings:entities_strings}); 
+                        utilities.applyTemplate($(self.el), self.entityTemplate,  
+                            {model:self.model, entity:entity, entities_strings:entities_strings}); 
                         $(self.el).trigger('pagecreate');
                         self.renderSubViews();
                     }

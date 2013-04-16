@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.Invoice;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceRequest;
+import com.nathanclaire.alantra.invoice.request.InvoiceRequest;
 
 import com.nathanclaire.alantra.invoice.model.InvoiceType;
 import com.nathanclaire.alantra.party.model.Party;
@@ -68,15 +68,15 @@ public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice, InvoiceRe
 	 * @see com.nathanclaire.alantra.invoice.service.Invoice#createInvoice(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Invoice createInstance(InvoiceRequest invoiceRequest) {
-		return createInsance(invoiceRequest);
+	public Invoice create(InvoiceRequest invoiceRequest) {
+		return createInstance(invoiceRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.invoice.service.Invoice#deleteInvoice(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -84,7 +84,7 @@ public class InvoiceServiceImpl extends BaseEntityServiceImpl<Invoice, InvoiceRe
 	 * @see com.nathanclaire.alantra.invoice.service.Invoice#updateInvoice(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Invoice updateInstance(InvoiceRequest invoiceRequest) {
+	public Invoice update(InvoiceRequest invoiceRequest) {
 		return updateInstance(invoiceRequest);
 	}
 	

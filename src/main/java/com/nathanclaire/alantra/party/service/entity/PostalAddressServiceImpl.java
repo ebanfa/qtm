@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PostalAddress;
-import com.nathanclaire.alantra.party.rest.request.PostalAddressRequest;
+import com.nathanclaire.alantra.party.request.PostalAddressRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 
@@ -64,15 +64,15 @@ public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddres
 	 * @see com.nathanclaire.alantra.party.service.PostalAddress#createPostalAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddress createInstance(PostalAddressRequest postalAddressRequest) {
-		return createInsance(postalAddressRequest);
+	public PostalAddress create(PostalAddressRequest postalAddressRequest) {
+		return createInstance(postalAddressRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.PostalAddress#deletePostalAddress(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class PostalAddressServiceImpl extends BaseEntityServiceImpl<PostalAddres
 	 * @see com.nathanclaire.alantra.party.service.PostalAddress#updatePostalAddress(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddress updateInstance(PostalAddressRequest postalAddressRequest) {
+	public PostalAddress update(PostalAddressRequest postalAddressRequest) {
 		return updateInstance(postalAddressRequest);
 	}
 	

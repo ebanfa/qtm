@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.EstimatedProductCost;
-import com.nathanclaire.alantra.party.rest.request.EstimatedProductCostRequest;
+import com.nathanclaire.alantra.party.request.EstimatedProductCostRequest;
 
 import com.nathanclaire.alantra.product.model.Product;
 import com.nathanclaire.alantra.product.model.CostComponentType;
@@ -67,15 +67,15 @@ public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<Estim
 	 * @see com.nathanclaire.alantra.party.service.EstimatedProductCost#createEstimatedProductCost(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public EstimatedProductCost createInstance(EstimatedProductCostRequest estimatedProductCostRequest) {
-		return createInsance(estimatedProductCostRequest);
+	public EstimatedProductCost create(EstimatedProductCostRequest estimatedProductCostRequest) {
+		return createInstance(estimatedProductCostRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.EstimatedProductCost#deleteEstimatedProductCost(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -83,7 +83,7 @@ public class EstimatedProductCostServiceImpl extends BaseEntityServiceImpl<Estim
 	 * @see com.nathanclaire.alantra.party.service.EstimatedProductCost#updateEstimatedProductCost(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public EstimatedProductCost updateInstance(EstimatedProductCostRequest estimatedProductCostRequest) {
+	public EstimatedProductCost update(EstimatedProductCostRequest estimatedProductCostRequest) {
 		return updateInstance(estimatedProductCostRequest);
 	}
 	

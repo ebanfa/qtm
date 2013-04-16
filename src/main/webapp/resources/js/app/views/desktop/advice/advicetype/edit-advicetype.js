@@ -27,7 +27,9 @@ define([
         {
             if (this.model.attributes.id)
             {
+                console.log("Feels like sardines2....")
             }
+             console.log("Feels like sardines2....")
         }
     });
 

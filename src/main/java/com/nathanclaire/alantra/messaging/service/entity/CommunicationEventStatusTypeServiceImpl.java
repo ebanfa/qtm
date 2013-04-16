@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventStatusType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventStatusTypeRequest;
+import com.nathanclaire.alantra.messaging.request.CommunicationEventStatusTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventStatusType#createCommunicationEventStatusType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventStatusType createInstance(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
-		return createInsance(communicationEventStatusTypeRequest);
+	public CommunicationEventStatusType create(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
+		return createInstance(communicationEventStatusTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventStatusType#deleteCommunicationEventStatusType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class CommunicationEventStatusTypeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventStatusType#updateCommunicationEventStatusType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventStatusType updateInstance(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
+	public CommunicationEventStatusType update(CommunicationEventStatusTypeRequest communicationEventStatusTypeRequest) {
 		return updateInstance(communicationEventStatusTypeRequest);
 	}
 	

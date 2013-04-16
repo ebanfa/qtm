@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyContactMechanismPurpose;
-import com.nathanclaire.alantra.party.rest.request.PartyContactMechanismPurposeRequest;
+import com.nathanclaire.alantra.party.request.PartyContactMechanismPurposeRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanismPurposeType;
 import com.nathanclaire.alantra.party.model.ContactMechanism;
@@ -65,15 +65,15 @@ public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanismPurpose#createPartyContactMechanismPurpose(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanismPurpose createInstance(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
-		return createInsance(partyContactMechanismPurposeRequest);
+	public PartyContactMechanismPurpose create(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
+		return createInstance(partyContactMechanismPurposeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanismPurpose#deletePartyContactMechanismPurpose(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class PartyContactMechanismPurposeServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.party.service.PartyContactMechanismPurpose#updatePartyContactMechanismPurpose(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyContactMechanismPurpose updateInstance(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
+	public PartyContactMechanismPurpose update(PartyContactMechanismPurposeRequest partyContactMechanismPurposeRequest) {
 		return updateInstance(partyContactMechanismPurposeRequest);
 	}
 	

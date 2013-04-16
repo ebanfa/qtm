@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductCategory;
-import com.nathanclaire.alantra.product.rest.request.ProductCategoryRequest;
+import com.nathanclaire.alantra.product.request.ProductCategoryRequest;
 
 import com.nathanclaire.alantra.product.model.ProductCategoryType;
 
@@ -64,15 +64,15 @@ public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCat
 	 * @see com.nathanclaire.alantra.product.service.ProductCategory#createProductCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductCategory createInstance(ProductCategoryRequest productCategoryRequest) {
-		return createInsance(productCategoryRequest);
+	public ProductCategory create(ProductCategoryRequest productCategoryRequest) {
+		return createInstance(productCategoryRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductCategory#deleteProductCategory(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class ProductCategoryServiceImpl extends BaseEntityServiceImpl<ProductCat
 	 * @see com.nathanclaire.alantra.product.service.ProductCategory#updateProductCategory(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductCategory updateInstance(ProductCategoryRequest productCategoryRequest) {
+	public ProductCategory update(ProductCategoryRequest productCategoryRequest) {
 		return updateInstance(productCategoryRequest);
 	}
 	

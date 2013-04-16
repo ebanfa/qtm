@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventTypeRequest;
+import com.nathanclaire.alantra.messaging.request.CommunicationEventTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<Com
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventType#createCommunicationEventType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventType createInstance(CommunicationEventTypeRequest communicationEventTypeRequest) {
-		return createInsance(communicationEventTypeRequest);
+	public CommunicationEventType create(CommunicationEventTypeRequest communicationEventTypeRequest) {
+		return createInstance(communicationEventTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventType#deleteCommunicationEventType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class CommunicationEventTypeServiceImpl extends BaseEntityServiceImpl<Com
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventType#updateCommunicationEventType(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventType updateInstance(CommunicationEventTypeRequest communicationEventTypeRequest) {
+	public CommunicationEventType update(CommunicationEventTypeRequest communicationEventTypeRequest) {
 		return updateInstance(communicationEventTypeRequest);
 	}
 	

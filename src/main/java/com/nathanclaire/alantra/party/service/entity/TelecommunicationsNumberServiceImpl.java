@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.TelecommunicationsNumber;
-import com.nathanclaire.alantra.party.rest.request.TelecommunicationsNumberRequest;
+import com.nathanclaire.alantra.party.request.TelecommunicationsNumberRequest;
 
 import com.nathanclaire.alantra.party.model.ContactMechanism;
 
@@ -64,15 +64,15 @@ public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<T
 	 * @see com.nathanclaire.alantra.party.service.TelecommunicationsNumber#createTelecommunicationsNumber(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TelecommunicationsNumber createInstance(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
-		return createInsance(telecommunicationsNumberRequest);
+	public TelecommunicationsNumber create(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
+		return createInstance(telecommunicationsNumberRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.TelecommunicationsNumber#deleteTelecommunicationsNumber(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class TelecommunicationsNumberServiceImpl extends BaseEntityServiceImpl<T
 	 * @see com.nathanclaire.alantra.party.service.TelecommunicationsNumber#updateTelecommunicationsNumber(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TelecommunicationsNumber updateInstance(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
+	public TelecommunicationsNumber update(TelecommunicationsNumberRequest telecommunicationsNumberRequest) {
 		return updateInstance(telecommunicationsNumberRequest);
 	}
 	

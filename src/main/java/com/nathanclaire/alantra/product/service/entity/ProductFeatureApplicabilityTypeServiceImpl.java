@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureApplicabilityType;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureApplicabilityTypeRequest;
+import com.nathanclaire.alantra.product.request.ProductFeatureApplicabilityTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServic
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicabilityType#createProductFeatureApplicabilityType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicabilityType createInstance(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
-		return createInsance(productFeatureApplicabilityTypeRequest);
+	public ProductFeatureApplicabilityType create(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
+		return createInstance(productFeatureApplicabilityTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicabilityType#deleteProductFeatureApplicabilityType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ProductFeatureApplicabilityTypeServiceImpl extends BaseEntityServic
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureApplicabilityType#updateProductFeatureApplicabilityType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureApplicabilityType updateInstance(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
+	public ProductFeatureApplicabilityType update(ProductFeatureApplicabilityTypeRequest productFeatureApplicabilityTypeRequest) {
 		return updateInstance(productFeatureApplicabilityTypeRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.ContactMechanismPurposeType;
-import com.nathanclaire.alantra.party.rest.request.ContactMechanismPurposeTypeRequest;
+import com.nathanclaire.alantra.party.request.ContactMechanismPurposeTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismPurposeType#createContactMechanismPurposeType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismPurposeType createInstance(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
-		return createInsance(contactMechanismPurposeTypeRequest);
+	public ContactMechanismPurposeType create(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
+		return createInstance(contactMechanismPurposeTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismPurposeType#deleteContactMechanismPurposeType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ContactMechanismPurposeTypeServiceImpl extends BaseEntityServiceImp
 	 * @see com.nathanclaire.alantra.party.service.ContactMechanismPurposeType#updateContactMechanismPurposeType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ContactMechanismPurposeType updateInstance(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
+	public ContactMechanismPurposeType update(ContactMechanismPurposeTypeRequest contactMechanismPurposeTypeRequest) {
 		return updateInstance(contactMechanismPurposeTypeRequest);
 	}
 	

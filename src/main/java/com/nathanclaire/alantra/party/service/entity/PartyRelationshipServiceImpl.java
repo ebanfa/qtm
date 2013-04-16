@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.PartyRelationship;
-import com.nathanclaire.alantra.party.rest.request.PartyRelationshipRequest;
+import com.nathanclaire.alantra.party.request.PartyRelationshipRequest;
 
 import com.nathanclaire.alantra.party.model.PartyRole;
 import com.nathanclaire.alantra.party.model.PartyRole;
@@ -66,15 +66,15 @@ public class PartyRelationshipServiceImpl extends BaseEntityServiceImpl<PartyRel
 	 * @see com.nathanclaire.alantra.party.service.PartyRelationship#createPartyRelationship(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRelationship createInstance(PartyRelationshipRequest partyRelationshipRequest) {
-		return createInsance(partyRelationshipRequest);
+	public PartyRelationship create(PartyRelationshipRequest partyRelationshipRequest) {
+		return createInstance(partyRelationshipRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.PartyRelationship#deletePartyRelationship(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -82,7 +82,7 @@ public class PartyRelationshipServiceImpl extends BaseEntityServiceImpl<PartyRel
 	 * @see com.nathanclaire.alantra.party.service.PartyRelationship#updatePartyRelationship(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PartyRelationship updateInstance(PartyRelationshipRequest partyRelationshipRequest) {
+	public PartyRelationship update(PartyRelationshipRequest partyRelationshipRequest) {
 		return updateInstance(partyRelationshipRequest);
 	}
 	

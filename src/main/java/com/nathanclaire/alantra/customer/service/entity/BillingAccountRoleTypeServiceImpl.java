@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.BillingAccountRoleType;
-import com.nathanclaire.alantra.customer.rest.request.BillingAccountRoleTypeRequest;
+import com.nathanclaire.alantra.customer.request.BillingAccountRoleTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<Bil
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRoleType#createBillingAccountRoleType(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRoleType createInstance(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
-		return createInsance(billingAccountRoleTypeRequest);
+	public BillingAccountRoleType create(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
+		return createInstance(billingAccountRoleTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRoleType#deleteBillingAccountRoleType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class BillingAccountRoleTypeServiceImpl extends BaseEntityServiceImpl<Bil
 	 * @see com.nathanclaire.alantra.customer.service.BillingAccountRoleType#updateBillingAccountRoleType(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public BillingAccountRoleType updateInstance(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
+	public BillingAccountRoleType update(BillingAccountRoleTypeRequest billingAccountRoleTypeRequest) {
 		return updateInstance(billingAccountRoleTypeRequest);
 	}
 	

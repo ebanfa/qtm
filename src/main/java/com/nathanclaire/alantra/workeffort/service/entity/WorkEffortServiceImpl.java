@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
-import com.nathanclaire.alantra.workeffort.rest.request.WorkEffortRequest;
+import com.nathanclaire.alantra.workeffort.request.WorkEffortRequest;
 
 import com.nathanclaire.alantra.workeffort.model.WorkEffortType;
 
@@ -64,15 +64,15 @@ public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort, Wor
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffort#createWorkEffort(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffort createInstance(WorkEffortRequest workEffortRequest) {
-		return createInsance(workEffortRequest);
+	public WorkEffort create(WorkEffortRequest workEffortRequest) {
+		return createInstance(workEffortRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffort#deleteWorkEffort(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class WorkEffortServiceImpl extends BaseEntityServiceImpl<WorkEffort, Wor
 	 * @see com.nathanclaire.alantra.workeffort.service.WorkEffort#updateWorkEffort(com.nathanclaire.alantra.workeffort.rest.request.ServiceRequest)
 	 */
 	@Override
-	public WorkEffort updateInstance(WorkEffortRequest workEffortRequest) {
+	public WorkEffort update(WorkEffortRequest workEffortRequest) {
 		return updateInstance(workEffortRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
-import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionTypeRequest;
+import com.nathanclaire.alantra.channel.request.ServiceTransactionTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#createServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType createInstance(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
-		return createInsance(serviceTransactionTypeRequest);
+	public ServiceTransactionType create(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
+		return createInstance(serviceTransactionTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#deleteServiceTransactionType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceTransactionTypeServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceTransactionType#updateServiceTransactionType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceTransactionType updateInstance(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
+	public ServiceTransactionType update(ServiceTransactionTypeRequest serviceTransactionTypeRequest) {
 		return updateInstance(serviceTransactionTypeRequest);
 	}
 	

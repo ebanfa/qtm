@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.invoice.model.InvoiceItemCategory;
-import com.nathanclaire.alantra.invoice.rest.request.InvoiceItemCategoryRequest;
+import com.nathanclaire.alantra.invoice.request.InvoiceItemCategoryRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<Invoic
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemCategory#createInvoiceItemCategory(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemCategory createInstance(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
-		return createInsance(invoiceItemCategoryRequest);
+	public InvoiceItemCategory create(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
+		return createInstance(invoiceItemCategoryRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemCategory#deleteInvoiceItemCategory(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class InvoiceItemCategoryServiceImpl extends BaseEntityServiceImpl<Invoic
 	 * @see com.nathanclaire.alantra.invoice.service.InvoiceItemCategory#updateInvoiceItemCategory(com.nathanclaire.alantra.invoice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public InvoiceItemCategory updateInstance(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
+	public InvoiceItemCategory update(InvoiceItemCategoryRequest invoiceItemCategoryRequest) {
 		return updateInstance(invoiceItemCategoryRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.order.model.ProductOrderItem;
-import com.nathanclaire.alantra.order.rest.request.ProductOrderItemRequest;
+import com.nathanclaire.alantra.order.request.ProductOrderItemRequest;
 
 import com.nathanclaire.alantra.order.model.ProductOrderItemType;
 import com.nathanclaire.alantra.order.model.ProductOrder;
@@ -67,15 +67,15 @@ public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItem#createProductOrderItem(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItem createInstance(ProductOrderItemRequest productOrderItemRequest) {
-		return createInsance(productOrderItemRequest);
+	public ProductOrderItem create(ProductOrderItemRequest productOrderItemRequest) {
+		return createInstance(productOrderItemRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItem#deleteProductOrderItem(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -83,7 +83,7 @@ public class ProductOrderItemServiceImpl extends BaseEntityServiceImpl<ProductOr
 	 * @see com.nathanclaire.alantra.order.service.ProductOrderItem#updateProductOrderItem(com.nathanclaire.alantra.order.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductOrderItem updateInstance(ProductOrderItemRequest productOrderItemRequest) {
+	public ProductOrderItem update(ProductOrderItemRequest productOrderItemRequest) {
 		return updateInstance(productOrderItemRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceProtocolAdapter;
-import com.nathanclaire.alantra.channel.rest.request.ServiceProtocolAdapterRequest;
+import com.nathanclaire.alantra.channel.request.ServiceProtocolAdapterRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceProtocolAdapter#createServiceProtocolAdapter(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceProtocolAdapter createInstance(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
-		return createInsance(serviceProtocolAdapterRequest);
+	public ServiceProtocolAdapter create(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
+		return createInstance(serviceProtocolAdapterRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServiceProtocolAdapter#deleteServiceProtocolAdapter(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceProtocolAdapterServiceImpl extends BaseEntityServiceImpl<Ser
 	 * @see com.nathanclaire.alantra.channel.service.ServiceProtocolAdapter#updateServiceProtocolAdapter(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceProtocolAdapter updateInstance(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
+	public ServiceProtocolAdapter update(ServiceProtocolAdapterRequest serviceProtocolAdapterRequest) {
 		return updateInstance(serviceProtocolAdapterRequest);
 	}
 	

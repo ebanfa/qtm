@@ -19,6 +19,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.nathanclaire.alantra.advice.model.AdviceType;
+
 /**
  * <p>
  *   A number of RESTful services implement GET operations on a particular type of entity. For
@@ -98,6 +100,9 @@ public abstract class BaseEntityRESTService<T,V> {
     @Produces(MediaType.APPLICATION_JSON)
     public T findById(@PathParam("id") Integer id) 
     {
+    	
+    	AdviceType instance = (AdviceType) getSingleInstance(id);
+    	//System.out.println(">>>>>>>>>>>>>>>Returning single instance: " + instance.getLastModifiedUsr());
         return getSingleInstance(id);
     }
 

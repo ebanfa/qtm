@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.CostComponentType;
-import com.nathanclaire.alantra.product.rest.request.CostComponentTypeRequest;
+import com.nathanclaire.alantra.product.request.CostComponentTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComp
 	 * @see com.nathanclaire.alantra.product.service.CostComponentType#createCostComponentType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CostComponentType createInstance(CostComponentTypeRequest costComponentTypeRequest) {
-		return createInsance(costComponentTypeRequest);
+	public CostComponentType create(CostComponentTypeRequest costComponentTypeRequest) {
+		return createInstance(costComponentTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.CostComponentType#deleteCostComponentType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class CostComponentTypeServiceImpl extends BaseEntityServiceImpl<CostComp
 	 * @see com.nathanclaire.alantra.product.service.CostComponentType#updateCostComponentType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CostComponentType updateInstance(CostComponentTypeRequest costComponentTypeRequest) {
+	public CostComponentType update(CostComponentTypeRequest costComponentTypeRequest) {
 		return updateInstance(costComponentTypeRequest);
 	}
 	

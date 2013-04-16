@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.ServiceChannel;
-import com.nathanclaire.alantra.businessdata.rest.request.ServiceChannelRequest;
+import com.nathanclaire.alantra.businessdata.request.ServiceChannelRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChan
 	 * @see com.nathanclaire.alantra.businessdata.service.ServiceChannel#createServiceChannel(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceChannel createInstance(ServiceChannelRequest serviceChannelRequest) {
-		return createInsance(serviceChannelRequest);
+	public ServiceChannel create(ServiceChannelRequest serviceChannelRequest) {
+		return createInstance(serviceChannelRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.ServiceChannel#deleteServiceChannel(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceChannelServiceImpl extends BaseEntityServiceImpl<ServiceChan
 	 * @see com.nathanclaire.alantra.businessdata.service.ServiceChannel#updateServiceChannel(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceChannel updateInstance(ServiceChannelRequest serviceChannelRequest) {
+	public ServiceChannel update(ServiceChannelRequest serviceChannelRequest) {
 		return updateInstance(serviceChannelRequest);
 	}
 	

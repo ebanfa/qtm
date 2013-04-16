@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurpose;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeRequest;
+import com.nathanclaire.alantra.messaging.request.CommunicationEventPurposeRequest;
 
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurposeType;
 
@@ -64,15 +64,15 @@ public class CommunicationEventPurposeServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventPurpose#createCommunicationEventPurpose(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventPurpose createInstance(CommunicationEventPurposeRequest communicationEventPurposeRequest) {
-		return createInsance(communicationEventPurposeRequest);
+	public CommunicationEventPurpose create(CommunicationEventPurposeRequest communicationEventPurposeRequest) {
+		return createInstance(communicationEventPurposeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventPurpose#deleteCommunicationEventPurpose(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class CommunicationEventPurposeServiceImpl extends BaseEntityServiceImpl<
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventPurpose#updateCommunicationEventPurpose(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventPurpose updateInstance(CommunicationEventPurposeRequest communicationEventPurposeRequest) {
+	public CommunicationEventPurpose update(CommunicationEventPurposeRequest communicationEventPurposeRequest) {
 		return updateInstance(communicationEventPurposeRequest);
 	}
 	

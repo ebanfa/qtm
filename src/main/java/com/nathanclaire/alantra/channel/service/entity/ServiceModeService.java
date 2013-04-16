@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.channel.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.channel.model.ServiceMode;
-import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
+import com.nathanclaire.alantra.channel.request.ServiceModeRequest;
 
 /**
  * @author Edward Banfa

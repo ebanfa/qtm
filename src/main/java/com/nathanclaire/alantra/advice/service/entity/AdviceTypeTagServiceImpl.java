@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.AdviceTypeTag;
-import com.nathanclaire.alantra.advice.rest.request.AdviceTypeTagRequest;
+import com.nathanclaire.alantra.advice.request.AdviceTypeTagRequest;
 
 import com.nathanclaire.alantra.advice.model.AdviceType;
 
@@ -64,15 +64,15 @@ public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTa
 	 * @see com.nathanclaire.alantra.advice.service.AdviceTypeTag#createAdviceTypeTag(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceTypeTag createInstance(AdviceTypeTagRequest adviceTypeTagRequest) {
-		return createInsance(adviceTypeTagRequest);
+	public AdviceTypeTag create(AdviceTypeTagRequest adviceTypeTagRequest) {
+		return createInstance(adviceTypeTagRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.advice.service.AdviceTypeTag#deleteAdviceTypeTag(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class AdviceTypeTagServiceImpl extends BaseEntityServiceImpl<AdviceTypeTa
 	 * @see com.nathanclaire.alantra.advice.service.AdviceTypeTag#updateAdviceTypeTag(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceTypeTag updateInstance(AdviceTypeTagRequest adviceTypeTagRequest) {
+	public AdviceTypeTag update(AdviceTypeTagRequest adviceTypeTagRequest) {
 		return updateInstance(adviceTypeTagRequest);
 	}
 	

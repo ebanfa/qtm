@@ -3,7 +3,7 @@
  */
 package com.nathanclaire.alantra.channel.service.process;
 
-import com.nathanclaire.alantra.channel.rest.request.ServiceTransactionRequest;
+import com.nathanclaire.alantra.channel.request.ServiceTransactionRequest;
 
 /**
  * @author Edward Banfa 

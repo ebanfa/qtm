@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.CaseRoleType;
-import com.nathanclaire.alantra.party.rest.request.CaseRoleTypeRequest;
+import com.nathanclaire.alantra.party.request.CaseRoleTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType,
 	 * @see com.nathanclaire.alantra.party.service.CaseRoleType#createCaseRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRoleType createInstance(CaseRoleTypeRequest caseRoleTypeRequest) {
-		return createInsance(caseRoleTypeRequest);
+	public CaseRoleType create(CaseRoleTypeRequest caseRoleTypeRequest) {
+		return createInstance(caseRoleTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.CaseRoleType#deleteCaseRoleType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class CaseRoleTypeServiceImpl extends BaseEntityServiceImpl<CaseRoleType,
 	 * @see com.nathanclaire.alantra.party.service.CaseRoleType#updateCaseRoleType(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CaseRoleType updateInstance(CaseRoleTypeRequest caseRoleTypeRequest) {
+	public CaseRoleType update(CaseRoleTypeRequest caseRoleTypeRequest) {
 		return updateInstance(caseRoleTypeRequest);
 	}
 	

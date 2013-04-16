@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.businessdata.model.PostalAddressBoundry;
-import com.nathanclaire.alantra.businessdata.rest.request.PostalAddressBoundryRequest;
+import com.nathanclaire.alantra.businessdata.request.PostalAddressBoundryRequest;
 
 import com.nathanclaire.alantra.party.model.PostalAddress;
 import com.nathanclaire.alantra.businessdata.model.GeoBoundry;
@@ -65,15 +65,15 @@ public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<Posta
 	 * @see com.nathanclaire.alantra.businessdata.service.PostalAddressBoundry#createPostalAddressBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddressBoundry createInstance(PostalAddressBoundryRequest postalAddressBoundryRequest) {
-		return createInsance(postalAddressBoundryRequest);
+	public PostalAddressBoundry create(PostalAddressBoundryRequest postalAddressBoundryRequest) {
+		return createInstance(postalAddressBoundryRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.businessdata.service.PostalAddressBoundry#deletePostalAddressBoundry(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class PostalAddressBoundryServiceImpl extends BaseEntityServiceImpl<Posta
 	 * @see com.nathanclaire.alantra.businessdata.service.PostalAddressBoundry#updatePostalAddressBoundry(com.nathanclaire.alantra.businessdata.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PostalAddressBoundry updateInstance(PostalAddressBoundryRequest postalAddressBoundryRequest) {
+	public PostalAddressBoundry update(PostalAddressBoundryRequest postalAddressBoundryRequest) {
 		return updateInstance(postalAddressBoundryRequest);
 	}
 	

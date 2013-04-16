@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServicePeer;
-import com.nathanclaire.alantra.channel.rest.request.ServicePeerRequest;
+import com.nathanclaire.alantra.channel.request.ServicePeerRequest;
 
 import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.model.Host;
@@ -65,15 +65,15 @@ public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer, S
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#createServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer createInstance(ServicePeerRequest servicePeerRequest) {
-		return createInsance(servicePeerRequest);
+	public ServicePeer create(ServicePeerRequest servicePeerRequest) {
+		return createInstance(servicePeerRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#deleteServicePeer(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class ServicePeerServiceImpl extends BaseEntityServiceImpl<ServicePeer, S
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#updateServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer updateInstance(ServicePeerRequest servicePeerRequest) {
+	public ServicePeer update(ServicePeerRequest servicePeerRequest) {
 		return updateInstance(servicePeerRequest);
 	}
 	

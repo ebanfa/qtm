@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.payment.model.PaymentType;
-import com.nathanclaire.alantra.payment.rest.request.PaymentTypeRequest;
+import com.nathanclaire.alantra.payment.request.PaymentTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType, P
 	 * @see com.nathanclaire.alantra.payment.service.PaymentType#createPaymentType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentType createInstance(PaymentTypeRequest paymentTypeRequest) {
-		return createInsance(paymentTypeRequest);
+	public PaymentType create(PaymentTypeRequest paymentTypeRequest) {
+		return createInstance(paymentTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.payment.service.PaymentType#deletePaymentType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class PaymentTypeServiceImpl extends BaseEntityServiceImpl<PaymentType, P
 	 * @see com.nathanclaire.alantra.payment.service.PaymentType#updatePaymentType(com.nathanclaire.alantra.payment.rest.request.ServiceRequest)
 	 */
 	@Override
-	public PaymentType updateInstance(PaymentTypeRequest paymentTypeRequest) {
+	public PaymentType update(PaymentTypeRequest paymentTypeRequest) {
 		return updateInstance(paymentTypeRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.ServiceMode;
-import com.nathanclaire.alantra.channel.rest.request.ServiceModeRequest;
+import com.nathanclaire.alantra.channel.request.ServiceModeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode, S
 	 * @see com.nathanclaire.alantra.channel.service.ServiceMode#createServiceMode(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceMode createInstance(ServiceModeRequest serviceModeRequest) {
-		return createInsance(serviceModeRequest);
+	public ServiceMode create(ServiceModeRequest serviceModeRequest) {
+		return createInstance(serviceModeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.ServiceMode#deleteServiceMode(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ServiceModeServiceImpl extends BaseEntityServiceImpl<ServiceMode, S
 	 * @see com.nathanclaire.alantra.channel.service.ServiceMode#updateServiceMode(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServiceMode updateInstance(ServiceModeRequest serviceModeRequest) {
+	public ServiceMode update(ServiceModeRequest serviceModeRequest) {
 		return updateInstance(serviceModeRequest);
 	}
 	

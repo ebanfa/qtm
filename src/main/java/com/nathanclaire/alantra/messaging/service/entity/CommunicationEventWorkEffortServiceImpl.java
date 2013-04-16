@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventWorkEffort;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventWorkEffortRequest;
+import com.nathanclaire.alantra.messaging.request.CommunicationEventWorkEffortRequest;
 
 import com.nathanclaire.alantra.workeffort.model.WorkEffort;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
@@ -65,15 +65,15 @@ public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventWorkEffort#createCommunicationEventWorkEffort(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventWorkEffort createInstance(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
-		return createInsance(communicationEventWorkEffortRequest);
+	public CommunicationEventWorkEffort create(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
+		return createInstance(communicationEventWorkEffortRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventWorkEffort#deleteCommunicationEventWorkEffort(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class CommunicationEventWorkEffortServiceImpl extends BaseEntityServiceIm
 	 * @see com.nathanclaire.alantra.messaging.service.CommunicationEventWorkEffort#updateCommunicationEventWorkEffort(com.nathanclaire.alantra.messaging.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CommunicationEventWorkEffort updateInstance(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
+	public CommunicationEventWorkEffort update(CommunicationEventWorkEffortRequest communicationEventWorkEffortRequest) {
 		return updateInstance(communicationEventWorkEffortRequest);
 	}
 	

@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.rest.request.PartyRequest;
+import com.nathanclaire.alantra.party.request.PartyRequest;
 
 import com.nathanclaire.alantra.party.model.PartyType;
 
@@ -64,15 +64,15 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party, PartyRequest>
 	 * @see com.nathanclaire.alantra.party.service.Party#createParty(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Party createInstance(PartyRequest partyRequest) {
-		return createInsance(partyRequest);
+	public Party create(PartyRequest partyRequest) {
+		return createInstance(partyRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.Party#deleteParty(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party, PartyRequest>
 	 * @see com.nathanclaire.alantra.party.service.Party#updateParty(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Party updateInstance(PartyRequest partyRequest) {
+	public Party update(PartyRequest partyRequest) {
 		return updateInstance(partyRequest);
 	}
 	

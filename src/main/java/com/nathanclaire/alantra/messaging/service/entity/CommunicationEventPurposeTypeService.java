@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.messaging.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.messaging.model.CommunicationEventPurposeType;
-import com.nathanclaire.alantra.messaging.rest.request.CommunicationEventPurposeTypeRequest;
+import com.nathanclaire.alantra.messaging.request.CommunicationEventPurposeTypeRequest;
 
 /**
  * @author Edward Banfa

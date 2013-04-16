@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Person;
-import com.nathanclaire.alantra.party.rest.request.PersonRequest;
+import com.nathanclaire.alantra.party.request.PersonRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
 
@@ -64,15 +64,15 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonReque
 	 * @see com.nathanclaire.alantra.party.service.Person#createPerson(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Person createInstance(PersonRequest personRequest) {
-		return createInsance(personRequest);
+	public Person create(PersonRequest personRequest) {
+		return createInstance(personRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.Person#deletePerson(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonReque
 	 * @see com.nathanclaire.alantra.party.service.Person#updatePerson(com.nathanclaire.alantra.party.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Person updateInstance(PersonRequest personRequest) {
+	public Person update(PersonRequest personRequest) {
 		return updateInstance(personRequest);
 	}
 	

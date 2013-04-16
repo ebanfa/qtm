@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductClassification;
-import com.nathanclaire.alantra.product.rest.request.ProductClassificationRequest;
+import com.nathanclaire.alantra.product.request.ProductClassificationRequest;
 
 import com.nathanclaire.alantra.product.model.ProductCategory;
 import com.nathanclaire.alantra.product.model.Product;
@@ -65,15 +65,15 @@ public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<Prod
 	 * @see com.nathanclaire.alantra.product.service.ProductClassification#createProductClassification(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductClassification createInstance(ProductClassificationRequest productClassificationRequest) {
-		return createInsance(productClassificationRequest);
+	public ProductClassification create(ProductClassificationRequest productClassificationRequest) {
+		return createInstance(productClassificationRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductClassification#deleteProductClassification(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -81,7 +81,7 @@ public class ProductClassificationServiceImpl extends BaseEntityServiceImpl<Prod
 	 * @see com.nathanclaire.alantra.product.service.ProductClassification#updateProductClassification(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductClassification updateInstance(ProductClassificationRequest productClassificationRequest) {
+	public ProductClassification update(ProductClassificationRequest productClassificationRequest) {
 		return updateInstance(productClassificationRequest);
 	}
 	

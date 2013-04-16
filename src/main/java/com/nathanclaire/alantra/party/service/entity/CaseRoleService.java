@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.party.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
 import com.nathanclaire.alantra.party.model.CaseRole;
-import com.nathanclaire.alantra.party.rest.request.CaseRoleRequest;
+import com.nathanclaire.alantra.party.request.CaseRoleRequest;
 
 /**
  * @author Edward Banfa

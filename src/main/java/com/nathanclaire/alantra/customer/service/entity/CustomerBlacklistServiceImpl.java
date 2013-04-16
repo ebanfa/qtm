@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.customer.model.CustomerBlacklist;
-import com.nathanclaire.alantra.customer.rest.request.CustomerBlacklistRequest;
+import com.nathanclaire.alantra.customer.request.CustomerBlacklistRequest;
 
 import com.nathanclaire.alantra.party.model.Party;
 
@@ -64,15 +64,15 @@ public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<Customer
 	 * @see com.nathanclaire.alantra.customer.service.CustomerBlacklist#createCustomerBlacklist(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerBlacklist createInstance(CustomerBlacklistRequest customerBlacklistRequest) {
-		return createInsance(customerBlacklistRequest);
+	public CustomerBlacklist create(CustomerBlacklistRequest customerBlacklistRequest) {
+		return createInstance(customerBlacklistRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.CustomerBlacklist#deleteCustomerBlacklist(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -80,7 +80,7 @@ public class CustomerBlacklistServiceImpl extends BaseEntityServiceImpl<Customer
 	 * @see com.nathanclaire.alantra.customer.service.CustomerBlacklist#updateCustomerBlacklist(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerBlacklist updateInstance(CustomerBlacklistRequest customerBlacklistRequest) {
+	public CustomerBlacklist update(CustomerBlacklistRequest customerBlacklistRequest) {
 		return updateInstance(customerBlacklistRequest);
 	}
 	

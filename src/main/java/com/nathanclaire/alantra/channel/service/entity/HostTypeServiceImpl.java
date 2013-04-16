@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.channel.model.HostType;
-import com.nathanclaire.alantra.channel.rest.request.HostTypeRequest;
+import com.nathanclaire.alantra.channel.request.HostTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType, HostTyp
 	 * @see com.nathanclaire.alantra.channel.service.HostType#createHostType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public HostType createInstance(HostTypeRequest hostTypeRequest) {
-		return createInsance(hostTypeRequest);
+	public HostType create(HostTypeRequest hostTypeRequest) {
+		return createInstance(hostTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.HostType#deleteHostType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class HostTypeServiceImpl extends BaseEntityServiceImpl<HostType, HostTyp
 	 * @see com.nathanclaire.alantra.channel.service.HostType#updateHostType(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public HostType updateInstance(HostTypeRequest hostTypeRequest) {
+	public HostType update(HostTypeRequest hostTypeRequest) {
 		return updateInstance(hostTypeRequest);
 	}
 	

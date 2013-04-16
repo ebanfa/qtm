@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.product.model.ProductFeatureType;
-import com.nathanclaire.alantra.product.rest.request.ProductFeatureTypeRequest;
+import com.nathanclaire.alantra.product.request.ProductFeatureTypeRequest;
 
 
 /**
@@ -63,15 +63,15 @@ public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<Product
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureType#createProductFeatureType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureType createInstance(ProductFeatureTypeRequest productFeatureTypeRequest) {
-		return createInsance(productFeatureTypeRequest);
+	public ProductFeatureType create(ProductFeatureTypeRequest productFeatureTypeRequest) {
+		return createInstance(productFeatureTypeRequest);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureType#deleteProductFeatureType(java.lang.Integer)
 	 */
 	@Override
-	public void deleteInstance(Integer id) {
+	public void delete(Integer id) {
 		deleteInstance(id);
 	}
 
@@ -79,7 +79,7 @@ public class ProductFeatureTypeServiceImpl extends BaseEntityServiceImpl<Product
 	 * @see com.nathanclaire.alantra.product.service.ProductFeatureType#updateProductFeatureType(com.nathanclaire.alantra.product.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ProductFeatureType updateInstance(ProductFeatureTypeRequest productFeatureTypeRequest) {
+	public ProductFeatureType update(ProductFeatureTypeRequest productFeatureTypeRequest) {
 		return updateInstance(productFeatureTypeRequest);
 	}
 	
