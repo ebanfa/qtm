@@ -27,6 +27,8 @@ public class ServiceTransactionRequest extends BaseRequest {
 	private String transactionChannel;
 	private String transactionType;
 	private int returnCode;
+	private int serviceId;
+	private int transactionId;
 
     public ServiceTransactionRequest() {
     }
@@ -162,6 +164,34 @@ public class ServiceTransactionRequest extends BaseRequest {
 	 */
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
+	}
+
+	/**
+	 * @return the serviceId
+	 */
+	public int getServiceId() {
+		return serviceId;
+	}
+
+	/**
+	 * @param serviceId the serviceId to set
+	 */
+	public void setServiceId(int serviceId) {
+		this.serviceId = serviceId;
+	}
+
+	/**
+	 * @return the transactionId
+	 */
+	public int getTransactionId() {
+		return transactionId;
+	}
+
+	/**
+	 * @param transactionId the transactionId to set
+	 */
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
 	}
 
 

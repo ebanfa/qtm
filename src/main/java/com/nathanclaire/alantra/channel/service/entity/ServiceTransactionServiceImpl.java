@@ -3,17 +3,18 @@
  */
 package com.nathanclaire.alantra.channel.service.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.channel.model.ServiceTransaction;
-import com.nathanclaire.alantra.channel.request.ServiceTransactionRequest;
-
 import com.nathanclaire.alantra.channel.model.Service;
+import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
+import com.nathanclaire.alantra.channel.request.ServiceTransactionRequest;
 
 /**
  * @author administrator
@@ -22,6 +23,11 @@ import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 @Stateless
 public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<ServiceTransaction, ServiceTransactionRequest> implements ServiceTransactionService
 {
+	@Inject
+	ServiceService channelService;
+	
+	@Inject
+	ServiceTransactionTypeService transactionTypeService;
 	/**
 	 * @param entityClass
 	 */
@@ -93,7 +99,7 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
     protected ServiceTransaction loadModelFromRequest(ServiceTransactionRequest serviceTransactionRequest) 
     {
 		ServiceTransaction serviceTransaction = new ServiceTransaction();
-    	/*Integer serviceTransactionId = serviceTransactionRequest.getId();
+    	Integer serviceTransactionId = serviceTransactionRequest.getId();
     	// Are we editing a ServiceTransaction
     	if(serviceTransactionId != null) 
     	{
@@ -108,26 +114,42 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
     	}
     	serviceTransaction.setCode(serviceTransactionRequest.getCode());
     	serviceTransaction.setEffectiveDt(getCurrentSystemDate());
-    	//Process many to one relationships
-    	if (serviceTransactionRequest.getService() != null)
-    	{
-    		Service service = getEntityManager().find(Service.class, serviceTransactionRequest.getService());
-    		serviceTransaction.setService(service);
+    	// Process the service and transaction type
+		serviceTransaction.setService(getService(serviceTransactionRequest.getTransactionChannel()));
+		serviceTransaction.setServiceTransactionType(getTransactionType(serviceTransactionRequest.getTransactionType()));;
+    	// Set the code to the current date. Should be improved
+    	if(serviceTransactionRequest.getCode() == null) 
+    		serviceTransaction.setCode(getCurrentSystemDate().toString());
+    	if(serviceTransactionRequest.getName() == null) {
+    		serviceTransaction.setName(serviceTransactionRequest.getCustomerName());
+    	}else {
+    		serviceTransaction.setName(serviceTransactionRequest.getName());
     	}
-    	if (serviceTransactionRequest.getServiceTransactionType() != null)
-    	{
-    		ServiceTransactionType serviceTransactionType = getEntityManager().find(ServiceTransactionType.class, serviceTransactionRequest.getServiceTransactionType());
-    		serviceTransaction.setServiceTransactionType(serviceTransactionType);
-    	}
-    	serviceTransaction.setName(serviceTransactionRequest.getName()); 
-    	serviceTransaction.setAmount(serviceTransactionRequest.getAmount()); 
-    	serviceTransaction.setTxnDate(serviceTransactionRequest.getTxnDate()); 
+    	serviceTransaction.setAmount(new BigDecimal(serviceTransactionRequest.getTransactionAmount())); 
+    	serviceTransaction.setTxnDate(stringToDate(serviceTransactionRequest.getTransactionDate())); 
+    	
     	serviceTransaction.setAccountNo(serviceTransactionRequest.getAccountNo()); 
-    	serviceTransaction.setAccountNm(serviceTransactionRequest.getAccountNm()); 
-    	serviceTransaction.setDescription(serviceTransactionRequest.getDescription()); 
-    	serviceTransaction.setCode(serviceTransactionRequest.getCode()); 
-    	serviceTransaction.setEffectiveDt(serviceTransactionRequest.getEffectiveDt()); 
-    	serviceTransaction.setRecSt(serviceTransactionRequest.getRecSt()); */
+    	serviceTransaction.setAccountNm(serviceTransactionRequest.getCustomerName()); 
+    	serviceTransaction.setRecSt(serviceTransactionRequest.getRecSt()); 
 		return serviceTransaction;
 	}
+	
+	/**
+	 * @param serviceCode
+	 * @return
+	 */
+	private Service getService(String serviceCode)
+    {
+		System.out.println("This cant be real");
+		return channelService.findByCode(serviceCode);
+    }
+    
+    /**
+     * @param transactionTypeCode
+     * @return
+     */
+    private ServiceTransactionType getTransactionType(String transactionTypeCode)
+    {
+    	return transactionTypeService.findByCode(transactionTypeCode);
+    }
 }

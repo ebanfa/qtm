@@ -24,9 +24,9 @@ public interface BaseEntityService<T,V> {
 
 	public void delete(Integer id);
 
-	public T update(V hostRequest);
+	public T update(V request);
 
-	public T create(V hostRequest);
+	public T create(V request);
 	
 	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters);
 

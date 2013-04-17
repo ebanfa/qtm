@@ -19,6 +19,10 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 /**
  * @author Edward Banfa 
  *
@@ -273,6 +277,13 @@ public abstract class BaseEntityServiceImpl<T,V> {
      */
     protected String getDefaultUserName(){
     	return SYS_USR_NM;
+    }
+    
+    protected Date stringToDate(String dateString)
+    {
+    	DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+    	DateTime dt = formatter.parseDateTime(dateString);
+    	return dt.toDate();
     }
 
 
