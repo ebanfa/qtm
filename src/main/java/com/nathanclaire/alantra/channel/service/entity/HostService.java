@@ -13,5 +13,5 @@ import com.nathanclaire.alantra.channel.request.HostRequest;
  */
 public interface HostService extends BaseEntityService<Host, HostRequest>
 {
-	
+	// Some times one has to make a new change 
 }
