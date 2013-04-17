@@ -211,11 +211,11 @@
             <scope>provided</scope>
 		</dependency>
 	
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.nathanclaire.advicepro.client</groupId>
 			<artifactId>adviceclient</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
             
 
     </dependencies>
