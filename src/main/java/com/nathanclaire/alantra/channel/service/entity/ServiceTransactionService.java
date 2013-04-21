@@ -13,5 +13,8 @@ import com.nathanclaire.alantra.channel.request.ServiceTransactionRequest;
  */
 public interface ServiceTransactionService extends BaseEntityService<ServiceTransaction, ServiceTransactionRequest>
 {
+	public static final Character TRANSACTION_STATUS_REJECTED = 'R';
+	public static final Character TRANSACTION_STATUS_ACCEPTED = 'A';
+	public static final Character TRANSACTION_STATUS_PROCESSING = 'P';
 	
 }

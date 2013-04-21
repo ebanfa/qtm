@@ -37,7 +37,6 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServiceTransaction  extends BaseEntity implements java.io.Serializable {
-
 	private Service service;
 	private ServiceTransactionType serviceTransactionType;
     private String name;

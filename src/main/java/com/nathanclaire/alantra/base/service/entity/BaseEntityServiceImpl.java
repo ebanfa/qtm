@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -114,6 +115,19 @@ public abstract class BaseEntityServiceImpl<T,V> {
     	queryParameters.clear();
     	queryParameters.add(CODE_CRITERIA, code);
     	return findAllInstances(queryParameters).get(0);
+    }
+    
+    /**
+     * @param searchCriteria
+     * @return
+     */
+    protected List<T> findByCriteria(Map<String, String> searchCriteria){
+    	queryParameters.clear();
+    	for(Entry<String, String> entry: searchCriteria.entrySet())
+    	{
+    		queryParameters.add(entry.getKey(), entry.getValue());
+    	}
+    	return findAllInstances(queryParameters);
     }
     
     /**

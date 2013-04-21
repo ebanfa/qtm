@@ -140,7 +140,6 @@ public class ServiceTransactionServiceImpl extends BaseEntityServiceImpl<Service
 	 */
 	private Service getService(String serviceCode)
     {
-		System.out.println("This cant be real");
 		return channelService.findByCode(serviceCode);
     }
     

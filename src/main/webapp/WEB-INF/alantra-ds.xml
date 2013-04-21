@@ -10,16 +10,20 @@
    <datasource jndi-name="java:jboss/datasources/alantraDS"
       pool-name="{artifactId}" enabled="true"
       use-java-context="true">
-      <connection-url>jdbc:mysql://127.10.106.129:3306/alantra</connection-url>
-      <!-- <connection-url>jdbc:mysql://localhost:3306/alantra</connection-url>  -->
-       <driver>mysql</driver> 
-      <!-- <driver>com.mysql</driver> -->
+      <connection-url>jdbc:mysql://localhost:3306/alantra</connection-url> 
+           <driver>com.mysql</driver>
       <security>
-           <user-name>adminX4iB2fP</user-name>
-          <password>dZvc29j3jVGa</password>
-          <!-- <user-name>root</user-name>
-          <password>netfilter</password>  -->
+           <user-name>root</user-name>
+           <password>netfilter</password>
       </security>
+      <!--  
+      <connection-url>jdbc:mysql://127.10.106.129:3306/alantra</connection-url>
+      <driver>mysql</driver> 
+      <security>
+          <user-name>adminX4iB2fP</user-name>
+          <password>dZvc29j3jVGa</password>
+      </security>
+       -->
    </datasource>
 </datasources>
  

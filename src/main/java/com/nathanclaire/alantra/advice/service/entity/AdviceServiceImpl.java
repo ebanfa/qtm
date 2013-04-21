@@ -3,19 +3,20 @@
  */
 package com.nathanclaire.alantra.advice.service.entity;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.advice.model.Advice;
-import com.nathanclaire.alantra.advice.request.AdviceRequest;
-
-import com.nathanclaire.alantra.party.model.Party;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
-import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
 import com.nathanclaire.alantra.advice.model.AdviceType;
+import com.nathanclaire.alantra.advice.request.AdviceRequest;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
+import com.nathanclaire.alantra.party.model.Party;
 
 /**
  * @author administrator
@@ -24,6 +25,10 @@ import com.nathanclaire.alantra.advice.model.AdviceType;
 @Stateless
 public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice, AdviceRequest> implements AdviceService
 {
+	private static final String STATUS_CRITERIA = "recSt"; 
+	private static final String AMOUNT_CRITERIA = "amount"; 
+	private static final String ACCOUNT_NO_CRITERIA = "accountNo";
+	private static final String TRANSACTION_TYPE_CRITERIA = "transactionType";
 	/**
 	 * @param entityClass
 	 */
@@ -53,6 +58,29 @@ public class AdviceServiceImpl extends BaseEntityServiceImpl<Advice, AdviceReque
 	@Override
 	public Advice findByName(String name) {
 		return findInstanceByName(name);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.advice.service.entity.AdviceService#findByAccountNo(java.lang.String)
+	 */
+	@Override
+	public List<Advice> findByAccountNo(String accountNo) {
+		HashMap<String,String> searchCriteria = new HashMap<String, String>();
+		searchCriteria.put(ACCOUNT_NO_CRITERIA, accountNo);
+		return findByCriteria(searchCriteria);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.advice.service.entity.AdviceService#findByAccountNoAndAmount(java.lang.String, java.math.BigDecimal)
+	 */
+	@Override
+	public List<Advice> findAdvice(String transactionType, String accountNo, BigDecimal amount) {
+		HashMap<String,String> searchCriteria = new HashMap<String, String>();
+		searchCriteria.put(ACCOUNT_NO_CRITERIA, accountNo);
+		searchCriteria.put(AMOUNT_CRITERIA, amount.toString());
+		searchCriteria.put(TRANSACTION_TYPE_CRITERIA, transactionType);
+		searchCriteria.put(STATUS_CRITERIA, String.valueOf(ENTITY_STATUS_ACTIVE));
+		return findByCriteria(searchCriteria);
 	}
 
 	/* (non-Javadoc)

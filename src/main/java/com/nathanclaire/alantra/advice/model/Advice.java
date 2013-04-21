@@ -18,6 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
 import com.nathanclaire.alantra.party.model.Party;
 
@@ -34,14 +35,20 @@ import com.nathanclaire.alantra.party.model.Party;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Advice  extends BaseEntity implements java.io.Serializable {
 
-	private Party party;
-	private AdviceStatus adviceStatus;
-	private CommunicationEvent communicationEvent;
-	private AdviceType adviceType;
     private String name;
-    private String description;
+    private String cardNo;
+    private String amount;
+    private String chequeNo;
     private String adviceTxt;
     private String accountNo;
+    private String accountNm;
+    private String description;
+    //Related entities
+	private Party party;
+	private AdviceType adviceType;
+	private AdviceStatus adviceStatus;
+	private CommunicationEvent communicationEvent;
+    private ServiceTransactionType transactionType;
 
     public Advice() {
     }
@@ -165,6 +172,80 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     {
         this.accountNo = accountNo;
     }
+
+	/**
+	 * @return the cardNo
+	 */
+    @Column(name="CARD_NO" , length=35)
+	public String getCardNo() {
+		return cardNo;
+	}
+
+	/**
+	 * @param cardNo the cardNo to set
+	 */
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
+	}
+
+	/**
+	 * @return the amount
+	 */
+    @Column(name="AMOUNT" , nullable=false)
+	public String getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * @return the accountNm
+	 */
+    @Column(name="ACCOUNT_NM" , nullable=false, length=75)
+	public String getAccountNm() {
+		return accountNm;
+	}
+
+	/**
+	 * @param accountNm the accountNm to set
+	 */
+	public void setAccountNm(String accountNm) {
+		this.accountNm = accountNm;
+	}
+
+	/**
+	 * @return the transactionType
+	 */
+	public ServiceTransactionType getTransactionType() {
+		return transactionType;
+	}
+
+	/**
+	 * @param transactionType the transactionType to set
+	 */
+	public void setTransactionType(ServiceTransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	/**
+	 * @return the chequeNo
+	 */
+    @Column(name="CHEQUE_NO", length=35)
+	public String getChequeNo() {
+		return chequeNo;
+	}
+
+	/**
+	 * @param chequeNo the chequeNo to set
+	 */
+	public void setChequeNo(String chequeNo) {
+		this.chequeNo = chequeNo;
+	}
 
 
 }
