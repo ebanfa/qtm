@@ -12,9 +12,6 @@
 								    	<legend><%= entities_strings.person %></legend>
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<!-- party. -->
-												<div id="partySelectContainerDiv" class="span6">
-	            								</div>
 												<% if (entity) { %>
 												<!-- currentFNm. -->
 						            			<div class="span6">
@@ -27,12 +24,8 @@
 						            				<label for="currentFNm"><%= entities_strings.person_currentfnm %></label>
 													<input type="text" id="currentFNm" name="currentFNm" value="" placeholder="<%= entities_strings.person_currentfnm %>">
 												</div>		
-												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
+												<% } %>	
+
 												<% if (entity) { %>
 												<!-- currentLNm. -->
 						            			<div class="span6">
@@ -45,7 +38,12 @@
 						            				<label for="currentLNm"><%= entities_strings.person_currentlnm %></label>
 													<input type="text" id="currentLNm" name="currentLNm" value="" placeholder="<%= entities_strings.person_currentlnm %>">
 												</div>		
-												<% } %>									
+												<% } %>		
+												
+											</div> 
+											<!-- Start field block. -->
+											<div class="row-fluid">
+																			
 												<% if (entity) { %>
 												<!-- currentMNm. -->
 						            			<div class="span6">
@@ -60,72 +58,6 @@
 												</div>		
 												<% } %>									
 												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
-												<% if (entity) { %>
-												<!-- currentSuffix. -->
-						            			<div class="span6">
-						            				<label for="currentSuffix"><%= entities_strings.person_currentsuffix %></label>
-													<input type="text" id="currentSuffix" value="<%= entity.get('currentSuffix') ? entity.get('currentSuffix') : '' %>" name="currentSuffix" placeholder="<%= entities_strings.person_currentsuffix %>">
-												</div>		
-												<% } else {%>
-												<!-- currentSuffix. -->
-						            			<div class="span6">
-						            				<label for="currentSuffix"><%= entities_strings.person_currentsuffix %></label>
-													<input type="text" id="currentSuffix" name="currentSuffix" value="" placeholder="<%= entities_strings.person_currentsuffix %>">
-												</div>		
-												<% } %>									
-												<% if (entity) { %>
-												<!-- currentPtitle. -->
-						            			<div class="span6">
-						            				<label for="currentPtitle"><%= entities_strings.person_currentptitle %></label>
-													<input type="text" id="currentPtitle" value="<%= entity.get('currentPtitle') ? entity.get('currentPtitle') : '' %>" name="currentPtitle" placeholder="<%= entities_strings.person_currentptitle %>">
-												</div>		
-												<% } else {%>
-												<!-- currentPtitle. -->
-						            			<div class="span6">
-						            				<label for="currentPtitle"><%= entities_strings.person_currentptitle %></label>
-													<input type="text" id="currentPtitle" name="currentPtitle" value="" placeholder="<%= entities_strings.person_currentptitle %>">
-												</div>		
-												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
-												<% if (entity) { %>
-												<!-- currentNNm. -->
-						            			<div class="span6">
-						            				<label for="currentNNm"><%= entities_strings.person_currentnnm %></label>
-													<input type="text" id="currentNNm" value="<%= entity.get('currentNNm') ? entity.get('currentNNm') : '' %>" name="currentNNm" placeholder="<%= entities_strings.person_currentnnm %>">
-												</div>		
-												<% } else {%>
-												<!-- currentNNm. -->
-						            			<div class="span6">
-						            				<label for="currentNNm"><%= entities_strings.person_currentnnm %></label>
-													<input type="text" id="currentNNm" name="currentNNm" value="" placeholder="<%= entities_strings.person_currentnnm %>">
-												</div>		
-												<% } %>									
-												<% if (entity) { %>
-												<!-- motherMaidenNm. -->
-						            			<div class="span6">
-						            				<label for="motherMaidenNm"><%= entities_strings.person_mothermaidennm %></label>
-													<input type="text" id="motherMaidenNm" value="<%= entity.get('motherMaidenNm') ? entity.get('motherMaidenNm') : '' %>" name="motherMaidenNm" placeholder="<%= entities_strings.person_mothermaidennm %>">
-												</div>		
-												<% } else {%>
-												<!-- motherMaidenNm. -->
-						            			<div class="span6">
-						            				<label for="motherMaidenNm"><%= entities_strings.person_mothermaidennm %></label>
-													<input type="text" id="motherMaidenNm" name="motherMaidenNm" value="" placeholder="<%= entities_strings.person_mothermaidennm %>">
-												</div>		
-												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
-											<div class="row-fluid">
 												<% if (entity) { %>
 												<!-- gender. -->
 						            			<div class="span6">
@@ -138,58 +70,119 @@
 						            				<label for="gender"><%= entities_strings.person_gender %></label>
 													<input type="text" id="gender" name="gender" value="" placeholder="<%= entities_strings.person_gender %>">
 												</div>		
+												<% } %>		
+											</div> 
+											<!-- Start field block. 
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- currentSuffix. ->
+						            			<div class="span6">
+						            				<label for="currentSuffix"><%= entities_strings.person_currentsuffix %></label>
+													<input type="text" id="currentSuffix" value="<%= entity.get('currentSuffix') ? entity.get('currentSuffix') : '' %>" name="currentSuffix" placeholder="<%= entities_strings.person_currentsuffix %>">
+												</div>		
+												<% } else {%>
+												<!-- currentSuffix. ->
+						            			<div class="span6">
+						            				<label for="currentSuffix"><%= entities_strings.person_currentsuffix %></label>
+													<input type="text" id="currentSuffix" name="currentSuffix" value="" placeholder="<%= entities_strings.person_currentsuffix %>">
+												</div>		
 												<% } %>									
 												<% if (entity) { %>
-												<!-- maritalSt. -->
+												<!-- currentPtitle. ->
+						            			<div class="span6">
+						            				<label for="currentPtitle"><%= entities_strings.person_currentptitle %></label>
+													<input type="text" id="currentPtitle" value="<%= entity.get('currentPtitle') ? entity.get('currentPtitle') : '' %>" name="currentPtitle" placeholder="<%= entities_strings.person_currentptitle %>">
+												</div>		
+												<% } else {%>
+												<!-- currentPtitle. ->
+						            			<div class="span6">
+						            				<label for="currentPtitle"><%= entities_strings.person_currentptitle %></label>
+													<input type="text" id="currentPtitle" name="currentPtitle" value="" placeholder="<%= entities_strings.person_currentptitle %>">
+												</div>		
+												<% } %>							
+											</div> -->	
+
+											<!-- Start field block. 
+											<div class="row-fluid">
+												<% if (entity) { %>
+												<!-- currentNNm. ->
+						            			<div class="span6">
+						            				<label for="currentNNm"><%= entities_strings.person_currentnnm %></label>
+													<input type="text" id="currentNNm" value="<%= entity.get('currentNNm') ? entity.get('currentNNm') : '' %>" name="currentNNm" placeholder="<%= entities_strings.person_currentnnm %>">
+												</div>		
+												<% } else {%>
+												<!-- currentNNm. ->
+						            			<div class="span6">
+						            				<label for="currentNNm"><%= entities_strings.person_currentnnm %></label>
+													<input type="text" id="currentNNm" name="currentNNm" value="" placeholder="<%= entities_strings.person_currentnnm %>">
+												</div>		
+												<% } %>									
+												<% if (entity) { %>
+												<!-- motherMaidenNm. ->
+						            			<div class="span6">
+						            				<label for="motherMaidenNm"><%= entities_strings.person_mothermaidennm %></label>
+													<input type="text" id="motherMaidenNm" value="<%= entity.get('motherMaidenNm') ? entity.get('motherMaidenNm') : '' %>" name="motherMaidenNm" placeholder="<%= entities_strings.person_mothermaidennm %>">
+												</div>		
+												<% } else {%>
+												<!-- motherMaidenNm. ->
+						            			<div class="span6">
+						            				<label for="motherMaidenNm"><%= entities_strings.person_mothermaidennm %></label>
+													<input type="text" id="motherMaidenNm" name="motherMaidenNm" value="" placeholder="<%= entities_strings.person_mothermaidennm %>">
+												</div>		
+												<% } %>									
+											</div> -->
+											<!-- Start field block. 
+											<div class="row-fluid">
+																			
+												<% if (entity) { %>
+												<!-- maritalSt. ->
 						            			<div class="span6">
 						            				<label for="maritalSt"><%= entities_strings.person_maritalst %></label>
 													<input type="text" id="maritalSt" value="<%= entity.get('maritalSt') ? entity.get('maritalSt') : '' %>" name="maritalSt" placeholder="<%= entities_strings.person_maritalst %>">
 												</div>		
 												<% } else {%>
-												<!-- maritalSt. -->
+												<!-- maritalSt. ->
 						            			<div class="span6">
 						            				<label for="maritalSt"><%= entities_strings.person_maritalst %></label>
 													<input type="text" id="maritalSt" name="maritalSt" value="" placeholder="<%= entities_strings.person_maritalst %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
+											</div> -->
+
+											<!-- Start field block.
 											<div class="row-fluid">
 												<% if (entity) { %>
-												<!-- ssNo. -->
+												<!-- ssNo. ->
 						            			<div class="span6">
 						            				<label for="ssNo"><%= entities_strings.person_ssno %></label>
 													<input type="text" id="ssNo" value="<%= entity.get('ssNo') ? entity.get('ssNo') : '' %>" name="ssNo" placeholder="<%= entities_strings.person_ssno %>">
 												</div>		
 												<% } else {%>
-												<!-- ssNo. -->
+												<!-- ssNo. ->
 						            			<div class="span6">
 						            				<label for="ssNo"><%= entities_strings.person_ssno %></label>
 													<input type="text" id="ssNo" name="ssNo" value="" placeholder="<%= entities_strings.person_ssno %>">
 												</div>		
 												<% } %>									
 												<% if (entity) { %>
-												<!-- currentPpNo. -->
+												<!-- currentPpNo. ->
 						            			<div class="span6">
 						            				<label for="currentPpNo"><%= entities_strings.person_currentppno %></label>
 													<input type="text" id="currentPpNo" value="<%= entity.get('currentPpNo') ? entity.get('currentPpNo') : '' %>" name="currentPpNo" placeholder="<%= entities_strings.person_currentppno %>">
 												</div>		
 												<% } else {%>
-												<!-- currentPpNo. -->
+												<!-- currentPpNo. ->
 						            			<div class="span6">
 						            				<label for="currentPpNo"><%= entities_strings.person_currentppno %></label>
 													<input type="text" id="currentPpNo" name="currentPpNo" value="" placeholder="<%= entities_strings.person_currentppno %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
+											</div>  -->
+
+											<!-- Start field block. 
 											<div class="row-fluid">
 												<% if (entity) { %>
-												<!-- currentPpExpDt. -->
+												<!-- currentPpExpDt. ->
 						            			<div class="span6">
 						            				<label for="currentPpExpDt"><%= entities_strings.person_currentppexpdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
@@ -200,7 +193,7 @@
 													</div>
 												</div>
 												<% } else {%>
-												<!-- currentPpExpDt. -->
+												<!-- currentPpExpDt. ->
 						            			<div class="span6">
 						            				<label for="currentPpExpDt"><%= entities_strings.person_currentppexpdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
@@ -212,38 +205,37 @@
 												</div>
 												<% } %>
 												<% if (entity) { %>
-												<!-- weight. -->
+												<!-- weight. ->
 						            			<div class="span6">
 						            				<label for="weight"><%= entities_strings.person_weight %></label>
 													<input type="text" id="weight" value="<%= entity.get('weight') ? entity.get('weight') : '' %>" name="weight" placeholder="<%= entities_strings.person_weight %>">
 												</div>		
 												<% } else {%>
-												<!-- weight. -->
+												<!-- weight. ->
 						            			<div class="span6">
 						            				<label for="weight"><%= entities_strings.person_weight %></label>
 													<input type="text" id="weight" name="weight" value="" placeholder="<%= entities_strings.person_weight %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
-											<!-- Start field block. -->
+											</div> -->
+
+											<!-- Start field block. 
 											<div class="row-fluid">
 												<% if (entity) { %>
-												<!-- height. -->
+												<!-- height. ->
 						            			<div class="span6">
 						            				<label for="height"><%= entities_strings.person_height %></label>
 													<input type="text" id="height" value="<%= entity.get('height') ? entity.get('height') : '' %>" name="height" placeholder="<%= entities_strings.person_height %>">
 												</div>		
 												<% } else {%>
-												<!-- height. -->
+												<!-- height. ->
 						            			<div class="span6">
 						            				<label for="height"><%= entities_strings.person_height %></label>
 													<input type="text" id="height" name="height" value="" placeholder="<%= entities_strings.person_height %>">
 												</div>		
 												<% } %>									
 												<% if (entity) { %>
-												<!-- birthDt. -->
+												<!-- birthDt. ->
 						            			<div class="span6">
 						            				<label for="birthDt"><%= entities_strings.person_birthdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
@@ -254,7 +246,7 @@
 													</div>
 												</div>
 												<% } else {%>
-												<!-- birthDt. -->
+												<!-- birthDt. ->
 						            			<div class="span6">
 						            				<label for="birthDt"><%= entities_strings.person_birthdt %></label>
 						            				<div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
@@ -268,37 +260,36 @@
 												
 												
 											</div> 
-											<!-- Start field block. -->
+											<!-- Start field block. ->
 											<div class="row-fluid">
 												<% if (entity) { %>
-												<!-- totYrWorkExp. -->
+												<!-- totYrWorkExp. ->
 						            			<div class="span6">
 						            				<label for="totYrWorkExp"><%= entities_strings.person_totyrworkexp %></label>
 													<input type="text" id="totYrWorkExp" value="<%= entity.get('totYrWorkExp') ? entity.get('totYrWorkExp') : '' %>" name="totYrWorkExp" placeholder="<%= entities_strings.person_totyrworkexp %>">
 												</div>		
 												<% } else {%>
-												<!-- totYrWorkExp. -->
+												<!-- totYrWorkExp. ->
 						            			<div class="span6">
 						            				<label for="totYrWorkExp"><%= entities_strings.person_totyrworkexp %></label>
 													<input type="text" id="totYrWorkExp" name="totYrWorkExp" value="" placeholder="<%= entities_strings.person_totyrworkexp %>">
 												</div>		
 												<% } %>									
 												<% if (entity) { %>
-												<!-- remarks. -->
+												<!-- remarks. ->
 						            			<div class="span6">
 						            				<label for="remarks"><%= entities_strings.person_remarks %></label>
 													<input type="text" id="remarks" value="<%= entity.get('remarks') ? entity.get('remarks') : '' %>" name="remarks" placeholder="<%= entities_strings.person_remarks %>">
 												</div>		
 												<% } else {%>
-												<!-- remarks. -->
+												<!-- remarks. ->
 						            			<div class="span6">
 						            				<label for="remarks"><%= entities_strings.person_remarks %></label>
 													<input type="text" id="remarks" name="remarks" value="" placeholder="<%= entities_strings.person_remarks %>">
 												</div>		
 												<% } %>									
-												
-												
-											</div> 
+											</div> -->
+
 											<!-- Start field block. -->
 											<div class="row-fluid">
 												<% if (entity) { %>

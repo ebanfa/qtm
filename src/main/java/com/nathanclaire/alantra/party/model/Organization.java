@@ -43,6 +43,7 @@ public class Organization  extends BaseEntity implements java.io.Serializable {
 
 	private Party party;
     private String taxIdNo;
+    private String name;
 
     public Organization() {
     }
@@ -86,6 +87,20 @@ public class Organization  extends BaseEntity implements java.io.Serializable {
     {
         this.taxIdNo = taxIdNo;
     }
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 
 }

@@ -15,15 +15,18 @@ define([
         
         validate: function (attrs) {
             var errors = [];
-            if (!attrs.party) {
+            /*if (!attrs.party) {
             	errors.push({name: 'party', message: entities_strings.alantra_form_field_required + entities_strings.person_party + '.'});
-        	}	
+        	}*/	
             if (!attrs.currentFNm) {
             	errors.push({name: 'currentFNm', message: entities_strings.alantra_form_field_required + entities_strings.person_currentfnm + '.'});
         	}	
-            if (!attrs.gender) {
+            if (!attrs.currentLNm) {
+                errors.push({name: 'currentLNm', message: entities_strings.alantra_form_field_required + entities_strings.person_currentlnm + '.'});
+            }   
+            /*if (!attrs.gender) {
             	errors.push({name: 'gender', message: entities_strings.alantra_form_field_required + entities_strings.person_gender + '.'});
-        	}	
+        	}*/	
             if (!attrs.code) {
             	errors.push({name: 'code', message: entities_strings.alantra_form_field_required + entities_strings.person_code + '.'});
         	}	

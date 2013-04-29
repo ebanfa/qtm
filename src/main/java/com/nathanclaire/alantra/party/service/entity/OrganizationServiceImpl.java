@@ -6,6 +6,7 @@ package com.nathanclaire.alantra.party.service.entity;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
@@ -21,6 +22,9 @@ import com.nathanclaire.alantra.party.model.Party;
 @Stateless
 public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization, OrganizationRequest> implements OrganizationService
 {
+
+	@Inject
+	PartyService partyService;
 	/**
 	 * @param entityClass
 	 */
@@ -105,18 +109,23 @@ public class OrganizationServiceImpl extends BaseEntityServiceImpl<Organization,
         	organization.setCreatedDt(getCurrentSystemDate());
         	organization.setCreatedByUsr(getCurrentUserName(organizationRequest));
     	}
-    	organization.setCode(organizationRequest.getCode());
-    	organization.setEffectiveDt(getCurrentSystemDate());
+    	//organization.setCode(organizationRequest.getCode());
+    	//organization.setEffectiveDt(getCurrentSystemDate());
+    	organization.setTaxIdNo(organizationRequest.getTaxIdNo()); 
+    	organization.setCode(organizationRequest.getCode()); 
+    	organization.setEffectiveDt(organizationRequest.getEffectiveDt()); 
+    	organization.setRecSt(organizationRequest.getRecSt()); 
     	//Process many to one relationships
     	if (organizationRequest.getParty() != null)
     	{
     		Party party = getEntityManager().find(Party.class, organizationRequest.getParty());
     		organization.setParty(party);
     	}
-    	organization.setTaxIdNo(organizationRequest.getTaxIdNo()); 
-    	organization.setCode(organizationRequest.getCode()); 
-    	organization.setEffectiveDt(organizationRequest.getEffectiveDt()); 
-    	organization.setRecSt(organizationRequest.getRecSt()); 
+    	else
+    	{
+    		Party personParty = partyService.createOrganization(organizationRequest);
+    		organization.setParty(personParty);
+    	}
 		return organization;
 	}
 }

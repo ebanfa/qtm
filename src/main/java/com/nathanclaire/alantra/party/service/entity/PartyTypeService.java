@@ -13,5 +13,13 @@ import com.nathanclaire.alantra.party.request.PartyTypeRequest;
  */
 public interface PartyTypeService extends BaseEntityService<PartyType, PartyTypeRequest>
 {
+	/**
+	 * @return
+	 */
+	public PartyType getIndividualPartyType();
 	
+	/**
+	 * @return
+	 */
+	public PartyType getOrganizationalPartyType();
 }

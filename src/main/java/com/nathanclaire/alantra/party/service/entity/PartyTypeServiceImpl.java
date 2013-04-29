@@ -21,6 +21,8 @@ import com.nathanclaire.alantra.party.model.PartyType;
 @Stateless
 public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType, PartyTypeRequest> implements PartyTypeService
 {
+	public static final String INDIVIDUAL_TYPE_CODE = "";
+	public static final String ORGANIZATION_TYPE_CODE = "";
 	/**
 	 * @param entityClass
 	 */
@@ -119,5 +121,21 @@ public class PartyTypeServiceImpl extends BaseEntityServiceImpl<PartyType, Party
     	partyType.setEffectiveDt(partyTypeRequest.getEffectiveDt()); 
     	partyType.setRecSt(partyTypeRequest.getRecSt()); 
 		return partyType;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.entity.PartyTypeService#getIndividualPartyType()
+	 */
+	@Override
+	public PartyType getIndividualPartyType() {
+		return findByCode(INDIVIDUAL_TYPE_CODE);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.entity.PartyTypeService#getOrganizationalPartyType()
+	 */
+	@Override
+	public PartyType getOrganizationalPartyType() {
+		return findByCode(ORGANIZATION_TYPE_CODE);
 	}
 }

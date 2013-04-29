@@ -12,9 +12,20 @@
 								    	<legend><%= entities_strings.organization %></legend>
 											<!-- Start field block. -->
 											<div class="row-fluid">
-												<!-- party. -->
-												<div id="partySelectContainerDiv" class="span6">
-	            								</div>
+												<% if (entity) { %>
+												<!--  name. -->	
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.party_name %></label>
+													<input type="text" id="name" value="<%= entity.get('name') ? entity.get('name') : '' %>" name="name" placeholder="<%= entities_strings.party_name %>">
+												</div>		
+												<% } else {%>
+												<!-- name. -->
+						            			<div class="span6">
+						            				<label for="name"><%= entities_strings.party_name %></label>
+													<input type="text" id="name" name="name" value="" placeholder="<%= entities_strings.party_name %>">
+												</div>		
+												<% } %>			
+
 												<% if (entity) { %>
 												<!-- taxIdNo. -->
 						            			<div class="span6">

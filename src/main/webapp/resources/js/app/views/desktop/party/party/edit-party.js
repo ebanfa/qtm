@@ -50,7 +50,7 @@ define([
         },
         events:
         {
-            'submit #edit-party-form':'saveEntity'
+            'submit #edit-party-form':'renderPartyImplEditView'
             
         },
         navigateToEntityList:function()
@@ -67,6 +67,10 @@ define([
             var partyTypes = new PartyTypes();
             partyTypeListSubView = new PartyTypeListSubView({model:partyTypes, el:$('#partyTypeSelectContainerDiv'), selectedOption:this.partyTypeId});
             partyTypeListSubView.render();
+        },
+        renderPartyImplEditView: function()
+        {
+            console.log(this.model.attributes.partyType.name);
         }
     });
 

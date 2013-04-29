@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,8 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
-import com.nathanclaire.alantra.advice.model.AdviceType;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * <p>
@@ -101,8 +101,7 @@ public abstract class BaseEntityRESTService<T,V> {
     public T findById(@PathParam("id") Integer id) 
     {
     	
-    	AdviceType instance = (AdviceType) getSingleInstance(id);
-    	//System.out.println(">>>>>>>>>>>>>>>Returning single instance: " + instance.getLastModifiedUsr());
+    	T instance = getSingleInstance(id);
         return getSingleInstance(id);
     }
 
@@ -150,6 +149,35 @@ public abstract class BaseEntityRESTService<T,V> {
     }
     
     /**
+     * @param data
+     * @return
+     */
+    @DELETE
+    @Path("/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteAll(Integer[] ids)
+    {
+    	for(Integer id:ids)
+    	{
+    		deleteInstance(id);
+    	}
+    	return Response.status(Status.BAD_REQUEST).entity("Some shit").build();
+    }
+    
+    /**
+     * <p>  Edit a Host. Data is contained in the HostRequest object </p>
+     * @param request
+     * @return
+     */
+    @DELETE 
+    @Path("/{id:[0-9][0-9]*}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(Integer id) 
+    {
+    	return deleteInstance(id);
+    }
+    
+    /**
      * @param queryParameters
      * @return
      */
@@ -172,6 +200,12 @@ public abstract class BaseEntityRESTService<T,V> {
      * @return
      */
     protected abstract Response editInstance(V request);
+    
+    /**
+     * @param queryParameters
+     * @return
+     */
+    protected  Response deleteInstance(Integer id){return null;}
     
     /**
      * @param queryParameters

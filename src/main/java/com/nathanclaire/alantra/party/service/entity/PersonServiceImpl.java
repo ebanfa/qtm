@@ -6,13 +6,14 @@ package com.nathanclaire.alantra.party.service.entity;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.party.model.Person;
-import com.nathanclaire.alantra.party.request.PersonRequest;
-
 import com.nathanclaire.alantra.party.model.Party;
+import com.nathanclaire.alantra.party.model.Person;
+import com.nathanclaire.alantra.party.request.PartyRequest;
+import com.nathanclaire.alantra.party.request.PersonRequest;
 
 /**
  * @author administrator
@@ -21,6 +22,8 @@ import com.nathanclaire.alantra.party.model.Party;
 @Stateless
 public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonRequest> implements PersonService
 {
+	@Inject
+	PartyService partyService;
 	/**
 	 * @param entityClass
 	 */
@@ -67,6 +70,7 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonReque
 	public Person create(PersonRequest personRequest) {
 		return createInstance(personRequest);
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.party.service.Person#deletePerson(java.lang.Integer)
@@ -105,14 +109,8 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonReque
         	person.setCreatedDt(getCurrentSystemDate());
         	person.setCreatedByUsr(getCurrentUserName(personRequest));
     	}
-    	person.setCode(personRequest.getCode());
-    	person.setEffectiveDt(getCurrentSystemDate());
-    	//Process many to one relationships
-    	if (personRequest.getParty() != null)
-    	{
-    		Party party = getEntityManager().find(Party.class, personRequest.getParty());
-    		person.setParty(party);
-    	}
+    	//person.setCode(personRequest.getCode());
+    	//person.setEffectiveDt(getCurrentSystemDate());
     	person.setCurrentFNm(personRequest.getCurrentFNm()); 
     	person.setCurrentLNm(personRequest.getCurrentLNm()); 
     	person.setCurrentMNm(personRequest.getCurrentMNm()); 
@@ -133,6 +131,19 @@ public class PersonServiceImpl extends BaseEntityServiceImpl<Person, PersonReque
     	person.setCode(personRequest.getCode()); 
     	person.setEffectiveDt(personRequest.getEffectiveDt()); 
     	person.setRecSt(personRequest.getRecSt()); 
+    	//Process many to one relationships
+    	if (personRequest.getParty() != null)
+    	{
+    		Party party = getEntityManager().find(Party.class, personRequest.getParty());
+    		person.setParty(party);
+    	}
+    	else
+    	{
+    		Party personParty = partyService.createIndividual(personRequest);
+    		person.setParty(personParty);
+    	}
 		return person;
 	}
+	
+	
 }

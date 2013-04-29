@@ -14,7 +14,24 @@ define([
     var Organizations = Backbone.Collection.extend({
         url: config.baseUrl + "rest/organization", // the URL for performing CRUD operations
         model: Organization,
-        id:"id" // the 'id' property of the model is the identifier
+        id:"id", // the 'id' property of the model is the identifier
+        deleteByIds: function(arrayOfIds) 
+        {
+            console.log("Deleting Organizations with the following ids:"+arrayOfIds);
+            $.ajax({
+                type: 'DELETE',
+                url: "rest/organization/delete",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(arrayOfIds),
+                dataType: "json",
+                success: function(data){ 
+                    alert(arrayOfIds); 
+                },
+                error: function(request, status, error){
+                    alert("Received from the server: request:" + request.responseText + " status:" + status +" Error:" + error);
+                }
+            });
+        }
     });
     return Organizations;
 });

@@ -12,14 +12,21 @@ define([
             if (this.model.attributes.id)
             {
                 var self = this;
+                console.log('Please say something4:' + this.model.attributes.id);
                 this.model.fetch(
-                {
+                { 
                     success: function(entity)
                     {
+                        console.log('Seriously I saw this two kids fronting');
                         utilities.applyTemplate($(self.el), self.entityTemplate,  
                             {model:self.model, entity:entity, entities_strings:entities_strings}); 
+
+                        console.log('Please say something1');
                         $(self.el).trigger('pagecreate');
                         self.renderSubViews();
+                    },
+                    error: function(model, response, options) {
+                        console.log(response);
                     }
                 });
             }

@@ -4,7 +4,7 @@ define([
     'app/util/form-utilities',
     'i18n!app/nls/entities',
     'app/views/desktop/base/baseentityeditview',
-        'app/collections/party/party/party',
+    'app/collections/party/party/party',
     'text!../../../../../../templates/desktop/party/party/party-list-subview.html',
     'text!../../../../../../templates/desktop/party/organization/edit-organization.html'
 ], function (utilities, config, formUtilities, entities_strings, BaseEntityEditView, Partys, partyListSubViewTemplate, OrganizationEditTemplate) {

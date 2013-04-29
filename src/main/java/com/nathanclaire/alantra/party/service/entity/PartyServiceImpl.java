@@ -6,13 +6,15 @@ package com.nathanclaire.alantra.party.service.entity;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.party.model.Party;
-import com.nathanclaire.alantra.party.request.PartyRequest;
-
 import com.nathanclaire.alantra.party.model.PartyType;
+import com.nathanclaire.alantra.party.request.OrganizationRequest;
+import com.nathanclaire.alantra.party.request.PartyRequest;
+import com.nathanclaire.alantra.party.request.PersonRequest;
 
 /**
  * @author administrator
@@ -21,6 +23,8 @@ import com.nathanclaire.alantra.party.model.PartyType;
 @Stateless
 public class PartyServiceImpl extends BaseEntityServiceImpl<Party, PartyRequest> implements PartyService
 {
+	@Inject
+	PartyTypeService partyTypeService;
 	/**
 	 * @param entityClass
 	 */
@@ -120,4 +124,51 @@ public class PartyServiceImpl extends BaseEntityServiceImpl<Party, PartyRequest>
     	party.setRecSt(partyRequest.getRecSt()); 
 		return party;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.entity.PartyService#createParty(com.nathanclaire.alantra.party.request.PersonRequest)
+	 */
+	@Override
+	public Party createIndividual(PersonRequest personRequest) {
+		// Get the party name from the names of the person
+		String partyName = this.getPartyName(personRequest);
+		
+		PartyRequest partyRequest = new PartyRequest();
+		partyRequest.setName(partyName);
+		partyRequest.setCode(personRequest.getCode());
+		partyRequest.setDescription(partyName);
+		partyRequest.setCreatedByUsr(personRequest.getCreatedByUsr());
+		partyRequest.setCreatedDt(personRequest.getCreatedDt());
+		partyRequest.setEffectiveDt(personRequest.getEffectiveDt());
+		partyRequest.setRecSt(personRequest.getRecSt());
+		partyRequest.setPartyType(partyTypeService.getIndividualPartyType().getId());
+		return create(partyRequest);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.party.service.entity.PartyService#createOrganization(com.nathanclaire.alantra.party.request.OrganizationRequest)
+	 */
+	@Override
+	public Party createOrganization(OrganizationRequest organizationRequest) {
+		PartyRequest partyRequest = new PartyRequest();
+		partyRequest.setName(organizationRequest.getName());
+		partyRequest.setCode(organizationRequest.getCode());
+		partyRequest.setDescription(organizationRequest.getName());
+		partyRequest.setCreatedByUsr(organizationRequest.getCreatedByUsr());
+		partyRequest.setCreatedDt(organizationRequest.getCreatedDt());
+		partyRequest.setEffectiveDt(organizationRequest.getEffectiveDt());
+		partyRequest.setRecSt(organizationRequest.getRecSt());
+		partyRequest.setPartyType(partyTypeService.getOrganizationalPartyType().getId());
+		return create(partyRequest);
+	}
+	
+	/**
+	 * @param personRequest
+	 * @return
+	 */
+	private String getPartyName(PersonRequest personRequest)
+	{
+		return personRequest.getCurrentFNm() + " " + personRequest.getCurrentMNm()+ " " + personRequest.getCurrentLNm();
+	}
+	
 }
