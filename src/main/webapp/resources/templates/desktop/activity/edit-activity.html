@@ -1,0 +1,107 @@
+<div class="widget widget-table action-table">
+                            
+    <div class="widget-header">
+        <i class="icon-th-list"></i>
+        <h3><%= form.entity ? 'Edit' : 'Create' %></h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content" style="overflow:scroll">
+        <div class="container-fluid form-container">
+            <form id="edit-activity-form">
+			    <fieldset>
+			    	<legend><%= form.entity.name %></legend>
+                        <!-- Loop over field blocks in form -->
+                        <% _.each(form.fieldBlocks, function (fieldBlock) { %>
+                        <div class="row-fluid">
+                        <!-- Loop over fields in field block -->
+                        <% _.each(fieldBlock.fields, function (field) { %>
+                            <!-- Code field -->
+                            <% if  (field.fieldInfo.fieldTypeCode == "CODE") { %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>  
+                            <!-- Name field -->
+                            <% } else if (field.fieldInfo.fieldTypeCode == "NAME") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>  
+                            <% } else if (field.fieldInfo.fieldTypeCode == "TEXT") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div> 
+                            <% } else if (field.fieldInfo.fieldTypeCode == "STATUS") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <select id="<%= field.fieldInfo.name %>" name="<%= field.fieldInfo.name %>">
+                                    <option value="A">Active</option>
+                                </select>
+                            </div>   
+                            <% } else if (field.fieldInfo.fieldTypeCode == "CHAR") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>    
+                            <% } else if (field.fieldInfo.fieldTypeCode == "NUMBER") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>  
+                            <% } else if (field.fieldInfo.fieldTypeCode == "CURRENCY") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>       
+                            <% } else if (field.fieldInfo.fieldTypeCode == "DECIMAL") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>   
+                            <% } else if (field.fieldInfo.fieldTypeCode == "BOOLEAN") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>">
+                            </div>    
+                            <% } else if (field.fieldInfo.fieldTypeCode == "DATE") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+                                    <input id="<%= field.fieldInfo.name %>" name="<%= field.fieldInfo.name %>" type="text" value="" placeholder="" readonly></input>
+                                    <span class="add-on">
+                                        <i class="icon-th"></i>
+                                    </span>
+                                </div>
+                            </div>    
+                            <% } else if (field.fieldInfo.fieldTypeCode == "DATETIME") {  %>
+                            <div class="span6">
+                                <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.name %></label>
+                                <div class="date-picker input-append date" data-date-format="dd-mm-yyyy">
+                                    <input id="<%= field.fieldInfo.name %>" name="<%= field.fieldInfo.name %>" type="text" value="" placeholder="" readonly></input>
+                                    <span class="add-on">
+                                        <i class="icon-th"></i>
+                                    </span>
+                                </div>
+                            </div>  
+                            <% } else if (field.fieldInfo.fieldTypeCode == "RELATIONSHIP") {  %>
+                            <div id="<%= field.fieldInfo.name %>SelectContainerDiv" class="span6"></div>
+                            <% } %>
+                        <% }); %> <!-- End row for each -->  
+                        </div> 
+                        <% }); %>   <!-- End field block for each -->
+                    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_submit %></button>
+                    <a class="btn" href="#list-geoboundarytype"><%= entities_strings.alantra_label_cancel %></a>
+			    </fieldset>
+		    </form>
+	    </div> <!-- /form container -->
+        
+    </div> <!-- /widget-content -->
+
+</div> <!-- /widget -->
+
+
+
+
+
+

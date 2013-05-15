@@ -6,10 +6,7 @@ package com.nathanclaire.alantra.channel.service.process;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.nathanclaire.alantra.advice.model.Advice;
-import com.nathanclaire.alantra.advice.service.entity.AdviceService;
 import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 
 /**
@@ -19,8 +16,8 @@ import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 public class ServiceTransactionBusinessServiceImpl implements
 		ServiceTransactionBusinessService {
 	
-	@Inject
-	AdviceService adviceService;
+	//@Inject
+	//AdviceService adviceService;
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.process.ServiceTransactionBusinessService#isAuthorized(com.nathanclaire.alantra.channel.model.ServiceTransaction)
@@ -42,7 +39,7 @@ public class ServiceTransactionBusinessServiceImpl implements
 	
 	private List<Advice> findAdvice(String transactionType, String accountNo, BigDecimal amount)
 	{
-		return adviceService.findAdvice(transactionType, accountNo, amount);
+		return null;//adviceService.findAdvice(transactionType, accountNo, amount);
 	}
 	
 

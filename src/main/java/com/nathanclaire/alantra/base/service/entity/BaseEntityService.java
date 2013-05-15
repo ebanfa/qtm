@@ -8,26 +8,45 @@ import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
 
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+import com.nathanclaire.alantra.base.response.ListItemResponse;
+
 /**
  * @author Edward Banfa 
  *
  */
-public interface BaseEntityService<T,V> {
+public interface BaseEntityService<M, T,V> {
 	
-	public T findById(Integer id);
-	
-	public T findByCode(String code);
-	
-	public T findByName(String name);
+	public M update(V request);
 
-	public List<T> findAll(MultivaluedMap<String, String> queryParameters);
+	public M create(V request);
 
 	public void delete(Integer id);
+	
+	public M findById(Integer id);
+	
+	public M findByCode(String code);
+	
+	public M findByName(String name);
+    
+    public String getEntityName();
+	
+    public String getListActivityCode();
+    
+    public String getEditActivityCode();
+    
+    public M convertRequestToModel(V request);
+    
+    public T convertModelToResponse(M model);
+    
+    public List<ApplicationEntityField> getEntityFields();
 
-	public T update(V request);
-
-	public T create(V request);
+	public List<M> findAll(MultivaluedMap<String, String> queryParameters);
 	
 	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters);
+	
+	public Map<String, List<ListItemResponse>> relatedEntitesToListItems();
+	
+	public List<ListItemResponse> asListItem();
 
 }

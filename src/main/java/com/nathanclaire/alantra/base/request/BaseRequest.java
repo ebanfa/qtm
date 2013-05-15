@@ -21,6 +21,7 @@ public class BaseRequest {
     private Integer id;
     private String code;
     private String name;
+	protected String description;
     private Character encrpytedFg;
 	private Date effectiveDt;
     private char recSt;
@@ -31,12 +32,10 @@ public class BaseRequest {
     private Date lastModifiedDt;
     private String lastModifiedUsr;
     
-    
 	/**
 	 * 
 	 */
 	public BaseRequest() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -77,6 +76,20 @@ public class BaseRequest {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**
