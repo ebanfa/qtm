@@ -1,5 +1,6 @@
 *~
 .classpath
+.openshift
 .project
 target
 .settings
