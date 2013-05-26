@@ -32,6 +32,8 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ApplicationRelatedActivity  extends BaseEntity implements java.io.Serializable {
 
+    private String name;
+    private String description;
 	private ApplicationActivity sourceApplicationActivity;
 	private ApplicationActivity destinationApplicationActivity;
     private int relActSeq;
@@ -56,8 +58,29 @@ public class ApplicationRelatedActivity  extends BaseEntity implements java.io.S
 		this.recSt = recSt;
     }
     
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
+    @Column(name="NAME" , nullable=false, length=75)
+    public String getName() 
+    {
+        return this.name;
+    }
+    
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+		
+    @Column(name="DESCRIPTION" , unique=true, length=100)
+    public String getDescription() 
+    {
+        return this.description;
+    }
+    
+    public void setDescription(String description) 
+    {
+        this.description = description;
+    }
+
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="SRC_ACT_ID")
     @JsonIgnore
     public ApplicationActivity getSourceApplicationActivity() 

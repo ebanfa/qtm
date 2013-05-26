@@ -217,40 +217,33 @@ public class ApplicationActivityServiceImpl
 	@Override
 	public ApplicationActivity convertRequestToModel(ApplicationActivityRequest applicationActivityRequest) {
 		ApplicationActivity applicationActivity = new ApplicationActivity();
-		applicationActivity = this.loadDefaultFieldsFromRequest(applicationActivity, applicationActivityRequest);
-    	applicationActivity.setCode(applicationActivityRequest.getCode()); 
-    	applicationActivity.setName(applicationActivityRequest.getName()); 
-    	applicationActivity.setDescription(applicationActivityRequest.getDescription()); 
-    	applicationActivity.setActivityUrl(applicationActivityRequest.getActivityUrl()); 
-    	applicationActivity.setActivitySeq(applicationActivityRequest.getActivitySeq()); 
-    	applicationActivity.setDisplayNm(applicationActivityRequest.getDisplayNm()); 
-    	applicationActivity.setDisplayImg(applicationActivityRequest.getDisplayImg()); 
-    	applicationActivity.setOperationCd(applicationActivityRequest.getOperationCd());
-    	applicationActivity.setRecSt(applicationActivityRequest.getRecSt()); 
+		// Copy properties
+		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
+		PropertyUtils.copyProperties(applicationActivityRequest, applicationActivity, allowedEntityFields);
     	//Process many to one relationships
-    	if (applicationActivityRequest.getApplicationActivityGroup() != null)
+    	if (applicationActivityRequest.getApplicationActivityGroupId() != null)
     	{
-    		ApplicationActivityGroup applicationActivityGroup = getEntityManager().find(ApplicationActivityGroup.class, applicationActivityRequest.getApplicationActivityGroup());
+    		ApplicationActivityGroup applicationActivityGroup = getEntityManager().find(ApplicationActivityGroup.class, applicationActivityRequest.getApplicationActivityGroupId());
     		applicationActivity.setApplicationActivityGroup(applicationActivityGroup);
     	}
-    	if (applicationActivityRequest.getApplicationModule() != null)
+    	if (applicationActivityRequest.getApplicationModuleId() != null)
     	{
-    		ApplicationModule applicationModule = getEntityManager().find(ApplicationModule.class, applicationActivityRequest.getApplicationModule());
+    		ApplicationModule applicationModule = getEntityManager().find(ApplicationModule.class, applicationActivityRequest.getApplicationModuleId());
     		applicationActivity.setApplicationModule(applicationModule);
     	}
-    	if (applicationActivityRequest.getApplicationEntity() != null)
+    	if (applicationActivityRequest.getApplicationEntityId() != null)
     	{
-    		ApplicationEntity applicationEntity = getEntityManager().find(ApplicationEntity.class, applicationActivityRequest.getApplicationEntity());
+    		ApplicationEntity applicationEntity = getEntityManager().find(ApplicationEntity.class, applicationActivityRequest.getApplicationEntityId());
     		applicationActivity.setApplicationEntity(applicationEntity);
     	}
-    	if (applicationActivityRequest.getApplicationForm() != null)
+    	if (applicationActivityRequest.getApplicationFormId() != null)
     	{
-    		ApplicationForm applicationForm = getEntityManager().find(ApplicationForm.class, applicationActivityRequest.getApplicationForm());
+    		ApplicationForm applicationForm = getEntityManager().find(ApplicationForm.class, applicationActivityRequest.getApplicationFormId());
     		applicationActivity.setApplicationForm(applicationForm);
     	}
-    	if (applicationActivityRequest.getApplicationActivityType() != null)
+    	if (applicationActivityRequest.getApplicationActivityTypeId() != null)
     	{
-    		ApplicationActivityType applicationActivityType = getEntityManager().find(ApplicationActivityType.class, applicationActivityRequest.getApplicationActivityType());
+    		ApplicationActivityType applicationActivityType = getEntityManager().find(ApplicationActivityType.class, applicationActivityRequest.getApplicationActivityTypeId());
     		applicationActivity.setApplicationActivityType(applicationActivityType);
     	}
 		return applicationActivity;
@@ -264,6 +257,18 @@ public class ApplicationActivityServiceImpl
 		if (model == null) return null;
 		ApplicationActivityResponse applicationActivityResponse = new ApplicationActivityResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
+		// Set the value of the response to the value of the id of the related Entity
+		if(model.getApplicationEntity() != null)
+			applicationActivityResponse.setApplicationEntityId(model.getApplicationEntity().getId());
+		if(model.getApplicationModule() != null)
+			applicationActivityResponse.setApplicationModuleId(model.getApplicationModule().getId());
+		if(model.getApplicationActivityGroup() != null)
+			applicationActivityResponse.setApplicationActivityGroupId(model.getApplicationActivityGroup().getId());
+		if(model.getApplicationActivityType() != null)
+			applicationActivityResponse.setApplicationActivityTypeId(model.getApplicationActivityType().getId());
+		if(model.getApplicationForm() != null)
+			applicationActivityResponse.setApplicationFormId(model.getApplicationForm().getId());
+		// Copy properties
 		PropertyUtils.copyProperties(model, applicationActivityResponse, allowedEntityFields);
 		return applicationActivityResponse;
 	}

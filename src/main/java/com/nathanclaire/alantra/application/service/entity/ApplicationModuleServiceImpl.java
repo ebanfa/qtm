@@ -150,6 +150,7 @@ public class ApplicationModuleServiceImpl
 	@Override
 	public List<ListItemResponse> asListItem() {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
+		queryParameters.clear();
 		for(ApplicationModule applicationmodule: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(applicationmodule.getId(), applicationmodule.getCode(), applicationmodule.getName());

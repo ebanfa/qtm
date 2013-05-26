@@ -31,6 +31,7 @@ public class BaseRequest {
     private String createdByUsr;
     private Date lastModifiedDt;
     private String lastModifiedUsr;
+    private String activityUrl;
     
 	/**
 	 * 
@@ -205,6 +206,20 @@ public class BaseRequest {
 	 */
 	public void setEncrpytedFg(Character encrpytedFg) {
 		this.encrpytedFg = encrpytedFg;
+	}
+
+	/**
+	 * @return the activityUrl
+	 */
+	public String getActivityUrl() {
+		return activityUrl;
+	}
+
+	/**
+	 * @param activityUrl the activityUrl to set
+	 */
+	public void setActivityUrl(String activityUrl) {
+		this.activityUrl = activityUrl;
 	}
 	
 	

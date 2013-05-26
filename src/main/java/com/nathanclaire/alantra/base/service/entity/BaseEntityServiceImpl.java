@@ -195,6 +195,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
     	try 
         {
     		M instance = getSingleInstance(id);
+    		System.out.println(">>>>>>>>>>>>>> deleteInstance" + id);
     		entityManager.remove(instance);
         } 
         catch (ConstraintViolationException e) 
@@ -247,6 +248,10 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
             String code = queryParameters.getFirst(CODE_CRITERIA);
             //predicates.add(criteriaBuilder.equal(root.get(CODE_CRITERIA), code));
             predicates.add(criteriaBuilder.like(root.<String>get(CODE_CRITERIA), code));
+        }
+        if (queryParameters.containsKey(NAME_CRITERIA)) {
+            String name = queryParameters.getFirst(NAME_CRITERIA);
+            predicates.add(criteriaBuilder.equal(root.get(NAME_CRITERIA), name));
         }
         return predicates.toArray(new Predicate[]{});
     }

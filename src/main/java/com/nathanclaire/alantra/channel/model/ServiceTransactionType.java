@@ -40,21 +40,27 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
     public ServiceTransactionType() {
     }
 
-    public ServiceTransactionType(String code, String name, Date effectiveDt, char recSt) 
+    public ServiceTransactionType(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransactionType(String code, String name, String description, Date effectiveDt, char recSt, Set<ServiceTransaction> serviceTransactions ) 
+    public ServiceTransactionType(String name, String description, Set<ServiceTransaction> serviceTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.serviceTransactions = serviceTransactions;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
-		this.serviceTransactions = serviceTransactions;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
 		

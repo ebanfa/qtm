@@ -14,6 +14,8 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
  */
 public class ApplicationRelatedActivityResponse extends BaseResponse {
 
+	private String name;
+	private String description;
     private Integer sourceApplicationActivityId;
     private Integer destinationApplicationActivityId;
     private int relActSeq;
@@ -21,7 +23,35 @@ public class ApplicationRelatedActivityResponse extends BaseResponse {
     public ApplicationRelatedActivityResponse() {
     }
 
-    public Integer getSourceApplicationActivityId() {
+    /**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getSourceApplicationActivityId() {
         return this.sourceApplicationActivityId;
     }
     

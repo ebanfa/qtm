@@ -4,13 +4,11 @@
 package com.nathanclaire.alantra.application.service.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -27,6 +25,7 @@ import com.nathanclaire.alantra.application.response.ApplicationEntityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.Messages;
 
 /**
  * @author Edward Banfa
@@ -164,7 +163,9 @@ public class ApplicationEntityServiceImpl
 	@Override
 	public List<ListItemResponse> asListItem() {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
-		for(ApplicationEntity applicationentity: findAll(queryParameters))
+		queryParameters.clear();
+		List<ApplicationEntity> entities = findAll(queryParameters);
+		for(ApplicationEntity applicationentity: entities)
 		{
 			ListItemResponse item = new ListItemResponse(applicationentity.getId(), applicationentity.getCode(), applicationentity.getName());
 			listItems.add(item);
@@ -185,7 +186,11 @@ public class ApplicationEntityServiceImpl
 			Set<ApplicationEntityField> entityFields = applicationEntity.getApplicationEntityFields();
 			for(ApplicationEntityField field:entityFields)
 			{
-				//logger.debug("Found field {} for applicationEntity {} with name {}", field.getCode(), applicationEntity.getCode(), applicationEntity.getName());
+				String fieldKey = entityName + "." + field.getName();
+				String fieldMsgValue = Messages.getString(fieldKey);
+				if(!entityName.equals("ApplicationEntityField"))
+					logger.debug("Entity {} field {} has key {} with value {}", entityName, field.getName(), fieldKey, fieldMsgValue);
+				field.setDescription(fieldMsgValue);
 				fieldResponses.add(field);
 			}
 		//logger.debug("Loaded {} fields for entity {}", entityFields.size(), entityName);
@@ -204,8 +209,8 @@ public class ApplicationEntityServiceImpl
 
         List<Predicate> predicates = new ArrayList<Predicate>();
         if (queryParameters.containsKey(NAME_CRITERIA)) {
-            String venue = queryParameters.getFirst(NAME_CRITERIA);
-            predicates.add(criteriaBuilder.equal(root.get(NAME_CRITERIA), venue));
+            String name = queryParameters.getFirst(NAME_CRITERIA);
+            predicates.add(criteriaBuilder.equal(root.get(NAME_CRITERIA), name));
         }
         return predicates.toArray(new Predicate[]{});
     }

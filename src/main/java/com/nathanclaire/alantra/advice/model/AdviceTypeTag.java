@@ -41,25 +41,31 @@ public class AdviceTypeTag  extends BaseEntity implements java.io.Serializable {
     public AdviceTypeTag() {
     }
 
-    public AdviceTypeTag(AdviceType adviceType, String name, String adviceTyTagVal, char isRegexFg, String code, Date effectiveDt, char recSt) 
+    public AdviceTypeTag(AdviceType adviceType, String code, String name, String adviceTyTagVal, char isRegexFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.name = name;
 		this.adviceTyTagVal = adviceTyTagVal;
 		this.isRegexFg = isRegexFg;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public AdviceTypeTag(AdviceType adviceType, String name, String description, String adviceTyTagVal, char isRegexFg, String code, Date effectiveDt, char recSt) 
+    public AdviceTypeTag(AdviceType adviceType, String code, String name, String description, String adviceTyTagVal, char isRegexFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.adviceType = adviceType;
+		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.adviceTyTagVal = adviceTyTagVal;
 		this.isRegexFg = isRegexFg;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

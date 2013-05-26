@@ -14,8 +14,8 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class HostRequest extends BaseRequest {
 
-    private Integer serviceProtocolAdapter;
-    private Integer hostType;
+    private Integer serviceProtocolAdapterId;
+    private Integer hostTypeId;
     private String name;
     private String description;
     private int portNo;
@@ -26,20 +26,20 @@ public class HostRequest extends BaseRequest {
     public HostRequest() {
     }
 
-    public Integer getServiceProtocolAdapter() {
-        return this.serviceProtocolAdapter;
+    public Integer getServiceProtocolAdapterId() {
+        return this.serviceProtocolAdapterId;
     }
     
-    public void setServiceProtocolAdapter(Integer serviceProtocolAdapter) {
-        this.serviceProtocolAdapter = serviceProtocolAdapter;
+    public void setServiceProtocolAdapterId(Integer serviceProtocolAdapterId) {
+        this.serviceProtocolAdapterId = serviceProtocolAdapterId;
     }
 
-    public Integer getHostType() {
-        return this.hostType;
+    public Integer getHostTypeId() {
+        return this.hostTypeId;
     }
     
-    public void setHostType(Integer hostType) {
-        this.hostType = hostType;
+    public void setHostTypeId(Integer hostTypeId) {
+        this.hostTypeId = hostTypeId;
     }
 
     public String getName() {

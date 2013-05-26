@@ -14,10 +14,10 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class ServiceRequest extends BaseRequest {
 
-    private Integer serviceType;
-    private Integer serviceProtocolAdapter;
-    private Integer serviceMode;
-    private Integer serviceCategory;
+    private Integer serviceTypeId;
+    private Integer serviceProtocolAdapterId;
+    private Integer serviceModeId;
+    private Integer serviceCategoryId;
     private String name;
     private String description;
     private int portNo;
@@ -28,36 +28,36 @@ public class ServiceRequest extends BaseRequest {
     public ServiceRequest() {
     }
 
-    public Integer getServiceType() {
-        return this.serviceType;
+    public Integer getServiceTypeId() {
+        return this.serviceTypeId;
     }
     
-    public void setServiceType(Integer serviceType) {
-        this.serviceType = serviceType;
+    public void setServiceTypeId(Integer serviceTypeId) {
+        this.serviceTypeId = serviceTypeId;
     }
 
-    public Integer getServiceProtocolAdapter() {
-        return this.serviceProtocolAdapter;
+    public Integer getServiceProtocolAdapterId() {
+        return this.serviceProtocolAdapterId;
     }
     
-    public void setServiceProtocolAdapter(Integer serviceProtocolAdapter) {
-        this.serviceProtocolAdapter = serviceProtocolAdapter;
+    public void setServiceProtocolAdapterId(Integer serviceProtocolAdapterId) {
+        this.serviceProtocolAdapterId = serviceProtocolAdapterId;
     }
 
-    public Integer getServiceMode() {
-        return this.serviceMode;
+    public Integer getServiceModeId() {
+        return this.serviceModeId;
     }
     
-    public void setServiceMode(Integer serviceMode) {
-        this.serviceMode = serviceMode;
+    public void setServiceModeId(Integer serviceModeId) {
+        this.serviceModeId = serviceModeId;
     }
 
-    public Integer getServiceCategory() {
-        return this.serviceCategory;
+    public Integer getServiceCategoryId() {
+        return this.serviceCategoryId;
     }
     
-    public void setServiceCategory(Integer serviceCategory) {
-        this.serviceCategory = serviceCategory;
+    public void setServiceCategoryId(Integer serviceCategoryId) {
+        this.serviceCategoryId = serviceCategoryId;
     }
 
     public String getName() {

@@ -1,7 +1,7 @@
 define([
     'utilities',
     'configuration',
-    'text!../../../../../templates/desktop/home/invoice-home.html'
+    'text!../../../../../templates/desktop/home/datasource-home.html'
 ], function (utilities, config, homeTemplate) {
 
     var InvoiceHomeView = Backbone.View.extend({

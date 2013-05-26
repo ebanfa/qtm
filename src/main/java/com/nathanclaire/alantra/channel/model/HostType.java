@@ -40,21 +40,27 @@ public class HostType  extends BaseEntity implements java.io.Serializable {
     public HostType() {
     }
 
-    public HostType(String code, String name, Date effectiveDt, char recSt) 
+    public HostType(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public HostType(String code, String name, String description, Date effectiveDt, char recSt, Set<Host> hosts ) 
+    public HostType(String name, String description, Set<Host> hosts, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.hosts = hosts;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
-		this.hosts = hosts;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
 		

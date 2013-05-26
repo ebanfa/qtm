@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -19,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 
 /**
  * AdviceType 
@@ -33,36 +36,57 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class AdviceType  extends BaseEntity implements java.io.Serializable {
 
+	private ServiceTransactionType serviceTransactionType;
     private String name;
     private String description;
     private Character reqFeedback;
     private String feedbackMsg;
-	private Set<Advice> advices = new HashSet<Advice>(0);
 	private Set<AdviceTypeTag> adviceTypeTags = new HashSet<AdviceTypeTag>(0);
+	private Set<Advice> advices = new HashSet<Advice>(0);
 
     public AdviceType() {
     }
 
-    public AdviceType(String name, String code, Date effectiveDt, char recSt) 
+    public AdviceType(ServiceTransactionType serviceTransactionType, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
 		this.code = code;
+		this.name = name;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public AdviceType(String name, String description, Character reqFeedback, String feedbackMsg, Set<Advice> advices, Set<AdviceTypeTag> adviceTypeTags, String code, Date effectiveDt, char recSt) 
+    public AdviceType(ServiceTransactionType serviceTransactionType, String code, String name, String description, Character reqFeedback, String feedbackMsg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceTypeTag> adviceTypeTags, Set<Advice> advices ) 
     {
+		this.serviceTransactionType = serviceTransactionType;
+		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.reqFeedback = reqFeedback;
 		this.feedbackMsg = feedbackMsg;
-		this.advices = advices;
-		this.adviceTypeTags = adviceTypeTags;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
+		this.adviceTypeTags = adviceTypeTags;
+		this.advices = advices;
     }
     
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="TXN_TY_ID", nullable=false)
+    @JsonIgnore
+    public ServiceTransactionType getServiceTransactionType() 
+    {
+        return this.serviceTransactionType;
+    }
+    
+    public void setServiceTransactionType(ServiceTransactionType serviceTransactionType)
+    {
+        this.serviceTransactionType = serviceTransactionType;
+    }
 		
     @Column(name="NAME" , nullable=false, length=75)
     public String getName() 
@@ -110,18 +134,6 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
     @JsonIgnore
-    public Set<Advice> getAdvices() 
-    {
-        return this.advices;
-    }
-    
-    public void setAdvices(Set<Advice> advices) 
-    {
-        this.advices = advices;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
-    @JsonIgnore
     public Set<AdviceTypeTag> getAdviceTypeTags() 
     {
         return this.adviceTypeTags;
@@ -130,6 +142,18 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
     public void setAdviceTypeTags(Set<AdviceTypeTag> adviceTypeTags) 
     {
         this.adviceTypeTags = adviceTypeTags;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
+    @JsonIgnore
+    public Set<Advice> getAdvices() 
+    {
+        return this.advices;
+    }
+    
+    public void setAdvices(Set<Advice> advices) 
+    {
+        this.advices = advices;
     }			
 
 

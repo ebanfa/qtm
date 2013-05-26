@@ -13,7 +13,8 @@ define([
      */
     var ActivityModel = Backbone.Model.extend({
         initialize: function(props){
-            this.urlRoot = config.baseUrl + 'rest/' + props.activityUrl;
+            this.activityURL = props.activityURL;
+            this.urlRoot = config.baseUrl + 'rest/' + this.activityURL + '/single';
         },
         
         validate: function (attrs) {
@@ -26,8 +27,10 @@ define([
         toJSON: function(options) {
             var attr = _.clone(this.attributes);
             delete attr.fields;
+            delete attr.activityURL;
             delete attr.entity;
             delete attr.relatedActivities;
+            delete attr.relatedEntitiesListData;
             return attr;
         }/*,
         // Overwrite save function

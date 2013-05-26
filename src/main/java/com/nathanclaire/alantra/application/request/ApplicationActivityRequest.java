@@ -3,9 +3,6 @@
  */
 package com.nathanclaire.alantra.application.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
@@ -14,59 +11,69 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class ApplicationActivityRequest extends BaseRequest {
 
-    private Integer applicationActivityGroup;
-    private Integer applicationModule;
-    private Integer applicationEntity;
-    private Integer applicationForm;
-    private Integer applicationActivityType;
+    private Integer applicationActivityGroupId;
+    private Integer applicationModuleId;
+    private Integer applicationEntityId;
+    private Integer applicationFormId;
+    private Integer applicationActivityTypeId;
+    private String name;
     private String description;
-    private String activityUrl;
     private int activitySeq;
     private String displayNm;
     private String displayImg;
     private String operationCd;
+    private Integer id;
+    private String code;
 
     public ApplicationActivityRequest() {
     }
 
-    public Integer getApplicationActivityGroup() {
-        return this.applicationActivityGroup;
+    public Integer getApplicationActivityGroupId() {
+        return this.applicationActivityGroupId;
     }
     
-    public void setApplicationActivityGroup(Integer applicationActivityGroup) {
-        this.applicationActivityGroup = applicationActivityGroup;
+    public void setApplicationActivityGroupId(Integer applicationActivityGroupId) {
+        this.applicationActivityGroupId = applicationActivityGroupId;
     }
 
-    public Integer getApplicationModule() {
-        return this.applicationModule;
+    public Integer getApplicationModuleId() {
+        return this.applicationModuleId;
     }
     
-    public void setApplicationModule(Integer applicationModule) {
-        this.applicationModule = applicationModule;
+    public void setApplicationModuleId(Integer applicationModuleId) {
+        this.applicationModuleId = applicationModuleId;
     }
 
-    public Integer getApplicationEntity() {
-        return this.applicationEntity;
+    public Integer getApplicationEntityId() {
+        return this.applicationEntityId;
     }
     
-    public void setApplicationEntity(Integer applicationEntity) {
-        this.applicationEntity = applicationEntity;
+    public void setApplicationEntityId(Integer applicationEntityId) {
+        this.applicationEntityId = applicationEntityId;
     }
 
-    public Integer getApplicationForm() {
-        return this.applicationForm;
+    public Integer getApplicationFormId() {
+        return this.applicationFormId;
     }
     
-    public void setApplicationForm(Integer applicationForm) {
-        this.applicationForm = applicationForm;
+    public void setApplicationFormId(Integer applicationFormId) {
+        this.applicationFormId = applicationFormId;
     }
 
-    public Integer getApplicationActivityType() {
-        return this.applicationActivityType;
+    public Integer getApplicationActivityTypeId() {
+        return this.applicationActivityTypeId;
     }
     
-    public void setApplicationActivityType(Integer applicationActivityType) {
-        this.applicationActivityType = applicationActivityType;
+    public void setApplicationActivityTypeId(Integer applicationActivityTypeId) {
+        this.applicationActivityTypeId = applicationActivityTypeId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -75,14 +82,6 @@ public class ApplicationActivityRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getActivityUrl() {
-        return this.activityUrl;
-    }
-    
-    public void setActivityUrl(String activityUrl) {
-        this.activityUrl = activityUrl;
     }
 
     public int getActivitySeq() {
@@ -117,7 +116,22 @@ public class ApplicationActivityRequest extends BaseRequest {
         this.operationCd = operationCd;
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 
 }
-
 

@@ -49,30 +49,36 @@ public class Service  extends BaseEntity implements java.io.Serializable {
     public Service() {
     }
 
-    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String code, String name, int portNo, String ipAddress, Date effectiveDt, char recSt) 
+    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String name, int portNo, String ipAddress, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.portNo = portNo;
 		this.ipAddress = ipAddress;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String code, String name, String description, int portNo, String ipAddress, Date effectiveDt, char recSt, Set<ServiceTransaction> serviceTransactions, Set<ServicePeer> servicePeers ) 
+    public Service(ServiceType serviceType, ServiceProtocolAdapter serviceProtocolAdapter, ServiceMode serviceMode, ServiceCategory serviceCategory, String name, String description, int portNo, String ipAddress, Set<ServiceTransaction> serviceTransactions, Set<ServicePeer> servicePeers, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.serviceType = serviceType;
 		this.serviceProtocolAdapter = serviceProtocolAdapter;
 		this.serviceMode = serviceMode;
 		this.serviceCategory = serviceCategory;
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.portNo = portNo;
 		this.ipAddress = ipAddress;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
 		this.serviceTransactions = serviceTransactions;
 		this.servicePeers = servicePeers;
+		this.code = code;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
+import com.nathanclaire.alantra.application.response.ApplicationRelatedActivityResponse;
 
 
 /**
@@ -16,20 +17,20 @@ import com.nathanclaire.alantra.application.response.ApplicationEntityFieldRespo
 public class BaseActivityResponse extends BaseResponse {
 
 	private String activityUrl;
-	private List<RelatedActivityResponse> relatedActivities = new ArrayList<RelatedActivityResponse>();
+	private List<ApplicationRelatedActivityResponse> relatedActivities = new ArrayList<ApplicationRelatedActivityResponse>();
 	private List<ApplicationEntityFieldResponse> fields = new ArrayList<ApplicationEntityFieldResponse>();
 
 	/**
 	 * @return the relatedActivities
 	 */
-	public List<RelatedActivityResponse> getRelatedActivities() {
+	public List<ApplicationRelatedActivityResponse> getRelatedActivities() {
 		return relatedActivities;
 	}
 
 	/**
 	 * @param relatedActivities the relatedActivities to set
 	 */
-	public void setRelatedActivities(List<RelatedActivityResponse> relatedActivities) {
+	public void setRelatedActivities(List<ApplicationRelatedActivityResponse> relatedActivities) {
 		this.relatedActivities = relatedActivities;
 	}
 

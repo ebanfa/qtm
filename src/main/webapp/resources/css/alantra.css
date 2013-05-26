@@ -1,0 +1,9 @@
+.scrollable-main-content {
+	overflow:scroll; 
+	height:520px;
+}
+
+.scrollable-sidebar-content {
+	overflow:scroll; 
+	height:260px;
+}

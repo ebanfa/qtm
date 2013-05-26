@@ -140,15 +140,15 @@ define("router", [
             "channel-module":"channelModuleIndex",
             "product-module":"productModuleIndex",
             "order-module":"orderModuleIndex",
-            "invoice-module":"invoiceModuleIndex",
+            "datasource-module":"datasourceModuleIndex",
             "payment-module":"paymentModuleIndex",
             "messaging-module":"messagingModuleIndex",
             "businessdata-module":"businessDataModuleIndex",
             "reports-module":"reportsModuleIndex",
 
-            "list/:activityUrl":"showActivityList",
-            "edit/:activityUrl":"showActivityEdit",
-            "edit/:activityUrl/:id":"showActivityEdit",
+            "list/:activityURL":"showActivityList",
+            "edit/:activityURL":"showActivityEdit",
+            "edit/:activityURL/:id":"showActivityEdit",
 
             "about":"home"
         },
@@ -162,16 +162,14 @@ define("router", [
 
         },
 
-        showActivityList:function(activityUrl)
+        showActivityList:function(activityURL)
         {
-            var model = new ActivityCollection({activityUrl:activityUrl});
+            var model = new ActivityCollection({activityURL:activityURL});
             var activityListView = new ActivityListView({model:model, el:$("#content-container")});
         },
-        showActivityEdit:function(activityUrl, id)
+        showActivityEdit:function(activityURL, id)
         {
-            var model = new ActivityModel({activityUrl:activityUrl, id:id});
-            console.log("###########################"+activityUrl);
-            //model.setActivity(activityName);
+            var model = new ActivityModel({activityURL:activityURL, id:id});
             var activityEditView = new ActivityEditView({model:model, el:$("#content-container")});
             utilities.viewManager.showView(activityEditView);
         },
@@ -196,7 +194,7 @@ define("router", [
         {
             utilities.viewManager.showView(new OrderHomeView({el:$("#content-container")}));
         },
-        invoiceModuleIndex:function()
+        datasourceModuleIndex:function()
         {
             utilities.viewManager.showView(new InvoiceHomeView({el:$("#content-container")}));
         },

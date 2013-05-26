@@ -3,12 +3,15 @@
  */
 package com.nathanclaire.alantra.application.response;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import com.nathanclaire.alantra.base.response.BaseResponse;
 
 /**
  * ApplicationActivityResponse 
  * @author Edward Banfa
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ApplicationActivityResponse extends BaseResponse {
 
     private Integer applicationActivityGroupId;

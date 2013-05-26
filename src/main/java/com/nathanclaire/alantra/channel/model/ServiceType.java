@@ -40,21 +40,27 @@ public class ServiceType  extends BaseEntity implements java.io.Serializable {
     public ServiceType() {
     }
 
-    public ServiceType(String code, String name, Date effectiveDt, char recSt) 
+    public ServiceType(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ServiceType(String code, String name, String description, Date effectiveDt, char recSt, Set<Service> services ) 
+    public ServiceType(String name, String description, Set<Service> services, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.services = services;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
-		this.services = services;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
 		

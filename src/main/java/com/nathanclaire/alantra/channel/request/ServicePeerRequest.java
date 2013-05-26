@@ -14,8 +14,8 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class ServicePeerRequest extends BaseRequest {
 
-    private Integer service;
-    private Integer host;
+    private Integer serviceId;
+    private Integer hostId;
     private String name;
     private String description;
     private Integer id;
@@ -24,20 +24,20 @@ public class ServicePeerRequest extends BaseRequest {
     public ServicePeerRequest() {
     }
 
-    public Integer getService() {
-        return this.service;
+    public Integer getServiceId() {
+        return this.serviceId;
     }
     
-    public void setService(Integer service) {
-        this.service = service;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
-    public Integer getHost() {
-        return this.host;
+    public Integer getHostId() {
+        return this.hostId;
     }
     
-    public void setHost(Integer host) {
-        this.host = host;
+    public void setHostId(Integer hostId) {
+        this.hostId = hostId;
     }
 
     public String getName() {

@@ -4,11 +4,15 @@
 package com.nathanclaire.alantra.base.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -26,12 +30,16 @@ import com.nathanclaire.alantra.application.model.ApplicationEntity;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationEntityFieldType;
 import com.nathanclaire.alantra.application.model.ApplicationModule;
+import com.nathanclaire.alantra.application.model.ApplicationRelatedActivity;
 import com.nathanclaire.alantra.application.service.entity.ApplicationActivityGroupService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationActivityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationModuleService;
+import com.nathanclaire.alantra.base.model.TempRelatedActivity;
+import com.nathanclaire.alantra.base.util.EntityNames;
+import com.nathanclaire.alantra.base.util.FieldNames;
 
 /**
  * @author Edward Banfa 
@@ -83,6 +91,7 @@ public class IDERestService
     	logger.debug("Staring build process");
     	this.init(uriInfo.getQueryParameters());
 		this.processModules();
+    	processRelationships();
     	logger.debug("Finished build process");
 	}
     
@@ -101,12 +110,19 @@ public class IDERestService
      */
     private void processModules()
     {
-    	for (ApplicationModule module: modules)
+		try 
 		{
-        	logger.debug("Processing module {}", module.getCode());
-        	//if(module.getCode().equals("CHANNEL"))
-        		this.processEntities(module);
-        	//logger.debug("Processed module {}", module.getCode());
+	    	for (ApplicationModule module: modules)
+			{
+	        	logger.debug("Processing module {}", module.getCode());
+	        	//if(module.getCode().equals("CHANNEL"))
+				this.processEntities(module);
+	        	//logger.debug("Processed module {}", module.getCode());
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
 		}
     }
     
@@ -166,6 +182,16 @@ public class IDERestService
 	public void processEntityField(ApplicationEntityField field, ApplicationEntity entity)
 	{
     	logger.debug("Processing field {}", field.getCode());
+		Map<String, String> names = new FieldNames().getFieldNames();
+		String targetEntityName = names.get(field.getName());
+		if(targetEntityName !=null)
+		{
+			field.setDescription(targetEntityName);
+		}
+		else
+		{
+			field.setDescription(field.getName());
+		}
 		field.setApplicationEntity(entity);
 		this.processEntityFieldType(field);
 		entityManager.merge(field);
@@ -234,6 +260,7 @@ public class IDERestService
 		{
 			
 			activity.setApplicationActivityGroup(group);
+			
 		}
 		if(this.doesActivityBelongToEntity(activity, entity))
 		{
@@ -245,6 +272,69 @@ public class IDERestService
     	entityManager.merge(group);
 		entityManager.merge(activity);
     	//logger.debug("Processed activity {}", activity.getCode());
+	}
+	
+	/**
+	 * 
+	 */
+	private void processRelationships()
+	{
+		List<TempRelatedActivity> tempRelatedActivities= this.findAllTempActivities();
+		Map<String,String> persistedRelationships = new HashMap<String, String>();
+		for (ApplicationActivity parentActivity : activities)
+		{
+			// For each activity loop through the temp activities
+			for (TempRelatedActivity tempActivity:tempRelatedActivities )
+			{
+				// For each temp activity that has the the activity as a parent
+				if(tempActivity.getSourceActivity().equals(parentActivity.getCode()))
+				{
+					// Find the child activity referenced in the temp relationship
+					for(ApplicationActivity childActivity : activities)
+					{
+						if(tempActivity.getDestinationActivity().equals(childActivity.getCode()))
+						{
+							String mapping = parentActivity.getCode() + "_" + childActivity.getCode();
+							System.out.println(">>>>Adding mapping" + mapping);
+							if(!persistedRelationships.containsKey(mapping))
+								this.createRelationship(parentActivity, childActivity, tempActivity.getRelationshipTy());
+							persistedRelationships.put(mapping, mapping);
+						}
+					}
+				}
+			}
+			// create a related activity for that activity
+		}
+	}
+	
+	private void createRelationship(ApplicationActivity parentActivity,
+			ApplicationActivity childActivity, String relationshipTy) 
+	{
+		Map<String, String> names = new EntityNames().getEntityNames();
+		String targetEntityName = names.get(childActivity.getApplicationEntity().getName());
+		if(!parentActivity.getCode().equals(childActivity.getCode()))
+		{
+			ApplicationRelatedActivity relatedActivity = new ApplicationRelatedActivity();
+			relatedActivity.setCode(parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy);
+			relatedActivity.setName(targetEntityName);
+			relatedActivity.setDescription(targetEntityName);
+			relatedActivity.setCreatedByUsr("SYSTEM");
+			relatedActivity.setCreatedDt(new Date());
+			relatedActivity.setEffectiveDt(new Date());
+			relatedActivity.setRecSt('A');
+			relatedActivity.setRelActSeq(0);
+			relatedActivity.setSourceApplicationActivity(parentActivity);
+			relatedActivity.setDestinationApplicationActivity(childActivity);
+			entityManager.persist(relatedActivity);
+		}
+		
+		
+	}
+
+	private List<TempRelatedActivity> findAllTempActivities()
+	{
+	    Query query = entityManager.createQuery("SELECT t FROM TempRelatedActivity t");
+	    return (List<TempRelatedActivity>) query.getResultList();
 	}
 	
 	/**

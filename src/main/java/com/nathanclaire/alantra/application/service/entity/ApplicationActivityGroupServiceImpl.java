@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
+import com.nathanclaire.alantra.application.model.ApplicationActivity;
 import com.nathanclaire.alantra.application.model.ApplicationActivityGroup;
 import com.nathanclaire.alantra.application.model.ApplicationActivityGroupType;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
@@ -217,6 +219,23 @@ public class ApplicationActivityGroupServiceImpl
 		ApplicationActivityGroupResponse applicationActivityGroupResponse = new ApplicationActivityGroupResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, applicationActivityGroupResponse, allowedEntityFields);
+		//
+		for (ApplicationActivity activity: model.getApplicationActivities())
+		{
+			model.setGrpUrl(activity.getActivityUrl());
+			break;
+		}
 		return applicationActivityGroupResponse;
+	}
+
+	@Override
+	public List<ApplicationActivityGroup> findGroupsInModule(Integer moduleId) {
+		Set<ApplicationActivityGroup> groups = applicationModuleService.findById(moduleId).getApplicationActivityGroups();
+		List<ApplicationActivityGroup> activityGroups = new ArrayList<ApplicationActivityGroup>();
+		for(ApplicationActivityGroup group:groups)
+		{
+			activityGroups.add(group);
+		}
+		return activityGroups;
 	}
 }

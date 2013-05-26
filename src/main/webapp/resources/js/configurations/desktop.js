@@ -30,21 +30,22 @@ define("initializer", ["jquery"],
     //$('head').append('<link type="text/css" rel="stylesheet" href="resources/css/screen.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css" media="all"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/bootstrap-responsive.css"/>');
-    $('head').append('<link rel="stylesheet" href="resources/css/bootstrap-datetimepicker.min.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/css.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/font-awesome.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/base-admin.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/base-admin-responsive.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/dashboard.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/signin.css"/>');
+    $('head').append('<link rel="stylesheet" href="resources/css/datetimepicker.css"/>');
+    $('head').append('<link rel="stylesheet" href="resources/css/alantra.css"/>');
 
     $('head').append('<script type="text/javascript" src="resources/js/libs/excanvas.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/bootstrap.js"></script>');
-    $('head').append('<script type="text/javascript" src="resources/js/libs/bootstrap-datetimepicker.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/base.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/area.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/donut.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/signin.js"></script>');
+    $('head').append('<script type="text/javascript" src="resources/js/libs/bootstrap-datetimepicker.min.js"></script>');
 
     //$('head').append('<link rel="stylesheet" href="resources/css/custom.css" type="text/css" media="all">');
     //$('head').append('<link href="http://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet" type="text/css">');

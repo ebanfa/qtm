@@ -226,6 +226,18 @@ public class ApplicationEntityFieldServiceImpl
 		ApplicationEntityFieldResponse applicationEntityFieldResponse = new ApplicationEntityFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, applicationEntityFieldResponse, allowedEntityFields);
+		ApplicationEntityFieldType fieldType = model.getApplicationEntityFieldType();
+		applicationEntityFieldResponse.setFieldTypeCode(this.getFieldTypeCode(fieldType));
 		return applicationEntityFieldResponse;
+	}
+	
+	/**
+	 * Converts the field type into a code that is suitable for use with the ApplicationEntityFieldResponse
+	 * @param fieldType
+	 * @return
+	 */
+	private String getFieldTypeCode(ApplicationEntityFieldType fieldType)
+	{
+		return fieldType.getCode();
 	}
 }

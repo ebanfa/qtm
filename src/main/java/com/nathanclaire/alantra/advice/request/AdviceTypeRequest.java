@@ -14,6 +14,7 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class AdviceTypeRequest extends BaseRequest {
 
+    private Integer serviceTransactionTypeId;
     private String name;
     private String description;
     private Character reqFeedback;
@@ -22,6 +23,14 @@ public class AdviceTypeRequest extends BaseRequest {
     private String code;
 
     public AdviceTypeRequest() {
+    }
+
+    public Integer getServiceTransactionTypeId() {
+        return this.serviceTransactionTypeId;
+    }
+    
+    public void setServiceTransactionTypeId(Integer serviceTransactionTypeId) {
+        this.serviceTransactionTypeId = serviceTransactionTypeId;
     }
 
     public String getName() {

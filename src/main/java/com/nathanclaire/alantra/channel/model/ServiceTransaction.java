@@ -37,6 +37,7 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServiceTransaction  extends BaseEntity implements java.io.Serializable {
+
 	private Service service;
 	private ServiceTransactionType serviceTransactionType;
     private String name;
@@ -49,29 +50,35 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     public ServiceTransaction() {
     }
 
-    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String code, String name, BigDecimal amount, Date txnDate, String accountNo, Date effectiveDt, char recSt) 
+    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
 		this.accountNo = accountNo;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String code, String name, BigDecimal amount, Date txnDate, String accountNo, String accountNm, String description, Date effectiveDt, char recSt) 
+    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String accountNm, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.service = service;
 		this.serviceTransactionType = serviceTransactionType;
-		this.code = code;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
 		this.accountNo = accountNo;
 		this.accountNm = accountNm;
 		this.description = description;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

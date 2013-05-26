@@ -42,24 +42,30 @@ public class ServiceProtocolAdapter  extends BaseEntity implements java.io.Seria
     public ServiceProtocolAdapter() {
     }
 
-    public ServiceProtocolAdapter(String code, String name, String className, Date effectiveDt, char recSt) 
+    public ServiceProtocolAdapter(String name, String className, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.className = className;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ServiceProtocolAdapter(String code, String name, String description, String className, Date effectiveDt, char recSt, Set<Host> hosts, Set<Service> services ) 
+    public ServiceProtocolAdapter(String name, String description, String className, Set<Host> hosts, Set<Service> services, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.className = className;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
 		this.hosts = hosts;
 		this.services = services;
+		this.code = code;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
 		

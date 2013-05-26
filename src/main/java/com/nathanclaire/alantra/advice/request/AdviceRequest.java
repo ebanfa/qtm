@@ -14,50 +14,46 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class AdviceRequest extends BaseRequest {
 
-    private Integer party;
-    private Integer adviceStatus;
-    private Integer communicationEvent;
-    private Integer adviceType;
+    private Integer customerId;
+    private Integer adviceStatusId;
+    private Integer adviceTypeId;
     private String name;
     private String description;
+    private int commEventId;
     private String adviceTxt;
+    private String cardNo;
     private String accountNo;
+    private String chequeNo;
+    private String accountNm;
+    private BigDecimal amount;
     private Integer id;
     private String code;
 
     public AdviceRequest() {
     }
 
-    public Integer getParty() {
-        return this.party;
+    public Integer getCustomerId() {
+        return this.customerId;
     }
     
-    public void setParty(Integer party) {
-        this.party = party;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public Integer getAdviceStatus() {
-        return this.adviceStatus;
+    public Integer getAdviceStatusId() {
+        return this.adviceStatusId;
     }
     
-    public void setAdviceStatus(Integer adviceStatus) {
-        this.adviceStatus = adviceStatus;
+    public void setAdviceStatusId(Integer adviceStatusId) {
+        this.adviceStatusId = adviceStatusId;
     }
 
-    public Integer getCommunicationEvent() {
-        return this.communicationEvent;
+    public Integer getAdviceTypeId() {
+        return this.adviceTypeId;
     }
     
-    public void setCommunicationEvent(Integer communicationEvent) {
-        this.communicationEvent = communicationEvent;
-    }
-
-    public Integer getAdviceType() {
-        return this.adviceType;
-    }
-    
-    public void setAdviceType(Integer adviceType) {
-        this.adviceType = adviceType;
+    public void setAdviceTypeId(Integer adviceTypeId) {
+        this.adviceTypeId = adviceTypeId;
     }
 
     public String getName() {
@@ -76,6 +72,14 @@ public class AdviceRequest extends BaseRequest {
         this.description = description;
     }
 
+    public int getCommEventId() {
+        return this.commEventId;
+    }
+    
+    public void setCommEventId(int commEventId) {
+        this.commEventId = commEventId;
+    }
+
     public String getAdviceTxt() {
         return this.adviceTxt;
     }
@@ -84,12 +88,44 @@ public class AdviceRequest extends BaseRequest {
         this.adviceTxt = adviceTxt;
     }
 
+    public String getCardNo() {
+        return this.cardNo;
+    }
+    
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
     public String getAccountNo() {
         return this.accountNo;
     }
     
     public void setAccountNo(String accountNo) {
         this.accountNo = accountNo;
+    }
+
+    public String getChequeNo() {
+        return this.chequeNo;
+    }
+    
+    public void setChequeNo(String chequeNo) {
+        this.chequeNo = chequeNo;
+    }
+
+    public String getAccountNm() {
+        return this.accountNm;
+    }
+    
+    public void setAccountNm(String accountNm) {
+        this.accountNm = accountNm;
+    }
+
+    public BigDecimal getAmount() {
+        return this.amount;
+    }
+    
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public Integer getId() {

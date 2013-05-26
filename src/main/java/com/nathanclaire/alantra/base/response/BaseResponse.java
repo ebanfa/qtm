@@ -5,6 +5,12 @@ package com.nathanclaire.alantra.base.response;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.nathanclaire.alantra.base.util.DateDeserializer;
+import com.nathanclaire.alantra.base.util.DateSerializer;
+
 /**
  * @author Edward Banfa 
  *
@@ -85,12 +91,14 @@ public class BaseResponse {
 	/**
 	 * @return the createdDt
 	 */
+	@JsonSerialize(using = DateSerializer.class)
 	public Date getCreatedDt() {
 		return createdDt;
 	}
 	/**
 	 * @param createdDt the createdDt to set
 	 */
+	@JsonDeserialize(using = DateDeserializer.class)
 	public void setCreatedDt(Date createdDt) {
 		this.createdDt = createdDt;
 	}
@@ -109,12 +117,14 @@ public class BaseResponse {
 	/**
 	 * @return the lastModifiedDt
 	 */
+	@JsonSerialize(using = DateSerializer.class)
 	public Date getLastModifiedDt() {
 		return lastModifiedDt;
 	}
 	/**
 	 * @param lastModifiedDt the lastModifiedDt to set
 	 */
+	@JsonDeserialize(using = DateDeserializer.class)
 	public void setLastModifiedDt(Date lastModifiedDt) {
 		this.lastModifiedDt = lastModifiedDt;
 	}
@@ -127,18 +137,21 @@ public class BaseResponse {
 	/**
 	 * @param lastModifiedUsr the lastModifiedUsr to set
 	 */
+	@JsonDeserialize(using = DateDeserializer.class)
 	public void setLastModifiedUsr(String lastModifiedUsr) {
 		this.lastModifiedUsr = lastModifiedUsr;
 	}
 	/**
 	 * @return the effectiveDt
 	 */
+	@JsonSerialize(using = DateSerializer.class)
 	public Date getEffectiveDt() {
 		return effectiveDt;
 	}
 	/**
 	 * @param effectiveDt the effectiveDt to set
 	 */
+	@JsonDeserialize(using = DateDeserializer.class)
 	public void setEffectiveDt(Date effectiveDt) {
 		this.effectiveDt = effectiveDt;
 	}

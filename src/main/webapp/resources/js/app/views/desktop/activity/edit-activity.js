@@ -15,12 +15,14 @@ define([
         },
         events:
         {
-            'submit #edit-activity-form':'saveEntity'
+            'submit #edit-activity-form':'saveEntity',
+            'click  #cancel-edit-activity-form':'cancelEdit'
             
         },
         navigateToActivityList:function()
         {
-            utilities.navigate('list');
+            var activityListURL = "list/" + this.model.activityURL;
+            utilities.navigate(activityListURL);
         },
         renderSubViews:function()
         {

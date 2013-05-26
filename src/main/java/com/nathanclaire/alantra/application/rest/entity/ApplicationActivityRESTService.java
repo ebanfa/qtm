@@ -42,6 +42,9 @@ public class ApplicationActivityRESTService extends BaseActivityRESTService<Appl
 	
 	private Logger logger = LoggerFactory.getLogger(ApplicationActivityRESTService.class);
 
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.application.response.ApplicationActivityResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
+	 */
 	@Override
 	protected ListActivityResponse<ApplicationActivityResponse> populateListActivityResponse(
 			ApplicationActivityResponse activity,
@@ -58,6 +61,7 @@ public class ApplicationActivityRESTService extends BaseActivityRESTService<Appl
 		response.setFields(responseFields);
 		// Load the list of ApplicationActivity's
 		List<ApplicationActivityResponse> dataItems = new ArrayList<ApplicationActivityResponse>();
+		System.out.println("#########Found dataItems" + dataItems.size());
 		for (ApplicationActivity item:applicationActivityService.findAll(queryParameters))
 		{
 			dataItems.add(applicationActivityService.convertModelToResponse(item));
@@ -76,16 +80,34 @@ public class ApplicationActivityRESTService extends BaseActivityRESTService<Appl
 		// Load the fields for the ApplicationActivity entity
 		List<ApplicationEntityField> entityFields = applicationActivityService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
+		// Convert the entity fields into response fields
 		for(ApplicationEntityField entityField:entityFields)
 		{
 			responseFields.add(applicationEntityFieldService.convertModelToResponse(entityField));
 		}
 		response.setFields(responseFields);
-		response.setEntity(applicationActivityService.convertModelToResponse(applicationActivityService.findById(id)));
-		// The response will now have the id of the embedded entity
-		if(response.getEntity() != null)response.setId(response.getEntity().getId());
+		response.setRelatedEntitiesListData(applicationActivityService.relatedEntitesToListItems());
+		if(id != null)
+			response.setEntity(applicationActivityService.convertModelToResponse(applicationActivityService.findById(id)));
+		// The response will now have the id of the embedded entity (WHY)
+		if(response.getEntity() != null)
+			response.setId(response.getEntity().getId());
 		return response;
 	}
+	
+	
+    /* (non-Javadoc)
+     * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#deleteEntityInstances(java.util.List)
+     */
+	@Override
+    protected EditActivityResponse<ApplicationActivityResponse> deleteEntityInstances(List<Integer> idsOfEntitiesToDelete)
+    {
+    	for(Integer idOfEntityToDelete: idsOfEntitiesToDelete)
+    	{
+    		applicationActivityService.delete(idOfEntityToDelete);
+    	}
+    	return null;
+    }
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
@@ -99,9 +121,20 @@ public class ApplicationActivityRESTService extends BaseActivityRESTService<Appl
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#saveEditedEntityInstance(java.lang.Object)
 	 */
 	@Override
+	protected EditActivityResponse<ApplicationActivityResponse> saveEntityInstance(
+			ApplicationActivityRequest entityInstance) {
+		applicationActivityService.create(entityInstance);
+		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#saveEditedEntityInstance(java.lang.Object)
+	 */
+	@Override
 	protected EditActivityResponse<ApplicationActivityResponse> saveEditedEntityInstance(
 			ApplicationActivityRequest entityInstance) {
-		return super.saveEditedEntityInstance(entityInstance);
+		applicationActivityService.update(entityInstance);
+		return null;
 	}
 
 	/* (non-Javadoc)

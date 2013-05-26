@@ -40,22 +40,28 @@ public class ServicePeer  extends BaseEntity implements java.io.Serializable {
     public ServicePeer() {
     }
 
-    public ServicePeer(Service service, Host host, String code, String name, Date effectiveDt, char recSt) 
+    public ServicePeer(Service service, Host host, String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ServicePeer(Service service, Host host, String code, String name, String description, Date effectiveDt, char recSt) 
+    public ServicePeer(Service service, Host host, String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.service = service;
 		this.host = host;
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

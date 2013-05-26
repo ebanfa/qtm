@@ -46,27 +46,33 @@ public class Host  extends BaseEntity implements java.io.Serializable {
     public Host() {
     }
 
-    public Host(ServiceProtocolAdapter serviceProtocolAdapter, HostType hostType, String code, String name, int portNo, String ipAddress, Date effectiveDt, char recSt) 
+    public Host(ServiceProtocolAdapter serviceProtocolAdapter, HostType hostType, String name, int portNo, String ipAddress, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.portNo = portNo;
 		this.ipAddress = ipAddress;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public Host(ServiceProtocolAdapter serviceProtocolAdapter, HostType hostType, String code, String name, String description, int portNo, String ipAddress, Date effectiveDt, char recSt, Set<ServicePeer> servicePeers ) 
+    public Host(ServiceProtocolAdapter serviceProtocolAdapter, HostType hostType, String name, String description, int portNo, String ipAddress, Set<ServicePeer> servicePeers, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.serviceProtocolAdapter = serviceProtocolAdapter;
 		this.hostType = hostType;
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.portNo = portNo;
 		this.ipAddress = ipAddress;
+		this.servicePeers = servicePeers;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
-		this.servicePeers = servicePeers;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

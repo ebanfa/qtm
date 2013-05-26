@@ -4,13 +4,14 @@
 package com.nathanclaire.alantra.base.rest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -20,14 +21,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import com.nathanclaire.alantra.application.model.ApplicationRelatedActivity;
 import com.nathanclaire.alantra.application.response.ApplicationActivityResponse;
+import com.nathanclaire.alantra.application.response.ApplicationRelatedActivityResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationActivityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationRelatedActivityService;
 import com.nathanclaire.alantra.base.response.BaseActivityResponse;
 import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.response.RelatedActivityResponse;
 
 /**
  * <p>
@@ -95,7 +97,7 @@ public abstract class BaseActivityRESTService<T,V> {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ListActivityResponse<T> getListActivity(@Context UriInfo uriInfo) 
+    public ListActivityResponse<T> getListActivityWithEntityInstances(@Context UriInfo uriInfo) 
     {
     	ListActivityResponse<T> response = null;
     	MultivaluedMap<String, String> queryParameters = uriInfo.getPathParameters();
@@ -113,9 +115,9 @@ public abstract class BaseActivityRESTService<T,V> {
      * @return
      */
     @GET
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/single/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
-    public EditActivityResponse<T> getSingleInstance(@PathParam("id") Integer id) {
+    public EditActivityResponse<T> getEditActivityWithEntityInstance(@PathParam("id") Integer id) {
     	EditActivityResponse<T> response = null;
     	ApplicationActivityResponse activity = 
     			applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getEditActivityCode()));
@@ -124,18 +126,63 @@ public abstract class BaseActivityRESTService<T,V> {
     }
     
     /**
+     * <p>
+     *     A method for retrieving individual entity instances.
+     * </p>
+     * @param id entity id
+     * @return
+     */
+    @GET
+    @Path("/single")
+    @Produces(MediaType.APPLICATION_JSON)
+    public EditActivityResponse<T> getEditActivityWithoutEntityInstance() {
+    	EditActivityResponse<T> response = null;
+    	ApplicationActivityResponse activity = 
+    			applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getEditActivityCode()));
+    	if(activity == null) return response;
+        return populateEditActivityResponse(null, activity, prepareEditActivityResponse(activity));
+    }
+
+    /**
+     * @param request
+     * @return
+     */
+    @POST 
+    @Path("/single")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public EditActivityResponse<T> create(V request) 
+    {
+    	return this.saveEntityInstance(request);
+    }
+    
+    /**
      * <p>  Edit a Host. Data is contained in the HostRequest object </p>
      * @param request
      * @return
      */
     @PUT 
-    @Path("/{id:[0-9][0-9]*}")
+    @Path("/single/{id:[0-9][0-9]*}")
     @Consumes(MediaType.APPLICATION_JSON)
     public EditActivityResponse<T> edit(V request) 
     {
     	return this.saveEditedEntityInstance(request);
     }
-
+    
+    /**
+     * <p>
+     *     A method for retrieving individual entity instances.
+     * </p>
+     * @param id entity id
+     * @return
+     */
+    @DELETE
+    @Path("/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public EditActivityResponse<T> delete(List<Integer> idsOfEntitiesToDelete) {
+    	System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Deleting :" + idsOfEntitiesToDelete.toString());
+    	this.deleteEntityInstances(idsOfEntitiesToDelete);
+    	return null;
+    }
     /**
      * @param uriInfo
      * @return
@@ -147,6 +194,7 @@ public abstract class BaseActivityRESTService<T,V> {
     {
     	return this.prepareRelatedEntitiesListItems(uriInfo.getQueryParameters());
     }
+    
     /**
      * Prepare the list activity response object that will be returned
      * @param activity
@@ -179,10 +227,17 @@ public abstract class BaseActivityRESTService<T,V> {
      * @param activity
      * @return
      */
-    protected List<RelatedActivityResponse> getRelatedActivities(ApplicationActivityResponse activity)
+    protected List<ApplicationRelatedActivityResponse> getRelatedActivities(ApplicationActivityResponse activity)
     {
-    	//return applicationRelatedActivityService.getRelatedActivities(activity.getCode());
-    	return null;
+    	List<ApplicationRelatedActivityResponse> relatedActivityResponses = new ArrayList<ApplicationRelatedActivityResponse>();
+    	List<ApplicationRelatedActivity> relatedActivities = applicationRelatedActivityService.getRelatedActivities(activity.getCode());
+    	for (ApplicationRelatedActivity relatedActivity : relatedActivities)
+    	{
+    		System.out.println("$$$$$$$$$$$$$$$$" + relatedActivity.getName());
+    		relatedActivityResponses.add(applicationRelatedActivityService.convertModelToResponse(relatedActivity));
+    	}
+    	System.out.println(">>>>>>>>>>>>>>>>>>>>>relatedActivityResponses:" + relatedActivityResponses.size());
+    	return relatedActivityResponses;
     }
     
     /**
@@ -224,7 +279,27 @@ public abstract class BaseActivityRESTService<T,V> {
      * @param entityInstance
      * @return
      */
+    protected EditActivityResponse<T> saveEntityInstance(V entityInstance)
+    {
+    	return null;
+    }
+    
+    /**
+     * NOTE: Make this method abstract
+     * @param entityInstance
+     * @return
+     */
     protected EditActivityResponse<T> saveEditedEntityInstance(V entityInstance)
+    {
+    	return null;
+    }
+
+    /**
+     * NOTE: Make this method abstract
+     * @param entityInstance
+     * @return
+     */
+    protected EditActivityResponse<T> deleteEntityInstances(List<Integer> idsOfEntitiesToDelete)
     {
     	return null;
     }

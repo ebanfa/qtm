@@ -19,10 +19,10 @@ define([
         render:function () 
         { 
             var listData = {};
+
             if(this.model.length > 0)
             {
-                listData = this.model.toJSON()[0];
-                console.log(">>>>>>>>>>########## " + JSON.stringify(listData.fields));
+                listData = this.model.at(0).attributes;
             }
             else
             {
@@ -36,19 +36,38 @@ define([
         },
         events:
         {
+            'click #create-activity-button':'showCreatePage',
+            'click #search-activity-button':'showSearchDialog',
+            'click #delete-activity-button':'deleteSelectedItems',
+
             'click #do-activity-search':'handleActivitySearch',
-            'click #show-activity-search-dialog':'showActivitySearchDialog',
             'click #hide-activity-dialog':'hideActivitySearchDialog',
             'click #table-header-checkbox':'checkAllItems',
-            'click .delete-activity-checkbox':'showDeleteActivityButton',
-            'click #delete-activity-button':'deleteSelectedActivitys'
+            'click .delete-activity-checkbox':'showDeleteActivityButton'
             
         },
-        showActivitySearchDialog: function(event)
+        showCreatePage: function(event)
+        {
+            event.preventDefault();
+            var activityListURL = "edit/" + this.model.activityURL;
+            utilities.navigate(activityListURL);
+        },
+        showSearchDialog: function(event)
         {
             event.preventDefault();
             $('#activity-search-dialog').modal('show');
-            
+        },
+        deleteSelectedItems: function(event)
+        {
+            event.preventDefault();
+            var ids = [];
+            $('.delete-activity-checkbox:checked').each( function(index)
+            {
+                var modelId = $(this).val();
+                ids.push(modelId);
+            });
+            this.model.deleteByIds(ids);
+            this.navigateToActivityList();
         },
         handleActivitySearch: function(event)
         {
@@ -101,16 +120,9 @@ define([
                 $("#delete-activity-button").hide();
             }
         },
-        deleteSelectedActivitys: function(event)
+        navigateToActivityList:function()
         {
-            event.preventDefault();
-            var ids = [];
-            $('.delete-activity-checkbox:checked').each( function(index)
-            {
-                var modelId = $(this).val();
-                ids.push(modelId);
-            });
-            this.model.deleteByIds(ids);
+            this.render();
         }
     });
 

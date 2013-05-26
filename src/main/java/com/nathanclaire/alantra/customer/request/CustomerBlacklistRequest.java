@@ -14,7 +14,7 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class CustomerBlacklistRequest extends BaseRequest {
 
-    private Integer party;
+    private Integer customerId;
     private String description;
     private Integer id;
     private String code;
@@ -22,12 +22,12 @@ public class CustomerBlacklistRequest extends BaseRequest {
     public CustomerBlacklistRequest() {
     }
 
-    public Integer getParty() {
-        return this.party;
+    public Integer getCustomerId() {
+        return this.customerId;
     }
     
-    public void setParty(Integer party) {
-        this.party = party;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public String getDescription() {

@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.advice.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,9 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
-import com.nathanclaire.alantra.messaging.model.CommunicationEvent;
-import com.nathanclaire.alantra.party.model.Party;
+import com.nathanclaire.alantra.customer.model.Customer;
 
 /**
  * Advice 
@@ -35,59 +34,69 @@ import com.nathanclaire.alantra.party.model.Party;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Advice  extends BaseEntity implements java.io.Serializable {
 
-    private String name;
-    private String cardNo;
-    private String amount;
-    private String chequeNo;
-    private String adviceTxt;
-    private String accountNo;
-    private String accountNm;
-    private String description;
-    //Related entities
-	private Party party;
-	private AdviceType adviceType;
+	private Customer customer;
 	private AdviceStatus adviceStatus;
-	private CommunicationEvent communicationEvent;
-    private ServiceTransactionType transactionType;
+	private AdviceType adviceType;
+    private String name;
+    private String description;
+    private int commEventId;
+    private String adviceTxt;
+    private String cardNo;
+    private String accountNo;
+    private String chequeNo;
+    private String accountNm;
+    private BigDecimal amount;
 
     public Advice() {
     }
 
-    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String name, String accountNo, String code, Date effectiveDt, char recSt) 
+    public Advice(Customer customer, AdviceStatus adviceStatus, AdviceType adviceType, String code, String name, int commEventId, String accountNo, BigDecimal amount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
-		this.accountNo = accountNo;
 		this.code = code;
+		this.name = name;
+		this.commEventId = commEventId;
+		this.accountNo = accountNo;
+		this.amount = amount;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public Advice(Party party, AdviceStatus adviceStatus, CommunicationEvent communicationEvent, AdviceType adviceType, String name, String description, String adviceTxt, String accountNo, String code, Date effectiveDt, char recSt) 
+    public Advice(Customer customer, AdviceStatus adviceStatus, AdviceType adviceType, String code, String name, String description, int commEventId, String adviceTxt, String cardNo, String accountNo, String chequeNo, String accountNm, BigDecimal amount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.party = party;
+		this.customer = customer;
 		this.adviceStatus = adviceStatus;
-		this.communicationEvent = communicationEvent;
 		this.adviceType = adviceType;
+		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.commEventId = commEventId;
 		this.adviceTxt = adviceTxt;
+		this.cardNo = cardNo;
 		this.accountNo = accountNo;
-		this.code = code;
+		this.chequeNo = chequeNo;
+		this.accountNm = accountNm;
+		this.amount = amount;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CUSTOMER_ID", nullable=false)
     @JsonIgnore
-    public Party getParty() 
+    public Customer getCustomer() 
     {
-        return this.party;
+        return this.customer;
     }
     
-    public void setParty(Party party)
+    public void setCustomer(Customer customer)
     {
-        this.party = party;
+        this.customer = customer;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -101,19 +110,6 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     public void setAdviceStatus(AdviceStatus adviceStatus)
     {
         this.adviceStatus = adviceStatus;
-    }
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="COMM_EVENT_ID", nullable=false)
-    @JsonIgnore
-    public CommunicationEvent getCommunicationEvent() 
-    {
-        return this.communicationEvent;
-    }
-    
-    public void setCommunicationEvent(CommunicationEvent communicationEvent)
-    {
-        this.communicationEvent = communicationEvent;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -151,6 +147,17 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
         this.description = description;
     }
 		
+    @Column(name="COMM_EVENT_ID" , nullable=false)
+    public int getCommEventId() 
+    {
+        return this.commEventId;
+    }
+    
+    public void setCommEventId(int commEventId) 
+    {
+        this.commEventId = commEventId;
+    }
+		
     @Column(name="ADVICE_TXT" , unique=true, length=500)
     public String getAdviceTxt() 
     {
@@ -162,7 +169,18 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
         this.adviceTxt = adviceTxt;
     }
 		
-    @Column(name="ACCOUNT_NO" , nullable=false, length=75)
+    @Column(name="CARD_NO" , unique=true, length=35)
+    public String getCardNo() 
+    {
+        return this.cardNo;
+    }
+    
+    public void setCardNo(String cardNo) 
+    {
+        this.cardNo = cardNo;
+    }
+		
+    @Column(name="ACCOUNT_NO" , nullable=false, length=35)
     public String getAccountNo() 
     {
         return this.accountNo;
@@ -172,80 +190,39 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     {
         this.accountNo = accountNo;
     }
-
-	/**
-	 * @return the cardNo
-	 */
-    @Column(name="CARD_NO" , length=35)
-	public String getCardNo() {
-		return cardNo;
-	}
-
-	/**
-	 * @param cardNo the cardNo to set
-	 */
-	public void setCardNo(String cardNo) {
-		this.cardNo = cardNo;
-	}
-
-	/**
-	 * @return the amount
-	 */
+		
+    @Column(name="CHEQUE_NO" , unique=true, length=35)
+    public String getChequeNo() 
+    {
+        return this.chequeNo;
+    }
+    
+    public void setChequeNo(String chequeNo) 
+    {
+        this.chequeNo = chequeNo;
+    }
+		
+    @Column(name="ACCOUNT_NM" , unique=true, length=75)
+    public String getAccountNm() 
+    {
+        return this.accountNm;
+    }
+    
+    public void setAccountNm(String accountNm) 
+    {
+        this.accountNm = accountNm;
+    }
+		
     @Column(name="AMOUNT" , nullable=false)
-	public String getAmount() {
-		return amount;
-	}
-
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-
-	/**
-	 * @return the accountNm
-	 */
-    @Column(name="ACCOUNT_NM" , nullable=false, length=75)
-	public String getAccountNm() {
-		return accountNm;
-	}
-
-	/**
-	 * @param accountNm the accountNm to set
-	 */
-	public void setAccountNm(String accountNm) {
-		this.accountNm = accountNm;
-	}
-
-	/**
-	 * @return the transactionType
-	 */
-	public ServiceTransactionType getTransactionType() {
-		return transactionType;
-	}
-
-	/**
-	 * @param transactionType the transactionType to set
-	 */
-	public void setTransactionType(ServiceTransactionType transactionType) {
-		this.transactionType = transactionType;
-	}
-
-	/**
-	 * @return the chequeNo
-	 */
-    @Column(name="CHEQUE_NO", length=35)
-	public String getChequeNo() {
-		return chequeNo;
-	}
-
-	/**
-	 * @param chequeNo the chequeNo to set
-	 */
-	public void setChequeNo(String chequeNo) {
-		this.chequeNo = chequeNo;
-	}
+    public BigDecimal getAmount() 
+    {
+        return this.amount;
+    }
+    
+    public void setAmount(BigDecimal amount) 
+    {
+        this.amount = amount;
+    }
 
 
 }

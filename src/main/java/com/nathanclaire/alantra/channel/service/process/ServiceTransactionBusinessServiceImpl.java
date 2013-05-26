@@ -6,7 +6,7 @@ package com.nathanclaire.alantra.channel.service.process;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.nathanclaire.alantra.advice.model.Advice;
+//import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 
 /**
@@ -32,15 +32,15 @@ public class ServiceTransactionBusinessServiceImpl implements
 		String accountNo = transaction.getAccountNo();
 		String transactionType = transaction.getServiceTransactionType().getCode();
 		// Find the advice
-		List<Advice> advices = findAdvice(transactionType, accountNo, amount);
-		if (advices.isEmpty()) return false;
+		//List<Advice> advices = findAdvice(transactionType, accountNo, amount);
+		//if (advices.isEmpty()) return false;
 		return true;
 	}
 	
-	private List<Advice> findAdvice(String transactionType, String accountNo, BigDecimal amount)
+	/*private List<Advice> findAdvice(String transactionType, String accountNo, BigDecimal amount)
 	{
 		return null;//adviceService.findAdvice(transactionType, accountNo, amount);
-	}
+	}*/
 	
 
 }

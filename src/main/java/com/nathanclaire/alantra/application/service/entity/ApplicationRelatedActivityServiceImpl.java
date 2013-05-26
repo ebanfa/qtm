@@ -10,9 +10,9 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.application.model.ApplicationActivity;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationRelatedActivity;
 import com.nathanclaire.alantra.application.request.ApplicationRelatedActivityRequest;
@@ -167,6 +167,17 @@ public class ApplicationRelatedActivityServiceImpl
 		return listItems;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.application.service.entity.ApplicationRelatedActivityService#getRelatedActivities(java.lang.String)
+	 */
+	@Override
+	public List<ApplicationRelatedActivity> getRelatedActivities(String parentActivityCode) {
+		Query query = getEntityManager()
+				.createQuery("SELECT r FROM ApplicationRelatedActivity r WHERE r.sourceApplicationActivity.code = :parentActivityCode")
+				.setParameter("parentActivityCode", parentActivityCode);
+		return (List<ApplicationRelatedActivity>) query.getResultList();
+	}
+
 	/**
      * @param request
      * @return
@@ -199,6 +210,10 @@ public class ApplicationRelatedActivityServiceImpl
 		ApplicationRelatedActivityResponse applicationRelatedActivityResponse = new ApplicationRelatedActivityResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, applicationRelatedActivityResponse, allowedEntityFields);
+		
+		
+		applicationRelatedActivityResponse.setDescription(model.getDescription());
+		applicationRelatedActivityResponse.setName(model.getDestinationApplicationActivity().getActivityUrl());
 		return applicationRelatedActivityResponse;
 	}
 }

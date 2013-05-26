@@ -2,60 +2,82 @@ define([
     'utilities',
     'configuration',
     'app/util/formUtilities',
+    'app/views/desktop/base/relatedactivitiesView',
     'i18n!app/nls/entities'
-], function (utilities, config, formUtil, entities_strings) {
-    
-
+], function (utilities, config, formUtil, RelatedActivitiesView, entities_strings) {
     
     var BaseEntityEditView = Backbone.View.extend({
 
-        fetchActivity:function()
+        render:function ()  
+        {
+            if (this.model.attributes.id) {
+                this.fetchAndRenderActivity();
+            }
+            else {
+                this.fetchAndRenderActivity();
+            }
+            this.renderSubViews();
+            return this;
+        },
+        fetchAndRenderActivity:function()
         {
             var self = this;
             this.model.fetch({ 
                 success: function(activity) {
-                    console.log(">>>>>>>>>>>>>>>" + model.url);
-                    $.ajax({url:model.url,success:function(result){
-                        $("#div1").html(result);
-                    }});
                     self.renderActivity(activity);
                 },
                 error: function(model, response, options) {
                     console.log(response);
                 }
             });
-
         },
         renderActivity:function(activity)
         {
             var formBuilder = formUtil.formBuilder;
-            var form = formBuilder(activity);
-            utilities.applyTemplate($(this.el), this.activityTemplate, {form:form, entities_strings:entities_strings}); 
-            $(this.el).trigger('pagecreate');
-        },
-        render:function ()  
-        {
-            if (this.model.attributes.id) {
-                this.fetchActivity();
-            }
+            this.form = formBuilder(activity);
+            if(this.form.entity != null ) {
+                console.log("Crack music!!");
+                this.renderEditActivity(this.form);
+            } 
             else {
-                self.renderActivity(null);
+                console.log("Black music!!");
+                this.renderCreateActivity(this.form);
             }
-            $('.date-picker').datetimepicker({format: 'dd/MM/yyyy', pickTime: false});
-            return this;
+
+            this.relatedActivities = this.model.attributes.relatedActivities;
+            var relatedActivitiesView = new RelatedActivitiesView({activities:this.relatedActivities});
+            relatedActivitiesView.render();
+        },
+        renderEditActivity:function(form)
+        {
+            utilities.applyTemplate($(this.el), this.activityTemplate, {form:form, entities_strings:entities_strings}); 
+            this.renderedActivity();
+        },
+        renderCreateActivity:function(form)
+        {
+            utilities.applyTemplate($(this.el), this.activityTemplate, {form:form, entities_strings:entities_strings}); 
+            this.renderedActivity();
+        },
+        renderedActivity: function()
+        {
+            $(this.el).trigger('pagecreate');
+            $(".form_date").datetimepicker({format: "dd/mm/yyyy", autoclose:true});
+            $(".form_datetime").datetimepicker({format: "dd/mm/yyyy"});
         },
         saveEntity: function(event)
         {
-
             var self = this;
             event.preventDefault();
             $.fn.formSerializer = formUtil.formSerializer;
             var entity = $(event.currentTarget).formSerializer();
+            if (this.form.mode == "CREATE") {
+                entity.id = null;
+            }
 
             this.model.save(entity, { 
                 'success': function ()
                 {
-                    self.navigateToEntityList();
+                    self.navigateToActivityList();
                 },
                 error: function (model, errors) 
                 {
@@ -67,6 +89,11 @@ define([
                 }
             });
             return false;
+        },
+        cancelEdit: function(event)
+        {
+            event.preventDefault();
+            this.navigateToActivityList();
         }
      });
     return BaseEntityEditView;
