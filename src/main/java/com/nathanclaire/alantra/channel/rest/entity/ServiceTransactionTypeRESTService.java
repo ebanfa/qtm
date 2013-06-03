@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 {
 	@Inject
 	ServiceTransactionTypeService serviceTransactionTypeService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceTransactionTypeRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.channel.response.ServiceTransactionTypeResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<ServiceTransactionTypeResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<ServiceTransactionTypeResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<ServiceTransactionTypeResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the ServiceTransactionType entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = serviceTransactionTypeService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 	@Override
 	protected EditActivityResponse<ServiceTransactionTypeResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<ServiceTransactionTypeResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the ServiceTransactionType entity
 		List<ApplicationEntityField> entityFields = serviceTransactionTypeService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return serviceTransactionTypeService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 	 */
 	@Override
 	protected EditActivityResponse<ServiceTransactionTypeResponse> saveEntityInstance(
-			ServiceTransactionTypeRequest entityInstance) {
-		serviceTransactionTypeService.create(entityInstance);
-		return null;
+			ServiceTransactionTypeRequest entityInstance) throws ApplicationException {
+		ServiceTransactionType serviceTransactionType = serviceTransactionTypeService.create(entityInstance);
+		return this.getEditActivityResponse(serviceTransactionType.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 	 */
 	@Override
 	protected EditActivityResponse<ServiceTransactionTypeResponse> saveEditedEntityInstance(
-			ServiceTransactionTypeRequest entityInstance) {
-		serviceTransactionTypeService.update(entityInstance);
-		return null;
+			ServiceTransactionTypeRequest entityInstance) throws ApplicationException {
+		ServiceTransactionType serviceTransactionType = serviceTransactionTypeService.update(entityInstance);
+		return this.getEditActivityResponse(serviceTransactionType.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<ServiceTransactionTypeResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 serviceTransactionTypeService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return serviceTransactionTypeService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class ServiceTransactionTypeRESTService extends BaseActivityRESTService<S
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return serviceTransactionTypeService.getEditActivityCode();
 	}
 

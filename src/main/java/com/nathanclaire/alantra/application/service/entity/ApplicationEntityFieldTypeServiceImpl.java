@@ -12,16 +12,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationEntityFieldType;
 import com.nathanclaire.alantra.application.request.ApplicationEntityFieldTypeRequest;
 import com.nathanclaire.alantra.application.response.ApplicationEntityFieldTypeResponse;
-
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-
-
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -53,7 +50,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationEntityFieldType findById(Integer id) {
+	public ApplicationEntityFieldType findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -61,7 +58,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationEntityFieldType findByCode(String code) {
+	public ApplicationEntityFieldType findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -69,7 +66,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationEntityFieldType findByName(String name) {
+	public ApplicationEntityFieldType findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -77,7 +74,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationEntityFieldType> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationEntityFieldType> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -85,7 +82,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#createApplicationEntityFieldType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationEntityFieldType create(ApplicationEntityFieldTypeRequest applicationEntityFieldTypeRequest) {
+	public ApplicationEntityFieldType create(ApplicationEntityFieldTypeRequest applicationEntityFieldTypeRequest)  throws ApplicationException {
 		return createInstance(applicationEntityFieldTypeRequest);
 	}
 
@@ -93,7 +90,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#deleteApplicationEntityFieldType(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -101,7 +98,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntityFieldType#updateApplicationEntityFieldType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationEntityFieldType update(ApplicationEntityFieldTypeRequest applicationEntityFieldTypeRequest) {
+	public ApplicationEntityFieldType update(ApplicationEntityFieldTypeRequest applicationEntityFieldTypeRequest)  throws ApplicationException {
 		return updateInstance(applicationEntityFieldTypeRequest);
 	}
 	
@@ -109,7 +106,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -117,7 +114,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -125,7 +122,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -133,7 +130,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -152,7 +149,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationEntityFieldType applicationentityfieldtype: findAll(queryParameters))
 		{
@@ -180,7 +177,7 @@ public class ApplicationEntityFieldTypeServiceImpl
 	}
 	
 	@Override
-	public ApplicationEntityFieldTypeResponse convertModelToResponse(ApplicationEntityFieldType model) {
+	public ApplicationEntityFieldTypeResponse convertModelToResponse(ApplicationEntityFieldType model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationEntityFieldTypeResponse applicationEntityFieldTypeResponse = new ApplicationEntityFieldTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

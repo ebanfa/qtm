@@ -56,7 +56,7 @@
             <%
             _.each(model.fields, function (field) {
             %>                              
-                    <th><%=field.description%></th>  
+                    <th style="width:100px"><%=field.description%></th>  
             <% }); %>                           
                 </tr>
             </thead> 
@@ -72,10 +72,20 @@
                 </td> 
                 <%
                 _.each(model.fields, function (field) {
-                %>                              
-                      <td class="description">
-                        <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>"><%=activity[field.name]%></a>
+                %>  
+                    <% if  (field.fieldTypeCode == "RELATIONSHIP") { %>                      
+                    <td class="td-actions">
+                        <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>">
+                            <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
+                        </a>
                     </td>  
+                    <% } else { %>                     
+                    <td class="td-actions">
+                        <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>">
+                            <%= activity[field.name] ? activity[field.name] : '' %>
+                        </a>
+                    </td>  
+                    <% }  %>    <!-- End if --> 
                 <% }); %>  
             </tr>  
 	        <% }); %>                      

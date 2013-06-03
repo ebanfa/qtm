@@ -15,15 +15,18 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+
 import com.nathanclaire.alantra.advice.model.AdviceType;
+import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.advice.request.AdviceTypeRequest;
 import com.nathanclaire.alantra.advice.response.AdviceTypeResponse;
-import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+import com.nathanclaire.alantra.channel.service.entity.ServiceTransactionTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 
 /**
  * @author Edward Banfa
@@ -44,7 +47,7 @@ public class AdviceTypeServiceImpl
 	@Inject
 	ApplicationEntityService  applicationEntityService;
 	@Inject
-	//ServiceTransactionTypeService  serviceTransactionTypeService;
+	ServiceTransactionTypeService  serviceTransactionTypeService;
 	
 	/**
 	 * @param entityClass
@@ -57,7 +60,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#findById(java.lang.Integer)
 	 */
 	@Override
-	public AdviceType findById(Integer id) {
+	public AdviceType findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -65,7 +68,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#findByCode(java.lang.String)
 	 */
 	@Override
-	public AdviceType findByCode(String code) {
+	public AdviceType findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -73,7 +76,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#findByName(java.lang.String)
 	 */
 	@Override
-	public AdviceType findByName(String name) {
+	public AdviceType findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -81,7 +84,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#findAll(java.util.Map)
 	 */
 	@Override
-	public List<AdviceType> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<AdviceType> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -89,7 +92,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#createAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType create(AdviceTypeRequest adviceTypeRequest) {
+	public AdviceType create(AdviceTypeRequest adviceTypeRequest) throws ApplicationException {
 		return createInstance(adviceTypeRequest);
 	}
 
@@ -97,7 +100,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#deleteAdviceType(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -105,7 +108,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceType#updateAdviceType(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceType update(AdviceTypeRequest adviceTypeRequest) {
+	public AdviceType update(AdviceTypeRequest adviceTypeRequest) throws ApplicationException {
 		return updateInstance(adviceTypeRequest);
 	}
 	
@@ -113,7 +116,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -121,7 +124,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -129,7 +132,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -137,7 +140,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -146,11 +149,11 @@ public class AdviceTypeServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
-		/*List<ListItemResponse> serviceTransactionTypes = serviceTransactionTypeService.asListItem();
+		List<ListItemResponse> serviceTransactionTypes = serviceTransactionTypeService.asListItem();
     	
-		listItems.put(LIST_ITEM_SERVICETRANSACTIONTYPE, serviceTransactionTypes);*/ 
+		listItems.put(LIST_ITEM_SERVICETRANSACTIONTYPE, serviceTransactionTypes); 
 		return listItems;
 	}
 
@@ -158,7 +161,7 @@ public class AdviceTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(AdviceType advicetype: findAll(queryParameters))
@@ -175,7 +178,7 @@ public class AdviceTypeServiceImpl
      */
 	@Override
     public AdviceType convertRequestToModel(AdviceTypeRequest adviceTypeRequest) 
-    {
+     throws ApplicationException {
 		AdviceType adviceType = new AdviceType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -190,7 +193,7 @@ public class AdviceTypeServiceImpl
 	}
 	
 	@Override
-	public AdviceTypeResponse convertModelToResponse(AdviceType model) {
+	public AdviceTypeResponse convertModelToResponse(AdviceType model) throws ApplicationException {
 		if (model == null) return null;
 		AdviceTypeResponse adviceTypeResponse = new AdviceTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -198,6 +201,7 @@ public class AdviceTypeServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getServiceTransactionType() != null)
 			adviceTypeResponse.setServiceTransactionTypeId(model.getServiceTransactionType().getId());
+			adviceTypeResponse.setServiceTransactionTypeText(model.getServiceTransactionType().getName());
 		return adviceTypeResponse;
 	}
 }

@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 {
 	@Inject
 	CustomerClassificationService customerClassificationService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(CustomerClassificationRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.customer.response.CustomerClassificationResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<CustomerClassificationResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<CustomerClassificationResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<CustomerClassificationResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the CustomerClassification entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = customerClassificationService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 	@Override
 	protected EditActivityResponse<CustomerClassificationResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<CustomerClassificationResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the CustomerClassification entity
 		List<ApplicationEntityField> entityFields = customerClassificationService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return customerClassificationService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 	 */
 	@Override
 	protected EditActivityResponse<CustomerClassificationResponse> saveEntityInstance(
-			CustomerClassificationRequest entityInstance) {
-		customerClassificationService.create(entityInstance);
-		return null;
+			CustomerClassificationRequest entityInstance) throws ApplicationException {
+		CustomerClassification customerClassification = customerClassificationService.create(entityInstance);
+		return this.getEditActivityResponse(customerClassification.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 	 */
 	@Override
 	protected EditActivityResponse<CustomerClassificationResponse> saveEditedEntityInstance(
-			CustomerClassificationRequest entityInstance) {
-		customerClassificationService.update(entityInstance);
-		return null;
+			CustomerClassificationRequest entityInstance) throws ApplicationException {
+		CustomerClassification customerClassification = customerClassificationService.update(entityInstance);
+		return this.getEditActivityResponse(customerClassification.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<CustomerClassificationResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 customerClassificationService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return customerClassificationService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class CustomerClassificationRESTService extends BaseActivityRESTService<C
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return customerClassificationService.getEditActivityCode();
 	}
 

@@ -41,7 +41,12 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
-
+	<repositories>
+    	<repository>
+  		<id>Java.Net</id>
+  		<url>http://download.java.net/maven/2/</url>
+    	</repository>
+  	</repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -212,12 +217,22 @@
 		</dependency>
 	
 		<!-- <dependency>
+			
 			<groupId>com.nathanclaire.advicepro.client</groupId>
 			<artifactId>adviceclient</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency> -->
-            
-
+		<dependency>
+			<groupId>eu.ralph-schuster</groupId>
+  			<artifactId>csv</artifactId>
+  			<version>2.4.0</version>
+		</dependency>
+        <!-- Java Mail API 
+    	<dependency>
+	 		<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.5</version>
+		</dependency>   -->
     </dependencies>
 
     <build>

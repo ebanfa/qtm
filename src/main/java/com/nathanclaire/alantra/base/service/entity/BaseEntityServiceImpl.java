@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -28,6 +29,7 @@ import org.joda.time.format.DateTimeFormatter;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -67,6 +69,9 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
 	 * Default system user name
 	 */
 	protected static final String SYS_USR_NM = "name";
+	private static final String INSTANCE_NOT_FOUND = null;
+	private static final String INSTANCE_ALREADY_EXIST = null;
+	private static final String INSTANCE_CONTRAINT_VIOLATION = null;
 
     /**
      * Default constructor
@@ -85,7 +90,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * Getter for the entity manager
      * @return
      */
-    public EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
     
@@ -93,7 +98,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param id
      * @return
      */
-    protected M getSingleInstance(Integer id) {
+    protected M getSingleInstance(Integer id)  throws ApplicationException{
         return entityManager.find(ENTITY_CLASS, id);
     }
     
@@ -101,7 +106,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param code
      * @return
      */
-    protected M findInstanceByCode(String code)
+    protected M findInstanceByCode(String code) throws ApplicationException
     {
     	queryParameters.clear();
     	queryParameters.add(CODE_CRITERIA, code);
@@ -114,7 +119,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param searchCriteria
      * @return
      */
-    protected List<M> findByCriteria(Map<String, String> searchCriteria){
+    protected List<M> findByCriteria(Map<String, String> searchCriteria) throws ApplicationException{
     	queryParameters.clear();
     	for(Entry<String, String> entry: searchCriteria.entrySet())
     	{
@@ -127,7 +132,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param code
      * @return
      */
-    protected M findInstanceByName(String name)
+    protected M findInstanceByName(String name) throws ApplicationException
     {
     	queryParameters.clear();
     	queryParameters.add(NAME_CRITERIA, name);
@@ -140,28 +145,18 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param queryParameters
      * @return
      */
-    public List<M> findAllInstances(MultivaluedMap<String, String> queryParameters)
+    public List<M> findAllInstances(MultivaluedMap<String, String> queryParameters) throws ApplicationException
     {
+    	if(queryParameters == null){
+    		queryParameters = this.queryParameters; 
+    		queryParameters.clear();
+    	}
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<M> criteriaQuery = criteriaBuilder.createQuery(ENTITY_CLASS);
         
-        Root<M> root = criteriaQuery.from(ENTITY_CLASS);
-        Predicate[] predicates = extractPredicates(queryParameters, criteriaBuilder, root);
-        
-        criteriaQuery.select(criteriaQuery.getSelection()).where(predicates);
-        criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
-        TypedQuery<M> query = entityManager.createQuery(criteriaQuery);
-        
-        if (queryParameters.containsKey("first")) 
-        {
-        	Integer firstRecord = Integer.parseInt(queryParameters.getFirst("first"))-1;
-        	query.setFirstResult(firstRecord);
-        }
-        if (queryParameters.containsKey("maxResults")) 
-        {
-        	Integer maxResults = Integer.parseInt(queryParameters.getFirst("maxResults"));
-        	query.setMaxResults(maxResults);
-        }
+        TypedQuery<M> query = 
+        		initCriteria(queryParameters, criteriaBuilder, criteriaQuery);
+        initQuery(queryParameters, query);
 		return query.getResultList();
     }
     
@@ -169,50 +164,38 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param request
      * @return
      */
-    protected M createInstance(V request) {
+    protected M createInstance(V request) throws ApplicationException {
         try 
         {
-        	M instance = this.convertRequestToModel(request);
+        	M instance = convertRequestToModel(request);
         	entityManager.persist(instance);
             return instance;
         } 
+        catch (EntityExistsException e) 
+        {
+            throw new ApplicationException(INSTANCE_ALREADY_EXIST);
+        }
         catch (ConstraintViolationException e) 
         {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
+            throw new ApplicationException(INSTANCE_CONTRAINT_VIOLATION);
         }
     }
     
     /**
      * @param id
      */
-    protected void deleteInstance(Integer id)
+    protected void deleteInstance(Integer id) throws ApplicationException
     {
-    	try 
-        {
-    		M instance = getSingleInstance(id);
-    		System.out.println(">>>>>>>>>>>>>> deleteInstance" + id);
-    		entityManager.remove(instance);
-        } 
-        catch (ConstraintViolationException e) 
-        {
-            // A WebApplicationException can wrap a response
-            // Throwing the exception causes an automatic rollback
-            throw new WebApplicationException(e);
-        } catch (Exception e) {
-            // Finally, handle 
-            throw new WebApplicationException(e);
-        }
+		M instance = getSingleInstance(id);
+		if(instance == null)
+			throw new ApplicationException(INSTANCE_NOT_FOUND);
+		entityManager.remove(instance);
     }
     
     /**
      * @param id
      */
-    protected M updateInstance(V request)
+    protected M updateInstance(V request) throws ApplicationException
     {
     	try 
         {
@@ -230,6 +213,44 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
             throw new WebApplicationException(e);
         }
     }
+
+	/**
+	 * @param queryParameters
+	 * @param criteriaBuilder
+	 * @param criteriaQuery
+	 * @return
+	 */
+	private TypedQuery<M> initCriteria(
+			MultivaluedMap<String, String> queryParameters,
+			final CriteriaBuilder criteriaBuilder,
+			final CriteriaQuery<M> criteriaQuery) {
+		Root<M> root = criteriaQuery.from(ENTITY_CLASS);
+        Predicate[] predicates = extractPredicates(queryParameters, criteriaBuilder, root);
+        
+        criteriaQuery.select(criteriaQuery.getSelection()).where(predicates);
+        criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
+        TypedQuery<M> query = entityManager.createQuery(criteriaQuery);
+		return query;
+	}
+
+	/**
+	 * @param queryParameters
+	 * @param query
+	 * @throws NumberFormatException
+	 */
+	private void initQuery(MultivaluedMap<String, String> queryParameters,
+			TypedQuery<M> query) throws NumberFormatException {
+		if (queryParameters.containsKey("first")) 
+        {
+        	Integer firstRecord = Integer.parseInt(queryParameters.getFirst("first"))-1;
+        	query.setFirstResult(firstRecord);
+        }
+        if (queryParameters.containsKey("maxResults")) 
+        {
+        	Integer maxResults = Integer.parseInt(queryParameters.getFirst("maxResults"));
+        	query.setMaxResults(maxResults);
+        }
+	}
     
     /**
      * <p>
@@ -313,13 +334,13 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param request
      * @return
      */
-    public abstract M convertRequestToModel(V request);
+    public abstract M convertRequestToModel(V request) throws ApplicationException;
     
     /**
      * @param model
      * @return
      */
-    public abstract T convertModelToResponse(M model);
+    public abstract T convertModelToResponse(M model) throws ApplicationException;
     
 	/**
 	 * @return

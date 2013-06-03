@@ -17,6 +17,8 @@ import com.nathanclaire.alantra.application.response.ApplicationRelatedActivityR
 public class BaseActivityResponse extends BaseResponse {
 
 	private String activityUrl;
+	private Integer errorCode;
+	private String errorMessage;
 	private List<ApplicationRelatedActivityResponse> relatedActivities = new ArrayList<ApplicationRelatedActivityResponse>();
 	private List<ApplicationEntityFieldResponse> fields = new ArrayList<ApplicationEntityFieldResponse>();
 
@@ -60,6 +62,34 @@ public class BaseActivityResponse extends BaseResponse {
 	 */
 	public void setFields(List<ApplicationEntityFieldResponse> fields) {
 		this.fields = fields;
+	}
+
+	/**
+	 * @return the errorCode
+	 */
+	public Integer getErrorCode() {
+		return errorCode;
+	}
+
+	/**
+	 * @param errorCode the errorCode to set
+	 */
+	public void setErrorCode(Integer errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	/**
+	 * @return the errorMessage
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	/**
+	 * @param errorMessage the errorMessage to set
+	 */
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }

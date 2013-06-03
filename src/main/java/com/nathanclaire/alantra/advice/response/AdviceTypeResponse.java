@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class AdviceTypeResponse extends BaseResponse {
 
     private Integer serviceTransactionTypeId;
+    private String serviceTransactionTypeText;
     private Character reqFeedback;
     private String feedbackMsg;
 
@@ -27,6 +28,14 @@ public class AdviceTypeResponse extends BaseResponse {
     
     public void setServiceTransactionTypeId(Integer serviceTransactionTypeId) {
         this.serviceTransactionTypeId = serviceTransactionTypeId;
+    }
+
+    public String getServiceTransactionTypeText() {
+        return this.serviceTransactionTypeText;
+    }
+    
+    public void setServiceTransactionTypeText(String serviceTransactionTypeText) {
+        this.serviceTransactionTypeText = serviceTransactionTypeText;
     }
 
     public Character getReqFeedback() {

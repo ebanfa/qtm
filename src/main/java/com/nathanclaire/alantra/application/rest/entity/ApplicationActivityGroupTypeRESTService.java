@@ -9,14 +9,8 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -44,22 +39,22 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 {
 	@Inject
 	ApplicationActivityGroupTypeService applicationActivityGroupTypeService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(ApplicationActivityGroupTypeRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.application.response.ApplicationActivityGroupTypeResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<ApplicationActivityGroupTypeResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<ApplicationActivityGroupTypeResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<ApplicationActivityGroupTypeResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the ApplicationActivityGroupType entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = applicationActivityGroupTypeService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -82,7 +77,7 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 	@Override
 	protected EditActivityResponse<ApplicationActivityGroupTypeResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<ApplicationActivityGroupTypeResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the ApplicationActivityGroupType entity
 		List<ApplicationEntityField> entityFields = applicationActivityGroupTypeService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -105,7 +100,8 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return applicationActivityGroupTypeService.relatedEntitesToListItems();
 	}
 
@@ -114,9 +110,9 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 	 */
 	@Override
 	protected EditActivityResponse<ApplicationActivityGroupTypeResponse> saveEntityInstance(
-			ApplicationActivityGroupTypeRequest entityInstance) {
-		applicationActivityGroupTypeService.create(entityInstance);
-		return null;
+			ApplicationActivityGroupTypeRequest entityInstance) throws ApplicationException {
+		ApplicationActivityGroupType applicationActivityGroupType = applicationActivityGroupTypeService.create(entityInstance);
+		return this.getEditActivityResponse(applicationActivityGroupType.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -124,16 +120,26 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 	 */
 	@Override
 	protected EditActivityResponse<ApplicationActivityGroupTypeResponse> saveEditedEntityInstance(
-			ApplicationActivityGroupTypeRequest entityInstance) {
-		applicationActivityGroupTypeService.update(entityInstance);
-		return null;
+			ApplicationActivityGroupTypeRequest entityInstance) throws ApplicationException {
+		ApplicationActivityGroupType applicationActivityGroupType = applicationActivityGroupTypeService.update(entityInstance);
+		return this.getEditActivityResponse(applicationActivityGroupType.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<ApplicationActivityGroupTypeResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 applicationActivityGroupTypeService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return applicationActivityGroupTypeService.getListActivityCode();
 	}
 
@@ -141,7 +147,7 @@ public class ApplicationActivityGroupTypeRESTService extends BaseActivityRESTSer
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return applicationActivityGroupTypeService.getEditActivityCode();
 	}
 

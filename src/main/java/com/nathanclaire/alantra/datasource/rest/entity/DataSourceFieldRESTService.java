@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 {
 	@Inject
 	DataSourceFieldService dataSourceFieldService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(DataSourceFieldRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.datasource.response.DataSourceFieldResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<DataSourceFieldResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<DataSourceFieldResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<DataSourceFieldResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the DataSourceField entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = dataSourceFieldService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 	@Override
 	protected EditActivityResponse<DataSourceFieldResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<DataSourceFieldResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the DataSourceField entity
 		List<ApplicationEntityField> entityFields = dataSourceFieldService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return dataSourceFieldService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 	 */
 	@Override
 	protected EditActivityResponse<DataSourceFieldResponse> saveEntityInstance(
-			DataSourceFieldRequest entityInstance) {
-		dataSourceFieldService.create(entityInstance);
-		return null;
+			DataSourceFieldRequest entityInstance) throws ApplicationException {
+		DataSourceField dataSourceField = dataSourceFieldService.create(entityInstance);
+		return this.getEditActivityResponse(dataSourceField.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 	 */
 	@Override
 	protected EditActivityResponse<DataSourceFieldResponse> saveEditedEntityInstance(
-			DataSourceFieldRequest entityInstance) {
-		dataSourceFieldService.update(entityInstance);
-		return null;
+			DataSourceFieldRequest entityInstance) throws ApplicationException {
+		DataSourceField dataSourceField = dataSourceFieldService.update(entityInstance);
+		return this.getEditActivityResponse(dataSourceField.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<DataSourceFieldResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 dataSourceFieldService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return dataSourceFieldService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class DataSourceFieldRESTService extends BaseActivityRESTService<DataSour
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return dataSourceFieldService.getEditActivityCode();
 	}
 

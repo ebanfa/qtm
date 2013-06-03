@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 {
 	@Inject
 	ServiceModeService serviceModeService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceModeRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.channel.response.ServiceModeResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<ServiceModeResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<ServiceModeResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<ServiceModeResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the ServiceMode entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = serviceModeService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 	@Override
 	protected EditActivityResponse<ServiceModeResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<ServiceModeResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the ServiceMode entity
 		List<ApplicationEntityField> entityFields = serviceModeService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return serviceModeService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 	 */
 	@Override
 	protected EditActivityResponse<ServiceModeResponse> saveEntityInstance(
-			ServiceModeRequest entityInstance) {
-		serviceModeService.create(entityInstance);
-		return null;
+			ServiceModeRequest entityInstance) throws ApplicationException {
+		ServiceMode serviceMode = serviceModeService.create(entityInstance);
+		return this.getEditActivityResponse(serviceMode.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 	 */
 	@Override
 	protected EditActivityResponse<ServiceModeResponse> saveEditedEntityInstance(
-			ServiceModeRequest entityInstance) {
-		serviceModeService.update(entityInstance);
-		return null;
+			ServiceModeRequest entityInstance) throws ApplicationException {
+		ServiceMode serviceMode = serviceModeService.update(entityInstance);
+		return this.getEditActivityResponse(serviceMode.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<ServiceModeResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 serviceModeService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return serviceModeService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class ServiceModeRESTService extends BaseActivityRESTService<ServiceModeR
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return serviceModeService.getEditActivityCode();
 	}
 

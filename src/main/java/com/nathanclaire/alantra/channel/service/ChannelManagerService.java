@@ -24,6 +24,7 @@ import com.nathanclaire.alantra.channel.server.PipelineConfiguration;
 import com.nathanclaire.alantra.channel.server.ServiceChannel;
 import com.nathanclaire.alantra.channel.server.ServiceConfiguration;
 import com.nathanclaire.alantra.channel.server.ServiceImpl;
+import com.nathanclaire.alantra.channel.service.entity.ServiceCategoryService;
 
 /**
  * @author Edward Banfa 
@@ -130,9 +131,13 @@ public class ChannelManagerService implements ChannelManager
 		for(Service channel:channels)
 		{
 			logger.info("Processing loaded channel: {}", channel.getName());
-			// Get an individual service definition and add to out list
-			ServiceConfiguration configuration = this.loadServiceDefinition(channel);
-			serviceConfigurations.add(configuration);
+			// Only load definitions for network services
+			if(channel.getServiceCategory().getCode().
+					equals(ServiceCategoryService.NETWORK_SERVICE_CODE))
+			{
+				ServiceConfiguration configuration = this.loadServiceDefinition(channel);
+				serviceConfigurations.add(configuration);
+			}
 		}
 		return serviceConfigurations;
 	}

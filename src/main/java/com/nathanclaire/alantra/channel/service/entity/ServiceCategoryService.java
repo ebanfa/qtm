@@ -14,5 +14,5 @@ import com.nathanclaire.alantra.channel.response.ServiceCategoryResponse;
  */
 public interface ServiceCategoryService extends BaseEntityService<ServiceCategory, ServiceCategoryResponse, ServiceCategoryRequest>
 {
-	
+	public final String NETWORK_SERVICE_CODE = "NETWORK_SERVICE";
 }

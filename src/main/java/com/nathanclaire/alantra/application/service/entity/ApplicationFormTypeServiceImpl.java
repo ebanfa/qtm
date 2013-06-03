@@ -12,16 +12,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationFormType;
 import com.nathanclaire.alantra.application.request.ApplicationFormTypeRequest;
 import com.nathanclaire.alantra.application.response.ApplicationFormTypeResponse;
-
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-
-
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -45,7 +42,7 @@ public class ApplicationFormTypeServiceImpl
 	/**
 	 * @param entityClass
 	 */
-	public ApplicationFormTypeServiceImpl() {
+	public ApplicationFormTypeServiceImpl(){
 		super(ApplicationFormType.class);
 	}
 
@@ -53,7 +50,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationFormType findById(Integer id) {
+	public ApplicationFormType findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -61,7 +58,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationFormType findByCode(String code) {
+	public ApplicationFormType findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -69,7 +66,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationFormType findByName(String name) {
+	public ApplicationFormType findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -77,7 +74,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationFormType> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationFormType> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -85,7 +82,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#createApplicationFormType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationFormType create(ApplicationFormTypeRequest applicationFormTypeRequest) {
+	public ApplicationFormType create(ApplicationFormTypeRequest applicationFormTypeRequest)  throws ApplicationException {
 		return createInstance(applicationFormTypeRequest);
 	}
 
@@ -93,7 +90,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#deleteApplicationFormType(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -101,7 +98,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormType#updateApplicationFormType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationFormType update(ApplicationFormTypeRequest applicationFormTypeRequest) {
+	public ApplicationFormType update(ApplicationFormTypeRequest applicationFormTypeRequest)  throws ApplicationException {
 		return updateInstance(applicationFormTypeRequest);
 	}
 	
@@ -109,7 +106,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -117,7 +114,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -125,7 +122,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -133,7 +130,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -152,7 +149,7 @@ public class ApplicationFormTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationFormType applicationformtype: findAll(queryParameters))
 		{
@@ -180,7 +177,7 @@ public class ApplicationFormTypeServiceImpl
 	}
 	
 	@Override
-	public ApplicationFormTypeResponse convertModelToResponse(ApplicationFormType model) {
+	public ApplicationFormTypeResponse convertModelToResponse(ApplicationFormType model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationFormTypeResponse applicationFormTypeResponse = new ApplicationFormTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

@@ -15,15 +15,28 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class AdviceResponse extends BaseResponse {
 
     private Integer customerId;
+    private String customerText;
+    private Integer messageId;
+    private String messageText;
+    private Integer currencyId;
+    private String currencyText;
     private Integer adviceStatusId;
+    private String adviceStatusText;
+    private Integer adviceClassificationId;
+    private String adviceClassificationText;
+    private Integer customerAccountId;
+    private String customerAccountText;
     private Integer adviceTypeId;
-    private int commEventId;
+    private String adviceTypeText;
     private String adviceTxt;
     private String cardNo;
-    private String accountNo;
     private String chequeNo;
     private String accountNm;
     private BigDecimal amount;
+    private Date startDt;
+    private Date endDt;
+    private int maxMatches;
+    private int matchCount;
 
     public AdviceResponse() {
     }
@@ -36,12 +49,92 @@ public class AdviceResponse extends BaseResponse {
         this.customerId = customerId;
     }
 
+    public String getCustomerText() {
+        return this.customerText;
+    }
+    
+    public void setCustomerText(String customerText) {
+        this.customerText = customerText;
+    }
+
+    public Integer getMessageId() {
+        return this.messageId;
+    }
+    
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getMessageText() {
+        return this.messageText;
+    }
+    
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
+
+    public Integer getCurrencyId() {
+        return this.currencyId;
+    }
+    
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
+    }
+
+    public String getCurrencyText() {
+        return this.currencyText;
+    }
+    
+    public void setCurrencyText(String currencyText) {
+        this.currencyText = currencyText;
+    }
+
     public Integer getAdviceStatusId() {
         return this.adviceStatusId;
     }
     
     public void setAdviceStatusId(Integer adviceStatusId) {
         this.adviceStatusId = adviceStatusId;
+    }
+
+    public String getAdviceStatusText() {
+        return this.adviceStatusText;
+    }
+    
+    public void setAdviceStatusText(String adviceStatusText) {
+        this.adviceStatusText = adviceStatusText;
+    }
+
+    public Integer getAdviceClassificationId() {
+        return this.adviceClassificationId;
+    }
+    
+    public void setAdviceClassificationId(Integer adviceClassificationId) {
+        this.adviceClassificationId = adviceClassificationId;
+    }
+
+    public String getAdviceClassificationText() {
+        return this.adviceClassificationText;
+    }
+    
+    public void setAdviceClassificationText(String adviceClassificationText) {
+        this.adviceClassificationText = adviceClassificationText;
+    }
+
+    public Integer getCustomerAccountId() {
+        return this.customerAccountId;
+    }
+    
+    public void setCustomerAccountId(Integer customerAccountId) {
+        this.customerAccountId = customerAccountId;
+    }
+
+    public String getCustomerAccountText() {
+        return this.customerAccountText;
+    }
+    
+    public void setCustomerAccountText(String customerAccountText) {
+        this.customerAccountText = customerAccountText;
     }
 
     public Integer getAdviceTypeId() {
@@ -52,12 +145,12 @@ public class AdviceResponse extends BaseResponse {
         this.adviceTypeId = adviceTypeId;
     }
 
-    public int getCommEventId() {
-        return this.commEventId;
+    public String getAdviceTypeText() {
+        return this.adviceTypeText;
     }
     
-    public void setCommEventId(int commEventId) {
-        this.commEventId = commEventId;
+    public void setAdviceTypeText(String adviceTypeText) {
+        this.adviceTypeText = adviceTypeText;
     }
 
     public String getAdviceTxt() {
@@ -74,14 +167,6 @@ public class AdviceResponse extends BaseResponse {
     
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
-    }
-
-    public String getAccountNo() {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
     }
 
     public String getChequeNo() {
@@ -106,6 +191,38 @@ public class AdviceResponse extends BaseResponse {
     
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Date getStartDt() {
+        return this.startDt;
+    }
+    
+    public void setStartDt(Date startDt) {
+        this.startDt = startDt;
+    }
+
+    public Date getEndDt() {
+        return this.endDt;
+    }
+    
+    public void setEndDt(Date endDt) {
+        this.endDt = endDt;
+    }
+
+    public int getMaxMatches() {
+        return this.maxMatches;
+    }
+    
+    public void setMaxMatches(int maxMatches) {
+        this.maxMatches = maxMatches;
+    }
+
+    public int getMatchCount() {
+        return this.matchCount;
+    }
+    
+    public void setMatchCount(int matchCount) {
+        this.matchCount = matchCount;
     }
 
 

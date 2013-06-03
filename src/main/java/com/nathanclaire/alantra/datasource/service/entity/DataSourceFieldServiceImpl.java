@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -30,7 +27,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataSourceStructureSer
 import com.nathanclaire.alantra.datasource.service.entity.DataSourceFieldTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +65,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#findById(java.lang.Integer)
 	 */
 	@Override
-	public DataSourceField findById(Integer id) {
+	public DataSourceField findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +73,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#findByCode(java.lang.String)
 	 */
 	@Override
-	public DataSourceField findByCode(String code) {
+	public DataSourceField findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +81,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#findByName(java.lang.String)
 	 */
 	@Override
-	public DataSourceField findByName(String name) {
+	public DataSourceField findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +89,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#findAll(java.util.Map)
 	 */
 	@Override
-	public List<DataSourceField> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<DataSourceField> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +97,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#createDataSourceField(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataSourceField create(DataSourceFieldRequest dataSourceFieldRequest) {
+	public DataSourceField create(DataSourceFieldRequest dataSourceFieldRequest) throws ApplicationException {
 		return createInstance(dataSourceFieldRequest);
 	}
 
@@ -108,7 +105,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#deleteDataSourceField(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +113,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSourceField#updateDataSourceField(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataSourceField update(DataSourceFieldRequest dataSourceFieldRequest) {
+	public DataSourceField update(DataSourceFieldRequest dataSourceFieldRequest) throws ApplicationException {
 		return updateInstance(dataSourceFieldRequest);
 	}
 	
@@ -124,7 +121,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +129,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +137,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +145,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -157,7 +154,7 @@ public class DataSourceFieldServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> dataSourceStructures = dataSourceStructureService.asListItem();
 		List<ListItemResponse> dataSourceFieldTypes = dataSourceFieldTypeService.asListItem();
@@ -171,7 +168,7 @@ public class DataSourceFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(DataSourceField datasourcefield: findAll(queryParameters))
@@ -188,7 +185,7 @@ public class DataSourceFieldServiceImpl
      */
 	@Override
     public DataSourceField convertRequestToModel(DataSourceFieldRequest dataSourceFieldRequest) 
-    {
+     throws ApplicationException {
 		DataSourceField dataSourceField = new DataSourceField();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -208,7 +205,7 @@ public class DataSourceFieldServiceImpl
 	}
 	
 	@Override
-	public DataSourceFieldResponse convertModelToResponse(DataSourceField model) {
+	public DataSourceFieldResponse convertModelToResponse(DataSourceField model) throws ApplicationException {
 		if (model == null) return null;
 		DataSourceFieldResponse dataSourceFieldResponse = new DataSourceFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -216,8 +213,10 @@ public class DataSourceFieldServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataSourceStructure() != null)
 			dataSourceFieldResponse.setDataSourceStructureId(model.getDataSourceStructure().getId());
+			dataSourceFieldResponse.setDataSourceStructureText(model.getDataSourceStructure().getName());
 		if(model.getDataSourceFieldType() != null)
 			dataSourceFieldResponse.setDataSourceFieldTypeId(model.getDataSourceFieldType().getId());
+			dataSourceFieldResponse.setDataSourceFieldTypeText(model.getDataSourceFieldType().getName());
 		return dataSourceFieldResponse;
 	}
 }

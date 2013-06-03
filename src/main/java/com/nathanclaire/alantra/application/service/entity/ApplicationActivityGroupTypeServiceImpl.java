@@ -12,16 +12,13 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationActivityGroupType;
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.request.ApplicationActivityGroupTypeRequest;
 import com.nathanclaire.alantra.application.response.ApplicationActivityGroupTypeResponse;
-
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-
-
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -53,7 +50,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationActivityGroupType findById(Integer id) {
+	public ApplicationActivityGroupType findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -61,7 +58,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationActivityGroupType findByCode(String code) {
+	public ApplicationActivityGroupType findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -69,7 +66,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationActivityGroupType findByName(String name) {
+	public ApplicationActivityGroupType findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -77,7 +74,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationActivityGroupType> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationActivityGroupType> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -85,7 +82,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#createApplicationActivityGroupType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationActivityGroupType create(ApplicationActivityGroupTypeRequest applicationActivityGroupTypeRequest) {
+	public ApplicationActivityGroupType create(ApplicationActivityGroupTypeRequest applicationActivityGroupTypeRequest)  throws ApplicationException {
 		return createInstance(applicationActivityGroupTypeRequest);
 	}
 
@@ -93,7 +90,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#deleteApplicationActivityGroupType(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -101,7 +98,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroupType#updateApplicationActivityGroupType(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationActivityGroupType update(ApplicationActivityGroupTypeRequest applicationActivityGroupTypeRequest) {
+	public ApplicationActivityGroupType update(ApplicationActivityGroupTypeRequest applicationActivityGroupTypeRequest)  throws ApplicationException {
 		return updateInstance(applicationActivityGroupTypeRequest);
 	}
 	
@@ -109,7 +106,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -117,7 +114,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -125,7 +122,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -133,7 +130,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -152,7 +149,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationActivityGroupType applicationactivitygrouptype: findAll(queryParameters))
 		{
@@ -180,7 +177,7 @@ public class ApplicationActivityGroupTypeServiceImpl
 	}
 	
 	@Override
-	public ApplicationActivityGroupTypeResponse convertModelToResponse(ApplicationActivityGroupType model) {
+	public ApplicationActivityGroupTypeResponse convertModelToResponse(ApplicationActivityGroupType model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationActivityGroupTypeResponse applicationActivityGroupTypeResponse = new ApplicationActivityGroupTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

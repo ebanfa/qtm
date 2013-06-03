@@ -14,23 +14,70 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataInputJobRequest extends BaseRequest {
 
-    private Integer id;
+    private Integer dataInputJobStatusId;
+    private String dataInputJobStatusText;
+    private Integer dataInputJobCategoryId;
+    private String dataInputJobCategoryText;
+    private Integer dataInputJobTypeId;
+    private String dataInputJobTypeText;
     private Integer dataSourceId;
-    private String code;
+    private String dataSourceText;
     private String name;
     private String description;
     private int diFreqVal;
     private String diFreqCd;
+    private Integer id;
+    private String code;
 
     public DataInputJobRequest() {
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getDataInputJobStatusId() {
+        return this.dataInputJobStatusId;
     }
     
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDataInputJobStatusId(Integer dataInputJobStatusId) {
+        this.dataInputJobStatusId = dataInputJobStatusId;
+    }
+
+    public String getDataInputJobStatusText() {
+        return this.dataInputJobStatusText;
+    }
+    
+    public void setDataInputJobStatusText(String dataInputJobStatusText) {
+        this.dataInputJobStatusText = dataInputJobStatusText;
+    }
+
+    public Integer getDataInputJobCategoryId() {
+        return this.dataInputJobCategoryId;
+    }
+    
+    public void setDataInputJobCategoryId(Integer dataInputJobCategoryId) {
+        this.dataInputJobCategoryId = dataInputJobCategoryId;
+    }
+
+    public String getDataInputJobCategoryText() {
+        return this.dataInputJobCategoryText;
+    }
+    
+    public void setDataInputJobCategoryText(String dataInputJobCategoryText) {
+        this.dataInputJobCategoryText = dataInputJobCategoryText;
+    }
+
+    public Integer getDataInputJobTypeId() {
+        return this.dataInputJobTypeId;
+    }
+    
+    public void setDataInputJobTypeId(Integer dataInputJobTypeId) {
+        this.dataInputJobTypeId = dataInputJobTypeId;
+    }
+
+    public String getDataInputJobTypeText() {
+        return this.dataInputJobTypeText;
+    }
+    
+    public void setDataInputJobTypeText(String dataInputJobTypeText) {
+        this.dataInputJobTypeText = dataInputJobTypeText;
     }
 
     public Integer getDataSourceId() {
@@ -41,12 +88,12 @@ public class DataInputJobRequest extends BaseRequest {
         this.dataSourceId = dataSourceId;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getDataSourceText() {
+        return this.dataSourceText;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setDataSourceText(String dataSourceText) {
+        this.dataSourceText = dataSourceText;
     }
 
     public String getName() {
@@ -79,6 +126,22 @@ public class DataInputJobRequest extends BaseRequest {
     
     public void setDiFreqCd(String diFreqCd) {
         this.diFreqCd = diFreqCd;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

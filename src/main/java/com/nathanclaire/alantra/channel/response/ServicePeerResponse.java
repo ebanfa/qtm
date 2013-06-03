@@ -15,7 +15,9 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class ServicePeerResponse extends BaseResponse {
 
     private Integer serviceId;
+    private String serviceText;
     private Integer hostId;
+    private String hostText;
 
     public ServicePeerResponse() {
     }
@@ -28,12 +30,28 @@ public class ServicePeerResponse extends BaseResponse {
         this.serviceId = serviceId;
     }
 
+    public String getServiceText() {
+        return this.serviceText;
+    }
+    
+    public void setServiceText(String serviceText) {
+        this.serviceText = serviceText;
+    }
+
     public Integer getHostId() {
         return this.hostId;
     }
     
     public void setHostId(Integer hostId) {
         this.hostId = hostId;
+    }
+
+    public String getHostText() {
+        return this.hostText;
+    }
+    
+    public void setHostText(String hostText) {
+        this.hostText = hostText;
     }
 
 

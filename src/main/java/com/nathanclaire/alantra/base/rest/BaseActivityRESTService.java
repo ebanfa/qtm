@@ -4,6 +4,7 @@
 package com.nathanclaire.alantra.base.rest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,11 @@ import com.nathanclaire.alantra.base.response.BaseActivityResponse;
 import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.base.util.Messages;
+import com.nathanclaire.alantra.base.util.StringUtil;
 
 /**
  * <p>
@@ -76,7 +82,11 @@ import com.nathanclaire.alantra.base.response.ListItemResponse;
  *
  */
 public abstract class BaseActivityRESTService<T,V> {
-	
+
+	private static final String ACTIVITY_NOT_FOUND = "BaseActivityRESTService.ACTIVITY_NOT_FOUND";
+	private static final String EDIT_ACTIVITY_NOT_FOUND = "BaseActivityRESTService.LIST_EDIT_NOT_FOUND";
+	private static final String LIST_ACTIVITY_NOT_FOUND = "BaseActivityRESTService.LIST_ACTIVITY_NOT_FOUND";
+
 	@Inject
 	ApplicationRelatedActivityService applicationRelatedActivityService;
 	
@@ -99,12 +109,7 @@ public abstract class BaseActivityRESTService<T,V> {
     @Produces(MediaType.APPLICATION_JSON)
     public ListActivityResponse<T> getListActivityWithEntityInstances(@Context UriInfo uriInfo) 
     {
-    	ListActivityResponse<T> response = null;
-    	MultivaluedMap<String, String> queryParameters = uriInfo.getPathParameters();
-    	ApplicationActivityResponse activity = 
-    			applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getListActivityCode()));
-    	if(activity == null) return response;
-    	return populateListActivityResponse(activity, prepareListActivityResponse(activity, queryParameters), queryParameters);
+		return getListActivityResponse(uriInfo.getPathParameters());
     }
     
     /**
@@ -118,11 +123,7 @@ public abstract class BaseActivityRESTService<T,V> {
     @Path("/single/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
     public EditActivityResponse<T> getEditActivityWithEntityInstance(@PathParam("id") Integer id) {
-    	EditActivityResponse<T> response = null;
-    	ApplicationActivityResponse activity = 
-    			applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getEditActivityCode()));
-    	if(activity == null) return response;
-        return populateEditActivityResponse(id, activity, prepareEditActivityResponse(activity));
+    	return getEditActivityResponse(id);
     }
     
     /**
@@ -136,11 +137,7 @@ public abstract class BaseActivityRESTService<T,V> {
     @Path("/single")
     @Produces(MediaType.APPLICATION_JSON)
     public EditActivityResponse<T> getEditActivityWithoutEntityInstance() {
-    	EditActivityResponse<T> response = null;
-    	ApplicationActivityResponse activity = 
-    			applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getEditActivityCode()));
-    	if(activity == null) return response;
-        return populateEditActivityResponse(null, activity, prepareEditActivityResponse(activity));
+		return getEditActivityResponse(null);
     }
 
     /**
@@ -152,7 +149,15 @@ public abstract class BaseActivityRESTService<T,V> {
     @Consumes(MediaType.APPLICATION_JSON)
     public EditActivityResponse<T> create(V request) 
     {
-    	return this.saveEntityInstance(request);
+    	EditActivityResponse<T> response = null;
+    	try {
+    		response = this.saveEntityInstance(request);
+		} 
+		catch (Exception e) {
+			response = this.getEditActivityResponse(null);
+			processActivityResponseException(response, e);
+		}
+    	return response;
     }
     
     /**
@@ -165,7 +170,15 @@ public abstract class BaseActivityRESTService<T,V> {
     @Consumes(MediaType.APPLICATION_JSON)
     public EditActivityResponse<T> edit(V request) 
     {
-    	return this.saveEditedEntityInstance(request);
+    	EditActivityResponse<T> response = null;
+		try {
+			response = this.saveEditedEntityInstance(request);
+		} 
+		catch (Exception e) {
+			response = this.getEditActivityResponse(null);
+			processActivityResponseException(response, e);
+		}
+		return response;
     }
     
     /**
@@ -178,10 +191,16 @@ public abstract class BaseActivityRESTService<T,V> {
     @DELETE
     @Path("/delete")
     @Produces(MediaType.APPLICATION_JSON)
-    public EditActivityResponse<T> delete(List<Integer> idsOfEntitiesToDelete) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Deleting :" + idsOfEntitiesToDelete.toString());
-    	this.deleteEntityInstances(idsOfEntitiesToDelete);
-    	return null;
+    public ListActivityResponse<T> delete(List<Integer> idsOfEntitiesToDelete) {
+    	ListActivityResponse<T> response = null;
+		try {
+			response = this.deleteEntityInstances(idsOfEntitiesToDelete);
+		} 
+		catch (Exception e) {
+			response = this.getListActivityResponse(null);
+			processActivityResponseException(response, e);
+		}
+		return response;
     }
     /**
      * @param uriInfo
@@ -192,8 +211,75 @@ public abstract class BaseActivityRESTService<T,V> {
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, List<ListItemResponse>> getRelatedEntitiesAsListItems(@Context UriInfo uriInfo)
     {
-    	return this.prepareRelatedEntitiesListItems(uriInfo.getQueryParameters());
+    	Map<String, List<ListItemResponse>> relatedEntitiesAsListItems = new HashMap<String, List<ListItemResponse>>();
+    	try {
+			return this.prepareRelatedEntitiesListItems(uriInfo.getQueryParameters());
+		} 
+		catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+    	catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return relatedEntitiesAsListItems;
     }
+
+	/**
+	 * @param queryParameters
+	 * @return
+	 * @throws ApplicationException
+	 */
+    protected ListActivityResponse<T> getListActivityResponse(MultivaluedMap<String, String> queryParameters){
+		ListActivityResponse<T> response = null;
+		ApplicationActivityResponse activity = null;
+		try {
+			activity = 
+					applicationActivityService.convertModelToResponse(applicationActivityService.findByCode(getListActivityCode()));
+			if(activity == null)
+				throw new ApplicationException(LIST_ACTIVITY_NOT_FOUND);
+			response = populateListActivityResponse(activity, prepareListActivityResponse(activity, queryParameters), queryParameters);
+		} 
+		catch (Exception e) 
+		{
+			response = prepareListActivityResponse(activity, queryParameters);
+			processActivityResponseException(response, e);
+		}
+		return response;
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	protected EditActivityResponse<T> getEditActivityResponse(Integer id){
+		EditActivityResponse<T> response = null;
+		ApplicationActivityResponse activity = null;
+		try {
+			activity = applicationActivityService.convertModelToResponse(
+					applicationActivityService.findByCode(getEditActivityCode()));
+			if(activity == null)
+				throw new ApplicationException(EDIT_ACTIVITY_NOT_FOUND);
+			return populateEditActivityResponse(id, activity, prepareEditActivityResponse(activity));
+		} 
+		catch (Exception e) 
+		{
+			response = prepareEditActivityResponse(activity);
+			processActivityResponseException(response, e);
+		}
+		return response;
+	}
+
+	/**
+	 * @param activity
+	 * @param e
+	 * @return
+	 */
+	private BaseActivityResponse processActivityResponseException(
+			BaseActivityResponse response, Exception e) {
+		response.setErrorCode(1);
+		response.setErrorMessage(e.getMessage());
+		return response;
+	}
     
     /**
      * Prepare the list activity response object that will be returned
@@ -230,28 +316,16 @@ public abstract class BaseActivityRESTService<T,V> {
     protected List<ApplicationRelatedActivityResponse> getRelatedActivities(ApplicationActivityResponse activity)
     {
     	List<ApplicationRelatedActivityResponse> relatedActivityResponses = new ArrayList<ApplicationRelatedActivityResponse>();
-    	List<ApplicationRelatedActivity> relatedActivities = applicationRelatedActivityService.getRelatedActivities(activity.getCode());
-    	for (ApplicationRelatedActivity relatedActivity : relatedActivities)
-    	{
-    		System.out.println("$$$$$$$$$$$$$$$$" + relatedActivity.getName());
-    		relatedActivityResponses.add(applicationRelatedActivityService.convertModelToResponse(relatedActivity));
-    	}
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>>relatedActivityResponses:" + relatedActivityResponses.size());
+    	try {
+			List<ApplicationRelatedActivity> relatedActivities = applicationRelatedActivityService.getRelatedActivities(activity.getCode());
+			for (ApplicationRelatedActivity relatedActivity : relatedActivities)
+			{
+				relatedActivityResponses.add(applicationRelatedActivityService.convertModelToResponse(relatedActivity));
+			}
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
     	return relatedActivityResponses;
-    }
-    
-    /**
-     * Utility method to prepare an activity response object.
-     * @param response
-     * @param activity
-     */
-    private void prepareActivityResponse(BaseActivityResponse response, ApplicationActivityResponse activity)
-    {
-    	response.setId(activity.getId());
-    	response.setName(activity.getName());
-    	response.setCode(activity.getCode());
-    	response.setActivityUrl(activity.getActivityUrl());
-    	response.setRelatedActivities(getRelatedActivities(activity));
     }
     
     /**
@@ -262,64 +336,82 @@ public abstract class BaseActivityRESTService<T,V> {
      * @return
      */
     protected abstract ListActivityResponse<T> populateListActivityResponse(ApplicationActivityResponse activity, 
-    		ListActivityResponse<T> response, MultivaluedMap<String, String> queryParameters );
+    		ListActivityResponse<T> response, MultivaluedMap<String, String> queryParameters ) throws ApplicationException;
     
     /**
      * NOTE: Make this method abstract!!!
      * @param id
      * @return
      */
-    protected EditActivityResponse<T> populateEditActivityResponse(Integer id,	ApplicationActivityResponse activity,
-			EditActivityResponse<T> response){
-    	return null;
-    }
+    protected abstract EditActivityResponse<T> populateEditActivityResponse(Integer id,	ApplicationActivityResponse activity,
+			EditActivityResponse<T> response) throws ApplicationException;
     
     /**
      * NOTE: Make this method abstract
      * @param entityInstance
      * @return
      */
-    protected EditActivityResponse<T> saveEntityInstance(V entityInstance)
-    {
-    	return null;
-    }
+    protected abstract EditActivityResponse<T> saveEntityInstance(V entityInstance) throws ApplicationException;
     
     /**
      * NOTE: Make this method abstract
      * @param entityInstance
      * @return
      */
-    protected EditActivityResponse<T> saveEditedEntityInstance(V entityInstance)
-    {
-    	return null;
-    }
+    protected abstract EditActivityResponse<T> saveEditedEntityInstance(V entityInstance) throws ApplicationException;
 
     /**
      * NOTE: Make this method abstract
      * @param entityInstance
      * @return
      */
-    protected EditActivityResponse<T> deleteEntityInstances(List<Integer> idsOfEntitiesToDelete)
-    {
-    	return null;
-    }
+    protected abstract ListActivityResponse<T> deleteEntityInstances(List<Integer> idsOfEntitiesToDelete) throws ApplicationException;
     
-    protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap)
-    {
-    	return null;
-    }
+    /**
+     * @param multivaluedMap
+     * @return
+     */
+    protected abstract Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap)
+     throws ApplicationException;
     
     /**
      * Get the activity code for the list activity
      * @return
      */
-    protected abstract String getListActivityCode();
+    protected abstract String getListActivityCode() throws ApplicationException;
     
     /**
      * Get the activity code for the edit activity
      * @return
      */
-    protected abstract String getEditActivityCode();
+    protected abstract String getEditActivityCode() throws ApplicationException;
+    
+    /**
+     * Utility method to prepare an activity response object.
+     * @param response
+     * @param activity
+     */
+    private void prepareActivityResponse(BaseActivityResponse response, ApplicationActivityResponse activity)
+    {
+    	if(response == null)
+    		response = new BaseActivityResponse();
+    	if (activity != null)
+    	{
+        	response.setId(activity.getId());
+        	response.setName(activity.getName());
+        	response.setCode(activity.getCode());
+        	response.setActivityUrl(activity.getActivityUrl());
+        	response.setRelatedActivities(getRelatedActivities(activity));
+    	}
+    	else 
+    	{
+        	response.setId(-1);
+        	response.setName(Messages.getString(ACTIVITY_NOT_FOUND));
+        	response.setCode(StringUtil.EMPTY_STRING);
+        	response.setActivityUrl(StringUtil.EMPTY_STRING);
+        	response.setRelatedActivities(new ArrayList<ApplicationRelatedActivityResponse>());
+    	}
+    }
     
     /**
      * @param parameterName

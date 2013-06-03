@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 {
 	@Inject
 	DataSourceService dataSourceService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(DataSourceRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.datasource.response.DataSourceResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<DataSourceResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<DataSourceResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<DataSourceResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the DataSource entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = dataSourceService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 	@Override
 	protected EditActivityResponse<DataSourceResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<DataSourceResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the DataSource entity
 		List<ApplicationEntityField> entityFields = dataSourceService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return dataSourceService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 	 */
 	@Override
 	protected EditActivityResponse<DataSourceResponse> saveEntityInstance(
-			DataSourceRequest entityInstance) {
-		dataSourceService.create(entityInstance);
-		return null;
+			DataSourceRequest entityInstance) throws ApplicationException {
+		DataSource dataSource = dataSourceService.create(entityInstance);
+		return this.getEditActivityResponse(dataSource.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 	 */
 	@Override
 	protected EditActivityResponse<DataSourceResponse> saveEditedEntityInstance(
-			DataSourceRequest entityInstance) {
-		dataSourceService.update(entityInstance);
-		return null;
+			DataSourceRequest entityInstance) throws ApplicationException {
+		DataSource dataSource = dataSourceService.update(entityInstance);
+		return this.getEditActivityResponse(dataSource.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<DataSourceResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 dataSourceService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return dataSourceService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class DataSourceRESTService extends BaseActivityRESTService<DataSourceRes
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return dataSourceService.getEditActivityCode();
 	}
 

@@ -15,7 +15,9 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class HostResponse extends BaseResponse {
 
     private Integer serviceProtocolAdapterId;
+    private String serviceProtocolAdapterText;
     private Integer hostTypeId;
+    private String hostTypeText;
     private int portNo;
     private String ipAddress;
 
@@ -30,12 +32,28 @@ public class HostResponse extends BaseResponse {
         this.serviceProtocolAdapterId = serviceProtocolAdapterId;
     }
 
+    public String getServiceProtocolAdapterText() {
+        return this.serviceProtocolAdapterText;
+    }
+    
+    public void setServiceProtocolAdapterText(String serviceProtocolAdapterText) {
+        this.serviceProtocolAdapterText = serviceProtocolAdapterText;
+    }
+
     public Integer getHostTypeId() {
         return this.hostTypeId;
     }
     
     public void setHostTypeId(Integer hostTypeId) {
         this.hostTypeId = hostTypeId;
+    }
+
+    public String getHostTypeText() {
+        return this.hostTypeText;
+    }
+    
+    public void setHostTypeText(String hostTypeText) {
+        this.hostTypeText = hostTypeText;
     }
 
     public int getPortNo() {

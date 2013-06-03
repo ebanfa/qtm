@@ -18,6 +18,7 @@ import com.nathanclaire.alantra.application.request.ApplicationModuleRequest;
 import com.nathanclaire.alantra.application.response.ApplicationModuleResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -49,7 +50,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationModule findById(Integer id) {
+	public ApplicationModule findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -57,7 +58,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationModule findByCode(String code) {
+	public ApplicationModule findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -65,7 +66,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationModule findByName(String name) {
+	public ApplicationModule findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -73,7 +74,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationModule> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationModule> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -81,7 +82,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#createApplicationModule(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationModule create(ApplicationModuleRequest applicationModuleRequest) {
+	public ApplicationModule create(ApplicationModuleRequest applicationModuleRequest)  throws ApplicationException {
 		return createInstance(applicationModuleRequest);
 	}
 
@@ -89,7 +90,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#deleteApplicationModule(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -97,7 +98,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationModule#updateApplicationModule(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationModule update(ApplicationModuleRequest applicationModuleRequest) {
+	public ApplicationModule update(ApplicationModuleRequest applicationModuleRequest)  throws ApplicationException {
 		return updateInstance(applicationModuleRequest);
 	}
 	
@@ -105,7 +106,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -113,7 +114,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -121,7 +122,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -129,7 +130,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -148,7 +149,7 @@ public class ApplicationModuleServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(ApplicationModule applicationmodule: findAll(queryParameters))
@@ -181,7 +182,7 @@ public class ApplicationModuleServiceImpl
 	}
 	
 	@Override
-	public ApplicationModuleResponse convertModelToResponse(ApplicationModule model) {
+	public ApplicationModuleResponse convertModelToResponse(ApplicationModule model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationModuleResponse applicationModuleResponse = new ApplicationModuleResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

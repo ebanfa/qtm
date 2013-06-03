@@ -15,7 +15,9 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class DataSourceFieldResponse extends BaseResponse {
 
     private Integer dataSourceStructureId;
+    private String dataSourceStructureText;
     private Integer dataSourceFieldTypeId;
+    private String dataSourceFieldTypeText;
     private String dsFieldTarget;
 
     public DataSourceFieldResponse() {
@@ -29,12 +31,28 @@ public class DataSourceFieldResponse extends BaseResponse {
         this.dataSourceStructureId = dataSourceStructureId;
     }
 
+    public String getDataSourceStructureText() {
+        return this.dataSourceStructureText;
+    }
+    
+    public void setDataSourceStructureText(String dataSourceStructureText) {
+        this.dataSourceStructureText = dataSourceStructureText;
+    }
+
     public Integer getDataSourceFieldTypeId() {
         return this.dataSourceFieldTypeId;
     }
     
     public void setDataSourceFieldTypeId(Integer dataSourceFieldTypeId) {
         this.dataSourceFieldTypeId = dataSourceFieldTypeId;
+    }
+
+    public String getDataSourceFieldTypeText() {
+        return this.dataSourceFieldTypeText;
+    }
+    
+    public void setDataSourceFieldTypeText(String dataSourceFieldTypeText) {
+        this.dataSourceFieldTypeText = dataSourceFieldTypeText;
     }
 
     public String getDsFieldTarget() {

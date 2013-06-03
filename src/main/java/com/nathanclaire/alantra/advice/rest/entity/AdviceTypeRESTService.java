@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 {
 	@Inject
 	AdviceTypeService adviceTypeService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(AdviceTypeRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.advice.response.AdviceTypeResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<AdviceTypeResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<AdviceTypeResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<AdviceTypeResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the AdviceType entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = adviceTypeService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 	@Override
 	protected EditActivityResponse<AdviceTypeResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<AdviceTypeResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the AdviceType entity
 		List<ApplicationEntityField> entityFields = adviceTypeService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return adviceTypeService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 	 */
 	@Override
 	protected EditActivityResponse<AdviceTypeResponse> saveEntityInstance(
-			AdviceTypeRequest entityInstance) {
-		adviceTypeService.create(entityInstance);
-		return null;
+			AdviceTypeRequest entityInstance) throws ApplicationException {
+		AdviceType adviceType = adviceTypeService.create(entityInstance);
+		return this.getEditActivityResponse(adviceType.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 	 */
 	@Override
 	protected EditActivityResponse<AdviceTypeResponse> saveEditedEntityInstance(
-			AdviceTypeRequest entityInstance) {
-		adviceTypeService.update(entityInstance);
-		return null;
+			AdviceTypeRequest entityInstance) throws ApplicationException {
+		AdviceType adviceType = adviceTypeService.update(entityInstance);
+		return this.getEditActivityResponse(adviceType.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<AdviceTypeResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 adviceTypeService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return adviceTypeService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class AdviceTypeRESTService extends BaseActivityRESTService<AdviceTypeRes
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return adviceTypeService.getEditActivityCode();
 	}
 

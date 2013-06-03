@@ -32,6 +32,9 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 
+	private DataInputJobStatus dataInputJobStatus;
+	private DataInputJobCategory dataInputJobCategory;
+	private DataInputJobType dataInputJobType;
 	private DataSource dataSource;
     private String name;
     private String description;
@@ -41,7 +44,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     public DataInputJob() {
     }
 
-    public DataInputJob(DataSource dataSource, String code, String name, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobCategory dataInputJobCategory, DataInputJobType dataInputJobType, DataSource dataSource, String code, String name, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
@@ -52,8 +55,11 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataInputJob(DataSource dataSource, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobCategory dataInputJobCategory, DataInputJobType dataInputJobType, DataSource dataSource, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
+		this.dataInputJobStatus = dataInputJobStatus;
+		this.dataInputJobCategory = dataInputJobCategory;
+		this.dataInputJobType = dataInputJobType;
 		this.dataSource = dataSource;
 		this.code = code;
 		this.name = name;
@@ -68,6 +74,45 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedUsr = lastModifiedUsr;
     }
     
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="JOB_STATUS_ID", nullable=false)
+    @JsonIgnore
+    public DataInputJobStatus getDataInputJobStatus() 
+    {
+        return this.dataInputJobStatus;
+    }
+    
+    public void setDataInputJobStatus(DataInputJobStatus dataInputJobStatus)
+    {
+        this.dataInputJobStatus = dataInputJobStatus;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="JOB_CAT_ID", nullable=false)
+    @JsonIgnore
+    public DataInputJobCategory getDataInputJobCategory() 
+    {
+        return this.dataInputJobCategory;
+    }
+    
+    public void setDataInputJobCategory(DataInputJobCategory dataInputJobCategory)
+    {
+        this.dataInputJobCategory = dataInputJobCategory;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="JOB_TY_ID", nullable=false)
+    @JsonIgnore
+    public DataInputJobType getDataInputJobType() 
+    {
+        return this.dataInputJobType;
+    }
+    
+    public void setDataInputJobType(DataInputJobType dataInputJobType)
+    {
+        this.dataInputJobType = dataInputJobType;
+    }
     		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="DS_ID", nullable=false)

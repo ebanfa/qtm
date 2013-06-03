@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.customer.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,28 +38,45 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 
 	private CustomerClassification customerClassification;
 	private CustomerType customerType;
+    private String pin;
     private String name;
     private String email;
     private String mobile;
+	private Set<CustomerAccount> customerAccounts = new HashSet<CustomerAccount>(0);
 	private Set<Advice> advices = new HashSet<Advice>(0);
 	private Set<CustomerBlacklist> customerBlacklists = new HashSet<CustomerBlacklist>(0);
 
     public Customer() {
     }
 
-    public Customer(CustomerClassification customerClassification, CustomerType customerType, String name, String email, String mobile) 
+    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String email, String mobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
+		this.pin = pin;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public Customer(CustomerClassification customerClassification, CustomerType customerType, String name, String email, String mobile, Set<Advice> advices, Set<CustomerBlacklist> customerBlacklists ) 
+    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String email, String mobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerAccount> customerAccounts, Set<Advice> advices, Set<CustomerBlacklist> customerBlacklists ) 
     {
 		this.customerClassification = customerClassification;
 		this.customerType = customerType;
+		this.code = code;
+		this.pin = pin;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
+		this.customerAccounts = customerAccounts;
 		this.advices = advices;
 		this.customerBlacklists = customerBlacklists;
     }
@@ -88,6 +106,17 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
     public void setCustomerType(CustomerType customerType)
     {
         this.customerType = customerType;
+    }
+		
+    @Column(name="PIN" , nullable=false, length=4)
+    public String getPin() 
+    {
+        return this.pin;
+    }
+    
+    public void setPin(String pin) 
+    {
+        this.pin = pin;
     }
 		
     @Column(name="NAME" , nullable=false, length=75)
@@ -122,6 +151,18 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
     {
         this.mobile = mobile;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
+    @JsonIgnore
+    public Set<CustomerAccount> getCustomerAccounts() 
+    {
+        return this.customerAccounts;
+    }
+    
+    public void setCustomerAccounts(Set<CustomerAccount> customerAccounts) 
+    {
+        this.customerAccounts = customerAccounts;
+    }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
     @JsonIgnore

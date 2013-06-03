@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -22,13 +19,19 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
+import com.nathanclaire.alantra.datasource.model.DataInputJobStatus;
+import com.nathanclaire.alantra.datasource.model.DataInputJobCategory;
+import com.nathanclaire.alantra.datasource.model.DataInputJobType;
 import com.nathanclaire.alantra.datasource.model.DataSource;
 import com.nathanclaire.alantra.datasource.request.DataInputJobRequest;
 import com.nathanclaire.alantra.datasource.response.DataInputJobResponse;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobStatusService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobCategoryService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobTypeService;
 import com.nathanclaire.alantra.datasource.service.entity.DataSourceService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -40,6 +43,9 @@ public class DataInputJobServiceImpl
 	extends BaseEntityServiceImpl<DataInputJob, DataInputJobResponse, DataInputJobRequest> 
 	implements DataInputJobService
 {
+	private static final String LIST_ITEM_DATAINPUTJOBSTATUS = "dataInputJobStatus";
+	private static final String LIST_ITEM_DATAINPUTJOBCATEGORY = "dataInputJobCategory";
+	private static final String LIST_ITEM_DATAINPUTJOBTYPE = "dataInputJobType";
 	private static final String LIST_ITEM_DATASOURCE = "dataSource";
 	private static final String ENTITY_NAME = "DataInputJob";
 	private static final String LIST_ACTIVITY_CODE = "LIST_DATASOURCE_DATAINPUTJOB";
@@ -49,6 +55,12 @@ public class DataInputJobServiceImpl
 	
 	@Inject
 	ApplicationEntityService  applicationEntityService;
+	@Inject
+	DataInputJobStatusService  dataInputJobStatusService;
+	@Inject
+	DataInputJobCategoryService  dataInputJobCategoryService;
+	@Inject
+	DataInputJobTypeService  dataInputJobTypeService;
 	@Inject
 	DataSourceService  dataSourceService;
 	
@@ -63,7 +75,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#findById(java.lang.Integer)
 	 */
 	@Override
-	public DataInputJob findById(Integer id) {
+	public DataInputJob findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -71,7 +83,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#findByCode(java.lang.String)
 	 */
 	@Override
-	public DataInputJob findByCode(String code) {
+	public DataInputJob findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -79,7 +91,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#findByName(java.lang.String)
 	 */
 	@Override
-	public DataInputJob findByName(String name) {
+	public DataInputJob findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -87,7 +99,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#findAll(java.util.Map)
 	 */
 	@Override
-	public List<DataInputJob> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<DataInputJob> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -95,7 +107,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#createDataInputJob(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataInputJob create(DataInputJobRequest dataInputJobRequest) {
+	public DataInputJob create(DataInputJobRequest dataInputJobRequest) throws ApplicationException {
 		return createInstance(dataInputJobRequest);
 	}
 
@@ -103,7 +115,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#deleteDataInputJob(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -111,7 +123,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataInputJob#updateDataInputJob(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataInputJob update(DataInputJobRequest dataInputJobRequest) {
+	public DataInputJob update(DataInputJobRequest dataInputJobRequest) throws ApplicationException {
 		return updateInstance(dataInputJobRequest);
 	}
 	
@@ -119,7 +131,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -127,7 +139,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -135,7 +147,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -143,7 +155,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -152,10 +164,16 @@ public class DataInputJobServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
+		List<ListItemResponse> dataInputJobStatuss = dataInputJobStatusService.asListItem();
+		List<ListItemResponse> dataInputJobCategorys = dataInputJobCategoryService.asListItem();
+		List<ListItemResponse> dataInputJobTypes = dataInputJobTypeService.asListItem();
 		List<ListItemResponse> dataSources = dataSourceService.asListItem();
     	
+		listItems.put(LIST_ITEM_DATAINPUTJOBSTATUS, dataInputJobStatuss); 
+		listItems.put(LIST_ITEM_DATAINPUTJOBCATEGORY, dataInputJobCategorys); 
+		listItems.put(LIST_ITEM_DATAINPUTJOBTYPE, dataInputJobTypes); 
 		listItems.put(LIST_ITEM_DATASOURCE, dataSources); 
 		return listItems;
 	}
@@ -164,7 +182,7 @@ public class DataInputJobServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(DataInputJob datainputjob: findAll(queryParameters))
@@ -181,12 +199,27 @@ public class DataInputJobServiceImpl
      */
 	@Override
     public DataInputJob convertRequestToModel(DataInputJobRequest dataInputJobRequest) 
-    {
+     throws ApplicationException {
 		DataInputJob dataInputJob = new DataInputJob();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(dataInputJobRequest, dataInputJob, allowedEntityFields);
     	//Process many to one relationships
+    	if (dataInputJobRequest.getDataInputJobStatusId() != null)
+    	{
+    		DataInputJobStatus dataInputJobStatus = getEntityManager().find(DataInputJobStatus.class, dataInputJobRequest.getDataInputJobStatusId());
+    		dataInputJob.setDataInputJobStatus(dataInputJobStatus);
+    	}
+    	if (dataInputJobRequest.getDataInputJobCategoryId() != null)
+    	{
+    		DataInputJobCategory dataInputJobCategory = getEntityManager().find(DataInputJobCategory.class, dataInputJobRequest.getDataInputJobCategoryId());
+    		dataInputJob.setDataInputJobCategory(dataInputJobCategory);
+    	}
+    	if (dataInputJobRequest.getDataInputJobTypeId() != null)
+    	{
+    		DataInputJobType dataInputJobType = getEntityManager().find(DataInputJobType.class, dataInputJobRequest.getDataInputJobTypeId());
+    		dataInputJob.setDataInputJobType(dataInputJobType);
+    	}
     	if (dataInputJobRequest.getDataSourceId() != null)
     	{
     		DataSource dataSource = getEntityManager().find(DataSource.class, dataInputJobRequest.getDataSourceId());
@@ -196,14 +229,24 @@ public class DataInputJobServiceImpl
 	}
 	
 	@Override
-	public DataInputJobResponse convertModelToResponse(DataInputJob model) {
+	public DataInputJobResponse convertModelToResponse(DataInputJob model) throws ApplicationException {
 		if (model == null) return null;
 		DataInputJobResponse dataInputJobResponse = new DataInputJobResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, dataInputJobResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
+		if(model.getDataInputJobStatus() != null)
+			dataInputJobResponse.setDataInputJobStatusId(model.getDataInputJobStatus().getId());
+			dataInputJobResponse.setDataInputJobStatusText(model.getDataInputJobStatus().getName());
+		if(model.getDataInputJobCategory() != null)
+			dataInputJobResponse.setDataInputJobCategoryId(model.getDataInputJobCategory().getId());
+			dataInputJobResponse.setDataInputJobCategoryText(model.getDataInputJobCategory().getName());
+		if(model.getDataInputJobType() != null)
+			dataInputJobResponse.setDataInputJobTypeId(model.getDataInputJobType().getId());
+			dataInputJobResponse.setDataInputJobTypeText(model.getDataInputJobType().getName());
 		if(model.getDataSource() != null)
 			dataInputJobResponse.setDataSourceId(model.getDataSource().getId());
+			dataInputJobResponse.setDataSourceText(model.getDataSource().getName());
 		return dataInputJobResponse;
 	}
 }

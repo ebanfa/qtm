@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -30,7 +27,7 @@ import com.nathanclaire.alantra.channel.service.entity.ServiceProtocolAdapterSer
 import com.nathanclaire.alantra.channel.service.entity.HostTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +65,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#findById(java.lang.Integer)
 	 */
 	@Override
-	public Host findById(Integer id) {
+	public Host findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +73,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#findByCode(java.lang.String)
 	 */
 	@Override
-	public Host findByCode(String code) {
+	public Host findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +81,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#findByName(java.lang.String)
 	 */
 	@Override
-	public Host findByName(String name) {
+	public Host findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +89,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#findAll(java.util.Map)
 	 */
 	@Override
-	public List<Host> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<Host> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +97,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#createHost(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Host create(HostRequest hostRequest) {
+	public Host create(HostRequest hostRequest) throws ApplicationException {
 		return createInstance(hostRequest);
 	}
 
@@ -108,7 +105,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#deleteHost(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +113,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.Host#updateHost(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Host update(HostRequest hostRequest) {
+	public Host update(HostRequest hostRequest) throws ApplicationException {
 		return updateInstance(hostRequest);
 	}
 	
@@ -124,7 +121,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +129,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +137,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +145,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -157,7 +154,7 @@ public class HostServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> serviceProtocolAdapters = serviceProtocolAdapterService.asListItem();
 		List<ListItemResponse> hostTypes = hostTypeService.asListItem();
@@ -171,7 +168,7 @@ public class HostServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(Host host: findAll(queryParameters))
@@ -188,7 +185,7 @@ public class HostServiceImpl
      */
 	@Override
     public Host convertRequestToModel(HostRequest hostRequest) 
-    {
+     throws ApplicationException {
 		Host host = new Host();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -208,7 +205,7 @@ public class HostServiceImpl
 	}
 	
 	@Override
-	public HostResponse convertModelToResponse(Host model) {
+	public HostResponse convertModelToResponse(Host model) throws ApplicationException {
 		if (model == null) return null;
 		HostResponse hostResponse = new HostResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -216,8 +213,10 @@ public class HostServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getServiceProtocolAdapter() != null)
 			hostResponse.setServiceProtocolAdapterId(model.getServiceProtocolAdapter().getId());
+			hostResponse.setServiceProtocolAdapterText(model.getServiceProtocolAdapter().getName());
 		if(model.getHostType() != null)
 			hostResponse.setHostTypeId(model.getHostType().getId());
+			hostResponse.setHostTypeText(model.getHostType().getName());
 		return hostResponse;
 	}
 }

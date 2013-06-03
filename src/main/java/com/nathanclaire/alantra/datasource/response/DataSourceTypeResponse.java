@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class DataSourceTypeResponse extends BaseResponse {
 
     private Integer dataSourceCategoryId;
+    private String dataSourceCategoryText;
 
     public DataSourceTypeResponse() {
     }
@@ -25,6 +26,14 @@ public class DataSourceTypeResponse extends BaseResponse {
     
     public void setDataSourceCategoryId(Integer dataSourceCategoryId) {
         this.dataSourceCategoryId = dataSourceCategoryId;
+    }
+
+    public String getDataSourceCategoryText() {
+        return this.dataSourceCategoryText;
+    }
+    
+    public void setDataSourceCategoryText(String dataSourceCategoryText) {
+        this.dataSourceCategoryText = dataSourceCategoryText;
     }
 
 

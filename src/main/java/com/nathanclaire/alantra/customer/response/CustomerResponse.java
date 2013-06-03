@@ -15,7 +15,10 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class CustomerResponse extends BaseResponse {
 
     private Integer customerClassificationId;
+    private String customerClassificationText;
     private Integer customerTypeId;
+    private String customerTypeText;
+    private String pin;
     private String email;
     private String mobile;
 
@@ -30,12 +33,36 @@ public class CustomerResponse extends BaseResponse {
         this.customerClassificationId = customerClassificationId;
     }
 
+    public String getCustomerClassificationText() {
+        return this.customerClassificationText;
+    }
+    
+    public void setCustomerClassificationText(String customerClassificationText) {
+        this.customerClassificationText = customerClassificationText;
+    }
+
     public Integer getCustomerTypeId() {
         return this.customerTypeId;
     }
     
     public void setCustomerTypeId(Integer customerTypeId) {
         this.customerTypeId = customerTypeId;
+    }
+
+    public String getCustomerTypeText() {
+        return this.customerTypeText;
+    }
+    
+    public void setCustomerTypeText(String customerTypeText) {
+        this.customerTypeText = customerTypeText;
+    }
+
+    public String getPin() {
+        return this.pin;
+    }
+    
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 
     public String getEmail() {

@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class AdviceTypeTagResponse extends BaseResponse {
 
     private Integer adviceTypeId;
+    private String adviceTypeText;
     private String adviceTyTagVal;
     private char isRegexFg;
 
@@ -27,6 +28,14 @@ public class AdviceTypeTagResponse extends BaseResponse {
     
     public void setAdviceTypeId(Integer adviceTypeId) {
         this.adviceTypeId = adviceTypeId;
+    }
+
+    public String getAdviceTypeText() {
+        return this.adviceTypeText;
+    }
+    
+    public void setAdviceTypeText(String adviceTypeText) {
+        this.adviceTypeText = adviceTypeText;
     }
 
     public String getAdviceTyTagVal() {

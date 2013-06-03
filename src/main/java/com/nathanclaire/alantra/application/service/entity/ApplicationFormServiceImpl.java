@@ -12,22 +12,16 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.application.model.ApplicationEntity;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationForm;
-import com.nathanclaire.alantra.application.request.ApplicationFormRequest;
-import com.nathanclaire.alantra.application.response.ApplicationFormResponse;
-
-import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-
-
 import com.nathanclaire.alantra.application.model.ApplicationFormType;
 import com.nathanclaire.alantra.application.model.ApplicationModule;
-import com.nathanclaire.alantra.application.model.ApplicationEntity;
-import com.nathanclaire.alantra.application.service.entity.ApplicationFormTypeService;
-import com.nathanclaire.alantra.application.service.entity.ApplicationModuleService;
-import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
+import com.nathanclaire.alantra.application.request.ApplicationFormRequest;
+import com.nathanclaire.alantra.application.response.ApplicationFormResponse;
+import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -66,7 +60,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationForm findById(Integer id) {
+	public ApplicationForm findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -74,7 +68,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationForm findByCode(String code) {
+	public ApplicationForm findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -82,7 +76,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationForm findByName(String name) {
+	public ApplicationForm findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -90,7 +84,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationForm> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationForm> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -98,7 +92,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#createApplicationForm(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationForm create(ApplicationFormRequest applicationFormRequest) {
+	public ApplicationForm create(ApplicationFormRequest applicationFormRequest)  throws ApplicationException {
 		return createInstance(applicationFormRequest);
 	}
 
@@ -106,7 +100,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#deleteApplicationForm(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -114,7 +108,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationForm#updateApplicationForm(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationForm update(ApplicationFormRequest applicationFormRequest) {
+	public ApplicationForm update(ApplicationFormRequest applicationFormRequest)  throws ApplicationException {
 		return updateInstance(applicationFormRequest);
 	}
 	
@@ -122,7 +116,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -130,7 +124,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -138,7 +132,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -146,7 +140,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -154,7 +148,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#relatedEntitesToListItems()
 	 */
 	@Override
-	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
+	public Map<String, List<ListItemResponse>> relatedEntitesToListItems()  throws ApplicationException 
 	{
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> applicationFormTypes = applicationFormTypeService.asListItem();
@@ -171,7 +165,7 @@ public class ApplicationFormServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationForm applicationform: findAll(queryParameters))
 		{
@@ -218,7 +212,7 @@ public class ApplicationFormServiceImpl
 	}
 	
 	@Override
-	public ApplicationFormResponse convertModelToResponse(ApplicationForm model) {
+	public ApplicationFormResponse convertModelToResponse(ApplicationForm model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationFormResponse applicationFormResponse = new ApplicationFormResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

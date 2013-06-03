@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -26,7 +23,7 @@ import com.nathanclaire.alantra.advice.request.AdviceStatusRequest;
 import com.nathanclaire.alantra.advice.response.AdviceStatusResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -58,7 +55,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#findById(java.lang.Integer)
 	 */
 	@Override
-	public AdviceStatus findById(Integer id) {
+	public AdviceStatus findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -66,7 +63,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#findByCode(java.lang.String)
 	 */
 	@Override
-	public AdviceStatus findByCode(String code) {
+	public AdviceStatus findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -74,7 +71,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#findByName(java.lang.String)
 	 */
 	@Override
-	public AdviceStatus findByName(String name) {
+	public AdviceStatus findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -82,7 +79,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#findAll(java.util.Map)
 	 */
 	@Override
-	public List<AdviceStatus> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<AdviceStatus> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -90,7 +87,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#createAdviceStatus(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceStatus create(AdviceStatusRequest adviceStatusRequest) {
+	public AdviceStatus create(AdviceStatusRequest adviceStatusRequest) throws ApplicationException {
 		return createInstance(adviceStatusRequest);
 	}
 
@@ -98,7 +95,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#deleteAdviceStatus(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -106,7 +103,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.advice.service.AdviceStatus#updateAdviceStatus(com.nathanclaire.alantra.advice.rest.request.ServiceRequest)
 	 */
 	@Override
-	public AdviceStatus update(AdviceStatusRequest adviceStatusRequest) {
+	public AdviceStatus update(AdviceStatusRequest adviceStatusRequest) throws ApplicationException {
 		return updateInstance(adviceStatusRequest);
 	}
 	
@@ -114,7 +111,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -122,7 +119,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -130,7 +127,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -138,7 +135,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -147,7 +144,7 @@ public class AdviceStatusServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
     	
 		return listItems;
@@ -157,7 +154,7 @@ public class AdviceStatusServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(AdviceStatus advicestatus: findAll(queryParameters))
@@ -174,7 +171,7 @@ public class AdviceStatusServiceImpl
      */
 	@Override
     public AdviceStatus convertRequestToModel(AdviceStatusRequest adviceStatusRequest) 
-    {
+     throws ApplicationException {
 		AdviceStatus adviceStatus = new AdviceStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -184,7 +181,7 @@ public class AdviceStatusServiceImpl
 	}
 	
 	@Override
-	public AdviceStatusResponse convertModelToResponse(AdviceStatus model) {
+	public AdviceStatusResponse convertModelToResponse(AdviceStatus model) throws ApplicationException {
 		if (model == null) return null;
 		AdviceStatusResponse adviceStatusResponse = new AdviceStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

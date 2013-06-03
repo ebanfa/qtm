@@ -14,14 +14,38 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
  */
 public class ServiceTransactionResponse extends BaseResponse {
 
+    private Integer currencyId;
+    private String currencyText;
     private Integer serviceId;
+    private String serviceText;
+    private Integer serviceTransactionStatusId;
+    private String serviceTransactionStatusText;
     private Integer serviceTransactionTypeId;
+    private String serviceTransactionTypeText;
     private BigDecimal amount;
     private Date txnDate;
     private String accountNo;
+    private String chequeNo;
+    private String cardNo;
     private String accountNm;
 
     public ServiceTransactionResponse() {
+    }
+
+    public Integer getCurrencyId() {
+        return this.currencyId;
+    }
+    
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
+    }
+
+    public String getCurrencyText() {
+        return this.currencyText;
+    }
+    
+    public void setCurrencyText(String currencyText) {
+        this.currencyText = currencyText;
     }
 
     public Integer getServiceId() {
@@ -32,12 +56,44 @@ public class ServiceTransactionResponse extends BaseResponse {
         this.serviceId = serviceId;
     }
 
+    public String getServiceText() {
+        return this.serviceText;
+    }
+    
+    public void setServiceText(String serviceText) {
+        this.serviceText = serviceText;
+    }
+
+    public Integer getServiceTransactionStatusId() {
+        return this.serviceTransactionStatusId;
+    }
+    
+    public void setServiceTransactionStatusId(Integer serviceTransactionStatusId) {
+        this.serviceTransactionStatusId = serviceTransactionStatusId;
+    }
+
+    public String getServiceTransactionStatusText() {
+        return this.serviceTransactionStatusText;
+    }
+    
+    public void setServiceTransactionStatusText(String serviceTransactionStatusText) {
+        this.serviceTransactionStatusText = serviceTransactionStatusText;
+    }
+
     public Integer getServiceTransactionTypeId() {
         return this.serviceTransactionTypeId;
     }
     
     public void setServiceTransactionTypeId(Integer serviceTransactionTypeId) {
         this.serviceTransactionTypeId = serviceTransactionTypeId;
+    }
+
+    public String getServiceTransactionTypeText() {
+        return this.serviceTransactionTypeText;
+    }
+    
+    public void setServiceTransactionTypeText(String serviceTransactionTypeText) {
+        this.serviceTransactionTypeText = serviceTransactionTypeText;
     }
 
     public BigDecimal getAmount() {
@@ -62,6 +118,22 @@ public class ServiceTransactionResponse extends BaseResponse {
     
     public void setAccountNo(String accountNo) {
         this.accountNo = accountNo;
+    }
+
+    public String getChequeNo() {
+        return this.chequeNo;
+    }
+    
+    public void setChequeNo(String chequeNo) {
+        this.chequeNo = chequeNo;
+    }
+
+    public String getCardNo() {
+        return this.cardNo;
+    }
+    
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
     }
 
     public String getAccountNm() {

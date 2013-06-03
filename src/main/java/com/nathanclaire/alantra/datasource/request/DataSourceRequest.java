@@ -14,10 +14,10 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataSourceRequest extends BaseRequest {
 
-    private Integer id;
     private Integer dataSourceStructureId;
+    private String dataSourceStructureText;
     private Integer dataSourceTypeId;
-    private String code;
+    private String dataSourceTypeText;
     private String name;
     private String description;
     private String dsUrl;
@@ -25,16 +25,10 @@ public class DataSourceRequest extends BaseRequest {
     private String dsTblNm;
     private String usrNm;
     private String password;
+    private Integer id;
+    private String code;
 
     public DataSourceRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getDataSourceStructureId() {
@@ -45,6 +39,14 @@ public class DataSourceRequest extends BaseRequest {
         this.dataSourceStructureId = dataSourceStructureId;
     }
 
+    public String getDataSourceStructureText() {
+        return this.dataSourceStructureText;
+    }
+    
+    public void setDataSourceStructureText(String dataSourceStructureText) {
+        this.dataSourceStructureText = dataSourceStructureText;
+    }
+
     public Integer getDataSourceTypeId() {
         return this.dataSourceTypeId;
     }
@@ -53,12 +55,12 @@ public class DataSourceRequest extends BaseRequest {
         this.dataSourceTypeId = dataSourceTypeId;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getDataSourceTypeText() {
+        return this.dataSourceTypeText;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setDataSourceTypeText(String dataSourceTypeText) {
+        this.dataSourceTypeText = dataSourceTypeText;
     }
 
     public String getName() {
@@ -115,6 +117,22 @@ public class DataSourceRequest extends BaseRequest {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

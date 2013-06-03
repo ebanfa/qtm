@@ -10,6 +10,7 @@ import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.request.ApplicationEntityRequest;
 import com.nathanclaire.alantra.application.response.ApplicationEntityResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author Edward Banfa 
@@ -17,5 +18,5 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
  */
 public interface ApplicationEntityService extends BaseEntityService<ApplicationEntity, ApplicationEntityResponse, ApplicationEntityRequest> {
 
-	public List<ApplicationEntityField> getFieldsForEntity(String entityName);
+	public List<ApplicationEntityField> getFieldsForEntity(String entityName) throws ApplicationException;
 }

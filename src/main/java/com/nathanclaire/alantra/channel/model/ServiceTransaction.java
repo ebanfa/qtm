@@ -3,14 +3,18 @@
  */
 package com.nathanclaire.alantra.channel.model;
 
+
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,9 +25,11 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.nathanclaire.alantra.advice.model.AdvicedTransaction;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.util.DateDeserializer;
 import com.nathanclaire.alantra.base.util.DateSerializer;
+import com.nathanclaire.alantra.businessdata.model.Currency;
 
 /**
  * ServiceTransaction 
@@ -38,20 +44,26 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServiceTransaction  extends BaseEntity implements java.io.Serializable {
 
+    private Currency currency;
 	private Service service;
+	private ServiceTransactionStatus serviceTransactionStatus;
 	private ServiceTransactionType serviceTransactionType;
     private String name;
     private BigDecimal amount;
     private Date txnDate;
     private String accountNo;
+    private String chequeNo;
+    private String cardNo;
     private String accountNm;
     private String description;
+	private Set<AdvicedTransaction> advicedTransactions = new HashSet<AdvicedTransaction>(0);
 
     public ServiceTransaction() {
     }
 
-    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public ServiceTransaction(Currency currency, Service service, ServiceTransactionStatus serviceTransactionStatus, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.currency = currency;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
@@ -62,16 +74,21 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransaction(Service service, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String accountNm, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public ServiceTransaction(Currency currency, Service service, ServiceTransactionStatus serviceTransactionStatus, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String chequeNo, String cardNo, String accountNm, String description, Set<AdvicedTransaction> advicedTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
+		this.currency = currency;
 		this.service = service;
+		this.serviceTransactionStatus = serviceTransactionStatus;
 		this.serviceTransactionType = serviceTransactionType;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
 		this.accountNo = accountNo;
+		this.chequeNo = chequeNo;
+		this.cardNo = cardNo;
 		this.accountNm = accountNm;
 		this.description = description;
+		this.advicedTransactions = advicedTransactions;
 		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -81,6 +98,18 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
 		this.lastModifiedUsr = lastModifiedUsr;
     }
     
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CURRENCY_ID", nullable=false)
+    @JsonIgnore
+    public Currency getCurrency() 
+    {
+        return this.currency;
+    }
+    
+    public void setCurrency(Currency currency) 
+    {
+        this.currency = currency;
+    }
     		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="SERVICE_ID", nullable=false)
@@ -93,6 +122,19 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     public void setService(Service service)
     {
         this.service = service;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="TXN_STATUS_ID", nullable=false)
+    @JsonIgnore
+    public ServiceTransactionStatus getServiceTransactionStatus() 
+    {
+        return this.serviceTransactionStatus;
+    }
+    
+    public void setServiceTransactionStatus(ServiceTransactionStatus serviceTransactionStatus)
+    {
+        this.serviceTransactionStatus = serviceTransactionStatus;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -154,6 +196,28 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
         this.accountNo = accountNo;
     }
 		
+    @Column(name="CHEQUE_NO" , unique=true, length=15)
+    public String getChequeNo() 
+    {
+        return this.chequeNo;
+    }
+    
+    public void setChequeNo(String chequeNo) 
+    {
+        this.chequeNo = chequeNo;
+    }
+		
+    @Column(name="CARD_NO" , unique=true, length=15)
+    public String getCardNo() 
+    {
+        return this.cardNo;
+    }
+    
+    public void setCardNo(String cardNo) 
+    {
+        this.cardNo = cardNo;
+    }
+		
     @Column(name="ACCOUNT_NM" , unique=true, length=75)
     public String getAccountNm() 
     {
@@ -175,6 +239,18 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     {
         this.description = description;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceTransaction")
+    @JsonIgnore
+    public Set<AdvicedTransaction> getAdvicedTransactions() 
+    {
+        return this.advicedTransactions;
+    }
+    
+    public void setAdvicedTransactions(Set<AdvicedTransaction> advicedTransactions) 
+    {
+        this.advicedTransactions = advicedTransactions;
+    }			
 
 
 }

@@ -3,11 +3,16 @@
  */
 package com.nathanclaire.alantra.messaging.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -31,34 +36,63 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Message  extends BaseEntity implements java.io.Serializable {
 
+	private MessageClassification messageClassification;
 	private MessageType messageType;
-    private Advice advice;
 	private MessageStatus messageStatus;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
+	private Set<MessageAttachements> messageAttachementses = new HashSet<MessageAttachements>(0);
+	private Set<Advice> advices = new HashSet<Advice>(0);
 
     public Message() {
     }
 
-    public Message(MessageType messageType, MessageStatus messageStatus, String messageFrom, String messageTo, String messageTxt) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
 		this.messageTxt = messageTxt;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public Message(MessageType messageType, Advice advice, MessageStatus messageStatus, String messageFrom, String messageTo, String messageSubject, String messageTxt) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageAttachements> messageAttachementses, Set<Advice> advices ) 
     {
+		this.messageClassification = messageClassification;
 		this.messageType = messageType;
-		this.advice = advice;
 		this.messageStatus = messageStatus;
+		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
 		this.messageSubject = messageSubject;
 		this.messageTxt = messageTxt;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
+		this.messageAttachementses = messageAttachementses;
+		this.advices = advices;
     }
     
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MSG_CLASS_ID", nullable=false)
+    @JsonIgnore
+    public MessageClassification getMessageClassification() 
+    {
+        return this.messageClassification;
+    }
+    
+    public void setMessageClassification(MessageClassification messageClassification)
+    {
+        this.messageClassification = messageClassification;
+    }
     		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="MSG_TY_ID", nullable=false)
@@ -71,17 +105,6 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageType(MessageType messageType)
     {
         this.messageType = messageType;
-    }
-		
-    @Column(name="ADVICE_ID" , unique=true)
-    public Advice getAdvice() 
-    {
-        return this.advice;
-    }
-    
-    public void setAdvice(Advice advice) 
-    {
-        this.advice = advice;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -140,6 +163,30 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     {
         this.messageTxt = messageTxt;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
+    @JsonIgnore
+    public Set<MessageAttachements> getMessageAttachementses() 
+    {
+        return this.messageAttachementses;
+    }
+    
+    public void setMessageAttachementses(Set<MessageAttachements> messageAttachementses) 
+    {
+        this.messageAttachementses = messageAttachementses;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
+    @JsonIgnore
+    public Set<Advice> getAdvices() 
+    {
+        return this.advices;
+    }
+    
+    public void setAdvices(Set<Advice> advices) 
+    {
+        this.advices = advices;
+    }			
 
 
 }

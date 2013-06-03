@@ -38,6 +38,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFiel
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationModuleService;
 import com.nathanclaire.alantra.base.model.TempRelatedActivity;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityNames;
 import com.nathanclaire.alantra.base.util.FieldNames;
 
@@ -89,13 +90,18 @@ public class IDERestService
 	public void process(@Context UriInfo uriInfo)
 	{
     	logger.debug("Staring build process");
-    	this.init(uriInfo.getQueryParameters());
+    	try {
+			this.init(uriInfo.getQueryParameters());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.processModules();
     	processRelationships();
     	logger.debug("Finished build process");
 	}
     
-    private void init(MultivaluedMap<String, String> queryParameters)
+    private void init(MultivaluedMap<String, String> queryParameters)  throws ApplicationException 
     {
 		modules = applicationModuleService.findAll(queryParameters);
 		entities = applicationEntityService.findAll(queryParameters);

@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 {
 	@Inject
 	MessageStatusService messageStatusService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(MessageStatusRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.messaging.response.MessageStatusResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<MessageStatusResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<MessageStatusResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<MessageStatusResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the MessageStatus entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = messageStatusService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 	@Override
 	protected EditActivityResponse<MessageStatusResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<MessageStatusResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the MessageStatus entity
 		List<ApplicationEntityField> entityFields = messageStatusService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return messageStatusService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 	 */
 	@Override
 	protected EditActivityResponse<MessageStatusResponse> saveEntityInstance(
-			MessageStatusRequest entityInstance) {
-		messageStatusService.create(entityInstance);
-		return null;
+			MessageStatusRequest entityInstance) throws ApplicationException {
+		MessageStatus messageStatus = messageStatusService.create(entityInstance);
+		return this.getEditActivityResponse(messageStatus.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 	 */
 	@Override
 	protected EditActivityResponse<MessageStatusResponse> saveEditedEntityInstance(
-			MessageStatusRequest entityInstance) {
-		messageStatusService.update(entityInstance);
-		return null;
+			MessageStatusRequest entityInstance) throws ApplicationException {
+		MessageStatus messageStatus = messageStatusService.update(entityInstance);
+		return this.getEditActivityResponse(messageStatus.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<MessageStatusResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 messageStatusService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return messageStatusService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class MessageStatusRESTService extends BaseActivityRESTService<MessageSta
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return messageStatusService.getEditActivityCode();
 	}
 

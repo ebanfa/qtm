@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
 public class AdviceTypeTagRequest extends BaseRequest {
 
     private Integer adviceTypeId;
+    private String adviceTypeText;
     private String name;
     private String description;
     private String adviceTyTagVal;
@@ -31,6 +32,14 @@ public class AdviceTypeTagRequest extends BaseRequest {
     
     public void setAdviceTypeId(Integer adviceTypeId) {
         this.adviceTypeId = adviceTypeId;
+    }
+
+    public String getAdviceTypeText() {
+        return this.adviceTypeText;
+    }
+    
+    public void setAdviceTypeText(String adviceTypeText) {
+        this.adviceTypeText = adviceTypeText;
     }
 
     public String getName() {

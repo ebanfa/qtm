@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 {
 	@Inject
 	ServiceService serviceService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.channel.response.ServiceResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<ServiceResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<ServiceResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<ServiceResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the Service entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = serviceService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 	@Override
 	protected EditActivityResponse<ServiceResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<ServiceResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the Service entity
 		List<ApplicationEntityField> entityFields = serviceService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return serviceService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 	 */
 	@Override
 	protected EditActivityResponse<ServiceResponse> saveEntityInstance(
-			ServiceRequest entityInstance) {
-		serviceService.create(entityInstance);
-		return null;
+			ServiceRequest entityInstance) throws ApplicationException {
+		Service service = serviceService.create(entityInstance);
+		return this.getEditActivityResponse(service.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 	 */
 	@Override
 	protected EditActivityResponse<ServiceResponse> saveEditedEntityInstance(
-			ServiceRequest entityInstance) {
-		serviceService.update(entityInstance);
-		return null;
+			ServiceRequest entityInstance) throws ApplicationException {
+		Service service = serviceService.update(entityInstance);
+		return this.getEditActivityResponse(service.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<ServiceResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 serviceService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return serviceService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class ServiceRESTService extends BaseActivityRESTService<ServiceResponse,
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return serviceService.getEditActivityCode();
 	}
 

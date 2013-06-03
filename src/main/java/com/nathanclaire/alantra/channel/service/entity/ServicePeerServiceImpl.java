@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -30,7 +27,7 @@ import com.nathanclaire.alantra.channel.service.entity.ServiceService;
 import com.nathanclaire.alantra.channel.service.entity.HostService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +65,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#findById(java.lang.Integer)
 	 */
 	@Override
-	public ServicePeer findById(Integer id) {
+	public ServicePeer findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +73,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#findByCode(java.lang.String)
 	 */
 	@Override
-	public ServicePeer findByCode(String code) {
+	public ServicePeer findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +81,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#findByName(java.lang.String)
 	 */
 	@Override
-	public ServicePeer findByName(String name) {
+	public ServicePeer findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +89,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ServicePeer> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ServicePeer> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +97,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#createServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer create(ServicePeerRequest servicePeerRequest) {
+	public ServicePeer create(ServicePeerRequest servicePeerRequest) throws ApplicationException {
 		return createInstance(servicePeerRequest);
 	}
 
@@ -108,7 +105,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#deleteServicePeer(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +113,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.channel.service.ServicePeer#updateServicePeer(com.nathanclaire.alantra.channel.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ServicePeer update(ServicePeerRequest servicePeerRequest) {
+	public ServicePeer update(ServicePeerRequest servicePeerRequest) throws ApplicationException {
 		return updateInstance(servicePeerRequest);
 	}
 	
@@ -124,7 +121,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +129,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +137,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +145,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -157,7 +154,7 @@ public class ServicePeerServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> services = serviceService.asListItem();
 		List<ListItemResponse> hosts = hostService.asListItem();
@@ -171,7 +168,7 @@ public class ServicePeerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(ServicePeer servicepeer: findAll(queryParameters))
@@ -188,7 +185,7 @@ public class ServicePeerServiceImpl
      */
 	@Override
     public ServicePeer convertRequestToModel(ServicePeerRequest servicePeerRequest) 
-    {
+     throws ApplicationException {
 		ServicePeer servicePeer = new ServicePeer();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -208,7 +205,7 @@ public class ServicePeerServiceImpl
 	}
 	
 	@Override
-	public ServicePeerResponse convertModelToResponse(ServicePeer model) {
+	public ServicePeerResponse convertModelToResponse(ServicePeer model) throws ApplicationException {
 		if (model == null) return null;
 		ServicePeerResponse servicePeerResponse = new ServicePeerResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -216,8 +213,10 @@ public class ServicePeerServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getService() != null)
 			servicePeerResponse.setServiceId(model.getService().getId());
+			servicePeerResponse.setServiceText(model.getService().getName());
 		if(model.getHost() != null)
 			servicePeerResponse.setHostId(model.getHost().getId());
+			servicePeerResponse.setHostText(model.getHost().getName());
 		return servicePeerResponse;
 	}
 }

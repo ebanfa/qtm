@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 {
 	@Inject
 	HostService hostService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(HostRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.channel.response.HostResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<HostResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<HostResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<HostResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the Host entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = hostService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 	@Override
 	protected EditActivityResponse<HostResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<HostResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the Host entity
 		List<ApplicationEntityField> entityFields = hostService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return hostService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 	 */
 	@Override
 	protected EditActivityResponse<HostResponse> saveEntityInstance(
-			HostRequest entityInstance) {
-		hostService.create(entityInstance);
-		return null;
+			HostRequest entityInstance) throws ApplicationException {
+		Host host = hostService.create(entityInstance);
+		return this.getEditActivityResponse(host.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 	 */
 	@Override
 	protected EditActivityResponse<HostResponse> saveEditedEntityInstance(
-			HostRequest entityInstance) {
-		hostService.update(entityInstance);
-		return null;
+			HostRequest entityInstance) throws ApplicationException {
+		Host host = hostService.update(entityInstance);
+		return this.getEditActivityResponse(host.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<HostResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 hostService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return hostService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class HostRESTService extends BaseActivityRESTService<HostResponse, HostR
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return hostService.getEditActivityCode();
 	}
 

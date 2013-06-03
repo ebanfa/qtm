@@ -14,21 +14,14 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataSourceTypeRequest extends BaseRequest {
 
-    private Integer id;
     private Integer dataSourceCategoryId;
-    private String code;
+    private String dataSourceCategoryText;
     private String name;
     private String description;
+    private Integer id;
+    private String code;
 
     public DataSourceTypeRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getDataSourceCategoryId() {
@@ -39,12 +32,12 @@ public class DataSourceTypeRequest extends BaseRequest {
         this.dataSourceCategoryId = dataSourceCategoryId;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getDataSourceCategoryText() {
+        return this.dataSourceCategoryText;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setDataSourceCategoryText(String dataSourceCategoryText) {
+        this.dataSourceCategoryText = dataSourceCategoryText;
     }
 
     public String getName() {
@@ -61,6 +54,22 @@ public class DataSourceTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

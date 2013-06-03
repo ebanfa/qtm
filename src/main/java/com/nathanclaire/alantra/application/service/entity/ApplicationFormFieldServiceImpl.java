@@ -12,22 +12,15 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+import com.nathanclaire.alantra.application.model.ApplicationForm;
 import com.nathanclaire.alantra.application.model.ApplicationFormField;
+import com.nathanclaire.alantra.application.model.ApplicationFormFieldType;
 import com.nathanclaire.alantra.application.request.ApplicationFormFieldRequest;
 import com.nathanclaire.alantra.application.response.ApplicationFormFieldResponse;
-
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-
-
-import com.nathanclaire.alantra.application.model.ApplicationFormFieldType;
-import com.nathanclaire.alantra.application.model.ApplicationForm;
-import com.nathanclaire.alantra.application.model.ApplicationEntityField;
-import com.nathanclaire.alantra.application.service.entity.ApplicationFormFieldTypeService;
-import com.nathanclaire.alantra.application.service.entity.ApplicationFormService;
-import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +61,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationFormField findById(Integer id) {
+	public ApplicationFormField findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +69,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationFormField findByCode(String code) {
+	public ApplicationFormField findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +77,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationFormField findByName(String name) {
+	public ApplicationFormField findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +85,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationFormField> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationFormField> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +93,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#createApplicationFormField(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationFormField create(ApplicationFormFieldRequest applicationFormFieldRequest) {
+	public ApplicationFormField create(ApplicationFormFieldRequest applicationFormFieldRequest)  throws ApplicationException {
 		return createInstance(applicationFormFieldRequest);
 	}
 
@@ -108,7 +101,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#deleteApplicationFormField(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +109,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationFormField#updateApplicationFormField(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationFormField update(ApplicationFormFieldRequest applicationFormFieldRequest) {
+	public ApplicationFormField update(ApplicationFormFieldRequest applicationFormFieldRequest)  throws ApplicationException {
 		return updateInstance(applicationFormFieldRequest);
 	}
 	
@@ -124,7 +117,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +125,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +133,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +141,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -156,7 +149,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#relatedEntitesToListItems()
 	 */
 	@Override
-	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
+	public Map<String, List<ListItemResponse>> relatedEntitesToListItems()  throws ApplicationException 
 	{
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> applicationFormFieldTypes = applicationFormFieldTypeService.asListItem();
@@ -173,7 +166,7 @@ public class ApplicationFormFieldServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationFormField applicationformfield: findAll(queryParameters))
 		{
@@ -223,7 +216,7 @@ public class ApplicationFormFieldServiceImpl
 	}
 	
 	@Override
-	public ApplicationFormFieldResponse convertModelToResponse(ApplicationFormField model) {
+	public ApplicationFormFieldResponse convertModelToResponse(ApplicationFormField model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationFormFieldResponse applicationFormFieldResponse = new ApplicationFormFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

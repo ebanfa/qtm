@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -30,7 +27,7 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerClassificationSe
 import com.nathanclaire.alantra.customer.service.entity.CustomerTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +65,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#findById(java.lang.Integer)
 	 */
 	@Override
-	public Customer findById(Integer id) {
+	public Customer findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +73,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#findByCode(java.lang.String)
 	 */
 	@Override
-	public Customer findByCode(String code) {
+	public Customer findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +81,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#findByName(java.lang.String)
 	 */
 	@Override
-	public Customer findByName(String name) {
+	public Customer findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +89,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#findAll(java.util.Map)
 	 */
 	@Override
-	public List<Customer> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<Customer> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +97,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#createCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer create(CustomerRequest customerRequest) {
+	public Customer create(CustomerRequest customerRequest) throws ApplicationException {
 		return createInstance(customerRequest);
 	}
 
@@ -108,7 +105,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#deleteCustomer(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +113,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.Customer#updateCustomer(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public Customer update(CustomerRequest customerRequest) {
+	public Customer update(CustomerRequest customerRequest) throws ApplicationException {
 		return updateInstance(customerRequest);
 	}
 	
@@ -124,7 +121,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +129,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +137,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +145,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -157,7 +154,7 @@ public class CustomerServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> customerClassifications = customerClassificationService.asListItem();
 		List<ListItemResponse> customerTypes = customerTypeService.asListItem();
@@ -171,7 +168,7 @@ public class CustomerServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(Customer customer: findAll(queryParameters))
@@ -188,7 +185,7 @@ public class CustomerServiceImpl
      */
 	@Override
     public Customer convertRequestToModel(CustomerRequest customerRequest) 
-    {
+     throws ApplicationException {
 		Customer customer = new Customer();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -208,7 +205,7 @@ public class CustomerServiceImpl
 	}
 	
 	@Override
-	public CustomerResponse convertModelToResponse(Customer model) {
+	public CustomerResponse convertModelToResponse(Customer model) throws ApplicationException {
 		if (model == null) return null;
 		CustomerResponse customerResponse = new CustomerResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -216,8 +213,10 @@ public class CustomerServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomerClassification() != null)
 			customerResponse.setCustomerClassificationId(model.getCustomerClassification().getId());
+			customerResponse.setCustomerClassificationText(model.getCustomerClassification().getName());
 		if(model.getCustomerType() != null)
 			customerResponse.setCustomerTypeId(model.getCustomerType().getId());
+			customerResponse.setCustomerTypeText(model.getCustomerType().getName());
 		return customerResponse;
 	}
 }

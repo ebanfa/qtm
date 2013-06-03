@@ -24,8 +24,9 @@ import com.nathanclaire.alantra.application.request.ApplicationEntityRequest;
 import com.nathanclaire.alantra.application.response.ApplicationEntityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.Messages;
+import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
  * @author Edward Banfa
@@ -51,7 +52,7 @@ public class ApplicationEntityServiceImpl
 	/**
 	 * @param entityClass
 	 */
-	public ApplicationEntityServiceImpl() {
+	public ApplicationEntityServiceImpl(){
 		super(ApplicationEntity.class);
 	}
 
@@ -59,7 +60,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationEntity findById(Integer id) {
+	public ApplicationEntity findById(Integer id)  throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -67,7 +68,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationEntity findByCode(String code) {
+	public ApplicationEntity findByCode(String code)  throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -75,7 +76,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationEntity findByName(String name) {
+	public ApplicationEntity findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -83,7 +84,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationEntity> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationEntity> findAll(MultivaluedMap<String, String> queryParameters)  throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -91,7 +92,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#createApplicationEntity(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationEntity create(ApplicationEntityRequest applicationEntityRequest) {
+	public ApplicationEntity create(ApplicationEntityRequest applicationEntityRequest)  throws ApplicationException {
 		return createInstance(applicationEntityRequest);
 	}
 
@@ -99,7 +100,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#deleteApplicationEntity(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id)  throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -107,7 +108,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationEntity#updateApplicationEntity(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationEntity update(ApplicationEntityRequest applicationEntityRequest) {
+	public ApplicationEntity update(ApplicationEntityRequest applicationEntityRequest)  throws ApplicationException {
 		return updateInstance(applicationEntityRequest);
 	}
 	
@@ -115,7 +116,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -123,7 +124,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -131,7 +132,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -139,7 +140,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException {
 		return this.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -161,7 +162,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		List<ApplicationEntity> entities = findAll(queryParameters);
@@ -177,7 +178,7 @@ public class ApplicationEntityServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.entity.ApplicationEntityService#getEntityFields(java.lang.String)
 	 */
 	@Override
-	public List<ApplicationEntityField> getFieldsForEntity(String entityName) {
+	public List<ApplicationEntityField> getFieldsForEntity(String entityName)  throws ApplicationException {
 		//logger.debug("Loading fields for entity {}", entityName);
 		ApplicationEntity applicationEntity = this.findByName(entityName);
 		List<ApplicationEntityField> fieldResponses = new ArrayList<ApplicationEntityField>();
@@ -208,7 +209,7 @@ public class ApplicationEntityServiceImpl
             Root<ApplicationEntity> root) {
 
         List<Predicate> predicates = new ArrayList<Predicate>();
-        if (queryParameters.containsKey(NAME_CRITERIA)) {
+        if (queryParameters.containsKey(NAME_CRITERIA))  {
             String name = queryParameters.getFirst(NAME_CRITERIA);
             predicates.add(criteriaBuilder.equal(root.get(NAME_CRITERIA), name));
         }
@@ -242,7 +243,7 @@ public class ApplicationEntityServiceImpl
 	}
 	
 	@Override
-	public ApplicationEntityResponse convertModelToResponse(ApplicationEntity model) {
+	public ApplicationEntityResponse convertModelToResponse(ApplicationEntity model)  throws ApplicationException {
 		if (model == null) return null;
 		ApplicationEntityResponse applicationEntityResponse = new ApplicationEntityResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

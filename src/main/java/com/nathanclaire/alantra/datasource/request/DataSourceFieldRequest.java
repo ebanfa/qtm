@@ -14,23 +14,17 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataSourceFieldRequest extends BaseRequest {
 
-    private Integer id;
     private Integer dataSourceStructureId;
+    private String dataSourceStructureText;
     private Integer dataSourceFieldTypeId;
-    private String code;
+    private String dataSourceFieldTypeText;
     private String name;
     private String description;
     private String dsFieldTarget;
+    private Integer id;
+    private String code;
 
     public DataSourceFieldRequest() {
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getDataSourceStructureId() {
@@ -41,6 +35,14 @@ public class DataSourceFieldRequest extends BaseRequest {
         this.dataSourceStructureId = dataSourceStructureId;
     }
 
+    public String getDataSourceStructureText() {
+        return this.dataSourceStructureText;
+    }
+    
+    public void setDataSourceStructureText(String dataSourceStructureText) {
+        this.dataSourceStructureText = dataSourceStructureText;
+    }
+
     public Integer getDataSourceFieldTypeId() {
         return this.dataSourceFieldTypeId;
     }
@@ -49,12 +51,12 @@ public class DataSourceFieldRequest extends BaseRequest {
         this.dataSourceFieldTypeId = dataSourceFieldTypeId;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getDataSourceFieldTypeText() {
+        return this.dataSourceFieldTypeText;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setDataSourceFieldTypeText(String dataSourceFieldTypeText) {
+        this.dataSourceFieldTypeText = dataSourceFieldTypeText;
     }
 
     public String getName() {
@@ -79,6 +81,22 @@ public class DataSourceFieldRequest extends BaseRequest {
     
     public void setDsFieldTarget(String dsFieldTarget) {
         this.dsFieldTarget = dsFieldTarget;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
 public class CustomerBlacklistRequest extends BaseRequest {
 
     private Integer customerId;
+    private String customerText;
     private String description;
     private Integer id;
     private String code;
@@ -28,6 +29,14 @@ public class CustomerBlacklistRequest extends BaseRequest {
     
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerText() {
+        return this.customerText;
+    }
+    
+    public void setCustomerText(String customerText) {
+        this.customerText = customerText;
     }
 
     public String getDescription() {

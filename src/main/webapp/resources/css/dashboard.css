@@ -53,6 +53,17 @@
 .shortcuts .shortcut:hover {
 	background: #E8E8E8;
 }
+.shortcuts-empty {width: 22.50%;
+	display: inline-block;
+	padding: 12px 0;
+	margin: 0 .9% 1em;
+	vertical-align: top;	
+	
+	text-decoration: none;
+	
+	border-radius: 5px;
+	background: #FFFFFF;
+}
 
 .shortcuts .shortcut:hover .shortcut-icon {
 	color: #666;
@@ -193,7 +204,7 @@
 }
 
 .action-table .td-actions { 
-	width: 80px; 
+	width: 100px; 
 	
 	text-align: center; 
 }

@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 {
 	@Inject
 	CustomerBlacklistService customerBlacklistService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(CustomerBlacklistRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.customer.response.CustomerBlacklistResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<CustomerBlacklistResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<CustomerBlacklistResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<CustomerBlacklistResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the CustomerBlacklist entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = customerBlacklistService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 	@Override
 	protected EditActivityResponse<CustomerBlacklistResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<CustomerBlacklistResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the CustomerBlacklist entity
 		List<ApplicationEntityField> entityFields = customerBlacklistService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return customerBlacklistService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 	 */
 	@Override
 	protected EditActivityResponse<CustomerBlacklistResponse> saveEntityInstance(
-			CustomerBlacklistRequest entityInstance) {
-		customerBlacklistService.create(entityInstance);
-		return null;
+			CustomerBlacklistRequest entityInstance) throws ApplicationException {
+		CustomerBlacklist customerBlacklist = customerBlacklistService.create(entityInstance);
+		return this.getEditActivityResponse(customerBlacklist.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 	 */
 	@Override
 	protected EditActivityResponse<CustomerBlacklistResponse> saveEditedEntityInstance(
-			CustomerBlacklistRequest entityInstance) {
-		customerBlacklistService.update(entityInstance);
-		return null;
+			CustomerBlacklistRequest entityInstance) throws ApplicationException {
+		CustomerBlacklist customerBlacklist = customerBlacklistService.update(entityInstance);
+		return this.getEditActivityResponse(customerBlacklist.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<CustomerBlacklistResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 customerBlacklistService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return customerBlacklistService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class CustomerBlacklistRESTService extends BaseActivityRESTService<Custom
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return customerBlacklistService.getEditActivityCode();
 	}
 

@@ -14,15 +14,34 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
  */
 public class MessageResponse extends BaseResponse {
 
+    private Integer messageClassificationId;
+    private String messageClassificationText;
     private Integer messageTypeId;
-    private Integer adviceId;
+    private String messageTypeText;
     private Integer messageStatusId;
+    private String messageStatusText;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
 
     public MessageResponse() {
+    }
+
+    public Integer getMessageClassificationId() {
+        return this.messageClassificationId;
+    }
+    
+    public void setMessageClassificationId(Integer messageClassificationId) {
+        this.messageClassificationId = messageClassificationId;
+    }
+
+    public String getMessageClassificationText() {
+        return this.messageClassificationText;
+    }
+    
+    public void setMessageClassificationText(String messageClassificationText) {
+        this.messageClassificationText = messageClassificationText;
     }
 
     public Integer getMessageTypeId() {
@@ -33,12 +52,12 @@ public class MessageResponse extends BaseResponse {
         this.messageTypeId = messageTypeId;
     }
 
-    public Integer getAdviceId() {
-        return this.adviceId;
+    public String getMessageTypeText() {
+        return this.messageTypeText;
     }
     
-    public void setAdviceId(Integer adviceId) {
-        this.adviceId = adviceId;
+    public void setMessageTypeText(String messageTypeText) {
+        this.messageTypeText = messageTypeText;
     }
 
     public Integer getMessageStatusId() {
@@ -47,6 +66,14 @@ public class MessageResponse extends BaseResponse {
     
     public void setMessageStatusId(Integer messageStatusId) {
         this.messageStatusId = messageStatusId;
+    }
+
+    public String getMessageStatusText() {
+        return this.messageStatusText;
+    }
+    
+    public void setMessageStatusText(String messageStatusText) {
+        this.messageStatusText = messageStatusText;
     }
 
     public String getMessageFrom() {

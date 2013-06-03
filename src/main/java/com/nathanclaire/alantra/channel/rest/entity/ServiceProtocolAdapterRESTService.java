@@ -27,6 +27,7 @@ import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.rest.BaseActivityRESTService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author administrator
@@ -38,22 +39,22 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 {
 	@Inject
 	ServiceProtocolAdapterService serviceProtocolAdapterService;
+	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceProtocolAdapterRESTService.class);
-
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.channel.response.ServiceProtocolAdapterResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<ServiceProtocolAdapterResponse> populateListActivityResponse(
-			ApplicationActivityResponse activity,
-			ListActivityResponse<ServiceProtocolAdapterResponse> response,
-			MultivaluedMap<String, String> queryParameters) 
+			ApplicationActivityResponse activity, ListActivityResponse<ServiceProtocolAdapterResponse> response,
+			MultivaluedMap<String, String> queryParameters) throws ApplicationException 
 	{
-		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Load the fields for the ServiceProtocolAdapter entity
+		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		List<ApplicationEntityField> entityFields = serviceProtocolAdapterService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
@@ -76,7 +77,7 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 	@Override
 	protected EditActivityResponse<ServiceProtocolAdapterResponse> populateEditActivityResponse(
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<ServiceProtocolAdapterResponse> response) 
-	{
+					throws ApplicationException {
 		// Load the fields for the ServiceProtocolAdapter entity
 		List<ApplicationEntityField> entityFields = serviceProtocolAdapterService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
@@ -99,7 +100,8 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#prepareRelatedEntitiesListItems(javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
-	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) {
+	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
+				   throws ApplicationException {
 		return serviceProtocolAdapterService.relatedEntitesToListItems();
 	}
 
@@ -108,9 +110,9 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 	 */
 	@Override
 	protected EditActivityResponse<ServiceProtocolAdapterResponse> saveEntityInstance(
-			ServiceProtocolAdapterRequest entityInstance) {
-		serviceProtocolAdapterService.create(entityInstance);
-		return null;
+			ServiceProtocolAdapterRequest entityInstance) throws ApplicationException {
+		ServiceProtocolAdapter serviceProtocolAdapter = serviceProtocolAdapterService.create(entityInstance);
+		return this.getEditActivityResponse(serviceProtocolAdapter.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -118,16 +120,26 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 	 */
 	@Override
 	protected EditActivityResponse<ServiceProtocolAdapterResponse> saveEditedEntityInstance(
-			ServiceProtocolAdapterRequest entityInstance) {
-		serviceProtocolAdapterService.update(entityInstance);
-		return null;
+			ServiceProtocolAdapterRequest entityInstance) throws ApplicationException {
+		ServiceProtocolAdapter serviceProtocolAdapter = serviceProtocolAdapterService.update(entityInstance);
+		return this.getEditActivityResponse(serviceProtocolAdapter.getId());
+	}
+	
+	@Override
+	protected ListActivityResponse<ServiceProtocolAdapterResponse> deleteEntityInstances(
+			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
+		for(Integer id: idsOfEntitiesToDelete)
+		{
+			 serviceProtocolAdapterService.delete(id);
+		}
+		return this.getListActivityResponse(null);
 	}
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getListActivityCode()
 	 */
 	@Override
-	protected String getListActivityCode() {
+	protected String getListActivityCode() throws ApplicationException {
 		return serviceProtocolAdapterService.getListActivityCode();
 	}
 
@@ -135,7 +147,7 @@ public class ServiceProtocolAdapterRESTService extends BaseActivityRESTService<S
 	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#getEditActivityCode()
 	 */
 	@Override
-	protected String getEditActivityCode() {
+	protected String getEditActivityCode() throws ApplicationException {
 		return serviceProtocolAdapterService.getEditActivityCode();
 	}
 

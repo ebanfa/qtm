@@ -22,6 +22,7 @@ import com.nathanclaire.alantra.application.request.ApplicationActivityGroupRequ
 import com.nathanclaire.alantra.application.response.ApplicationActivityGroupResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -60,7 +61,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#findById(java.lang.Integer)
 	 */
 	@Override
-	public ApplicationActivityGroup findById(Integer id) {
+	public ApplicationActivityGroup findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -68,7 +69,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#findByCode(java.lang.String)
 	 */
 	@Override
-	public ApplicationActivityGroup findByCode(String code) {
+	public ApplicationActivityGroup findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -76,7 +77,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#findByName(java.lang.String)
 	 */
 	@Override
-	public ApplicationActivityGroup findByName(String name) {
+	public ApplicationActivityGroup findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -84,7 +85,8 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#findAll(java.util.Map)
 	 */
 	@Override
-	public List<ApplicationActivityGroup> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<ApplicationActivityGroup> findAll(MultivaluedMap<String, String> queryParameters)
+	 throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -92,7 +94,8 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#createApplicationActivityGroup(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationActivityGroup create(ApplicationActivityGroupRequest applicationActivityGroupRequest) {
+	public ApplicationActivityGroup create(ApplicationActivityGroupRequest applicationActivityGroupRequest)
+	throws ApplicationException {
 		return createInstance(applicationActivityGroupRequest);
 	}
 
@@ -100,7 +103,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#deleteApplicationActivityGroup(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -108,7 +111,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivityGroup#updateApplicationActivityGroup(com.nathanclaire.alantra.application.rest.request.ServiceRequest)
 	 */
 	@Override
-	public ApplicationActivityGroup update(ApplicationActivityGroupRequest applicationActivityGroupRequest) {
+	public ApplicationActivityGroup update(ApplicationActivityGroupRequest applicationActivityGroupRequest) throws ApplicationException {
 		return updateInstance(applicationActivityGroupRequest);
 	}
 	
@@ -116,7 +119,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode()  throws ApplicationException{
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -124,7 +127,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode()  throws ApplicationException{
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -132,7 +135,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName()  throws ApplicationException{
 		return ENTITY_NAME;
 	}
 
@@ -140,7 +143,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields()  throws ApplicationException{
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -148,7 +151,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#relatedEntitesToListItems()
 	 */
 	@Override
-	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
+	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() throws ApplicationException 
 	{
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> applicationActivityGroups = this.asListItem();
@@ -165,7 +168,7 @@ public class ApplicationActivityGroupServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem()  throws ApplicationException{
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		for(ApplicationActivityGroup applicationactivitygroup: findAll(queryParameters))
 		{
@@ -181,7 +184,7 @@ public class ApplicationActivityGroupServiceImpl
      */
 	@Override
     public ApplicationActivityGroup convertRequestToModel(ApplicationActivityGroupRequest applicationActivityGroupRequest) 
-    {
+    		 throws ApplicationException {
 		ApplicationActivityGroup applicationActivityGroup = new ApplicationActivityGroup();
 		applicationActivityGroup = this.loadDefaultFieldsFromRequest(applicationActivityGroup, applicationActivityGroupRequest);
     	//Process many to one relationships
@@ -214,7 +217,7 @@ public class ApplicationActivityGroupServiceImpl
 	}
 	
 	@Override
-	public ApplicationActivityGroupResponse convertModelToResponse(ApplicationActivityGroup model) {
+	public ApplicationActivityGroupResponse convertModelToResponse(ApplicationActivityGroup model) throws ApplicationException {
 		if (model == null) return null;
 		ApplicationActivityGroupResponse applicationActivityGroupResponse = new ApplicationActivityGroupResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -229,7 +232,7 @@ public class ApplicationActivityGroupServiceImpl
 	}
 
 	@Override
-	public List<ApplicationActivityGroup> findGroupsInModule(Integer moduleId) {
+	public List<ApplicationActivityGroup> findGroupsInModule(Integer moduleId) throws ApplicationException {
 		Set<ApplicationActivityGroup> groups = applicationModuleService.findById(moduleId).getApplicationActivityGroups();
 		List<ApplicationActivityGroup> activityGroups = new ArrayList<ApplicationActivityGroup>();
 		for(ApplicationActivityGroup group:groups)

@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class CustomerBlacklistResponse extends BaseResponse {
 
     private Integer customerId;
+    private String customerText;
 
     public CustomerBlacklistResponse() {
     }
@@ -25,6 +26,14 @@ public class CustomerBlacklistResponse extends BaseResponse {
     
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public String getCustomerText() {
+        return this.customerText;
+    }
+    
+    public void setCustomerText(String customerText) {
+        this.customerText = customerText;
     }
 
 

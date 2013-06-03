@@ -14,14 +14,24 @@ public class EntityNames{
 	
 	public EntityNames()
 	{
+
+		entityNames.put("AdviceClassification", "AdviceClassification");
+		entityNames.put("AdviceChannelType", "AdviceChannelType");
+		entityNames.put("AdviceChannel", "AdviceChannel");
+		entityNames.put("AdviceChannelCategory", "AdviceChannelCategory");
 		entityNames.put("AdviceStatus", "Advice Status");
 		entityNames.put("AdviceType", "Advice Type");
 		entityNames.put("AdviceTypeTag", "Advice Type Tag");
 		entityNames.put("Advice", "Advice");
+		entityNames.put("AdvicedTransaction", "Adviced Transaction");
 		entityNames.put("DataSourceStructure", "Data Source Structure");
 		entityNames.put("DataSourceCategory", "Data Source Category");
 		entityNames.put("DataSourceField", "Data Source Field");
-		entityNames.put("DataInputJob", "Data Input Job");
+		entityNames.put("DataInputJob", "DataInputJob");
+		entityNames.put("DataInputJobStatus", "DataInputJobStatus");
+		entityNames.put("TxnDataInputJobStats", "TxnDataInputJobStats");
+		entityNames.put("DataInputJobType", "DataInputJobType");
+		entityNames.put("DataInputJobCategory", "DataInputJobCategory");
 		entityNames.put("DataSource", "Data Source");
 		entityNames.put("DataSourceFieldType", "Data Source Field Type");
 		entityNames.put("DataSourceType", "Data Source Type");
@@ -30,6 +40,7 @@ public class EntityNames{
 		entityNames.put("ServiceCategory", "Service Category");
 		entityNames.put("ServiceMode", "Service Mode");
 		entityNames.put("ServiceTransactionType", "Service Transaction Type");
+		entityNames.put("ServiceTransactionStatus", "ServiceTransactionStatus");
 		entityNames.put("HostType", "Host Type");
 		entityNames.put("ServicePeer", "Service Peer");
 		entityNames.put("ServiceTransaction", "Service Transaction");
@@ -48,13 +59,18 @@ public class EntityNames{
 		entityNames.put("ApplicationActivityGroupType", "Application Activity Group Type");
 		entityNames.put("ApplicationEntity", "Application Entity");
 		entityNames.put("ApplicationFormField", "Application Form Field");
+		entityNames.put("MessageClassification", "MessageClassification");
 		entityNames.put("MessageStatus", "Message Status");
 		entityNames.put("MessageType", "Message Type");
 		entityNames.put("Message", "Message");
+		entityNames.put("MessageAttachements", "Message Attachements");
 		entityNames.put("CustomerType", "Customer Type");
 		entityNames.put("CustomerClassification", "Customer Classification");
 		entityNames.put("CustomerBlacklist", "Customer Blacklist");
 		entityNames.put("Customer", "Customer");
+		entityNames.put("CustomerAccount", "Customer Account");
+		entityNames.put("Currency", "Currency");
+		entityNames.put("Country", "Country");
 	}
 
 

@@ -10,9 +10,6 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -30,7 +27,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataSourceStructureSer
 import com.nathanclaire.alantra.datasource.service.entity.DataSourceTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 
 /**
@@ -68,7 +65,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#findById(java.lang.Integer)
 	 */
 	@Override
-	public DataSource findById(Integer id) {
+	public DataSource findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -76,7 +73,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#findByCode(java.lang.String)
 	 */
 	@Override
-	public DataSource findByCode(String code) {
+	public DataSource findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -84,7 +81,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#findByName(java.lang.String)
 	 */
 	@Override
-	public DataSource findByName(String name) {
+	public DataSource findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -92,7 +89,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#findAll(java.util.Map)
 	 */
 	@Override
-	public List<DataSource> findAll(MultivaluedMap<String, String> queryParameters) {
+	public List<DataSource> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -100,7 +97,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#createDataSource(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataSource create(DataSourceRequest dataSourceRequest) {
+	public DataSource create(DataSourceRequest dataSourceRequest) throws ApplicationException {
 		return createInstance(dataSourceRequest);
 	}
 
@@ -108,7 +105,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#deleteDataSource(java.lang.Integer)
 	 */
 	@Override
-	public void delete(Integer id) {
+	public void delete(Integer id) throws ApplicationException {
 		deleteInstance(id);
 	}
 
@@ -116,7 +113,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.DataSource#updateDataSource(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public DataSource update(DataSourceRequest dataSourceRequest) {
+	public DataSource update(DataSourceRequest dataSourceRequest) throws ApplicationException {
 		return updateInstance(dataSourceRequest);
 	}
 	
@@ -124,7 +121,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getListActivityCode()
 	 */
 	@Override
-	public String getListActivityCode() {
+	public String getListActivityCode() throws ApplicationException {
 		return LIST_ACTIVITY_CODE;
 	}
 
@@ -132,7 +129,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEditActivityCode()
 	 */
 	@Override
-	public String getEditActivityCode() {
+	public String getEditActivityCode() throws ApplicationException {
 		return EDIT_ACTIVITY_CODE;
 	}
 
@@ -140,7 +137,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityName()
 	 */
 	@Override
-	public String getEntityName() {
+	public String getEntityName() throws ApplicationException {
 		return ENTITY_NAME;
 	}
 
@@ -148,7 +145,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#getEntityFields()
 	 */
 	@Override
-	public List<ApplicationEntityField> getEntityFields() {
+	public List<ApplicationEntityField> getEntityFields() throws ApplicationException {
 		return applicationEntityService.getFieldsForEntity(ENTITY_NAME);
 	}
 	
@@ -157,7 +154,7 @@ public class DataSourceServiceImpl
 	 */
 	@Override
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
-	{
+	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> dataSourceStructures = dataSourceStructureService.asListItem();
 		List<ListItemResponse> dataSourceTypes = dataSourceTypeService.asListItem();
@@ -171,7 +168,7 @@ public class DataSourceServiceImpl
 	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityService#asListItem()
 	 */
 	@Override
-	public List<ListItemResponse> asListItem() {
+	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
 		for(DataSource datasource: findAll(queryParameters))
@@ -188,7 +185,7 @@ public class DataSourceServiceImpl
      */
 	@Override
     public DataSource convertRequestToModel(DataSourceRequest dataSourceRequest) 
-    {
+     throws ApplicationException {
 		DataSource dataSource = new DataSource();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -208,7 +205,7 @@ public class DataSourceServiceImpl
 	}
 	
 	@Override
-	public DataSourceResponse convertModelToResponse(DataSource model) {
+	public DataSourceResponse convertModelToResponse(DataSource model) throws ApplicationException {
 		if (model == null) return null;
 		DataSourceResponse dataSourceResponse = new DataSourceResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
@@ -216,8 +213,10 @@ public class DataSourceServiceImpl
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataSourceStructure() != null)
 			dataSourceResponse.setDataSourceStructureId(model.getDataSourceStructure().getId());
+			dataSourceResponse.setDataSourceStructureText(model.getDataSourceStructure().getName());
 		if(model.getDataSourceType() != null)
 			dataSourceResponse.setDataSourceTypeId(model.getDataSourceType().getId());
+			dataSourceResponse.setDataSourceTypeText(model.getDataSourceType().getName());
 		return dataSourceResponse;
 	}
 }

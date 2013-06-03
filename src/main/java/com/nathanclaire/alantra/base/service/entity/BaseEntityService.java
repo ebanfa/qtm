@@ -10,6 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author Edward Banfa 
@@ -17,36 +18,36 @@ import com.nathanclaire.alantra.base.response.ListItemResponse;
  */
 public interface BaseEntityService<M, T,V> {
 	
-	public M update(V request);
+	public M update(V request) throws ApplicationException;
 
-	public M create(V request);
+	public M create(V request) throws ApplicationException;
 
-	public void delete(Integer id);
+	public void delete(Integer id) throws ApplicationException;
 	
-	public M findById(Integer id);
+	public M findById(Integer id) throws ApplicationException;
 	
-	public M findByCode(String code);
+	public M findByCode(String code) throws ApplicationException;
 	
-	public M findByName(String name);
+	public M findByName(String name) throws ApplicationException;
     
-    public String getEntityName();
+    public String getEntityName() throws ApplicationException;
 	
-    public String getListActivityCode();
+    public String getListActivityCode() throws ApplicationException;
     
-    public String getEditActivityCode();
+    public String getEditActivityCode() throws ApplicationException;
     
-    public M convertRequestToModel(V request);
+    public M convertRequestToModel(V request) throws ApplicationException;
     
-    public T convertModelToResponse(M model);
+    public T convertModelToResponse(M model) throws ApplicationException;
     
-    public List<ApplicationEntityField> getEntityFields();
+    public List<ApplicationEntityField> getEntityFields() throws ApplicationException;
 
-	public List<M> findAll(MultivaluedMap<String, String> queryParameters);
+	public List<M> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException;
 	
-	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters);
+	public Map<String, Long> getCount(MultivaluedMap<String, String> queryParameters) throws ApplicationException;
 	
-	public Map<String, List<ListItemResponse>> relatedEntitesToListItems();
+	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() throws ApplicationException;
 	
-	public List<ListItemResponse> asListItem();
+	public List<ListItemResponse> asListItem() throws ApplicationException;
 
 }
