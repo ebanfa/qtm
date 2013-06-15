@@ -30,13 +30,13 @@ public interface JobsManager {
 	 * @param inputJob
 	 * @return
 	 */
-	public JobRunner startJob(DataInputJob inputJob) throws ApplicationException ;
+	public void startJob(DataInputJob inputJob) throws ApplicationException ;
 	
 	/**
 	 * @param inputJob
 	 * @return
 	 */
-	public JobRunner stopJob(DataInputJob inputJob) throws ApplicationException ;
+	public void stopJob(DataInputJob inputJob) throws ApplicationException ;
 	
 	/**
 	 * 

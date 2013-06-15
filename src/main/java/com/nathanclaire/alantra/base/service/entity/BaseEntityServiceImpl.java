@@ -157,6 +157,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
         TypedQuery<M> query = 
         		initCriteria(queryParameters, criteriaBuilder, criteriaQuery);
         initQuery(queryParameters, query);
+        //query.setMaxResults(50);
 		return query.getResultList();
     }
     

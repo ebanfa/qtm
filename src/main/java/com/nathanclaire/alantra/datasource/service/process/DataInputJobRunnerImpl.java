@@ -3,153 +3,122 @@
  */
 package com.nathanclaire.alantra.datasource.service.process;
 
-import java.util.Date;
+import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.datasource.etl.DataExtractor;
+import com.nathanclaire.alantra.datasource.etl.DataInputLogger;
 import com.nathanclaire.alantra.datasource.etl.DataLoader;
+import com.nathanclaire.alantra.datasource.etl.DataProcessor;
 import com.nathanclaire.alantra.datasource.etl.TableData;
-import com.nathanclaire.alantra.datasource.etl.TableDataProcessor;
+import com.nathanclaire.alantra.datasource.etl.producers.DataExtractorProducer;
+import com.nathanclaire.alantra.datasource.etl.producers.DataInputLoggerProducer;
+import com.nathanclaire.alantra.datasource.etl.producers.DataLoaderProducer;
+import com.nathanclaire.alantra.datasource.etl.producers.DataProcessorProducer;
+import com.nathanclaire.alantra.datasource.model.Data;
+import com.nathanclaire.alantra.datasource.model.DataInput;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
-import com.nathanclaire.alantra.datasource.model.DataInputJobCategory;
-import com.nathanclaire.alantra.datasource.model.DataInputJobType;
-import com.nathanclaire.alantra.datasource.model.DataSource;
-import com.nathanclaire.alantra.datasource.request.TxnDataInputJobStatsRequest;
-import com.nathanclaire.alantra.datasource.service.entity.TxnDataInputJobStatsService;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
+import com.nathanclaire.alantra.datasource.model.DataStructure;
 
 /**
  * @author Edward Banfa 
- *
+ * 
+ * To be able to load a certain type of data into the advice pro system do the following
+ * 1. Subclass DataInputJobRunnerImpl.
+ * 2. Optionally subclass BaseDataLoaderImpl and implement the DataExtractor interface (If dealing with a new data input job type).
+ * 3. Implement the DataProcessor interface.
+ * 4. Subclass BaseEntityDataProviderImpl and implement the EntityDataProvider interface.
+ * 5. Configure the job using the admin user interface
  */
-public abstract class DataInputJobRunnerImpl {
-
-	/**
-	 * 
-	 */
-	private DataInputJob inputJob;
+@Stateless
+public class DataInputJobRunnerImpl implements DataInputJobRunner {
 	
-	/**
-	 * 
-	 */
-	@Inject
-	TxnDataInputJobStatsService statsService;
-	
-	/**
-	 * 
-	 */
-	private static final String NO_JOB_PROVIDED = "DataInputJobRunnerImpl.NO_JOB_PROVIDED";
+	@Inject DataLoaderProducer dataLoaderProducer;
+	@Inject DataExtractorProducer dataExtractorProducer;
+	@Inject	DataProcessorProducer dataProcessorProducer;
+	@Inject	DataInputLoggerProducer inputLoggerProducer;
 	
 	private Logger logger = LoggerFactory.getLogger(DataInputJobRunnerImpl.class);
 	
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.service.process.JobRunner#getJob()
-	 */
-	public DataInputJob getJob() {
-		return inputJob;
-	}
+	private static final String NO_JOB_PROVIDED = "DataInputJobRunnerImpl.NO_JOB_PROVIDED";
+	private static final String NO_DATASOURCE_PROVIDED = "DataInputJobRunnerImpl.NO_DATASOURCE_PROVIDED";
+	private static final String NO_DATA_DEFINITION_PROVIDED = "DataInputJobRunnerImpl.NO_DATA_DEFINITION_PROVIDED";
+	private static final String NO_DATA_INPUT_PROVIDED = "DataInputJobRunnerImpl.NO_DATA_INPUT_PROVIDED";
+	private static final String NO_DATA_EXTRACTOR_FOUND = "DataInputJobRunnerImpl.NO_DATA_EXTRACTOR_FOUND";
+	private static final String NO_DATA_PROCESSORS_FOUND = "DataInputJobRunnerImpl.NO_DATA_PROCESSORS_FOUND";
+	private static final String NO_DATA_LOADER_FOUND = "DataInputJobRunnerImpl.NO_DATA_LOADER_FOUND";
 
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.service.process.JobRunner#setJob(com.nathanclaire.alantra.datasource.model.DataInputJob)
+	 * @see com.nathanclaire.alantra.datasource.service.process.DataInputJobRunner#start()
 	 */
-	public void setJob(DataInputJob inputJob) {
-		this.inputJob = inputJob;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.service.process.JobRunner#stop()
-	 */
-	public void stop() {
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.service.process.JobRunner#start()
-	 */
-	public void start() throws ApplicationException {
-		// 1. Ensure we have an actual job
-		if(this.inputJob == null) 
-			throw new ApplicationException(NO_JOB_PROVIDED);
-		// 2. Get the loader, processor and datasource
-		logger.info("Starting job {}", inputJob.getCode());
-		DataLoader dataLoader = getLoader();
-		TableDataProcessor tableDataProcessor = getProcessor();
-		DataSource dataSource = this.getJob().getDataSource();
-		// 4. Tell data loader to load
-		TableData data = dataLoader.loadData(dataSource);
-		// 5. If loaded, give data to processor
-		tableDataProcessor.processData(data);
-		statsService.create(this.initialzeJobStat(this.getJob(), data));
-		logger.info("Started job {} Read: {} Created: {} Matched: {} Unmatched: {}", inputJob.getCode(), 
-				data.getRecordsRead(), data.getRecordsCreated(), data.getTxnMatched(), data.getTxnUnMatched());
-	}
-
-	/**
-	 * @return
-	 */
-	public TableDataProcessor getProcessor() {
-		DataInputJobCategory jobCategory = this.getJob().getDataInputJobCategory();
-		TableDataProcessor tableDataProcessor = getDataProcessor(jobCategory.getName());
-		return tableDataProcessor;
-	}
-
-	/**
-	 * @return
-	 */
-	public DataLoader getLoader() {
-		DataInputJobType dataInputJobType = this.getJob().getDataInputJobType();
-		DataLoader dataLoader = getDataLoader(dataInputJobType.getName());
-		return dataLoader;
-	}
-
-	/**
-	 * @param name
-	 * @return
-	 */
-	protected abstract TableDataProcessor getDataProcessor(String name);
-	
-	/**
-	 * @param loaderClassName
-	 * @param dataLoader
-	 * @return
-	 */
-	private DataLoader getDataLoader(String loaderClassName) {
-		DataLoader dataLoader = null;
+	public void start(DataInputJob inputJob) throws ApplicationException {
 		try {
-			dataLoader = (DataLoader)Class.forName(loaderClassName).newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// 1. Ensure we have an actual job
+			validateDataInputJob(inputJob);
+			DataInput dataInput = inputJob.getDataInput();
+			Data dataConfig = dataInput.getData();
+			DataStructure dataStructure = dataConfig.getDataStructure();
+			// 3. Get the data extractor
+			DataExtractor dataExtractor = dataExtractorProducer.getDataExtractor(dataInput);
+			if(dataExtractor == null)
+				throw new ApplicationException(NO_DATA_EXTRACTOR_FOUND);
+			// 2. Extract the data
+			TableData data = dataExtractor.extractData(dataConfig);
+			// Set the target entity names
+			data.setPrimEntityName(dataStructure.getTargetPriEntityCd());
+			data.setSecEntityName(dataStructure.getTargetSecEntityCd());
+			// 3. Get the data processor and process the data
+			DataProcessor dataProcessor = dataProcessorProducer.getDataProcessor(dataInput);
+			data = dataProcessor.processData(data, dataStructure.getDataFields());
+			// 4. Get the data loader
+			DataLoader dataLoader = dataLoaderProducer.getDataLoader(dataInput);
+			if(dataLoader == null)
+				throw new ApplicationException(NO_DATA_LOADER_FOUND);
+			// 4. Load the data
+			dataLoader.loadData(data, dataStructure.getDataFields());
+			// 5. Log the data input
+			DataInputLogger dataInputLogger = inputLoggerProducer.getDataInputLogger(inputJob);
+			//dataInputLogger.logDataInp/ut(inputJob, data);
+		} 
+		catch (ApplicationException e) 
+		{
+			logger.error("Job {} not started. Message {}", inputJob.getCode(), e.getMessage());
 		}
-		return dataLoader;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.service.process.DataInputJobRunner#stop()
+	 */
+	public void stop(DataInputJob inputJob) {
 	}
 
 	/**
-	 * @param ctsJob
-	 * @param data 
-	 * @return
+	 * Validate the job configuration
+	 * @param inputJob
+	 * @throws ApplicationException
 	 */
-	protected TxnDataInputJobStatsRequest initialzeJobStat(DataInputJob ctsJob, TableData data) {
-		TxnDataInputJobStatsRequest dataInputJobStatsRequest = new TxnDataInputJobStatsRequest();
-		dataInputJobStatsRequest.setCode(ctsJob.getCode() + new Date().getTime());
-		dataInputJobStatsRequest.setName(ctsJob.getName() + new Date().getTime());
-		dataInputJobStatsRequest.setJobId(ctsJob.getId());
-		dataInputJobStatsRequest.setCreatedDt(new Date());
-		dataInputJobStatsRequest.setCreatedByUsr("CTS");
-		dataInputJobStatsRequest.setEffectiveDt(new Date());
-		dataInputJobStatsRequest.setRecSt(BaseEntityServiceImpl.ENTITY_STATUS_ACTIVE);
-		dataInputJobStatsRequest.setRecordsCreated(data.getRecordsCreated());
-		dataInputJobStatsRequest.setRecordsRead(data.getRecordsRead());
-		dataInputJobStatsRequest.setTxnsCreated(data.getRecordsCreated());
-		dataInputJobStatsRequest.setTxnsMatched(data.getTxnMatched());
-		dataInputJobStatsRequest.setTxnsUnmatched(data.getTxnUnMatched());
-		return dataInputJobStatsRequest;
+	private void validateDataInputJob(DataInputJob inputJob) throws ApplicationException 
+	{
+		if(inputJob == null) 
+			throw new ApplicationException(NO_JOB_PROVIDED);
+		// Validate the data input configuration
+		DataInput dataInput = inputJob.getDataInput();
+		if(dataInput == null)
+			throw new ApplicationException(NO_DATA_INPUT_PROVIDED);
+		// Validate the data input definition
+		Data dataDefinition = dataInput.getData();
+		if(dataDefinition == null)
+			throw new ApplicationException(NO_DATA_DEFINITION_PROVIDED);
+		// Validate the data source
+		DataChannel dataChannel = dataDefinition.getDataChannel();
+		if(dataChannel == null)
+			throw new ApplicationException(NO_DATASOURCE_PROVIDED);
 	}
-
 }

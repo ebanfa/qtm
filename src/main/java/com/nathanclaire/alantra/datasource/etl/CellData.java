@@ -3,30 +3,51 @@
  */
 package com.nathanclaire.alantra.datasource.etl;
 
-
 /**
  * @author Edward Banfa 
  *
  */
-public interface CellData {
+public class CellData {
+
+	private String name;
+	private String dataType;
+	private Object data;
+	
 	
 	/**
-	 * @return
+	 * @return the name
 	 */
-	public String getName();
+	public String getName() {
+		return name;
+	}
 	/**
-	 * @param name
+	 * @param name the name to set
 	 */
-	public void setName(String name);
-
+	public void setName(String name) {
+		this.name = name;
+	}
 	/**
-	 * @param data
+	 * @return the dataType
 	 */
-	public void setData(String data);
-	
+	public String getDataType() {
+		return dataType;
+	}
 	/**
-	 * @return
+	 * @param dataType the dataType to set
 	 */
-	public String getData();
-
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+	/**
+	 * @return the data
+	 */
+	public Object getData() {
+		return data;
+	}
+	/**
+	 * @param data the data to set
+	 */
+	public void setData(Object data) {
+		this.data = data;
+	}
 }

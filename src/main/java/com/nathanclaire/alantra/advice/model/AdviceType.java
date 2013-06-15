@@ -41,8 +41,8 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
     private String description;
     private Character reqFeedback;
     private String feedbackMsg;
-	private Set<AdviceTypeTag> adviceTypeTags = new HashSet<AdviceTypeTag>(0);
 	private Set<Advice> advices = new HashSet<Advice>(0);
+	private Set<AdviceTypeTag> adviceTypeTags = new HashSet<AdviceTypeTag>(0);
 
     public AdviceType() {
     }
@@ -56,7 +56,7 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AdviceType(ServiceTransactionType serviceTransactionType, String code, String name, String description, Character reqFeedback, String feedbackMsg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceTypeTag> adviceTypeTags, Set<Advice> advices ) 
+    public AdviceType(ServiceTransactionType serviceTransactionType, String code, String name, String description, Character reqFeedback, String feedbackMsg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices, Set<AdviceTypeTag> adviceTypeTags ) 
     {
 		this.serviceTransactionType = serviceTransactionType;
 		this.code = code;
@@ -70,8 +70,8 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.adviceTypeTags = adviceTypeTags;
 		this.advices = advices;
+		this.adviceTypeTags = adviceTypeTags;
     }
     
     		
@@ -134,18 +134,6 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
     @JsonIgnore
-    public Set<AdviceTypeTag> getAdviceTypeTags() 
-    {
-        return this.adviceTypeTags;
-    }
-    
-    public void setAdviceTypeTags(Set<AdviceTypeTag> adviceTypeTags) 
-    {
-        this.adviceTypeTags = adviceTypeTags;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
-    @JsonIgnore
     public Set<Advice> getAdvices() 
     {
         return this.advices;
@@ -154,6 +142,18 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
     public void setAdvices(Set<Advice> advices) 
     {
         this.advices = advices;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="adviceType")
+    @JsonIgnore
+    public Set<AdviceTypeTag> getAdviceTypeTags() 
+    {
+        return this.adviceTypeTags;
+    }
+    
+    public void setAdviceTypeTags(Set<AdviceTypeTag> adviceTypeTags) 
+    {
+        this.adviceTypeTags = adviceTypeTags;
     }			
 
 

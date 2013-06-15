@@ -4,12 +4,15 @@
 package com.nathanclaire.alantra.datasource.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -33,18 +36,18 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 
 	private DataInputJobStatus dataInputJobStatus;
-	private DataInputJobCategory dataInputJobCategory;
 	private DataInputJobType dataInputJobType;
-	private DataSource dataSource;
+	private DataInput dataInput;
     private String name;
     private String description;
     private int diFreqVal;
     private String diFreqCd;
+	private Set<DataInputJobSummary> dataInputJobSummaries = new HashSet<DataInputJobSummary>(0);
 
     public DataInputJob() {
     }
 
-    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobCategory dataInputJobCategory, DataInputJobType dataInputJobType, DataSource dataSource, String code, String name, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
@@ -55,12 +58,11 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobCategory dataInputJobCategory, DataInputJobType dataInputJobType, DataSource dataSource, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJobSummary> dataInputJobSummaries ) 
     {
 		this.dataInputJobStatus = dataInputJobStatus;
-		this.dataInputJobCategory = dataInputJobCategory;
 		this.dataInputJobType = dataInputJobType;
-		this.dataSource = dataSource;
+		this.dataInput = dataInput;
 		this.code = code;
 		this.name = name;
 		this.description = description;
@@ -72,11 +74,12 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.dataInputJobSummaries = dataInputJobSummaries;
     }
     
     		
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="JOB_STATUS_ID", nullable=false)
+    @JoinColumn(name="DATA_INPUT_JOB_STATUS_ID", nullable=false)
     @JsonIgnore
     public DataInputJobStatus getDataInputJobStatus() 
     {
@@ -89,20 +92,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="JOB_CAT_ID", nullable=false)
-    @JsonIgnore
-    public DataInputJobCategory getDataInputJobCategory() 
-    {
-        return this.dataInputJobCategory;
-    }
-    
-    public void setDataInputJobCategory(DataInputJobCategory dataInputJobCategory)
-    {
-        this.dataInputJobCategory = dataInputJobCategory;
-    }
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="JOB_TY_ID", nullable=false)
+    @JoinColumn(name="DATA_INPUT_JOB_TY_ID", nullable=false)
     @JsonIgnore
     public DataInputJobType getDataInputJobType() 
     {
@@ -115,16 +105,16 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="DS_ID", nullable=false)
+    @JoinColumn(name="DATA_INPUT_ID", nullable=false)
     @JsonIgnore
-    public DataSource getDataSource() 
+    public DataInput getDataInput() 
     {
-        return this.dataSource;
+        return this.dataInput;
     }
     
-    public void setDataSource(DataSource dataSource)
+    public void setDataInput(DataInput dataInput)
     {
-        this.dataSource = dataSource;
+        this.dataInput = dataInput;
     }
 		
     @Column(name="NAME" , nullable=false, length=75)
@@ -170,6 +160,18 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     {
         this.diFreqCd = diFreqCd;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataInputJob")
+    @JsonIgnore
+    public Set<DataInputJobSummary> getDataInputJobSummaries() 
+    {
+        return this.dataInputJobSummaries;
+    }
+    
+    public void setDataInputJobSummaries(Set<DataInputJobSummary> dataInputJobSummaries) 
+    {
+        this.dataInputJobSummaries = dataInputJobSummaries;
+    }			
 
 
 }

@@ -9,6 +9,8 @@ package com.nathanclaire.alantra.base.util;
  */
 public class ApplicationException extends Exception {
 	
+	public static final String UNKNOWN_EXCEPTION = "ApplicationException.UNKNOWN_EXCEPTION";
+	
 	private String code;
 
 	private String message;

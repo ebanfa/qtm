@@ -93,7 +93,6 @@ public class IDERestService
     	try {
 			this.init(uriInfo.getQueryParameters());
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.processModules();

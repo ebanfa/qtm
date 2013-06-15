@@ -72,6 +72,8 @@ public class CustomerAccountServiceImpl
 		return findInstanceByCode(code);
 	}
 
+	
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.CustomerAccount#findByName(java.lang.String)
 	 */

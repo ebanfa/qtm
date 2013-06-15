@@ -36,11 +36,9 @@ define([
             var formBuilder = formUtil.formBuilder;
             this.form = formBuilder(activity);
             if(this.form.entity != null ) {
-                console.log("Crack music!!");
                 this.renderEditActivity(this.form);
             } 
             else {
-                console.log("Black music!!");
                 this.renderCreateActivity(this.form);
             }
 
@@ -55,8 +53,17 @@ define([
         },
         renderCreateActivity:function(form)
         {
-            utilities.applyTemplate($(this.el), this.activityTemplate, {form:form, entities_strings:entities_strings}); 
-            this.renderedActivity();
+            if(this.model.activityURL == "message")
+            {
+                //alert("We in:" + );
+                utilities.applyTemplate($(this.el), this.messageTemplate, {form:form, entities_strings:entities_strings}); 
+                this.renderedActivity();
+            }
+            else
+            {
+                utilities.applyTemplate($(this.el), this.activityTemplate, {form:form, entities_strings:entities_strings}); 
+                this.renderedActivity();
+            }
         },
         renderedActivity: function()
         {

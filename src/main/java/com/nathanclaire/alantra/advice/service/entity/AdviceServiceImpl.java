@@ -3,42 +3,42 @@
  */
 package com.nathanclaire.alantra.advice.service.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+
 import com.nathanclaire.alantra.advice.model.Advice;
-import com.nathanclaire.alantra.advice.model.AdviceClassification;
+import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.businessdata.model.Currency;
+import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
+import com.nathanclaire.alantra.advice.model.AdviceClassification;
+import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.request.AdviceRequest;
 import com.nathanclaire.alantra.advice.response.AdviceResponse;
-import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+import com.nathanclaire.alantra.customer.service.entity.CustomerService;
+import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceRequestMessageService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceStatusService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceClassificationService;
+import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
-import com.nathanclaire.alantra.businessdata.model.Currency;
-import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
-import com.nathanclaire.alantra.customer.model.Customer;
-import com.nathanclaire.alantra.customer.model.CustomerAccount;
-import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
-import com.nathanclaire.alantra.customer.service.entity.CustomerService;
-import com.nathanclaire.alantra.messaging.model.Message;
-import com.nathanclaire.alantra.messaging.service.entity.MessageService;
 
 /**
  * @author Edward Banfa
@@ -50,8 +50,8 @@ public class AdviceServiceImpl
 	implements AdviceService
 {
 	private static final String LIST_ITEM_CUSTOMER = "customer";
-	private static final String LIST_ITEM_MESSAGE = "message";
 	private static final String LIST_ITEM_CURRENCY = "currency";
+	private static final String LIST_ITEM_ADVICEREQUESTMESSAGE = "adviceRequestMessage";
 	private static final String LIST_ITEM_ADVICESTATUS = "adviceStatus";
 	private static final String LIST_ITEM_ADVICECLASSIFICATION = "adviceClassification";
 	private static final String LIST_ITEM_CUSTOMERACCOUNT = "customerAccount";
@@ -67,9 +67,9 @@ public class AdviceServiceImpl
 	@Inject
 	CustomerService  customerService;
 	@Inject
-	MessageService  messageService;
-	@Inject
 	CurrencyService  currencyService;
+	@Inject
+	AdviceRequestMessageService  adviceRequestMessageService;
 	@Inject
 	AdviceStatusService  adviceStatusService;
 	@Inject
@@ -182,16 +182,16 @@ public class AdviceServiceImpl
 	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> customers = customerService.asListItem();
-		List<ListItemResponse> messages = messageService.asListItem();
 		List<ListItemResponse> currencys = currencyService.asListItem();
+		List<ListItemResponse> adviceRequestMessages = adviceRequestMessageService.asListItem();
 		List<ListItemResponse> adviceStatuss = adviceStatusService.asListItem();
 		List<ListItemResponse> adviceClassifications = adviceClassificationService.asListItem();
 		List<ListItemResponse> customerAccounts = customerAccountService.asListItem();
 		List<ListItemResponse> adviceTypes = adviceTypeService.asListItem();
     	
 		listItems.put(LIST_ITEM_CUSTOMER, customers); 
-		listItems.put(LIST_ITEM_MESSAGE, messages); 
 		listItems.put(LIST_ITEM_CURRENCY, currencys); 
+		listItems.put(LIST_ITEM_ADVICEREQUESTMESSAGE, adviceRequestMessages); 
 		listItems.put(LIST_ITEM_ADVICESTATUS, adviceStatuss); 
 		listItems.put(LIST_ITEM_ADVICECLASSIFICATION, adviceClassifications); 
 		listItems.put(LIST_ITEM_CUSTOMERACCOUNT, customerAccounts); 
@@ -231,15 +231,15 @@ public class AdviceServiceImpl
     		Customer customer = getEntityManager().find(Customer.class, adviceRequest.getCustomerId());
     		advice.setCustomer(customer);
     	}
-    	if (adviceRequest.getMessageId() != null)
-    	{
-    		Message message = getEntityManager().find(Message.class, adviceRequest.getMessageId());
-    		advice.setMessage(message);
-    	}
     	if (adviceRequest.getCurrencyId() != null)
     	{
     		Currency currency = getEntityManager().find(Currency.class, adviceRequest.getCurrencyId());
     		advice.setCurrency(currency);
+    	}
+    	if (adviceRequest.getAdviceRequestMessageId() != null)
+    	{
+    		AdviceRequestMessage adviceRequestMessage = getEntityManager().find(AdviceRequestMessage.class, adviceRequest.getAdviceRequestMessageId());
+    		advice.setAdviceRequestMessage(adviceRequestMessage);
     	}
     	if (adviceRequest.getAdviceStatusId() != null)
     	{
@@ -274,144 +274,21 @@ public class AdviceServiceImpl
 		if(model.getCustomer() != null)
 			adviceResponse.setCustomerId(model.getCustomer().getId());
 			adviceResponse.setCustomerText(model.getCustomer().getName());
-		if(model.getMessage() != null)
-			adviceResponse.setMessageId(model.getMessage().getId());
-			adviceResponse.setMessageText(model.getMessage().getCode());
 		if(model.getCurrency() != null)
 			adviceResponse.setCurrencyId(model.getCurrency().getId());
 			adviceResponse.setCurrencyText(model.getCurrency().getName());
+		if(model.getAdviceRequestMessage() != null)
+			adviceResponse.setAdviceRequestMessageId(model.getAdviceRequestMessage().getId());
+			adviceResponse.setAdviceRequestMessageText(model.getAdviceRequestMessage().getName());
 		if(model.getAdviceStatus() != null)
 			adviceResponse.setAdviceStatusId(model.getAdviceStatus().getId());
 			adviceResponse.setAdviceStatusText(model.getAdviceStatus().getName());
 		if(model.getAdviceClassification() != null)
 			adviceResponse.setAdviceClassificationId(model.getAdviceClassification().getId());
 			adviceResponse.setAdviceClassificationText(model.getAdviceClassification().getName());
-		if(model.getCustomerAccount() != null)
-			adviceResponse.setCustomerAccountId(model.getCustomerAccount().getId());
-			adviceResponse.setCustomerAccountText(model.getCustomerAccount().getName());
 		if(model.getAdviceType() != null)
 			adviceResponse.setAdviceTypeId(model.getAdviceType().getId());
 			adviceResponse.setAdviceTypeText(model.getAdviceType().getName());
 		return adviceResponse;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.advice.service.entity.AdviceService#createAdvice(java.lang.String, java.lang.String, java.math.BigDecimal, java.lang.String, java.util.Date)
-	 */
-	@Override
-	public Advice createAdvice(String adviceTypeCode, String accountNo, String chequeNo,
-			BigDecimal amount, String crncyCode, Date txnDate) throws ApplicationException {
-		Customer customer = this.getCustomerByAcctNo(accountNo);
-		if (customer == null)return null;
-		try {
-			AdviceType adviceType = adviceTypeService.findByCode(adviceTypeCode);
-			AdviceStatus unprocessedAdvice = 
-					adviceStatusService.findByCode(AdviceStatusService.UNPROCESSED_ADVICE_CODE);
-			Advice advice = new Advice();
-			advice.setAdviceType(adviceType);
-			advice.setAdviceStatus(unprocessedAdvice);
-			advice.setCustomer(customer);
-			advice.setName(customer.getName());
-			advice.setAccountNm(accountNo);
-			//advice.setAccountNo(accountNo);
-			advice.setChequeNo(chequeNo);
-			advice.setCode(customer.getName() + "_" + new Date().getTime());
-			advice.setAmount(amount);
-			advice.setEffectiveDt(txnDate);
-			advice.setDescription(crncyCode);
-			advice.setRecSt(BaseEntityServiceImpl.ENTITY_STATUS_ACTIVE);
-			advice.setCreatedByUsr("CTS_USER");
-			advice.setCreatedDt(new Date());
-			this.getEntityManager().persist(advice);
-			return advice;
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	/**
-	 * @param accountNo
-	 * @return
-	 */
-	private Customer getCustomerByAcctNo(String accountNo) throws ApplicationException
-	{
-		CustomerAccount account = customerAccountService.findByCode(accountNo);
-		if(account!=null)
-		{
-			return account.getCustomer();
-		}
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.advice.service.entity.AdviceService#findAdvice(java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.math.BigDecimal)
-	 */
-	@Override
-	public Advice findAdvice(Integer customerId, Integer accountId,
-			Integer currencyId, Integer adviceTypeId, Integer adviceStatusId, BigDecimal amount) {
-		// Return the single  instance that meets the criteria
-		Advice advice = null;
-		// Start crazy query builder
-		String queryString = "SELECT a FROM Advice a";
-		String whereString = " where ";
-		String queryParameters = "";
-		// Check for parameters
-		if(customerId != null)
-			queryParameters = this.addParameter(queryParameters, " a.customer.id = :customerId");
-		if(accountId != null)
-			queryParameters = this.addParameter(queryParameters, " a.customerAccount.id = :accountId");
-		if(currencyId != null)
-			queryParameters = this.addParameter(queryParameters, " a.currency.id = :currencyId");
-		if(adviceTypeId != null)
-			queryParameters = this.addParameter(queryParameters, " a.adviceType.id = :adviceTypeId");
-		if(adviceStatusId != null)
-			queryParameters = this.addParameter(queryParameters, " a.adviceStatus.id = :adviceStatusId");
-		if(amount != null)
-			queryParameters = this.addParameter(queryParameters, " a.amount = :amount");
-		// If we have query parameters then add them
-		if(!queryParameters.isEmpty()){
-			whereString = whereString.concat(queryParameters);
-			queryString =  queryString.concat(whereString);
-		}
-		// Build the query object and add parameters if necessary
-		if(!queryParameters.isEmpty()){
-
-			Query query = this.getEntityManager().createQuery(queryString);
-			if(customerId != null)
-				query.setParameter("customerId", customerId);
-			if(accountId != null)
-				query.setParameter("accountId", accountId);
-			if(currencyId != null)
-				query.setParameter("currencyId", currencyId);
-			if(adviceTypeId != null)
-				query.setParameter("adviceTypeId", adviceTypeId);
-			if(adviceStatusId != null)
-				query.setParameter("adviceStatusId", adviceStatusId);
-			if(amount != null)
-				query.setParameter("amount", amount);
-
-			try {
-				advice = (Advice) query.getSingleResult();
-			} catch (NoResultException e) {
-				logger.error("Advice not found for transaction");
-				//e.printStackTrace();
-			}
-		}
-		return advice;
-	}
-	
-	private String addParameter(String queryParameters, String parameter)
-	{
-		if(!queryParameters.isEmpty()){
-			queryParameters = queryParameters.concat(" AND" + parameter);
-		}
-		else
-		{
-			queryParameters = queryParameters.concat(parameter);
-		}
-		return queryParameters;
 	}
 }

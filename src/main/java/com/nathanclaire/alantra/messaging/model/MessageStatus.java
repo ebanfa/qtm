@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.messaging.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,14 +40,26 @@ public class MessageStatus  extends BaseEntity implements java.io.Serializable {
     public MessageStatus() {
     }
 
-    public MessageStatus(String name) 
+    public MessageStatus(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.name = name;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public MessageStatus(String name, String description, Set<Message> messages ) 
+    public MessageStatus(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Message> messages ) 
     {
+		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
 		this.messages = messages;
     }
     

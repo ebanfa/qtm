@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.channel.response.ServiceTransactionTypeResponse;
  */
 public interface ServiceTransactionTypeService extends BaseEntityService<ServiceTransactionType, ServiceTransactionTypeResponse, ServiceTransactionTypeRequest>
 {
-	public final String CHEQUE_WITHDRAWAL = "CHQ_WITHDRAWAL";
+
+	String CHEQUE_WITHDRAWAL = "CHQ_WITHDRAWAL";
+	
 }

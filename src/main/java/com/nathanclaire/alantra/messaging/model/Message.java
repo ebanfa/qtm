@@ -20,8 +20,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 
 /**
  * Message 
@@ -39,17 +39,17 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 	private MessageClassification messageClassification;
 	private MessageType messageType;
 	private MessageStatus messageStatus;
+	private DataChannel dataChannel;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
 	private Set<MessageAttachements> messageAttachementses = new HashSet<MessageAttachements>(0);
-	private Set<Advice> advices = new HashSet<Advice>(0);
 
     public Message() {
     }
 
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.messageFrom = messageFrom;
@@ -60,11 +60,12 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageAttachements> messageAttachementses, Set<Advice> advices ) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageAttachements> messageAttachementses ) 
     {
 		this.messageClassification = messageClassification;
 		this.messageType = messageType;
 		this.messageStatus = messageStatus;
+		this.dataChannel = dataChannel;
 		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
@@ -77,7 +78,6 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.messageAttachementses = messageAttachementses;
-		this.advices = advices;
     }
     
     		
@@ -118,6 +118,19 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageStatus(MessageStatus messageStatus)
     {
         this.messageStatus = messageStatus;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CHANNEL_ID", nullable=false)
+    @JsonIgnore
+    public DataChannel getDataChannel() 
+    {
+        return this.dataChannel;
+    }
+    
+    public void setDataChannel(DataChannel dataChannel)
+    {
+        this.dataChannel = dataChannel;
     }
 		
     @Column(name="MESSAGE_FROM" , nullable=false, length=75)
@@ -174,18 +187,6 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageAttachementses(Set<MessageAttachements> messageAttachementses) 
     {
         this.messageAttachementses = messageAttachementses;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
-    @JsonIgnore
-    public Set<Advice> getAdvices() 
-    {
-        return this.advices;
-    }
-    
-    public void setAdvices(Set<Advice> advices) 
-    {
-        this.advices = advices;
     }			
 
 

@@ -40,27 +40,27 @@ public class AdviceStatus  extends BaseEntity implements java.io.Serializable {
     public AdviceStatus() {
     }
 
-    public AdviceStatus(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public AdviceStatus(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
 		this.code = code;
+		this.name = name;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AdviceStatus(String name, String description, Set<Advice> advices, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public AdviceStatus(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
     {
+		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.advices = advices;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.advices = advices;
     }
     
 		

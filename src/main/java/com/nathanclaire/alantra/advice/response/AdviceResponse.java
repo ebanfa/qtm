@@ -16,10 +16,10 @@ public class AdviceResponse extends BaseResponse {
 
     private Integer customerId;
     private String customerText;
-    private Integer messageId;
-    private String messageText;
     private Integer currencyId;
     private String currencyText;
+    private Integer adviceRequestMessageId;
+    private String adviceRequestMessageText;
     private Integer adviceStatusId;
     private String adviceStatusText;
     private Integer adviceClassificationId;
@@ -57,22 +57,6 @@ public class AdviceResponse extends BaseResponse {
         this.customerText = customerText;
     }
 
-    public Integer getMessageId() {
-        return this.messageId;
-    }
-    
-    public void setMessageId(Integer messageId) {
-        this.messageId = messageId;
-    }
-
-    public String getMessageText() {
-        return this.messageText;
-    }
-    
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
     public Integer getCurrencyId() {
         return this.currencyId;
     }
@@ -87,6 +71,22 @@ public class AdviceResponse extends BaseResponse {
     
     public void setCurrencyText(String currencyText) {
         this.currencyText = currencyText;
+    }
+
+    public Integer getAdviceRequestMessageId() {
+        return this.adviceRequestMessageId;
+    }
+    
+    public void setAdviceRequestMessageId(Integer adviceRequestMessageId) {
+        this.adviceRequestMessageId = adviceRequestMessageId;
+    }
+
+    public String getAdviceRequestMessageText() {
+        return this.adviceRequestMessageText;
+    }
+    
+    public void setAdviceRequestMessageText(String adviceRequestMessageText) {
+        this.adviceRequestMessageText = adviceRequestMessageText;
     }
 
     public Integer getAdviceStatusId() {

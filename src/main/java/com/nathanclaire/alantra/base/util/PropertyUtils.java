@@ -9,15 +9,26 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
+import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
  * @author Edward Banfa 
  *
  */
 public class PropertyUtils {
+	
+	public static void initializeBaseFields(BaseRequest baseRequest)
+	{
+		baseRequest.setCreatedByUsr("SYSTEM");
+		baseRequest.setCreatedDt(new Date());
+		baseRequest.setEffectiveDt(new Date());
+		baseRequest.setRecSt('A');
+		
+	}
 	
 	/**
 	 * @param fromObj
@@ -39,7 +50,11 @@ public class PropertyUtils {
 	        {
 		        for (PropertyDescriptor fromPropertyDescriptor : fromPd) 
 		        {
+		            if (fromPropertyDescriptor.getName().equals(toPropertyDescriptor.getName()) && 
+		            		!fromPropertyDescriptor.getName().equals("class")) 
+		            {
 		        	copyProperty(toObj, fromObj, toPropertyDescriptor, fromPropertyDescriptor, includedFields);
+		            }
 		        }
 	        }
 	    } catch (IntrospectionException e) {
@@ -59,20 +74,15 @@ public class PropertyUtils {
 	private static void copyProperty(Object toObject, Object fromObject, 
 			PropertyDescriptor toPropertyDescriptor, PropertyDescriptor fromPropertyDescriptor, List<ApplicationEntityField> includedFields)
 	{
-		String fromPropertyDescriptorName = fromPropertyDescriptor.getName();
-        if (fromPropertyDescriptorName.equals(toPropertyDescriptor.getName()) && !fromPropertyDescriptorName.equals("class")) 
-        {
              try 
              {
 				if(toPropertyDescriptor.getWriteMethod() != null) 
 				{  
-
 					boolean excludeField = true;
 					for(ApplicationEntityField includedField: includedFields)
-					{
-						if (fromPropertyDescriptorName.equals(includedField.getName()))
+						if (fromPropertyDescriptor.getName().equals(includedField.getName()))
 							excludeField = false;
-					}
+					// Copy only if field is on include list
 					if(!excludeField)
 				        toPropertyDescriptor.getWriteMethod().invoke(toObject, 
 				        		fromPropertyDescriptor.getReadMethod().invoke(fromObject, null));
@@ -84,7 +94,6 @@ public class PropertyUtils {
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
-        }
 	}
 
 }

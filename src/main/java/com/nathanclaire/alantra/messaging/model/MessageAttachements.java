@@ -33,28 +33,28 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 public class MessageAttachements  extends BaseEntity implements java.io.Serializable {
 
 	private Message message;
-    private byte data;
     private String dataTy;
+    private String dataUrl;
 
     public MessageAttachements() {
     }
 
-    public MessageAttachements(Message message, String code, byte data, String dataTy, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public MessageAttachements(Message message, String code, String dataTy, String dataUrl, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
-		this.data = data;
 		this.dataTy = dataTy;
+		this.dataUrl = dataUrl;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public MessageAttachements(Message message, String code, byte data, String dataTy, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public MessageAttachements(Message message, String code, String dataTy, String dataUrl, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.message = message;
 		this.code = code;
-		this.data = data;
 		this.dataTy = dataTy;
+		this.dataUrl = dataUrl;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -77,17 +77,6 @@ public class MessageAttachements  extends BaseEntity implements java.io.Serializ
         this.message = message;
     }
 		
-    @Column(name="DATA" , nullable=false)
-    public byte getData() 
-    {
-        return this.data;
-    }
-    
-    public void setData(byte data) 
-    {
-        this.data = data;
-    }
-		
     @Column(name="DATA_TY" , nullable=false, length=15)
     public String getDataTy() 
     {
@@ -97,6 +86,17 @@ public class MessageAttachements  extends BaseEntity implements java.io.Serializ
     public void setDataTy(String dataTy) 
     {
         this.dataTy = dataTy;
+    }
+		
+    @Column(name="DATA_URL" , nullable=false, length=150)
+    public String getDataUrl() 
+    {
+        return this.dataUrl;
+    }
+    
+    public void setDataUrl(String dataUrl) 
+    {
+        this.dataUrl = dataUrl;
     }
 
 

@@ -55,8 +55,14 @@
                 <th><input id="table-header-checkbox" type="checkbox"></th>
             <%
             _.each(model.fields, function (field) {
-            %>                              
+            %>  
+                <% if  (field.name == "lastModifiedDt") { %> 
+                <% } else if  (field.name == "lastModifiedUsr") { %>
+                <% } else if  (field.name == "createdDt") { %>
+                <% } else { %> 
                     <th style="width:100px"><%=field.description%></th>  
+                <% }  %>
+
             <% }); %>                           
                 </tr>
             </thead> 
@@ -79,12 +85,19 @@
                             <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
                         </a>
                     </td>  
-                    <% } else { %>                     
+                    <% } else { %> 
+                        <!-- Filter fields --> 
+                        <% if  (field.name == "lastModifiedDt") { %> 
+                        <% } else if  (field.name == "lastModifiedUsr") { %>
+                        <% } else if  (field.name == "createdDt") { %> 
+                        <% } else { %> 
                     <td class="td-actions">
                         <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>">
                             <%= activity[field.name] ? activity[field.name] : '' %>
                         </a>
-                    </td>  
+                    </td>   
+                        <% }  %>   <!-- End if -->                  
+                     
                     <% }  %>    <!-- End if --> 
                 <% }); %>  
             </tr>  

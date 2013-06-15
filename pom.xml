@@ -46,6 +46,10 @@
   		<id>Java.Net</id>
   		<url>http://download.java.net/maven/2/</url>
     	</repository>
+    	<repository>
+          <id>Pentaho</id>
+          <url>http://repository.pentaho.org/artifactory/repo</url>
+        </repository>
   	</repositories>
 
     <dependencyManagement>
@@ -221,18 +225,118 @@
 			<groupId>com.nathanclaire.advicepro.client</groupId>
 			<artifactId>adviceclient</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
-		<dependency>
+		</dependency> 
+		 <dependency>
 			<groupId>eu.ralph-schuster</groupId>
   			<artifactId>csv</artifactId>
   			<version>2.4.0</version>
 		</dependency>
-        <!-- Java Mail API 
-    	<dependency>
-	 		<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.5</version>
-		</dependency>   -->
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency> -->
+		
+		<!-- Open CSV -->
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.0</version>
+		</dependency>
+		
+		<!-- Java Mail API -->
+	    <dependency>
+			<groupId>javax.mail</groupId>
+		 	<artifactId>mail</artifactId>
+		 	<version>1.4.4</version>
+         	<scope>provided</scope>
+	    </dependency>
+	    
+	    <!-- Apache POI -->
+	    <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+            
+		
+		 <!-- Pentaho dependencies -->
+        <dependency>
+            <groupId>pentaho-reporting-engine</groupId>
+            <artifactId>pentaho-reporting-engine-classic-extensions</artifactId>
+            <version>3.9.1-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-report-designer</groupId>
+            <artifactId>pentaho-reporting-engine-wizard-xul</artifactId>
+            <version>3.9.1-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-reporting-engine</groupId>
+            <artifactId>pentaho-reporting-engine-classic-core</artifactId>
+            <version>3.9.1-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-reporting-engine</groupId>
+            <artifactId>pentaho-reporting-engine-wizard-core</artifactId>
+            <version>3.9.1-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libloader</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libbase</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libserializer</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libformula</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libxml</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libsparkline</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>librepository</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libformat</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libfonts</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-library</groupId>
+            <artifactId>libdocbundle</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+		
     </dependencies>
 
     <build>

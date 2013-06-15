@@ -20,15 +20,13 @@ import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.datasource.model.DataInputJobStatus;
-import com.nathanclaire.alantra.datasource.model.DataInputJobCategory;
 import com.nathanclaire.alantra.datasource.model.DataInputJobType;
-import com.nathanclaire.alantra.datasource.model.DataSource;
+import com.nathanclaire.alantra.datasource.model.DataInput;
 import com.nathanclaire.alantra.datasource.request.DataInputJobRequest;
 import com.nathanclaire.alantra.datasource.response.DataInputJobResponse;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobStatusService;
-import com.nathanclaire.alantra.datasource.service.entity.DataInputJobCategoryService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobTypeService;
-import com.nathanclaire.alantra.datasource.service.entity.DataSourceService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
@@ -44,9 +42,8 @@ public class DataInputJobServiceImpl
 	implements DataInputJobService
 {
 	private static final String LIST_ITEM_DATAINPUTJOBSTATUS = "dataInputJobStatus";
-	private static final String LIST_ITEM_DATAINPUTJOBCATEGORY = "dataInputJobCategory";
 	private static final String LIST_ITEM_DATAINPUTJOBTYPE = "dataInputJobType";
-	private static final String LIST_ITEM_DATASOURCE = "dataSource";
+	private static final String LIST_ITEM_DATAINPUT = "dataInput";
 	private static final String ENTITY_NAME = "DataInputJob";
 	private static final String LIST_ACTIVITY_CODE = "LIST_DATASOURCE_DATAINPUTJOB";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_DATASOURCE_DATAINPUTJOB";
@@ -58,11 +55,9 @@ public class DataInputJobServiceImpl
 	@Inject
 	DataInputJobStatusService  dataInputJobStatusService;
 	@Inject
-	DataInputJobCategoryService  dataInputJobCategoryService;
-	@Inject
 	DataInputJobTypeService  dataInputJobTypeService;
 	@Inject
-	DataSourceService  dataSourceService;
+	DataInputService  dataInputService;
 	
 	/**
 	 * @param entityClass
@@ -167,14 +162,12 @@ public class DataInputJobServiceImpl
 	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> dataInputJobStatuss = dataInputJobStatusService.asListItem();
-		List<ListItemResponse> dataInputJobCategorys = dataInputJobCategoryService.asListItem();
 		List<ListItemResponse> dataInputJobTypes = dataInputJobTypeService.asListItem();
-		List<ListItemResponse> dataSources = dataSourceService.asListItem();
+		List<ListItemResponse> dataInputs = dataInputService.asListItem();
     	
 		listItems.put(LIST_ITEM_DATAINPUTJOBSTATUS, dataInputJobStatuss); 
-		listItems.put(LIST_ITEM_DATAINPUTJOBCATEGORY, dataInputJobCategorys); 
 		listItems.put(LIST_ITEM_DATAINPUTJOBTYPE, dataInputJobTypes); 
-		listItems.put(LIST_ITEM_DATASOURCE, dataSources); 
+		listItems.put(LIST_ITEM_DATAINPUT, dataInputs); 
 		return listItems;
 	}
 
@@ -210,20 +203,15 @@ public class DataInputJobServiceImpl
     		DataInputJobStatus dataInputJobStatus = getEntityManager().find(DataInputJobStatus.class, dataInputJobRequest.getDataInputJobStatusId());
     		dataInputJob.setDataInputJobStatus(dataInputJobStatus);
     	}
-    	if (dataInputJobRequest.getDataInputJobCategoryId() != null)
-    	{
-    		DataInputJobCategory dataInputJobCategory = getEntityManager().find(DataInputJobCategory.class, dataInputJobRequest.getDataInputJobCategoryId());
-    		dataInputJob.setDataInputJobCategory(dataInputJobCategory);
-    	}
     	if (dataInputJobRequest.getDataInputJobTypeId() != null)
     	{
     		DataInputJobType dataInputJobType = getEntityManager().find(DataInputJobType.class, dataInputJobRequest.getDataInputJobTypeId());
     		dataInputJob.setDataInputJobType(dataInputJobType);
     	}
-    	if (dataInputJobRequest.getDataSourceId() != null)
+    	if (dataInputJobRequest.getDataInputId() != null)
     	{
-    		DataSource dataSource = getEntityManager().find(DataSource.class, dataInputJobRequest.getDataSourceId());
-    		dataInputJob.setDataSource(dataSource);
+    		DataInput dataInput = getEntityManager().find(DataInput.class, dataInputJobRequest.getDataInputId());
+    		dataInputJob.setDataInput(dataInput);
     	}
 		return dataInputJob;
 	}
@@ -238,15 +226,12 @@ public class DataInputJobServiceImpl
 		if(model.getDataInputJobStatus() != null)
 			dataInputJobResponse.setDataInputJobStatusId(model.getDataInputJobStatus().getId());
 			dataInputJobResponse.setDataInputJobStatusText(model.getDataInputJobStatus().getName());
-		if(model.getDataInputJobCategory() != null)
-			dataInputJobResponse.setDataInputJobCategoryId(model.getDataInputJobCategory().getId());
-			dataInputJobResponse.setDataInputJobCategoryText(model.getDataInputJobCategory().getName());
 		if(model.getDataInputJobType() != null)
 			dataInputJobResponse.setDataInputJobTypeId(model.getDataInputJobType().getId());
 			dataInputJobResponse.setDataInputJobTypeText(model.getDataInputJobType().getName());
-		if(model.getDataSource() != null)
-			dataInputJobResponse.setDataSourceId(model.getDataSource().getId());
-			dataInputJobResponse.setDataSourceText(model.getDataSource().getName());
+		if(model.getDataInput() != null)
+			dataInputJobResponse.setDataInputId(model.getDataInput().getId());
+			dataInputJobResponse.setDataInputText(model.getDataInput().getName());
 		return dataInputJobResponse;
 	}
 }

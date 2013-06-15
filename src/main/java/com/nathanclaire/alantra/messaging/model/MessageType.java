@@ -3,12 +3,15 @@
  */
 package com.nathanclaire.alantra.messaging.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -32,24 +35,53 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class MessageType  extends BaseEntity implements java.io.Serializable {
 
+	private MessageCategory messageCategory;
     private String name;
     private String description;
+	private Set<MessageTypeTag> messageTypeTags = new HashSet<MessageTypeTag>(0);
 	private Set<Message> messages = new HashSet<Message>(0);
 
     public MessageType() {
     }
 
-    public MessageType(String name) 
+    public MessageType(MessageCategory messageCategory, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.name = name;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public MessageType(String name, String description, Set<Message> messages ) 
+    public MessageType(MessageCategory messageCategory, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageTypeTag> messageTypeTags, Set<Message> messages ) 
     {
+		this.messageCategory = messageCategory;
+		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
+		this.messageTypeTags = messageTypeTags;
 		this.messages = messages;
     }
     
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MSG_CAT_ID", nullable=false)
+    @JsonIgnore
+    public MessageCategory getMessageCategory() 
+    {
+        return this.messageCategory;
+    }
+    
+    public void setMessageCategory(MessageCategory messageCategory)
+    {
+        this.messageCategory = messageCategory;
+    }
 		
     @Column(name="NAME" , nullable=false, length=75)
     public String getName() 
@@ -72,6 +104,18 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
     {
         this.description = description;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
+    @JsonIgnore
+    public Set<MessageTypeTag> getMessageTypeTags() 
+    {
+        return this.messageTypeTags;
+    }
+    
+    public void setMessageTypeTags(Set<MessageTypeTag> messageTypeTags) 
+    {
+        this.messageTypeTags = messageTypeTags;
+    }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
     @JsonIgnore

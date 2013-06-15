@@ -14,12 +14,30 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class MessageTypeRequest extends BaseRequest {
 
+    private Integer messageCategoryId;
+    private String messageCategoryText;
     private String name;
     private String description;
     private Integer id;
     private String code;
 
     public MessageTypeRequest() {
+    }
+
+    public Integer getMessageCategoryId() {
+        return this.messageCategoryId;
+    }
+    
+    public void setMessageCategoryId(Integer messageCategoryId) {
+        this.messageCategoryId = messageCategoryId;
+    }
+
+    public String getMessageCategoryText() {
+        return this.messageCategoryText;
+    }
+    
+    public void setMessageCategoryText(String messageCategoryText) {
+        this.messageCategoryText = messageCategoryText;
     }
 
     public String getName() {

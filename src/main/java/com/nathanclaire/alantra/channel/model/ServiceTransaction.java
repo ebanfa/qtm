@@ -3,7 +3,6 @@
  */
 package com.nathanclaire.alantra.channel.model;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,6 +29,8 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.util.DateDeserializer;
 import com.nathanclaire.alantra.base.util.DateSerializer;
 import com.nathanclaire.alantra.businessdata.model.Currency;
+import com.nathanclaire.alantra.customer.model.CustomerAccount;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 
 /**
  * ServiceTransaction 
@@ -44,14 +45,14 @@ import com.nathanclaire.alantra.businessdata.model.Currency;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ServiceTransaction  extends BaseEntity implements java.io.Serializable {
 
-    private Currency currency;
-	private Service service;
+	private Currency currency;
 	private ServiceTransactionStatus serviceTransactionStatus;
+	private DataChannel dataChannel;
 	private ServiceTransactionType serviceTransactionType;
+	private CustomerAccount customerAccount;
     private String name;
     private BigDecimal amount;
     private Date txnDate;
-    private String accountNo;
     private String chequeNo;
     private String cardNo;
     private String accountNm;
@@ -61,43 +62,42 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     public ServiceTransaction() {
     }
 
-    public ServiceTransaction(Currency currency, Service service, ServiceTransactionStatus serviceTransactionStatus, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public ServiceTransaction(Currency currency, ServiceTransactionStatus serviceTransactionStatus, DataChannel dataChannel, ServiceTransactionType serviceTransactionType, CustomerAccount customerAccount, String code, String name, BigDecimal amount, Date txnDate, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.currency = currency;
+		this.code = code;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
-		this.accountNo = accountNo;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransaction(Currency currency, Service service, ServiceTransactionStatus serviceTransactionStatus, ServiceTransactionType serviceTransactionType, String name, BigDecimal amount, Date txnDate, String accountNo, String chequeNo, String cardNo, String accountNm, String description, Set<AdvicedTransaction> advicedTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public ServiceTransaction(Currency currency, ServiceTransactionStatus serviceTransactionStatus, DataChannel dataChannel, ServiceTransactionType serviceTransactionType, CustomerAccount customerAccount, String code, String name, BigDecimal amount, Date txnDate, String chequeNo, String cardNo, String accountNm, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdvicedTransaction> advicedTransactions ) 
     {
 		this.currency = currency;
-		this.service = service;
 		this.serviceTransactionStatus = serviceTransactionStatus;
+		this.dataChannel = dataChannel;
 		this.serviceTransactionType = serviceTransactionType;
+		this.customerAccount = customerAccount;
+		this.code = code;
 		this.name = name;
 		this.amount = amount;
 		this.txnDate = txnDate;
-		this.accountNo = accountNo;
 		this.chequeNo = chequeNo;
 		this.cardNo = cardNo;
 		this.accountNm = accountNm;
 		this.description = description;
-		this.advicedTransactions = advicedTransactions;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.advicedTransactions = advicedTransactions;
     }
     
+    		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CURRENCY_ID", nullable=false)
     @JsonIgnore
@@ -106,22 +106,9 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
         return this.currency;
     }
     
-    public void setCurrency(Currency currency) 
+    public void setCurrency(Currency currency)
     {
         this.currency = currency;
-    }
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="SERVICE_ID", nullable=false)
-    @JsonIgnore
-    public Service getService() 
-    {
-        return this.service;
-    }
-    
-    public void setService(Service service)
-    {
-        this.service = service;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -138,6 +125,19 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CHANNEL_ID", nullable=false)
+    @JsonIgnore
+    public DataChannel getDataChannel() 
+    {
+        return this.dataChannel;
+    }
+    
+    public void setDataChannel(DataChannel dataChannel)
+    {
+        this.dataChannel = dataChannel;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="TXN_TY_ID", nullable=false)
     @JsonIgnore
     public ServiceTransactionType getServiceTransactionType() 
@@ -148,6 +148,19 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     public void setServiceTransactionType(ServiceTransactionType serviceTransactionType)
     {
         this.serviceTransactionType = serviceTransactionType;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID", nullable=false)
+    @JsonIgnore
+    public CustomerAccount getCustomerAccount() 
+    {
+        return this.customerAccount;
+    }
+    
+    public void setCustomerAccount(CustomerAccount customerAccount)
+    {
+        this.customerAccount = customerAccount;
     }
 		
     @Column(name="NAME" , nullable=false, length=75)
@@ -183,17 +196,6 @@ public class ServiceTransaction  extends BaseEntity implements java.io.Serializa
     public void setTxnDate(Date txnDate) 
     {
         this.txnDate = txnDate;
-    }
-		
-    @Column(name="ACCOUNT_NO" , nullable=false, length=75)
-    public String getAccountNo() 
-    {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) 
-    {
-        this.accountNo = accountNo;
     }
 		
     @Column(name="CHEQUE_NO" , unique=true, length=15)

@@ -40,27 +40,27 @@ public class ServiceTransactionStatus  extends BaseEntity implements java.io.Ser
     public ServiceTransactionStatus() {
     }
 
-    public ServiceTransactionStatus(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public ServiceTransactionStatus(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
 		this.code = code;
+		this.name = name;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransactionStatus(String name, String description, Set<ServiceTransaction> serviceTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public ServiceTransactionStatus(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ServiceTransaction> serviceTransactions ) 
     {
+		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.serviceTransactions = serviceTransactions;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.serviceTransactions = serviceTransactions;
     }
     
 		

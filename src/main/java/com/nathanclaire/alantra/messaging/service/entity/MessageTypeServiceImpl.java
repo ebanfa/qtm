@@ -19,8 +19,10 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.messaging.model.MessageType;
+import com.nathanclaire.alantra.messaging.model.MessageCategory;
 import com.nathanclaire.alantra.messaging.request.MessageTypeRequest;
 import com.nathanclaire.alantra.messaging.response.MessageTypeResponse;
+import com.nathanclaire.alantra.messaging.service.entity.MessageCategoryService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
@@ -35,6 +37,7 @@ public class MessageTypeServiceImpl
 	extends BaseEntityServiceImpl<MessageType, MessageTypeResponse, MessageTypeRequest> 
 	implements MessageTypeService
 {
+	private static final String LIST_ITEM_MESSAGECATEGORY = "messageCategory";
 	private static final String ENTITY_NAME = "MessageType";
 	private static final String LIST_ACTIVITY_CODE = "LIST_MESSAGING_MESSAGETYPE";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_MESSAGING_MESSAGETYPE";
@@ -43,6 +46,8 @@ public class MessageTypeServiceImpl
 	
 	@Inject
 	ApplicationEntityService  applicationEntityService;
+	@Inject
+	MessageCategoryService  messageCategoryService;
 	
 	/**
 	 * @param entityClass
@@ -146,7 +151,9 @@ public class MessageTypeServiceImpl
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
 	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
+		List<ListItemResponse> messageCategorys = messageCategoryService.asListItem();
     	
+		listItems.put(LIST_ITEM_MESSAGECATEGORY, messageCategorys); 
 		return listItems;
 	}
 
@@ -177,6 +184,11 @@ public class MessageTypeServiceImpl
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(messageTypeRequest, messageType, allowedEntityFields);
     	//Process many to one relationships
+    	if (messageTypeRequest.getMessageCategoryId() != null)
+    	{
+    		MessageCategory messageCategory = getEntityManager().find(MessageCategory.class, messageTypeRequest.getMessageCategoryId());
+    		messageType.setMessageCategory(messageCategory);
+    	}
 		return messageType;
 	}
 	
@@ -187,6 +199,9 @@ public class MessageTypeServiceImpl
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, messageTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
+		if(model.getMessageCategory() != null)
+			messageTypeResponse.setMessageCategoryId(model.getMessageCategory().getId());
+			messageTypeResponse.setMessageCategoryText(model.getMessageCategory().getName());
 		return messageTypeResponse;
 	}
 }

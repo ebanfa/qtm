@@ -4,12 +4,15 @@
 package com.nathanclaire.alantra.businessdata.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -37,34 +40,36 @@ public class Country  extends BaseEntity implements java.io.Serializable {
     private String cntryCdIso2;
     private String cntryCdIso3;
     private String remarks;
+	private Set<BusinessUnit> businessUnits = new HashSet<BusinessUnit>(0);
 
     public Country() {
     }
 
-    public Country(String name, String cntryCdIso2, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Country(String code, String name, String cntryCdIso2, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.name = name;
 		this.cntryCdIso2 = cntryCdIso2;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Country(Currency currency, String name, String cntryCdIso2, String cntryCdIso3, String remarks, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public Country(Currency currency, String code, String name, String cntryCdIso2, String cntryCdIso3, String remarks, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<BusinessUnit> businessUnits ) 
     {
 		this.currency = currency;
+		this.code = code;
 		this.name = name;
 		this.cntryCdIso2 = cntryCdIso2;
 		this.cntryCdIso3 = cntryCdIso3;
 		this.remarks = remarks;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.businessUnits = businessUnits;
     }
     
     		
@@ -124,6 +129,18 @@ public class Country  extends BaseEntity implements java.io.Serializable {
     {
         this.remarks = remarks;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="country")
+    @JsonIgnore
+    public Set<BusinessUnit> getBusinessUnits() 
+    {
+        return this.businessUnits;
+    }
+    
+    public void setBusinessUnits(Set<BusinessUnit> businessUnits) 
+    {
+        this.businessUnits = businessUnits;
+    }			
 
 
 }

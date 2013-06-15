@@ -7,10 +7,14 @@ import java.math.BigDecimal;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.service.entity.AdviceService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceServiceImpl;
 import com.nathanclaire.alantra.advice.service.entity.AdviceStatusService;
 import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
@@ -37,33 +41,29 @@ public class TransactionMatchingServiceImpl extends BaseProcessService
 	AdviceStatusService adviceStatusService;
 	@Inject
 	CustomerAccountService customerAccountService;
+	
+	private Logger logger = LoggerFactory.getLogger(AdviceServiceImpl.class);
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.advice.service.process.TransactionMatchingService#match(com.nathanclaire.alantra.channel.model.ServiceTransaction)
 	 */
 	@Override
 	public Advice match(ServiceTransaction transaction) throws ApplicationException  {
-		// TODO Auto-generated method stub
 		// 1. Get the account number from the transaction
-		String accountNo = transaction.getAccountNo();
 		// 2. Locate the account that is referenced by that number
-		Integer accountId = null;
-		Integer customerId = null;
-		CustomerAccount customerAccount = customerAccountService.findByCode(accountNo);
-		if(customerAccount != null)
-		{
-			accountId = customerAccount.getId();
-			// 3. Get the customer that has that account
-			Customer customer = customerAccount.getCustomer();
-			customerId = customer.getId();
-		}
+		CustomerAccount account = transaction.getCustomerAccount();
+		if(account == null)
+			throw new ApplicationException(CUSTOMER_ACCOUNT_NOT_FOUND);
+		// 3. Get the customer that has that account
+		Customer customer = account.getCustomer();
+		if(customer == null)
+			throw new ApplicationException(CUSTOMER_NOT_FOUND);
 		// 4. Get the amount of the transaction
 		BigDecimal amount = transaction.getAmount();
 		// 5. Get the currency of the transaction
-		Integer currencyId = null;
 		Currency currency = transaction.getCurrency();
-		if(currency != null){
-			currencyId = currency.getId();
-		}
+		if(currency == null)
+			throw new ApplicationException(TRANSACTION_CURRENCY_NOT_FOUND);
 		// 7. Get the advice type for the transaction type
 		Integer adviceTypeId = null;
 		String transactionTypeCode = null;
@@ -82,10 +82,13 @@ public class TransactionMatchingServiceImpl extends BaseProcessService
 		if (adviceStatus != null){
 			adviceStatusId = adviceStatus.getId();
 		}
-		Advice advice = 
-				adviceService.findAdvice(customerId, accountId, 
-						currencyId, adviceTypeId, adviceStatusId, amount);
-		return advice;
+		logger.info("Finding advice with Customer Id: {}, Account Id: {}, Cheque No: {}, " +
+				"Currency Id: {}, Advice Type Id: {}, Status Id: {}, Amount: {}", customer.getId(), account.getId(), 
+				transaction.getChequeNo(), currency.getId(), adviceTypeId, adviceStatusId, amount);
+		/*Advice advice = 
+				adviceService.findAdvice(customer.getId(), account.getId(), 
+						transaction.getChequeNo(), currency.getId(), adviceTypeId, adviceStatusId, amount);*/
+		return null;
 	}
 	
 	

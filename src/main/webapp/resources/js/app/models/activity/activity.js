@@ -31,6 +31,8 @@ define([
             delete attr.entity;
             delete attr.relatedActivities;
             delete attr.relatedEntitiesListData;
+            delete attr.errorCode;
+            delete attr.errorMessage;
             return attr;
         }/*,
         // Overwrite save function

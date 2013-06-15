@@ -20,6 +20,8 @@ public class MessageRequest extends BaseRequest {
     private String messageTypeText;
     private Integer messageStatusId;
     private String messageStatusText;
+    private Integer dataChannelId;
+    private String dataChannelText;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
@@ -76,6 +78,22 @@ public class MessageRequest extends BaseRequest {
     
     public void setMessageStatusText(String messageStatusText) {
         this.messageStatusText = messageStatusText;
+    }
+
+    public Integer getDataChannelId() {
+        return this.dataChannelId;
+    }
+    
+    public void setDataChannelId(Integer dataChannelId) {
+        this.dataChannelId = dataChannelId;
+    }
+
+    public String getDataChannelText() {
+        return this.dataChannelText;
+    }
+    
+    public void setDataChannelText(String dataChannelText) {
+        this.dataChannelText = dataChannelText;
     }
 
     public String getMessageFrom() {

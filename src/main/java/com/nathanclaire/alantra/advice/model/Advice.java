@@ -30,7 +30,6 @@ import com.nathanclaire.alantra.base.util.DateSerializer;
 import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
-import com.nathanclaire.alantra.messaging.model.Message;
 
 /**
  * Advice 
@@ -46,8 +45,8 @@ import com.nathanclaire.alantra.messaging.model.Message;
 public class Advice  extends BaseEntity implements java.io.Serializable {
 
 	private Customer customer;
-	private Message message;
 	private Currency currency;
+	private AdviceRequestMessage adviceRequestMessage;
 	private AdviceStatus adviceStatus;
 	private AdviceClassification adviceClassification;
 	private CustomerAccount customerAccount;
@@ -68,7 +67,7 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     public Advice() {
     }
 
-    public Advice(Customer customer, Message message, Currency currency, AdviceStatus adviceStatus, AdviceClassification adviceClassification, AdviceType adviceType, String code, String name, BigDecimal amount, int maxMatches, int matchCount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Advice(Customer customer, Currency currency, AdviceRequestMessage adviceRequestMessage, AdviceStatus adviceStatus, AdviceClassification adviceClassification, AdviceType adviceType, String code, String name, BigDecimal amount, int maxMatches, int matchCount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
@@ -80,11 +79,11 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Advice(Customer customer, Message message, Currency currency, AdviceStatus adviceStatus, AdviceClassification adviceClassification, CustomerAccount customerAccount, AdviceType adviceType, String code, String name, String description, String adviceTxt, String cardNo, String chequeNo, String accountNm, BigDecimal amount, Date startDt, Date endDt, int maxMatches, int matchCount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdvicedTransaction> advicedTransactions ) 
+    public Advice(Customer customer, Currency currency, AdviceRequestMessage adviceRequestMessage, AdviceStatus adviceStatus, AdviceClassification adviceClassification, CustomerAccount customerAccount, AdviceType adviceType, String code, String name, String description, String adviceTxt, String cardNo, String chequeNo, String accountNm, BigDecimal amount, Date startDt, Date endDt, int maxMatches, int matchCount, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdvicedTransaction> advicedTransactions ) 
     {
 		this.customer = customer;
-		this.message = message;
 		this.currency = currency;
+		this.adviceRequestMessage = adviceRequestMessage;
 		this.adviceStatus = adviceStatus;
 		this.adviceClassification = adviceClassification;
 		this.customerAccount = customerAccount;
@@ -125,19 +124,6 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="MESSAGE_ID", nullable=false)
-    @JsonIgnore
-    public Message getMessage() 
-    {
-        return this.message;
-    }
-    
-    public void setMessage(Message message)
-    {
-        this.message = message;
-    }
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="CURRENCY_ID", nullable=false)
     @JsonIgnore
     public Currency getCurrency() 
@@ -148,6 +134,19 @@ public class Advice  extends BaseEntity implements java.io.Serializable {
     public void setCurrency(Currency currency)
     {
         this.currency = currency;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ADVICE_REQUEST_ID", nullable=false)
+    @JsonIgnore
+    public AdviceRequestMessage getAdviceRequestMessage() 
+    {
+        return this.adviceRequestMessage;
+    }
+    
+    public void setAdviceRequestMessage(AdviceRequestMessage adviceRequestMessage)
+    {
+        this.adviceRequestMessage = adviceRequestMessage;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)

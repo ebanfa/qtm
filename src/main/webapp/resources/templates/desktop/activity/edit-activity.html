@@ -43,6 +43,7 @@
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
                                 <select id="<%= field.fieldInfo.name %>" name="<%= field.fieldInfo.name %>">
                                     <option value="A">Active</option>
+                                    <option value="I">Inactive</option>
                                 </select>
                             </div>   
                             <% } else if (field.fieldInfo.fieldTypeCode == "CHAR") {  %>

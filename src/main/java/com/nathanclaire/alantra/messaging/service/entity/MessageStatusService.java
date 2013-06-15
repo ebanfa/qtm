@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.messaging.response.MessageStatusResponse;
  */
 public interface MessageStatusService extends BaseEntityService<MessageStatus, MessageStatusResponse, MessageStatusRequest>
 {
+
+	public final String RECEIVED = "RECEIVED";
 	
 }

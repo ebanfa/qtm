@@ -22,6 +22,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 
 /**
  * CustomerAccount 
@@ -41,6 +42,7 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
     private String accountNo;
     private String description;
 	private Set<Advice> advices = new HashSet<Advice>(0);
+	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
 
     public CustomerAccount() {
     }
@@ -55,7 +57,7 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerAccount(Customer customer, String code, String name, String accountNo, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
+    public CustomerAccount(Customer customer, String code, String name, String accountNo, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices, Set<ServiceTransaction> serviceTransactions ) 
     {
 		this.customer = customer;
 		this.code = code;
@@ -69,6 +71,7 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.advices = advices;
+		this.serviceTransactions = serviceTransactions;
     }
     
     		
@@ -129,8 +132,19 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
     {
         this.advices = advices;
     }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="customerAccount")
+    @JsonIgnore
+    public Set<ServiceTransaction> getServiceTransactions() 
+    {
+        return this.serviceTransactions;
+    }
+    
+    public void setServiceTransactions(Set<ServiceTransaction> serviceTransactions) 
+    {
+        this.serviceTransactions = serviceTransactions;
+    }			
 
 
 }
-
 

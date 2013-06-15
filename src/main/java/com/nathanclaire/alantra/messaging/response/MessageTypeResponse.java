@@ -14,8 +14,26 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
  */
 public class MessageTypeResponse extends BaseResponse {
 
+    private Integer messageCategoryId;
+    private String messageCategoryText;
 
     public MessageTypeResponse() {
+    }
+
+    public Integer getMessageCategoryId() {
+        return this.messageCategoryId;
+    }
+    
+    public void setMessageCategoryId(Integer messageCategoryId) {
+        this.messageCategoryId = messageCategoryId;
+    }
+
+    public String getMessageCategoryText() {
+        return this.messageCategoryText;
+    }
+    
+    public void setMessageCategoryText(String messageCategoryText) {
+        this.messageCategoryText = messageCategoryText;
     }
 
 

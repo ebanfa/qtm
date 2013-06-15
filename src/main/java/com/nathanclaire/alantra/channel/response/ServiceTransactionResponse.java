@@ -16,15 +16,16 @@ public class ServiceTransactionResponse extends BaseResponse {
 
     private Integer currencyId;
     private String currencyText;
-    private Integer serviceId;
-    private String serviceText;
     private Integer serviceTransactionStatusId;
     private String serviceTransactionStatusText;
+    private Integer dataChannelId;
+    private String dataChannelText;
     private Integer serviceTransactionTypeId;
     private String serviceTransactionTypeText;
+    private Integer customerAccountId;
+    private String customerAccountText;
     private BigDecimal amount;
     private Date txnDate;
-    private String accountNo;
     private String chequeNo;
     private String cardNo;
     private String accountNm;
@@ -48,22 +49,6 @@ public class ServiceTransactionResponse extends BaseResponse {
         this.currencyText = currencyText;
     }
 
-    public Integer getServiceId() {
-        return this.serviceId;
-    }
-    
-    public void setServiceId(Integer serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getServiceText() {
-        return this.serviceText;
-    }
-    
-    public void setServiceText(String serviceText) {
-        this.serviceText = serviceText;
-    }
-
     public Integer getServiceTransactionStatusId() {
         return this.serviceTransactionStatusId;
     }
@@ -78,6 +63,22 @@ public class ServiceTransactionResponse extends BaseResponse {
     
     public void setServiceTransactionStatusText(String serviceTransactionStatusText) {
         this.serviceTransactionStatusText = serviceTransactionStatusText;
+    }
+
+    public Integer getDataChannelId() {
+        return this.dataChannelId;
+    }
+    
+    public void setDataChannelId(Integer dataChannelId) {
+        this.dataChannelId = dataChannelId;
+    }
+
+    public String getDataChannelText() {
+        return this.dataChannelText;
+    }
+    
+    public void setDataChannelText(String dataChannelText) {
+        this.dataChannelText = dataChannelText;
     }
 
     public Integer getServiceTransactionTypeId() {
@@ -96,6 +97,22 @@ public class ServiceTransactionResponse extends BaseResponse {
         this.serviceTransactionTypeText = serviceTransactionTypeText;
     }
 
+    public Integer getCustomerAccountId() {
+        return this.customerAccountId;
+    }
+    
+    public void setCustomerAccountId(Integer customerAccountId) {
+        this.customerAccountId = customerAccountId;
+    }
+
+    public String getCustomerAccountText() {
+        return this.customerAccountText;
+    }
+    
+    public void setCustomerAccountText(String customerAccountText) {
+        this.customerAccountText = customerAccountText;
+    }
+
     public BigDecimal getAmount() {
         return this.amount;
     }
@@ -110,14 +127,6 @@ public class ServiceTransactionResponse extends BaseResponse {
     
     public void setTxnDate(Date txnDate) {
         this.txnDate = txnDate;
-    }
-
-    public String getAccountNo() {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
     }
 
     public String getChequeNo() {

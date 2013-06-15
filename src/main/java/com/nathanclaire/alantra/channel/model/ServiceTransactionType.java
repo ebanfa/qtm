@@ -18,6 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 
 /**
@@ -35,32 +36,34 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
 
     private String name;
     private String description;
+	private Set<AdviceType> adviceTypes = new HashSet<AdviceType>(0);
 	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
 
     public ServiceTransactionType() {
     }
 
-    public ServiceTransactionType(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public ServiceTransactionType(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
 		this.code = code;
+		this.name = name;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransactionType(String name, String description, Set<ServiceTransaction> serviceTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public ServiceTransactionType(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceType> adviceTypes, Set<ServiceTransaction> serviceTransactions ) 
     {
+		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.serviceTransactions = serviceTransactions;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.adviceTypes = adviceTypes;
+		this.serviceTransactions = serviceTransactions;
     }
     
 		
@@ -85,6 +88,18 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
     {
         this.description = description;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceTransactionType")
+    @JsonIgnore
+    public Set<AdviceType> getAdviceTypes() 
+    {
+        return this.adviceTypes;
+    }
+    
+    public void setAdviceTypes(Set<AdviceType> adviceTypes) 
+    {
+        this.adviceTypes = adviceTypes;
+    }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceTransactionType")
     @JsonIgnore

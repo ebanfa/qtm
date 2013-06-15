@@ -98,6 +98,8 @@ public class CustomerServiceImpl
 	 */
 	@Override
 	public Customer create(CustomerRequest customerRequest) throws ApplicationException {
+		logger.info("Creating customer {} with code:{}", customerRequest.getName(),
+				customerRequest.getCode());
 		return createInstance(customerRequest);
 	}
 
@@ -201,6 +203,8 @@ public class CustomerServiceImpl
     		CustomerType customerType = getEntityManager().find(CustomerType.class, customerRequest.getCustomerTypeId());
     		customer.setCustomerType(customerType);
     	}
+    	logger.info("Final customer is customer:{} code:{}", customer.getName(),
+    			customer.getCode());
 		return customer;
 	}
 	

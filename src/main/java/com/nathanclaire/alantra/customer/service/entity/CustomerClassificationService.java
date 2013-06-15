@@ -14,5 +14,5 @@ import com.nathanclaire.alantra.customer.response.CustomerClassificationResponse
  */
 public interface CustomerClassificationService extends BaseEntityService<CustomerClassification, CustomerClassificationResponse, CustomerClassificationRequest>
 {
-	
+	public final String DEFAULT_CUST_CLASS_CODE = "GOLD";
 }

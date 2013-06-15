@@ -22,11 +22,13 @@ import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.model.MessageClassification;
 import com.nathanclaire.alantra.messaging.model.MessageType;
 import com.nathanclaire.alantra.messaging.model.MessageStatus;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.messaging.response.MessageResponse;
 import com.nathanclaire.alantra.messaging.service.entity.MessageClassificationService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageStatusService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
@@ -44,6 +46,7 @@ public class MessageServiceImpl
 	private static final String LIST_ITEM_MESSAGECLASSIFICATION = "messageClassification";
 	private static final String LIST_ITEM_MESSAGETYPE = "messageType";
 	private static final String LIST_ITEM_MESSAGESTATUS = "messageStatus";
+	private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 	private static final String ENTITY_NAME = "Message";
 	private static final String LIST_ACTIVITY_CODE = "LIST_MESSAGING_MESSAGE";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_MESSAGING_MESSAGE";
@@ -58,6 +61,8 @@ public class MessageServiceImpl
 	MessageTypeService  messageTypeService;
 	@Inject
 	MessageStatusService  messageStatusService;
+	@Inject
+	DataChannelService  dataChannelService;
 	
 	/**
 	 * @param entityClass
@@ -164,10 +169,12 @@ public class MessageServiceImpl
 		List<ListItemResponse> messageClassifications = messageClassificationService.asListItem();
 		List<ListItemResponse> messageTypes = messageTypeService.asListItem();
 		List<ListItemResponse> messageStatuss = messageStatusService.asListItem();
+		List<ListItemResponse> dataChannels = dataChannelService.asListItem();
     	
 		listItems.put(LIST_ITEM_MESSAGECLASSIFICATION, messageClassifications); 
 		listItems.put(LIST_ITEM_MESSAGETYPE, messageTypes); 
 		listItems.put(LIST_ITEM_MESSAGESTATUS, messageStatuss); 
+		listItems.put(LIST_ITEM_DATACHANNEL, dataChannels); 
 		return listItems;
 	}
 
@@ -213,6 +220,11 @@ public class MessageServiceImpl
     		MessageStatus messageStatus = getEntityManager().find(MessageStatus.class, messageRequest.getMessageStatusId());
     		message.setMessageStatus(messageStatus);
     	}
+    	if (messageRequest.getDataChannelId() != null)
+    	{
+    		DataChannel dataChannel = getEntityManager().find(DataChannel.class, messageRequest.getDataChannelId());
+    		message.setDataChannel(dataChannel);
+    	}
 		return message;
 	}
 	
@@ -232,6 +244,9 @@ public class MessageServiceImpl
 		if(model.getMessageStatus() != null)
 			messageResponse.setMessageStatusId(model.getMessageStatus().getId());
 			messageResponse.setMessageStatusText(model.getMessageStatus().getName());
+		if(model.getDataChannel() != null)
+			messageResponse.setDataChannelId(model.getDataChannel().getId());
+			messageResponse.setDataChannelText(model.getDataChannel().getName());
 		return messageResponse;
 	}
 }

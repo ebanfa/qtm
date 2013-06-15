@@ -3,21 +3,29 @@
  */
 package com.nathanclaire.alantra.datasource.etl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Edward Banfa 
  *
  */
-public interface RowData {
+public class RowData {
+	
+	List<CellData> columns = new ArrayList<CellData>();
 
 	/**
-	 * @param rows
+	 * @return the columns
 	 */
-	public void setColumns(List<CellData> rows);
-	
+	public List<CellData> getColumns() {
+		return columns;
+	}
+
 	/**
-	 * @return
+	 * @param columns the columns to set
 	 */
-	public List<CellData> getColumns();
+	public void setColumns(List<CellData> columns) {
+		this.columns = columns;
+	}
+
 }

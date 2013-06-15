@@ -14,7 +14,7 @@ import com.nathanclaire.alantra.channel.response.ServiceTransactionStatusRespons
  */
 public interface ServiceTransactionStatusService extends BaseEntityService<ServiceTransactionStatus, ServiceTransactionStatusResponse, ServiceTransactionStatusRequest>
 {
-	public final String MATCHED = "MATCHED"; 
-	public final String NOT_MATCHED = "NOT_MATCHED"; 
-	public final String MATCH_PENDING = "MATCH_PENDING"; 
+
+	String MATCH_PENDING = "MATCH_PENDING";
+	
 }

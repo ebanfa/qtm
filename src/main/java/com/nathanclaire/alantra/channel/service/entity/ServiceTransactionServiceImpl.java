@@ -20,15 +20,17 @@ import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 import com.nathanclaire.alantra.businessdata.model.Currency;
-import com.nathanclaire.alantra.channel.model.Service;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionStatus;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
+import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.channel.request.ServiceTransactionRequest;
 import com.nathanclaire.alantra.channel.response.ServiceTransactionResponse;
 import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
-import com.nathanclaire.alantra.channel.service.entity.ServiceService;
 import com.nathanclaire.alantra.channel.service.entity.ServiceTransactionStatusService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.channel.service.entity.ServiceTransactionTypeService;
+import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
@@ -44,9 +46,10 @@ public class ServiceTransactionServiceImpl
 	implements ServiceTransactionService
 {
 	private static final String LIST_ITEM_CURRENCY = "currency";
-	private static final String LIST_ITEM_SERVICE = "service";
 	private static final String LIST_ITEM_SERVICETRANSACTIONSTATUS = "serviceTransactionStatus";
+	private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 	private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "serviceTransactionType";
+	private static final String LIST_ITEM_CUSTOMERACCOUNT = "customerAccount";
 	private static final String ENTITY_NAME = "ServiceTransaction";
 	private static final String LIST_ACTIVITY_CODE = "LIST_CHANNEL_SERVICETRANSACTION";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_CHANNEL_SERVICETRANSACTION";
@@ -58,11 +61,13 @@ public class ServiceTransactionServiceImpl
 	@Inject
 	CurrencyService  currencyService;
 	@Inject
-	ServiceService  serviceService;
-	@Inject
 	ServiceTransactionStatusService  serviceTransactionStatusService;
 	@Inject
+	DataChannelService  dataChannelService;
+	@Inject
 	ServiceTransactionTypeService  serviceTransactionTypeService;
+	@Inject
+	CustomerAccountService  customerAccountService;
 	
 	/**
 	 * @param entityClass
@@ -167,14 +172,16 @@ public class ServiceTransactionServiceImpl
 	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> currencys = currencyService.asListItem();
-		List<ListItemResponse> services = serviceService.asListItem();
 		List<ListItemResponse> serviceTransactionStatuss = serviceTransactionStatusService.asListItem();
+		List<ListItemResponse> dataChannels = dataChannelService.asListItem();
 		List<ListItemResponse> serviceTransactionTypes = serviceTransactionTypeService.asListItem();
+		List<ListItemResponse> customerAccounts = customerAccountService.asListItem();
     	
 		listItems.put(LIST_ITEM_CURRENCY, currencys); 
-		listItems.put(LIST_ITEM_SERVICE, services); 
 		listItems.put(LIST_ITEM_SERVICETRANSACTIONSTATUS, serviceTransactionStatuss); 
+		listItems.put(LIST_ITEM_DATACHANNEL, dataChannels); 
 		listItems.put(LIST_ITEM_SERVICETRANSACTIONTYPE, serviceTransactionTypes); 
+		listItems.put(LIST_ITEM_CUSTOMERACCOUNT, customerAccounts); 
 		return listItems;
 	}
 
@@ -210,20 +217,25 @@ public class ServiceTransactionServiceImpl
     		Currency currency = getEntityManager().find(Currency.class, serviceTransactionRequest.getCurrencyId());
     		serviceTransaction.setCurrency(currency);
     	}
-    	if (serviceTransactionRequest.getServiceId() != null)
-    	{
-    		Service service = getEntityManager().find(Service.class, serviceTransactionRequest.getServiceId());
-    		serviceTransaction.setService(service);
-    	}
     	if (serviceTransactionRequest.getServiceTransactionStatusId() != null)
     	{
     		ServiceTransactionStatus serviceTransactionStatus = getEntityManager().find(ServiceTransactionStatus.class, serviceTransactionRequest.getServiceTransactionStatusId());
     		serviceTransaction.setServiceTransactionStatus(serviceTransactionStatus);
     	}
+    	if (serviceTransactionRequest.getDataChannelId() != null)
+    	{
+    		DataChannel dataChannel = getEntityManager().find(DataChannel.class, serviceTransactionRequest.getDataChannelId());
+    		serviceTransaction.setDataChannel(dataChannel);
+    	}
     	if (serviceTransactionRequest.getServiceTransactionTypeId() != null)
     	{
     		ServiceTransactionType serviceTransactionType = getEntityManager().find(ServiceTransactionType.class, serviceTransactionRequest.getServiceTransactionTypeId());
     		serviceTransaction.setServiceTransactionType(serviceTransactionType);
+    	}
+    	if (serviceTransactionRequest.getCustomerAccountId() != null)
+    	{
+    		CustomerAccount customerAccount = getEntityManager().find(CustomerAccount.class, serviceTransactionRequest.getCustomerAccountId());
+    		serviceTransaction.setCustomerAccount(customerAccount);
     	}
 		return serviceTransaction;
 	}
@@ -238,15 +250,18 @@ public class ServiceTransactionServiceImpl
 		if(model.getCurrency() != null)
 			serviceTransactionResponse.setCurrencyId(model.getCurrency().getId());
 			serviceTransactionResponse.setCurrencyText(model.getCurrency().getName());
-		if(model.getService() != null)
-			serviceTransactionResponse.setServiceId(model.getService().getId());
-			serviceTransactionResponse.setServiceText(model.getService().getName());
 		if(model.getServiceTransactionStatus() != null)
 			serviceTransactionResponse.setServiceTransactionStatusId(model.getServiceTransactionStatus().getId());
 			serviceTransactionResponse.setServiceTransactionStatusText(model.getServiceTransactionStatus().getName());
+		if(model.getDataChannel() != null)
+			serviceTransactionResponse.setDataChannelId(model.getDataChannel().getId());
+			serviceTransactionResponse.setDataChannelText(model.getDataChannel().getName());
 		if(model.getServiceTransactionType() != null)
 			serviceTransactionResponse.setServiceTransactionTypeId(model.getServiceTransactionType().getId());
 			serviceTransactionResponse.setServiceTransactionTypeText(model.getServiceTransactionType().getName());
+		if(model.getCustomerAccount() != null)
+			serviceTransactionResponse.setCustomerAccountId(model.getCustomerAccount().getId());
+			serviceTransactionResponse.setCustomerAccountText(model.getCustomerAccount().getName());
 		return serviceTransactionResponse;
 	}
 }

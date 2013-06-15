@@ -16,8 +16,8 @@ public class MessageAttachementsResponse extends BaseResponse {
 
     private Integer messageId;
     private String messageText;
-    private byte data;
     private String dataTy;
+    private String dataUrl;
 
     public MessageAttachementsResponse() {
     }
@@ -38,20 +38,20 @@ public class MessageAttachementsResponse extends BaseResponse {
         this.messageText = messageText;
     }
 
-    public byte getData() {
-        return this.data;
-    }
-    
-    public void setData(byte data) {
-        this.data = data;
-    }
-
     public String getDataTy() {
         return this.dataTy;
     }
     
     public void setDataTy(String dataTy) {
         this.dataTy = dataTy;
+    }
+
+    public String getDataUrl() {
+        return this.dataUrl;
+    }
+    
+    public void setDataUrl(String dataUrl) {
+        this.dataUrl = dataUrl;
     }
 
 
