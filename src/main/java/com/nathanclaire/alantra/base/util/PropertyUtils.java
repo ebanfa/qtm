@@ -8,8 +8,10 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
@@ -94,6 +96,13 @@ public class PropertyUtils {
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
+	}
+	
+	public static <T> List<T> copyIterator(Iterator<T> iter) {
+	    List<T> copy = new ArrayList<T>();
+	    while (iter.hasNext())
+	        copy.add(iter.next());
+	    return copy;
 	}
 
 }

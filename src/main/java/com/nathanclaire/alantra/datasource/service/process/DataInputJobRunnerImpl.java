@@ -70,7 +70,7 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 			if(dataExtractor == null)
 				throw new ApplicationException(NO_DATA_EXTRACTOR_FOUND);
 			// 2. Extract the data
-			TableData data = dataExtractor.extractData(dataConfig);
+			TableData data = dataExtractor.extract(dataConfig);
 			// Set the target entity names
 			data.setPrimEntityName(dataStructure.getTargetPriEntityCd());
 			data.setSecEntityName(dataStructure.getTargetSecEntityCd());

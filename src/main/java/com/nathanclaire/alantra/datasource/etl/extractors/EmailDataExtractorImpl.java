@@ -32,7 +32,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.DataExtractor#extractData(com.nathanclaire.alantra.datasource.model.Data)
 	 */
 	@Override
-	public TableData extractData(Data data) throws ApplicationException {
+	public TableData extract(Data data) throws ApplicationException {
 		TableData tableDataToBePopulated = new TableData();
 		DataChannel dataChannel = data.getDataChannel();
 		DataStructure dataStructure = data.getDataStructure();
@@ -47,6 +47,14 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 			throw new ApplicationException(UNKNOWN_ERROR_WHILE_FETCHING_EMAILS, e.getMessage());
 		}
 		return tableDataToBePopulated;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#extractData(com.nathanclaire.alantra.datasource.model.Data, com.nathanclaire.alantra.datasource.etl.TableData)
+	 */
+	@Override
+	protected TableData extractData(Data data, TableData tableDataToBePopulated) throws ApplicationException {
+		return null;
 	}
 
 	@Override
