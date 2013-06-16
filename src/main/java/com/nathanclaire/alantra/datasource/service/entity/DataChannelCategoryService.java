@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.datasource.response.DataChannelCategoryResponse;
 public interface DataChannelCategoryService extends BaseEntityService<DataChannelCategory, DataChannelCategoryResponse, DataChannelCategoryRequest>
 {
 
-	String EMAIL_DATA_SOURCE_CATEGORY = "EMAIL";
+	public static final String SMS_DATA_CHANNEL = "SMS_CHANNEL";
+	public static final String EMAIL_DATA_CHANNEL = "EMAIL_CHANNEL";
 	
 }

@@ -7,7 +7,7 @@ package com.nathanclaire.alantra.messaging.util;
  * @author Edward Banfa 
  *
  */
-public class EmailLite {
+public class MessageLite {
 
 	private String messageTo;
 	private String messageFrom;

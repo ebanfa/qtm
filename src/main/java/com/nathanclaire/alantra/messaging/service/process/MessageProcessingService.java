@@ -16,6 +16,9 @@ import com.nathanclaire.alantra.messaging.request.MessageRequest;
  */
 public interface MessageProcessingService {
 
+	public static final String MESSAGE_RECEIVED_STATUS_NOT_FOUND = "MessageProcessingService.MESSAGE_RECEIVED_STATUS_NOT_FOUND";
+	public static final String MESSAGE_CLASSIFICATION_NOT_FOUND = "MessageProcessingService.MESSAGE_CLASSIFICATION_NOT_FOUND";
+
 	/**
 	 * @return
 	 */

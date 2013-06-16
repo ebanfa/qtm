@@ -65,7 +65,7 @@ public abstract class BaseDataExtractor<T> {
 	 * @throws IOException
 	 */
 	protected int processRows(DataStructure dataStructure, Set<DataField> dataFields, 
-			TableData tableToBePopulated, List<T[]> extractedData) throws IOException {
+			TableData tableToBePopulated, List<T[]> extractedData) {
 		int rowCount = 0;
 		int recordsRead = 0;
 		for(T[] row : extractedData)

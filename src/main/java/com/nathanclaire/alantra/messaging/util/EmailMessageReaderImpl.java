@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.ejb.Stateless;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -29,23 +30,23 @@ import com.sun.mail.pop3.POP3Store;
  * @author Edward Banfa 
  *
  */
-public class EmailReader {
+@EmailMessageReader
+@Stateless
+public class EmailMessageReaderImpl implements MessageReader {
 	
-	public static final String POP3 = "pop3";
-	public static final String CSV_MIME = "csv";
-	public static final String INBOX_FOLDER = "INBOX";
-	public static final Integer MAX_MESSAGE_BODY_SIZE = 250;
-	public static final String POP3_HOST_PROPERTY = "mail.pop3.host";
-	public static final String DEFAULT_LOCAL_MSG_SENDER = "ADVICEPRO";
-	public static final String DEFAULT_ATTACHMENTS_FOLDER = "/home/administrator/Projects/alantra/attachements/";
+	public final String POP3 = "pop3";
+	public final String INBOX_FOLDER = "INBOX";
+	public final Integer MAX_MESSAGE_BODY_SIZE = 250;
+	public final String POP3_HOST_PROPERTY = "mail.pop3.host";
+	public final String DEFAULT_LOCAL_MSG_SENDER = "ADVICEPRO";
+	public final String DEFAULT_ATTACHMENTS_FOLDER = "/home/administrator/Projects/alantra/attachments/";
 	
-	public static List<EmailLite> getMessages(String mailServer, 
-			String username, String password) throws ApplicationException 
+	public List<MessageLite> getMessages(String connectionString, String username, String password) throws ApplicationException 
 	{
-		List<EmailLite> liteMessages = new ArrayList<EmailLite>();
+		List<MessageLite> liteMessages = new ArrayList<MessageLite>();
 		try {
 			Properties properties = new Properties();
-			properties.put(POP3_HOST_PROPERTY, mailServer);
+			properties.put(POP3_HOST_PROPERTY, connectionString);
 			Session emailSession = Session.getDefaultInstance(properties);
 
 			POP3Store emailStore = (POP3Store) emailSession.getStore(POP3);
@@ -56,7 +57,7 @@ public class EmailReader {
 
 			Message[] messages = emailFolder.getMessages();
 			for (int i = 0; i < messages.length; i++) {
-				EmailLite messageLite = new EmailLite();
+				MessageLite messageLite = new MessageLite();
 				
 				// Process the message headers
 				Message message = messages[i];
@@ -81,22 +82,24 @@ public class EmailReader {
 			emailFolder.close(false);
 			emailStore.close();
 		} catch (NoSuchProviderException e) {
-			e.printStackTrace();
+			throw new ApplicationException(UNKNOWN_EMAIL_PROVIDER, e.getMessage());
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			throw new ApplicationException(MESSAGING_ERROR, e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ApplicationException(CONNECTION_ERROR, e.getMessage());
+		} catch (Exception e) {
+			throw new ApplicationException(UNKNOWN_MSG_FETCH_ERROR, e.getMessage());
 		}
 		return liteMessages;
 	}
 	
-	public static void handleMultipart(Multipart multipart, EmailLite messageLite) throws MessagingException, IOException 
+	public void handleMultipart(Multipart multipart, MessageLite messageLite) throws MessagingException, IOException 
 	{
 		for (int i=0, n=multipart.getCount(); i<n; i++) {
 			handlePart(multipart.getBodyPart(i), messageLite);
 		}
 	}
-	public static void handlePart(Part part, EmailLite messageLite) throws MessagingException, IOException 
+	public void handlePart(Part part, MessageLite messageLite) throws MessagingException, IOException 
 	{
 		String disposition = part.getDisposition();
 		String contentType = part.getContentType();
@@ -125,7 +128,7 @@ public class EmailReader {
 		}
 	}
 	
-	private static void handleMesgBody(EmailLite messageLite, Part part) throws IOException, MessagingException
+	private void handleMesgBody(MessageLite messageLite, Part part) throws IOException, MessagingException
 	{
 		String messageContent = part.getContent().toString();
 		if(messageContent.length() > MAX_MESSAGE_BODY_SIZE)
@@ -140,7 +143,7 @@ public class EmailReader {
 	 * @param input
 	 * @throws IOException
 	 */
-	private static void saveFile(EmailLite messageLite, String filename, InputStream input) throws IOException 
+	private void saveFile(MessageLite messageLite, String filename, InputStream input) throws IOException 
 	{ 
 		filename = DEFAULT_ATTACHMENTS_FOLDER.concat(filename);
 		// Do no overwrite existing file

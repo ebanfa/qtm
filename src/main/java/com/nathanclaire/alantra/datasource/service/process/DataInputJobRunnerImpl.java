@@ -3,8 +3,6 @@
  */
 package com.nathanclaire.alantra.datasource.service.process;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -22,9 +20,9 @@ import com.nathanclaire.alantra.datasource.etl.producers.DataInputLoggerProducer
 import com.nathanclaire.alantra.datasource.etl.producers.DataLoaderProducer;
 import com.nathanclaire.alantra.datasource.etl.producers.DataProcessorProducer;
 import com.nathanclaire.alantra.datasource.model.Data;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataInput;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
-import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataStructure;
 
 /**
@@ -47,13 +45,6 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 	
 	private Logger logger = LoggerFactory.getLogger(DataInputJobRunnerImpl.class);
 	
-	private static final String NO_JOB_PROVIDED = "DataInputJobRunnerImpl.NO_JOB_PROVIDED";
-	private static final String NO_DATASOURCE_PROVIDED = "DataInputJobRunnerImpl.NO_DATASOURCE_PROVIDED";
-	private static final String NO_DATA_DEFINITION_PROVIDED = "DataInputJobRunnerImpl.NO_DATA_DEFINITION_PROVIDED";
-	private static final String NO_DATA_INPUT_PROVIDED = "DataInputJobRunnerImpl.NO_DATA_INPUT_PROVIDED";
-	private static final String NO_DATA_EXTRACTOR_FOUND = "DataInputJobRunnerImpl.NO_DATA_EXTRACTOR_FOUND";
-	private static final String NO_DATA_PROCESSORS_FOUND = "DataInputJobRunnerImpl.NO_DATA_PROCESSORS_FOUND";
-	private static final String NO_DATA_LOADER_FOUND = "DataInputJobRunnerImpl.NO_DATA_LOADER_FOUND";
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.process.DataInputJobRunner#start()
@@ -64,7 +55,7 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 			validateDataInputJob(inputJob);
 			DataInput dataInput = inputJob.getDataInput();
 			Data dataConfig = dataInput.getData();
-			DataStructure dataStructure = dataConfig.getDataStructure();
+			DataStructure dataStructure = getDataStructure(dataConfig);
 			// 3. Get the data extractor
 			DataExtractor dataExtractor = dataExtractorProducer.getDataExtractor(dataInput);
 			if(dataExtractor == null)
@@ -89,8 +80,23 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 		} 
 		catch (ApplicationException e) 
 		{
-			logger.error("Job {} not started. Message {}", inputJob.getCode(), e.getMessage());
+			logger.error("Job: {} not started. Error type: {} Error Message: {}", inputJob.getCode(), e.getCode() , e.getMessage());
 		}
+		catch (Exception e) 
+		{
+			logger.error("Unknown error starting job {}. Message {}", inputJob.getCode(), e.getMessage());
+		}
+	}
+
+	/**
+	 * @param dataConfig
+	 * @return
+	 * @throws ApplicationException
+	 */
+	private DataStructure getDataStructure(Data dataConfig) 	throws ApplicationException {
+		DataStructure dataStructure = dataConfig.getDataStructure();
+		if(dataStructure == null) throw new ApplicationException(NO_DATA_STRUCTURE_FOUND);
+		return dataStructure;
 	}
 
 	/* (non-Javadoc)

@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.messaging.response.MessageTypeResponse;
  */
 public interface MessageTypeService extends BaseEntityService<MessageType, MessageTypeResponse, MessageTypeRequest>
 {
+
+	public static final String UNCLASSIFIED_INBOUND_MSG = "UNCLASSIFIED_INBOUND_MSG";
 	
 }

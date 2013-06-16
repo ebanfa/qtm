@@ -14,6 +14,7 @@ import com.nathanclaire.alantra.base.service.process.EntityDataInputService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.channel.service.process.TransactionDataInputService;
 import com.nathanclaire.alantra.customer.service.process.CustomerDataInputService;
+import com.nathanclaire.alantra.messaging.service.process.MessageDataInputService;
 
 /**
  * @author Edward Banfa 
@@ -23,6 +24,7 @@ import com.nathanclaire.alantra.customer.service.process.CustomerDataInputServic
 public class EntityDataInputServiceProducerImpl implements
 		EntityDataInputServiceProducer {
 
+	@Inject MessageDataInputService messageDataInputService;
 	@Inject CustomerDataInputService customerDataInputService;
 	@Inject TransactionDataInputService transactionDataInputService;
 	@Inject AdviceRequestMessageDataInputService adviceRequestMessageDataInputService;;
@@ -40,6 +42,7 @@ public class EntityDataInputServiceProducerImpl implements
 	private Map<String, EntityDataInputService> getEntityDataInputServiceMapping()
 	{
 		Map<String, EntityDataInputService> mapping = new HashMap<String, EntityDataInputService>();
+		mapping.put(EntityDataInputServiceProducer.MESSAGE_ENTITY, messageDataInputService);
 		mapping.put(EntityDataInputServiceProducer.CUSTOMER_ENTITY, customerDataInputService);
 		mapping.put(EntityDataInputServiceProducer.TRANSACTION_ENTITY, transactionDataInputService);
 		mapping.put(EntityDataInputServiceProducer.ADVICE_ENTITY, adviceRequestMessageDataInputService);

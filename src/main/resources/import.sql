@@ -179,10 +179,17 @@ INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC
 INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (2, 'ADVICE_INQUIRY_REPLY', 'Advice Inquiry Reply', 'Advice Inquiry Reply', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
+INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'UNCLASSIFIED_INBOUND_MSG', 'Unclassified Inbound Message', 'Unclassified Inbound Message', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 /* --------------------------------------------------------------------Message Type Tag-------------------------------------------------------------------------------------------- */
 
 INSERT INTO MESSAGE_TYPE_TAG (MSG_TY_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'PAY', 'Pay', 'Pay', 'Pay is the keyword', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+) values (1, 'PAY', 'Pay', 'Pay', 'Pay', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO MESSAGE_TYPE_TAG (MSG_TY_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'STATUS', 'Status', 'Status', 'Status', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 
 INSERT INTO MESSAGE_TYPE_TAG (MSG_TY_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (2, 'ADVICE', 'Advice', 'Advice', 'Advice', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );

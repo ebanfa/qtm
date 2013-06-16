@@ -24,4 +24,10 @@ public class StringUtil {
 		if(string.trim().isEmpty()) return false;
 		return true;
 	}
+	
+	public static boolean flagToBoolean(char flag)
+	{
+		if(flag == 'Y' | flag == 'y') return true;
+		else return false;
+	}
 }

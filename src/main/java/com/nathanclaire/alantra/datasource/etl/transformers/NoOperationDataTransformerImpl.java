@@ -39,21 +39,20 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 		}
 		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.DECIMAL))
 		{
-			String stringValue = (String) cellData.getData();
-			BigDecimal decimalValue = new BigDecimal(stringValue);
+			BigDecimal decimalValue = new BigDecimal(cellData.getData().toString());
 			cellData.setData(decimalValue);
 			return cellData;
 		}
 		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.DATE))
 		{
-			String stringValue = (String) cellData.getData();
+			String stringValue = (String) cellData.getData().toString();
 			Date date = DateUtil.convertStringToJavaDate(stringValue);
 			cellData.setData(date);
 			return cellData;
 		}
 		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.RELATIONSHIP))
 		{
-			String stringValue = (String) cellData.getData();
+			String stringValue = (String) cellData.getData().toString();
 			Integer integerValue = this.getRelatedIDFromRelatedCode(field, stringValue);
 			cellData.setData(integerValue);
 			return cellData;
