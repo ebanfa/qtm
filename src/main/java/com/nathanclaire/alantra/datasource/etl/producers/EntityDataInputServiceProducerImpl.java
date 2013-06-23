@@ -12,9 +12,9 @@ import javax.inject.Inject;
 import com.nathanclaire.alantra.advice.service.process.AdviceRequestMessageDataInputService;
 import com.nathanclaire.alantra.base.service.process.EntityDataInputService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.channel.service.process.TransactionDataInputService;
 import com.nathanclaire.alantra.customer.service.process.CustomerDataInputService;
 import com.nathanclaire.alantra.messaging.service.process.MessageDataInputService;
+import com.nathanclaire.alantra.transaction.service.process.TransactionDataInputService;
 
 /**
  * @author Edward Banfa 

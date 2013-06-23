@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.datasource.response.DataChannelStatusResponse;
  */
 public interface DataChannelStatusService extends BaseEntityService<DataChannelStatus, DataChannelStatusResponse, DataChannelStatusRequest>
 {
+
+	public static final String ACTIVE = "ACTIVE";
 	
 }

@@ -21,8 +21,7 @@ public class DataInputLoggerImpl implements DataInputLogger {
 	 * @see com.nathanclaire.alantra.datasource.etl.DataInputLogger#logDataInput(com.nathanclaire.alantra.datasource.model.DataInputJob, com.nathanclaire.alantra.datasource.etl.TableData)
 	 */
 	@Override
-	public void logDataInput(DataInputJob inputJob, TableData tableData)
-			throws ApplicationException {
+	public void logDataInput(DataInputJob inputJob, TableData tableData) throws ApplicationException {
 		// TODO Auto-generated method stub
 
 	}

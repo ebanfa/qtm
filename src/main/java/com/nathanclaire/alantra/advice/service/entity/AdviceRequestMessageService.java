@@ -12,7 +12,8 @@ import com.nathanclaire.alantra.advice.response.AdviceRequestMessageResponse;
  * @author Edward Banfa
  *
  */
-public interface AdviceRequestMessageService extends BaseEntityService<AdviceRequestMessage, AdviceRequestMessageResponse, AdviceRequestMessageRequest>
+public interface AdviceRequestMessageService extends 
+BaseEntityService<AdviceRequestMessage, AdviceRequestMessageResponse, AdviceRequestMessageRequest>
 {
 	
 }

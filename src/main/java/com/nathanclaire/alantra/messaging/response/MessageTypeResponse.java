@@ -16,6 +16,7 @@ public class MessageTypeResponse extends BaseResponse {
 
     private Integer messageCategoryId;
     private String messageCategoryText;
+    private Character autoRespFg;
 
     public MessageTypeResponse() {
     }
@@ -34,6 +35,14 @@ public class MessageTypeResponse extends BaseResponse {
     
     public void setMessageCategoryText(String messageCategoryText) {
         this.messageCategoryText = messageCategoryText;
+    }
+
+    public Character getAutoRespFg() {
+        return this.autoRespFg;
+    }
+    
+    public void setAutoRespFg(Character autoRespFg) {
+        this.autoRespFg = autoRespFg;
     }
 
 

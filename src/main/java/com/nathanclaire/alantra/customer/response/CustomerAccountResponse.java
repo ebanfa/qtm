@@ -16,7 +16,9 @@ public class CustomerAccountResponse extends BaseResponse {
 
     private Integer customerId;
     private String customerText;
-    private String accountNo;
+    private Integer accountId;
+    private String accountText;
+    private char isDefaultFg;
 
     public CustomerAccountResponse() {
     }
@@ -37,12 +39,28 @@ public class CustomerAccountResponse extends BaseResponse {
         this.customerText = customerText;
     }
 
-    public String getAccountNo() {
-        return this.accountNo;
+    public Integer getAccountId() {
+        return this.accountId;
     }
     
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAccountText() {
+        return this.accountText;
+    }
+    
+    public void setAccountText(String accountText) {
+        this.accountText = accountText;
+    }
+
+    public char getIsDefaultFg() {
+        return this.isDefaultFg;
+    }
+    
+    public void setIsDefaultFg(char isDefaultFg) {
+        this.isDefaultFg = isDefaultFg;
     }
 
 

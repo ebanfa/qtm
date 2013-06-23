@@ -59,7 +59,6 @@ public class DataLoaderImpl extends BaseDataLoader implements DataLoader {
 				};
 			}
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>Using" + tableData.getPrimEntityName());
 		EntityDataInputService dataInputService = entityDataInputServiceProducer.getEntityDataInputService(tableData.getPrimEntityName());
 		if(dataInputService == null)
 			throw new ApplicationException(DATA_INPUT_SERVICE_NOT_FOUND);

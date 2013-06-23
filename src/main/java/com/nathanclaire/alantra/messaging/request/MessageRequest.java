@@ -26,6 +26,8 @@ public class MessageRequest extends BaseRequest {
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
+    private String msgAttachmentTy;
+    private String msgAttachmentFile;
     private Integer id;
     private String code;
 
@@ -126,6 +128,22 @@ public class MessageRequest extends BaseRequest {
     
     public void setMessageTxt(String messageTxt) {
         this.messageTxt = messageTxt;
+    }
+
+    public String getMsgAttachmentTy() {
+        return this.msgAttachmentTy;
+    }
+    
+    public void setMsgAttachmentTy(String msgAttachmentTy) {
+        this.msgAttachmentTy = msgAttachmentTy;
+    }
+
+    public String getMsgAttachmentFile() {
+        return this.msgAttachmentFile;
+    }
+    
+    public void setMsgAttachmentFile(String msgAttachmentFile) {
+        this.msgAttachmentFile = msgAttachmentFile;
     }
 
     public Integer getId() {

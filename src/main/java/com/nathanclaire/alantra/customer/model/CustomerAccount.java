@@ -22,7 +22,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.base.model.BaseEntity;
-import com.nathanclaire.alantra.channel.model.ServiceTransaction;
+import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 
 /**
  * CustomerAccount 
@@ -38,32 +38,34 @@ import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 public class CustomerAccount  extends BaseEntity implements java.io.Serializable {
 
 	private Customer customer;
+	private Account account;
     private String name;
-    private String accountNo;
     private String description;
+    private char isDefaultFg;
 	private Set<Advice> advices = new HashSet<Advice>(0);
 	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
 
     public CustomerAccount() {
     }
 
-    public CustomerAccount(Customer customer, String code, String name, String accountNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerAccount(Customer customer, Account account, String code, String name, char isDefaultFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
-		this.accountNo = accountNo;
+		this.isDefaultFg = isDefaultFg;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerAccount(Customer customer, String code, String name, String accountNo, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices, Set<ServiceTransaction> serviceTransactions ) 
+    public CustomerAccount(Customer customer, Account account, String code, String name, String description, char isDefaultFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices, Set<ServiceTransaction> serviceTransactions ) 
     {
 		this.customer = customer;
+		this.account = account;
 		this.code = code;
 		this.name = name;
-		this.accountNo = accountNo;
 		this.description = description;
+		this.isDefaultFg = isDefaultFg;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -87,6 +89,19 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
     {
         this.customer = customer;
     }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ACCOUNT_ID", nullable=false)
+    @JsonIgnore
+    public Account getAccount() 
+    {
+        return this.account;
+    }
+    
+    public void setAccount(Account account)
+    {
+        this.account = account;
+    }
 		
     @Column(name="NAME" , nullable=false, length=150)
     public String getName() 
@@ -99,17 +114,6 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
         this.name = name;
     }
 		
-    @Column(name="ACCOUNT_NO" , nullable=false, length=15)
-    public String getAccountNo() 
-    {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) 
-    {
-        this.accountNo = accountNo;
-    }
-		
     @Column(name="DESCRIPTION" , unique=true, length=200)
     public String getDescription() 
     {
@@ -119,6 +123,17 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
     public void setDescription(String description) 
     {
         this.description = description;
+    }
+		
+    @Column(name="IS_DEFAULT_FG" , nullable=false, length=1)
+    public char getIsDefaultFg() 
+    {
+        return this.isDefaultFg;
+    }
+    
+    public void setIsDefaultFg(char isDefaultFg) 
+    {
+        this.isDefaultFg = isDefaultFg;
     }
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerAccount")
@@ -147,4 +162,5 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
 
 
 }
+
 

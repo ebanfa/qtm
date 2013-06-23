@@ -16,9 +16,11 @@ public class CustomerAccountRequest extends BaseRequest {
 
     private Integer customerId;
     private String customerText;
+    private Integer accountId;
+    private String accountText;
     private String name;
-    private String accountNo;
     private String description;
+    private char isDefaultFg;
     private Integer id;
     private String code;
 
@@ -41,6 +43,22 @@ public class CustomerAccountRequest extends BaseRequest {
         this.customerText = customerText;
     }
 
+    public Integer getAccountId() {
+        return this.accountId;
+    }
+    
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAccountText() {
+        return this.accountText;
+    }
+    
+    public void setAccountText(String accountText) {
+        this.accountText = accountText;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -49,20 +67,20 @@ public class CustomerAccountRequest extends BaseRequest {
         this.name = name;
     }
 
-    public String getAccountNo() {
-        return this.accountNo;
-    }
-    
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
-    }
-
     public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public char getIsDefaultFg() {
+        return this.isDefaultFg;
+    }
+    
+    public void setIsDefaultFg(char isDefaultFg) {
+        this.isDefaultFg = isDefaultFg;
     }
 
     public Integer getId() {

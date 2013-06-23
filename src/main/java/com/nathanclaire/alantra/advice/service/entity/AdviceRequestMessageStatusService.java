@@ -14,7 +14,7 @@ import com.nathanclaire.alantra.advice.response.AdviceRequestMessageStatusRespon
  */
 public interface AdviceRequestMessageStatusService extends BaseEntityService<AdviceRequestMessageStatus, AdviceRequestMessageStatusResponse, AdviceRequestMessageStatusRequest>
 {
-
-	public final String UNPROCESSED_ADVICE_CODE = "PENDING_APPROVAL";
+	public final String REJECTED_ACCOUNT_NOT_FOUND = "REJECTED_ACCOUNT_NOT_FOUND";
+	public final String UNPROCESSED_ADVICE_CODE = "ACCEPTED";
 	
 }

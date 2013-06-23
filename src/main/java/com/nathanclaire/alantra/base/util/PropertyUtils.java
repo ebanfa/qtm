@@ -25,6 +25,7 @@ public class PropertyUtils {
 	
 	public static void initializeBaseFields(BaseRequest baseRequest)
 	{
+		if(baseRequest == null) return;
 		baseRequest.setCreatedByUsr("SYSTEM");
 		baseRequest.setCreatedDt(new Date());
 		baseRequest.setEffectiveDt(new Date());

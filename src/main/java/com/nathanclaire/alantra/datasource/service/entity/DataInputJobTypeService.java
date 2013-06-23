@@ -14,5 +14,8 @@ import com.nathanclaire.alantra.datasource.response.DataInputJobTypeResponse;
  */
 public interface DataInputJobTypeService extends BaseEntityService<DataInputJobType, DataInputJobTypeResponse, DataInputJobTypeRequest>
 {
+
+	public static final String CYCLIC = "CYCLIC";
+	public static final String NON_CYCLIC = "NON_CYCLIC";
 	
 }

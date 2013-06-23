@@ -24,6 +24,8 @@ import com.nathanclaire.alantra.datasource.model.DataStructure;
  */
 public abstract class BaseDataExtractor<T> {
 	
+	private static final String CONFIG_ERROR_NO_CHANNEL_FOUND = "BaseProcessService.DATA_IMPORT_SERVICE_NOT_FOUND";
+
 	/**
 	 * @param data
 	 * @return
@@ -38,11 +40,18 @@ public abstract class BaseDataExtractor<T> {
 	 * @param data
 	 * @param tableDataToBePopulated
 	 * @return
+	 * @throws ApplicationException 
 	 */
-	protected TableData initializeTableData(Data data) {
+	protected TableData initializeTableData(Data data) throws ApplicationException 
+	{
 		TableData tableDataToBePopulated = new TableData();
-		tableDataToBePopulated.setSourceServiceCode(data.getDataChannel().getCode());
-		tableDataToBePopulated.setSourceChannelText(data.getDataChannel().getCode());
+		DataChannel dataChannel = data.getDataChannel();
+		if(dataChannel == null)
+			throw new ApplicationException(CONFIG_ERROR_NO_CHANNEL_FOUND);
+		tableDataToBePopulated.setSourceServiceCode(dataChannel.getCode());
+		tableDataToBePopulated.setSourceChannelText(dataChannel.getCode());
+		tableDataToBePopulated.setDataId(data.getId());
+		tableDataToBePopulated.setChannelId(data.getDataChannel().getId());
 		return tableDataToBePopulated;
 	}
 

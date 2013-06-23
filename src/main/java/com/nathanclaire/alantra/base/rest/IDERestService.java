@@ -315,6 +315,9 @@ public class IDERestService
 	private void createRelationship(ApplicationActivity parentActivity,
 			ApplicationActivity childActivity, String relationshipTy) 
 	{
+		System.out.println(">>>>ApplicationActivity parentActivity: " + parentActivity.getCode() + 
+				"  ApplicationActivity childActivity: " + childActivity.getCode() +
+				"  String relationshipTy: " + relationshipTy);
 		Map<String, String> names = new EntityNames().getEntityNames();
 		String targetEntityName = names.get(childActivity.getApplicationEntity().getName());
 		if(!parentActivity.getCode().equals(childActivity.getCode()))

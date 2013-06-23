@@ -15,6 +15,10 @@ import com.nathanclaire.alantra.messaging.response.MessageStatusResponse;
 public interface MessageStatusService extends BaseEntityService<MessageStatus, MessageStatusResponse, MessageStatusRequest>
 {
 
-	public final String RECEIVED = "RECEIVED";
+	public static final String CUSTOMER_NOT_REGISTERED = "CUSTOMER_NOT_REGISTERED";
+	public static final String CUSTOMER_MESSAGE_RECEIVED = "CUSTOMER_MESSAGE_RECEIVED";
+	public static final String SYSTEM_USER_NOT_REGISTERED = "SYSTEM_USER_NOT_REGISTERED";
+	public static final String SYSTEM_USER_MESSAGE_RECEIVED = "SYSTEM_USER_NOT_REGISTERED";
+	public static final String UNCLASSIFIED_MESSAGE_RECEIVED = "UNCLASSIFIED_MESSAGE_RECEIVED";
 	
 }

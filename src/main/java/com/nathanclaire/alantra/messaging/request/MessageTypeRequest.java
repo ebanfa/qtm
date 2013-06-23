@@ -18,6 +18,7 @@ public class MessageTypeRequest extends BaseRequest {
     private String messageCategoryText;
     private String name;
     private String description;
+    private Character autoRespFg;
     private Integer id;
     private String code;
 
@@ -54,6 +55,14 @@ public class MessageTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Character getAutoRespFg() {
+        return this.autoRespFg;
+    }
+    
+    public void setAutoRespFg(Character autoRespFg) {
+        this.autoRespFg = autoRespFg;
     }
 
     public Integer getId() {

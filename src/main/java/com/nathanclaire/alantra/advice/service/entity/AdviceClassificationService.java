@@ -15,6 +15,6 @@ import com.nathanclaire.alantra.advice.response.AdviceClassificationResponse;
 public interface AdviceClassificationService extends BaseEntityService<AdviceClassification, AdviceClassificationResponse, AdviceClassificationRequest>
 {
 
-	String NON_CYCLIC_ADVICE = null;
+	public static final String NON_CYCLIC_ADVICE = "NON_CYCLIC";
 	
 }

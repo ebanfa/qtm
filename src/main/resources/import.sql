@@ -5,15 +5,16 @@ INSERT INTO APPLICATION_MODULE values (2, 'PARTY', 'Party', 'Party', 3, 'Party',
 INSERT INTO APPLICATION_MODULE values (3, 'CUSTOMER', 'Customer', 'Customer', 1, 'Customer', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (4, 'BUSINESSDATA', 'Business Data', 'Business Data', 1, 'Services', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (5, 'APPLICATION', 'Application', 'Application', 4, 'Application', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-INSERT INTO APPLICATION_MODULE values (6, 'CHANNEL', 'Channel', 'Channel', 4, 'Channel', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO APPLICATION_MODULE values (6, 'TRANSACTION', 'Transaction', 'Transaction', 4, 'Transaction', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (7, 'DATASOURCE', 'Datasource', 'Datasource', 1, 'Datasource', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (8, 'MESSAGING', 'Messaging', 'Messaging', 4, 'Messaging', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (9, 'ADVICE', 'Advice', 'Advice', 1, 'Advice', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (10, 'PAYMENT', 'Payment', 'Payment', 1, 'Payment', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (11, 'PRODUCT', 'Product', 'Product', 4, 'Product', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-INSERT INTO APPLICATION_MODULE values (12, 'WORKEFFORT', 'WorkEffort', 'WorkEffort', 1, 'WorkEffort', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO APPLICATION_MODULE values (12, 'NOTIFICATION', 'Notification', 'Notification', 1, 'Notification', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 INSERT INTO APPLICATION_MODULE values (13, 'ORDER', 'Order', 'Order', 4, 'Order', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
- 
+INSERT INTO APPLICATION_MODULE values (14, 'SECURITY', 'Security', 'Security', 4, 'Security', 'application_double.png', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 /* -------------------------------------------------------------------- Activity Group Types -------------------------------------------------------------------------------------------- */
 
 INSERT INTO APPLICATION_ACTIVITY_GROUP_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -116,27 +117,60 @@ INSERT INTO CUSTOMER_CLASSIFICATION(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_S
 INSERT INTO CUSTOMER(CUST_TY_ID, CUST_CLASS_ID, CODE, NAME, EMAIL, MOBILE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('2', '1', '0183737262', 'Bristol Text', 'bristole@testserver.com', '+2549056543333', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
+/* -------------------------------------------------------------------- Account Types -------------------------------------------------------------------------------------------- */
+
+INSERT INTO ACCOUNT_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CHEQUE_CURRENT_ACCOUNT', 'Cheque current account', 'Cheque current account', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO ACCOUNT_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('SAVINGS_ACCOUNT', 'Savings account', 'Savings account', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO ACCOUNT_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('STAFF_CURRENT_ACCOUNT', 'Staff current account', 'Staff current account', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO ACCOUNT_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('OD_CURRENT_ACCOUNT', 'Current account with overdraft', 'Current account with overdraft', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO ACCOUNT_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('FX_CURRENCY_ACCOUNT', 'Foreign currency account', 'Foreign currency account', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* -------------------------------------------------------------------- Account -------------------------------------------------------------------------------------------- */
+
+INSERT INTO ACCOUNT(CURRENCY_ID, ACCOUNT_TY_ID, CODE, NAME, ACCOUNT_NO, DESCRIPTION, IS_JOINT_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, '0082820109', 'Bristol Text',  '0082820109', 'Bristol Text', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 /* -------------------------------------------------------------------- Customer Account -------------------------------------------------------------------------------------------- */
 
-INSERT INTO CUSTOMER_ACCOUNT(CUST_ID, CODE, NAME, ACCOUNT_NO, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, '0082820109', 'Bristol Text', 'Bristol Text Account', '0082820109', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO CUSTOMER_ACCOUNT(CUST_ID, ACCOUNT_ID, CODE, NAME, DESCRIPTION, IS_DEFAULT_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, '0082820109', 'Bristol Text', 'Bristol Text Account', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Category -------------------------------------------------------------------------------------------- */
+
+INSERT INTO SERVICE_TRANSACTION_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CASH_DEP', 'Cash Deposit', 'Cash Deposit', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO SERVICE_TRANSACTION_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CASH_WITHDRAWAL', 'Cash Withdrawal', 'Cash Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO SERVICE_TRANSACTION_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CHEQUE_WITHDRAWAL', 'Cheque Withdrawal', 'Cheque Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO SERVICE_TRANSACTION_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('FUNDS_TRANSFER', 'Funds Transfers', 'Funds Transfers', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------Transaction Types -------------------------------------------------------------------------------------------- */
 
-INSERT INTO SERVICE_TRANSACTION_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ATM_WITHDRAWAL', 'ATM Withdrawal', 'ATM Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO SERVICE_TRANSACTION_TYPE(TRANSACTION_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'ATM_CASH_WITHDRAWAL', 'ATM Withdrawal', 'ATM Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO SERVICE_TRANSACTION_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('CC_TXN', 'Credit Card Transaction', 'Credit Card Transaction', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO SERVICE_TRANSACTION_TYPE(TRANSACTION_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'CASH_WITHDRAWAL', 'Cash Withdrawal', 'Cash Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO SERVICE_TRANSACTION_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('CHQ_WITHDRAWAL', 'Cheque Withdrawal', 'Cheque Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO SERVICE_TRANSACTION_TYPE(TRANSACTION_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 'CHQ_WITHDRAWAL', 'Cheque Withdrawal', 'Cheque Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO SERVICE_TRANSACTION_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('FX_WITHDRAWAL', 'FX Withdrawal', 'FX Withdrawal', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO SERVICE_TRANSACTION_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('FUNDS_TRANSFER', 'Funds Transfers', 'Funds Transfers', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO SERVICE_TRANSACTION_TYPE(TRANSACTION_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (4, 'FUNDS_TRANSFER', 'Funds Transfers', 'Funds Transfers', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Service Status-------------------------------------------------------------------------------------------- */
 
@@ -148,6 +182,69 @@ INSERT INTO SERVICE_TRANSACTION_STATUS(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, RE
 
 INSERT INTO SERVICE_TRANSACTION_STATUS(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('MATCH_PENDING', 'Match pending', 'Has not passed through the matching process', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Template Classification-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TEMPLATE_CLASSIFICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('SUCCESS_TEMPLATE', 'Success Template', 'Success Template', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE_CLASSIFICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('ERROR_TEMPLATE', 'Error Template', 'Error Template', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Template Category-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TEMPLATE_CATEGORY (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CUSTOMER_TEMPLATE', 'Customer Template', 'Customer Template', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE_CATEGORY (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('USER_TEMPLATE', 'User Template', 'User Template', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Template Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TEMPLATE_TYPE (TEMPLATE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'TRANSACTION_NOTIFICATION_TEMPLATES', 'Transaction Notification Templates', 'Transaction Notification Templates', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE_TYPE (TEMPLATE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'ADVICE_NOTIFICATION_TEMPLATES', 'Advice Notification Templates', 'Advice Notification Templates', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE_TYPE (TEMPLATE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'MSG_NOTIFICATION_TEMPLATES', 'Message Notification Templates', 'Message Notification Templates', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Templates-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TEMPLATE (TEMPLATE_TY_ID, TEMPLATE_CLASS_ID, CODE, NAME, DESCRIPTION, SUBJECT_TXT, MESSAGE_TXT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'TXN_DATA_INPUT_REQUEST', 'Transaction Data Received Notification Template', 'Transaction Data Received Notification Template', 'Transaction Data Input Notification', 'Transaction input received and is currently being processed.\n A response will be generated shortly', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE (TEMPLATE_TY_ID, TEMPLATE_CLASS_ID, CODE, NAME, DESCRIPTION, SUBJECT_TXT, MESSAGE_TXT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 1, 'ADVICE_REQUEST', 'Advice Request Template', 'Advice Request Received Notification Template', 'Advice Received Notification', 'Your request has been received and is being processed.\n A response will be sent to you shortly.\n', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE (TEMPLATE_TY_ID, TEMPLATE_CLASS_ID, CODE, NAME, DESCRIPTION, SUBJECT_TXT, MESSAGE_TXT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 1, 'ADVICE_INQUIRY', 'Advice Inquiry Template', 'Advice Inquiry Received Notification Template', 'Advice Inquiry Notification', 'Your request has been received and is being processed.\n A response will be sent to you shortly.\n', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TEMPLATE (TEMPLATE_TY_ID, TEMPLATE_CLASS_ID, CODE, NAME, DESCRIPTION, SUBJECT_TXT, MESSAGE_TXT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 1, 'UNCLASSIFIED_INBOUND_MSG', 'Unclassified Inbound Message Received Notification Template', 'Unclassified Inbound Message Received Notification Template', 'Message Recived Notification', 'Unclassified inbound message recieved', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Notification Category-------------------------------------------------------------------------------------------- */
+
+INSERT INTO NOTIFICATION_CATEGORY (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('CUSTOMER_TRANSACTION_NOTIFICATIONS', 'Customer Notifications', 'Customer Notifications', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO NOTIFICATION_CATEGORY (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('	USER_NOTIFICATIONS', 'User Notifications', 'User Notifications', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Notification Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO NOTIFICATION_TYPE (NOTIFICATION_CAT_ID, TEMPLATE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'TRANSACTION_MATCHED_NOTIFICATION', 'Transaction Matched Notification', 'Transaction Matched Notification', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO NOTIFICATION_TYPE (NOTIFICATION_CAT_ID, TEMPLATE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 2, 'TRANSACTION_NOT_MATCHED_NOTIFICATION', 'Transaction Not Matched Notification', 'Transaction Not Matched Notification', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO NOTIFICATION_TYPE (NOTIFICATION_CAT_ID, TEMPLATE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 2, 'ADVICE_REQUEST_RESPONSE', 'Advice Request Response', 'Advice Resquest Response', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO NOTIFICATION_TYPE (NOTIFICATION_CAT_ID, TEMPLATE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 2, 'ADVICE_INQUIRY_RESPONSE', 'Advice Inquiry Response', 'Advice Inquiry Response', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------Message Classification-------------------------------------------------------------------------------------------- */
 
@@ -181,6 +278,9 @@ INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC
 
 INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (1, 'UNCLASSIFIED_INBOUND_MSG', 'Unclassified Inbound Message', 'Unclassified Inbound Message', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'TXN_DATA_INPUT_REQUEST', 'Transaction Data Input Request', 'Transaction Data Input Request', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------Message Type Tag-------------------------------------------------------------------------------------------- */
 
@@ -299,10 +399,10 @@ INSERT INTO ADVICE_REQUEST_MESSAGE_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT
 ) values ('REJECTED', 'Rejected', 'Rejected', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO ADVICE_REQUEST_MESSAGE_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ACCEPTED', 'Accepted', 'Accepted', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+) values ('REJECTED_ACCOUNT_NOT_FOUND', 'Rejected Account Not Found', 'Rejected Account Not Found', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO ADVICE_REQUEST_MESSAGE_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('PENDING_APPROVAL', 'Pending', 'Pending', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+) values ('ACCEPTED', 'Accepted', 'Accepted', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Advice Request Message -------------------------------------------------------------------------------------------- */
 
@@ -323,16 +423,10 @@ INSERT INTO ADVICE_TYPE(TXN_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST
 ) values (1, 'ATM_WITHDRAWAL_ADVICE', 'ATM Withdrawal Notice', 'ATM Withdrawal Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO ADVICE_TYPE(TXN_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 'CC_TXN_ADVICE', 'Credit Card Transaction Notice', 'Credit Card Transaction Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO ADVICE_TYPE(TXN_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (3, 'CHQ_WITHDRAWAL', 'Cheque Withdrawal Notice', 'Cheque Withdrawal Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO ADVICE_TYPE(TXN_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 'FX_WITHDRAWAL', 'FX Withdrawal Notice', 'FX Withdrawal Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO ADVICE_TYPE(TXN_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 'FUNDS_TRANSFER', 'Funds Transfer Notice', 'Funds Transfer Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+) values (4, 'FUNDS_TRANSFER', 'Funds Transfer Notice', 'Funds Transfer Notice', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Advice Status -------------------------------------------------------------------------------------------- */
 
@@ -347,8 +441,8 @@ INSERT INTO ADVICE_STATUS(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSIO
 
 /* -------------------------------------------------------------------- Advice -------------------------------------------------------------------------------------------- */
 
-INSERT INTO ADVICE(ADVICE_TY_ID, ADVICE_CLASS_ID, ADVICE_ST_ID,  CUSTOMER_ID, CURRENCY_ID, ADVICE_REQUEST_ID, CODE, NAME, AMOUNT, DESCRIPTION, MAX_MATCHES, MATCH_COUNT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 1, 3, 1, 1, 1, 'TEST', 'Test Cheque Advice', 1000.00, 'Test Cheque Advice', -1, 0, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO ADVICE(ADVICE_TY_ID, ADVICE_CLASS_ID, ADVICE_ST_ID,  CUSTOMER_ID, ACCOUNT_ID, CURRENCY_ID, ADVICE_REQUEST_ID, CODE, NAME, AMOUNT, DESCRIPTION, MAX_MATCHES, MATCH_COUNT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 1, 3, 1, 1, 1, 1, 'TEST', 'Test Cheque Advice', 1000.00, 'Test Cheque Advice', -1, 0, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 
 /* --------------------------------------------------------------------DATA_EXTRACTOR-------------------------------------------------------------------------------------------- */
@@ -396,8 +490,8 @@ INSERT INTO DATA_TRANSFORMER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VE
 
 /* --------------------------------------------------------------------DATA_STRUCTURE-------------------------------------------------------------------------------------------- */
 
-INSERT INTO DATA_STRUCTURE (CODE, NAME, DESCRIPTION, TARGET_PRI_ENTITY_CD, SKIP_FIRST_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('EMAIL_MESG_DATA_STRUCTURE', 'Email Message Request Data Structure', 'Email Message  Request Data Structure', 'Message', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_STRUCTURE (CODE, NAME, DESCRIPTION, TARGET_PRI_ENTITY_CD,  TARGET_SEC_ENTITY_CD, SKIP_FIRST_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('EMAIL_MESG_DATA_STRUCTURE', 'Email Message Request Data Structure', 'Email Message  Request Data Structure', 'Message', 'MessageAttachements', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO DATA_STRUCTURE (CODE, NAME, DESCRIPTION, TARGET_PRI_ENTITY_CD, SKIP_FIRST_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('CTS_TXN_DATA_STRUCTURE', 'CTS Cheque Transaction Data Structure', 'CTS Cheque Transaction Data Structure', 'ServiceTransaction', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
@@ -446,7 +540,7 @@ INSERT INTO DATA_FIELD (DATA_STRUCT_ID, DATA_FIELD_TY_ID, DATA_TRANSFORMER_ID, C
 ) values (1, 1, 1, 'EMAIL_ATTACHMENT_DATA_TYPE', 'Message Attachment Data Type', 'Message Attachment Data Type', 'MessageAttachements', 'dataTy', 6, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 INSERT INTO DATA_FIELD (DATA_STRUCT_ID, DATA_FIELD_TY_ID, DATA_TRANSFORMER_ID, CODE, NAME, DESCRIPTION, TARGET_ENTITY_CD, TARGET_ENTITY_FIELD, SEQ_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 1, 'EMAIL_ATTACHMENT_DATA_URL', 'Message Attachment Location', 'Message Attachment Location', 'MessageAttachements', 'dataUrl', 6, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+) values (1, 1, 1, 'EMAIL_ATTACHMENT_DATA_URL', 'Message Attachment Location', 'Message Attachment Location', 'MessageAttachements', 'dataUrl', 7, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 
 INSERT INTO DATA_FIELD (DATA_STRUCT_ID, DATA_FIELD_TY_ID, DATA_TRANSFORMER_ID, CODE, NAME, DESCRIPTION, TARGET_ENTITY_CD, TARGET_ENTITY_FIELD, REL_TARGET_ENTITY_CD, SEQ_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -626,6 +720,9 @@ INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT
 
 INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('NOT_SUCCESSFULLY_COMPLETED', 'Not Successfully Completed', 'Completed', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('RUNNING', 'Running', 'Running', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------Data input job record summary status-------------------------------------------------------------------------------------------- */
 INSERT INTO DATA_INPUT_JOB_RECORDS_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR

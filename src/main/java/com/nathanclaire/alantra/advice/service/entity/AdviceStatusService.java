@@ -14,7 +14,8 @@ import com.nathanclaire.alantra.advice.response.AdviceStatusResponse;
  */
 public interface AdviceStatusService extends BaseEntityService<AdviceStatus, AdviceStatusResponse, AdviceStatusRequest>
 {
-
-	String UNPROCESSED_ADVICE_CODE = "PENDING";
+	public static final String ADVICE_CODE = "PROCESSED";
+	public static final String PROCESSING_CYCLES = "PROCESSING_CYCLES";
+	public static final String UNPROCESSED_ADVICE_CODE = "UNPROCESSED";
 	
 }

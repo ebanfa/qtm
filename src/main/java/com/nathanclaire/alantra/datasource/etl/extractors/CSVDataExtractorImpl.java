@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import au.com.bytecode.opencsv.CSVReader;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.etl.CellData;
 import com.nathanclaire.alantra.datasource.etl.RowData;
 import com.nathanclaire.alantra.datasource.etl.TableData;
@@ -29,6 +30,8 @@ public class CSVDataExtractorImpl extends BaseDataExtractor<String> implements C
 
 	private static final String CSV_FILE_NOT_FOUND = "CSVDataExtractorImpl.CSV_FILE_NOT_FOUND";
 	private static final String INPUT_OUTPUT_ERROR = "CSVDataExtractorImpl.INPUT_OUTPUT_ERROR";
+	private static final String INVALID_URL_STRING_PASSED = "CSVDataExtractorImpl.INVALID_URL_STRING_PASSED";
+	
 
 	/**
 	 * @param data
@@ -41,6 +44,8 @@ public class CSVDataExtractorImpl extends BaseDataExtractor<String> implements C
 		DataStructure dataStructure = data.getDataStructure();
 		try 
 		{
+			if(!StringUtil.isValidString(data.getDataChannel().getUrl()))
+				throw new ApplicationException(INVALID_URL_STRING_PASSED);
 			CSVReader reader = new CSVReader(new FileReader(data.getDataChannel().getUrl()));
 			List<String[]> extractedData = reader.readAll();
 			tableDataToBePopulated.setSourceChannelText(getDataChannelCategory(data).getCode());

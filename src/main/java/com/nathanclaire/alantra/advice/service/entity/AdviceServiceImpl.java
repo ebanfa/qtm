@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.advice.service.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,35 +11,35 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
-import com.nathanclaire.alantra.application.model.ApplicationEntityField;
-
 import com.nathanclaire.alantra.advice.model.Advice;
-import com.nathanclaire.alantra.customer.model.Customer;
-import com.nathanclaire.alantra.businessdata.model.Currency;
+import com.nathanclaire.alantra.advice.model.AdviceClassification;
 import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
-import com.nathanclaire.alantra.advice.model.AdviceClassification;
-import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.request.AdviceRequest;
 import com.nathanclaire.alantra.advice.response.AdviceResponse;
-import com.nathanclaire.alantra.customer.service.entity.CustomerService;
-import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
-import com.nathanclaire.alantra.advice.service.entity.AdviceRequestMessageService;
-import com.nathanclaire.alantra.advice.service.entity.AdviceStatusService;
-import com.nathanclaire.alantra.advice.service.entity.AdviceClassificationService;
-import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
-import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.businessdata.model.Currency;
+import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
+import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.customer.model.CustomerAccount;
+import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
+import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 
 /**
  * @author Edward Banfa
@@ -290,5 +291,101 @@ public class AdviceServiceImpl
 			adviceResponse.setAdviceTypeId(model.getAdviceType().getId());
 			adviceResponse.setAdviceTypeText(model.getAdviceType().getName());
 		return adviceResponse;
+	}
+	
+	public Advice findAdvice(Integer customerId, Integer accountId, String chequeNo, String cardNo, 
+			Integer currencyId, Integer adviceTypeId, Integer adviceStatus, BigDecimal amount) throws ApplicationException
+	{
+		// Initialize the query parameters
+		initializeQueryParameters(customerId, accountId, chequeNo, cardNo, 
+				currencyId, adviceTypeId, adviceStatus, amount);
+		// Build the query
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Advice> criteriaQuery = criteriaBuilder.createQuery(Advice.class);
+		Root<Advice> adviceRoot = criteriaQuery.from(Advice.class);
+		Predicate[] predicates = extractPredicates(queryParameters, criteriaBuilder, adviceRoot);
+		// Build the criteria
+        criteriaQuery.select(criteriaQuery.getSelection()).where(predicates);
+        criteriaQuery.orderBy(criteriaBuilder.asc(adviceRoot.get("id")));
+        TypedQuery<Advice> query = getEntityManager().createQuery(criteriaQuery);
+        
+        System.out.println(">>>>>>>>>>Matching advice:" + query.getResultList().size());
+        if(!query.getResultList().isEmpty()) return query.getResultList().get(0);
+		return null;
+	}
+
+
+	/**
+	 * @param customerId
+	 * @param accountId
+	 * @param chequeNo
+	 * @param currencyId
+	 * @param adviceTypeId
+	 * @param amount
+	 */
+	private void initializeQueryParameters(Integer customerId, Integer accountId, String chequeNo, String cardNo, 
+			Integer currencyId, Integer adviceTypeId, Integer adviceStatus, BigDecimal amount) {
+		queryParameters.clear();
+		if(customerId != null)
+			queryParameters.add("customer", customerId.toString());
+		//
+		if(accountId != null)
+		queryParameters.add("customerAccount", accountId.toString());
+		//
+		if(chequeNo != null)
+		queryParameters.add("chequeNo", chequeNo);
+		//
+		if(cardNo != null)
+		queryParameters.add("cardNo", cardNo);
+		//
+		if(currencyId != null)
+		queryParameters.add("currency", currencyId.toString());
+		//
+		if(adviceTypeId != null)
+		queryParameters.add("adviceType", adviceTypeId.toString());
+		//
+		if(amount != null)
+		queryParameters.add("amount", amount.toString());
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl#extractPredicates(javax.ws.rs.core.MultivaluedMap, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
+	 */
+	@Override
+	protected Predicate[] extractPredicates(
+			MultivaluedMap<String, String> queryParameters,	CriteriaBuilder criteriaBuilder, Root<Advice> root) 
+	{
+		
+		List<Predicate> predicates = new ArrayList<Predicate>() ;
+        if (queryParameters.containsKey("customer")) {
+            Integer customerId = Integer.valueOf(queryParameters.getFirst("customer"));
+            predicates.add(criteriaBuilder.equal(root.get("customer").get("id"), customerId));
+        }
+        if (queryParameters.containsKey("customerAccount")) {
+            Integer accountId = Integer.valueOf(queryParameters.getFirst("customerAccount"));
+            predicates.add(criteriaBuilder.equal(root.get("customerAccount").get("id"), accountId));
+        }
+        if (queryParameters.containsKey("chequeNo")) {
+            String chequeNo = queryParameters.getFirst("chequeNo");
+            predicates.add(criteriaBuilder.equal(root.get("chequeNo"), chequeNo));
+        }
+        if (queryParameters.containsKey("cardNo")) {
+            String cardNo = queryParameters.getFirst("cardNo");
+            predicates.add(criteriaBuilder.equal(root.get("cardNo"), cardNo));
+        }
+        if (queryParameters.containsKey("currency")) {
+            Integer currencyId = Integer.valueOf(queryParameters.getFirst("currency"));
+            predicates.add(criteriaBuilder.equal(root.get("currency").get("id"), currencyId));
+        }
+        if (queryParameters.containsKey("adviceType")) {
+            Integer adviceTypeId = Integer.valueOf(queryParameters.getFirst("adviceType"));
+            predicates.add(criteriaBuilder.equal(root.get("adviceType").get("id"), adviceTypeId));
+        }
+        if (queryParameters.containsKey("amount")) {
+        	BigDecimal amount = new BigDecimal(queryParameters.getFirst("amount"));
+            predicates.add(criteriaBuilder.equal(root.get("amount"), amount));
+        }
+        return predicates.toArray(new Predicate[]{});
 	}
 }

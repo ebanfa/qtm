@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.datasource.response.DataLoaderResponse;
  */
 public interface DataLoaderService extends BaseEntityService<DataLoader, DataLoaderResponse, DataLoaderRequest>
 {
+
+	public static final String TRANSACTION_DATA_LOADER = "TRANSACTION_DATA_LOADER";
 	
 }

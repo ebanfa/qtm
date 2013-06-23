@@ -18,11 +18,18 @@ import com.nathanclaire.alantra.application.model.ApplicationEntity;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.base.util.PropertyUtils;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.etl.RowData;
 import com.nathanclaire.alantra.datasource.etl.TableData;
 import com.nathanclaire.alantra.datasource.model.DataField;
+import com.nathanclaire.alantra.datasource.model.DataInputJob;
+import com.nathanclaire.alantra.datasource.model.DataInputJobSummary;
+import com.nathanclaire.alantra.datasource.request.DataInputJobSummaryRequest;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryStatusService;
 
 /**
  * @author Edward Banfa 
@@ -34,8 +41,13 @@ public abstract class BaseDataLoader {
 	private static final String ENTITY_REQ_CLASS_SUFFIX = "Request";
 	private static final String ENTITY_REQUEST_PACKAGE_NAME = ".request.";
 	private static final String APP_BASE_PACKAGE_NAME = "com.nathanclaire.alantra.";
-	private static final String INVALID_ENTITY_CODE = null;
+	private static final String INVALID_ENTITY_CODE = "BaseDataLoader.INVALID_ENTITY_CODE";
+	private static final String COULD_NOT_CREATE_JOB_SUMMARY = "BaseDataLoader.COULD_NOT_CREATE_JOB_SUMMARY";
+	
 	@Inject ApplicationEntityService entityService;
+	@Inject DataInputJobService inputJobService;
+	@Inject DataInputJobSummaryService summaryService;
+	@Inject DataInputJobSummaryStatusService summaryStatusService;
 	
 	private Logger logger = LoggerFactory.getLogger(BaseDataLoader.class);
 	
@@ -43,13 +55,19 @@ public abstract class BaseDataLoader {
 	 * @see com.nathanclaire.alantra.datasource.etl.DataLoader#loadData(com.nathanclaire.alantra.datasource.etl.TableData)
 	 */
 	public TableData loadData(TableData tableData, Set<DataField> fields) throws ApplicationException {
-		logger.info("Loading {} rows of data for primary entity {} and secondary entity {}", tableData.getRows().size(),
+		logger.debug("Loading {} rows of data for primary entity {} and secondary entity {}", tableData.getRows().size(),
 				tableData.getPrimEntityName(), tableData.getSecEntityName());
 		// Get the request class for the primary and secondary entities 
 		Class<? extends BaseRequest> primEntityRequestClass = 
 				getEntityRequestClass(tableData.getPrimEntityName());
 		Class<? extends BaseRequest> secEntityRequestClass = 
 				getEntityRequestClass(tableData.getSecEntityName());
+		//
+		DataInputJobSummaryRequest summaryRequest = initializeSummary(inputJobService.findById(tableData.getJobId()), tableData);
+		DataInputJobSummary jobSummary = summaryService.create(summaryRequest);
+		if(jobSummary == null)
+			throw new ApplicationException(COULD_NOT_CREATE_JOB_SUMMARY);
+		tableData.setJobSummaryId(jobSummary.getId());
 		// Load each individual row
 		for(RowData row: tableData.getRows()){
 			try {
@@ -101,10 +119,10 @@ public abstract class BaseDataLoader {
 		{
 			String fieldSetterMehodNm = getFieldSetterMethodName(field);
 			method = entityRequestClass.getDeclaredMethod(fieldSetterMehodNm, parameterType);
-			logger.info("Executing method {} with field setter name {} on class {} " +
-					"for field {} with configured data type {} and cell data type {}", 
+			logger.debug("Executing method {} with field setter name {} on class {} " +
+					"for field {} with configured data type {} and cell data type {} and data {}", 
 					method.getName(), fieldSetterMehodNm, entityRequestClass.getName(), 
-					field.getName(), field.getDataFieldType().getName(), dataType);
+					field.getName(), field.getDataFieldType().getName(), dataType, data);
 			// Cast the data into the required type and 
 			// invoke the method on the instance
 			if(dataType.equals(DataFieldTypeService.STRING))
@@ -176,6 +194,28 @@ public abstract class BaseDataLoader {
 			}
 		return null;
 	}
+	
+
+	protected DataInputJobSummaryRequest initializeSummary(DataInputJob inputJob, TableData tableData) throws ApplicationException{
+		DataInputJobSummaryRequest dataInputJobSummary = new DataInputJobSummaryRequest();
+		PropertyUtils.initializeBaseFields(dataInputJobSummary);
+		dataInputJobSummary.setCode(Long.valueOf(new Date().getTime()).toString());
+		dataInputJobSummary.setDataInputJobId(inputJob.getId());
+		dataInputJobSummary.setDataInputJobText(inputJob.getName());
+		dataInputJobSummary.setPrimEntityName(tableData.getPrimEntityName());
+		dataInputJobSummary.setSecEntityName(tableData.getSecEntityName());
+		dataInputJobSummary.setRecordsRead(0);
+		dataInputJobSummary.setRecordsRejected(0);
+		dataInputJobSummary.setTotalEntitiesCreated(0);
+		dataInputJobSummary.setTotalEntitiesRejected(0);
+		dataInputJobSummary.setTxnsMatched(0);
+		dataInputJobSummary.setTxnsUnmatched(0);
+		dataInputJobSummary.setDataInputJobSummaryStatusId(
+				summaryStatusService.findByCode(DataInputJobSummaryStatusService.RUNNING).getId());
+		
+		return dataInputJobSummary;
+	}
+	
 
 	/**
 	 * @param tableData

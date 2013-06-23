@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.messaging.response.MessageAttachementsResponse;
  */
 public interface MessageAttachementsService extends BaseEntityService<MessageAttachements, MessageAttachementsResponse, MessageAttachementsRequest>
 {
+	public static final String CSV_MIME_TYPE = "CSV";
 	
+	public static final String EXCEL_MIME_TYPE = "EXCEL";
 }

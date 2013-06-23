@@ -14,5 +14,6 @@ import com.nathanclaire.alantra.datasource.response.DataStructureResponse;
  */
 public interface DataStructureService extends BaseEntityService<DataStructure, DataStructureResponse, DataStructureRequest>
 {
+
 	
 }

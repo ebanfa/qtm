@@ -38,7 +38,7 @@ public class DataProcessorImpl extends BaseDataProcessor {
 			{		
 				if(field.getCode().equals(cellData.getName()))
 				{
-					logger.info("Transforming cell {} with data type {}", cellData.getName(), cellData.getDataType());
+					logger.info("Transforming cell {} with data type {} and data {}", cellData.getName(), cellData.getDataType(), cellData.getData());
 					com.nathanclaire.alantra.datasource.etl.DataTransformer transformer = 
 							transformerProducer.getDataTransformer(field);
 					if(transformer == null) throw new ApplicationException(DATA_TRANSFORMER_NOT_FOUND);

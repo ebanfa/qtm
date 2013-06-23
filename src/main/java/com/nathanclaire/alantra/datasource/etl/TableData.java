@@ -12,6 +12,13 @@ import java.util.List;
  */
 public class TableData {
 	
+	private Integer jobId;
+	private Integer channelId;
+	private Integer dataId;
+	private Integer dataInputId;
+	private Integer dataStructureId;
+	private Integer jobSummaryId;
+	
 	private String tableInputStatus;
 	private String sourceServiceCode;
 	private String sourceChannelText;
@@ -327,6 +334,90 @@ public class TableData {
 	 */
 	public void setRows(List<RowData> rows) {
 		this.rows = rows;
+	}
+
+	/**
+	 * @return the jobId
+	 */
+	public Integer getJobId() {
+		return jobId;
+	}
+
+	/**
+	 * @param jobId the jobId to set
+	 */
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
+	}
+
+	/**
+	 * @return the channelId
+	 */
+	public Integer getChannelId() {
+		return channelId;
+	}
+
+	/**
+	 * @param channelId the channelId to set
+	 */
+	public void setChannelId(Integer channelId) {
+		this.channelId = channelId;
+	}
+
+	/**
+	 * @return the dataId
+	 */
+	public Integer getDataId() {
+		return dataId;
+	}
+
+	/**
+	 * @param dataId the dataId to set
+	 */
+	public void setDataId(Integer dataId) {
+		this.dataId = dataId;
+	}
+
+	/**
+	 * @return the dataInputId
+	 */
+	public Integer getDataInputId() {
+		return dataInputId;
+	}
+
+	/**
+	 * @param dataInputId the dataInputId to set
+	 */
+	public void setDataInputId(Integer dataInputId) {
+		this.dataInputId = dataInputId;
+	}
+
+	/**
+	 * @return the dataStructureId
+	 */
+	public Integer getDataStructureId() {
+		return dataStructureId;
+	}
+
+	/**
+	 * @param dataStructureId the dataStructureId to set
+	 */
+	public void setDataStructureId(Integer dataStructureId) {
+		this.dataStructureId = dataStructureId;
+	}
+
+	/**
+	 * @return the jobSummaryId
+	 */
+	public Integer getJobSummaryId() {
+		return jobSummaryId;
+	}
+
+	/**
+	 * @param jobSummaryId the jobSummaryId to set
+	 */
+	public void setJobSummaryId(Integer jobSummaryId) {
+		this.jobSummaryId = jobSummaryId;
 	}
 	
 	

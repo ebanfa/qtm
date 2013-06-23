@@ -47,9 +47,10 @@ public class EntityNames{
 		entityNames.put("DataLoader", "Data Loader");
 		entityNames.put("DataProcessor", "Data Processor");
 		entityNames.put("DataTransformer", "DataTransformer");
-		entityNames.put("ServiceTransactionType", "Service Transaction Type");
-		entityNames.put("ServiceTransactionStatus", "Service Transaction Status");
-		entityNames.put("ServiceTransaction", "Service Transaction");
+		entityNames.put("ServiceTransactionCategory", "Transaction Category");
+		entityNames.put("ServiceTransactionType", "Transaction Type");
+		entityNames.put("ServiceTransactionStatus", "Transaction Status");
+		entityNames.put("ServiceTransaction", "Transaction");
 		entityNames.put("ApplicationActivityGroup", "Application Activity Group");
 		entityNames.put("ApplicationActivityType", "Application Activity Type");
 		entityNames.put("ApplicationFormFieldType", "Application Form Field Type");
@@ -63,6 +64,15 @@ public class EntityNames{
 		entityNames.put("ApplicationActivityGroupType", "Application Activity Group Type");
 		entityNames.put("ApplicationEntity", "Application Entity");
 		entityNames.put("ApplicationFormField", "Application Form Field");
+		entityNames.put("NotificationCategory", "Notification Category");
+		entityNames.put("NotificationType", "Notification Type");
+		entityNames.put("CustomerNotification", "Customer Notification");
+		entityNames.put("SystemUserNotification", "System User Notification");
+		entityNames.put("TemplateClassification", "Template Classification");
+		entityNames.put("TemplateCategory", "Template Category");
+		entityNames.put("TemplateTypeTag", "Template Type Tag");
+		entityNames.put("Template", "Template");
+		entityNames.put("TemplateType", "Template Type");
 		entityNames.put("MessageStatus", "Message Status");
 		entityNames.put("MessageCategory", "Message Category");
 		entityNames.put("MessageType", "Message Type");
@@ -71,14 +81,24 @@ public class EntityNames{
 		entityNames.put("MessageGateway", "Message Gateway");
 		entityNames.put("MessageAttachements", "Message Attachements");
 		entityNames.put("MessageTypeTag", "Message Type Tag");
+		entityNames.put("MessageTypeTemplate", "Message Type Template");
 		entityNames.put("CustomerType", "Customer Type");
 		entityNames.put("CustomerClassification", "Customer Classification");
 		entityNames.put("CustomerBlacklist", "Customer Blacklist");
 		entityNames.put("Customer", "Customer");
+		entityNames.put("AccountType", "Account Type");
+		entityNames.put("Account", "Account");
 		entityNames.put("CustomerAccount", "Customer Account");
+		entityNames.put("LimitType", "LimitType");
+		entityNames.put("CustomerLimit", "CustomerLimit");
+		entityNames.put("CustomerMessage", "Customer Message");
 		entityNames.put("BusinessUnit", "BusinessUnit");
 		entityNames.put("Currency", "Currency");
 		entityNames.put("Country", "Country");
+		entityNames.put("SystemUserMessage", "System User Message");
+		entityNames.put("SystemGroup", "System Group");
+		entityNames.put("SystemUserGroup", "System User Group");
+		entityNames.put("SystemUser", "System User");
 	}
 
 

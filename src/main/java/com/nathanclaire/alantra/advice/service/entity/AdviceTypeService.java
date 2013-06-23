@@ -15,8 +15,8 @@ import com.nathanclaire.alantra.advice.response.AdviceTypeResponse;
 public interface AdviceTypeService extends BaseEntityService<AdviceType, AdviceTypeResponse, AdviceTypeRequest>
 {
 
-	String CHQ_WITHDRAWAL = null;
-	String CC_TXN_ADVICE = null;
-	String ATM_WITHDRAWAL_ADVICE = null;
+	public static final String CC_TXN_ADVICE = "CC_TXN_ADVICE";
+	public static final String CHQ_WITHDRAWAL = "CHQ_WITHDRAWAL";
+	public static final String ATM_WITHDRAWAL_ADVICE = "ATM_WITHDRAWAL_ADVICE";
 	
 }

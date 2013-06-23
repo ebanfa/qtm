@@ -19,10 +19,10 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.advice.model.AdviceType;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.advice.request.AdviceTypeRequest;
 import com.nathanclaire.alantra.advice.response.AdviceTypeResponse;
-import com.nathanclaire.alantra.channel.service.entity.ServiceTransactionTypeService;
+import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
+import com.nathanclaire.alantra.transaction.service.entity.ServiceTransactionTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;

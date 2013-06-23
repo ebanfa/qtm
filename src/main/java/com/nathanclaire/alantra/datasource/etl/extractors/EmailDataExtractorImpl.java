@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Qualifier;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.CellData;
@@ -39,7 +38,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 		DataChannel dataChannel = data.getDataChannel();
 		DataStructure dataStructure = data.getDataStructure();
 		
-		List<MessageLite> messages = mailService.getMessages(dataChannel.getIpAddr(), dataChannel.getUsername(), dataChannel.getPassword());
+		List<MessageLite> messages = mailService.getMessages(dataChannel);
 		List<String[]> extractedData = this.emailToStringArrayList(messages);
 		tableDataToBePopulated.setSourceChannelText(getDataChannelCategory(data).getCode());
 		int recordsRead = processRows(dataStructure, dataStructure.getDataFields(), tableDataToBePopulated, extractedData);
@@ -71,7 +70,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 		for(MessageLite message : messages)
 		{
 			String[] messageAsRow = {message.getMessageId(), message.getMessageFrom(), message.getMessageTo(), 
-					message.getSubjectLine(), message.getMessageBody(), message.getAttachementMimeType(), "attachment location"};
+					message.getSubjectLine(), message.getMessageBody(), message.getAttachementMimeType(), message.getAttachementFileName()};
 
 			messageRows.add(messageAsRow);
 		}

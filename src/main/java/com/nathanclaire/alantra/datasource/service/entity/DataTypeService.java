@@ -14,5 +14,8 @@ import com.nathanclaire.alantra.datasource.response.DataTypeResponse;
  */
 public interface DataTypeService extends BaseEntityService<DataType, DataTypeResponse, DataTypeRequest>
 {
+
+	public static final String TRANSACTION_DATA = "TRANSACTION_DATA";
+	public static final String ADVICE_REQUEST_DATA = "ADVICE_REQUEST_DATA";
 	
 }

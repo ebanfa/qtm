@@ -62,7 +62,10 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 				throw new ApplicationException(NO_DATA_EXTRACTOR_FOUND);
 			// 2. Extract the data
 			TableData data = dataExtractor.extract(dataConfig);
-			// Set the target entity names
+			// Set job related data
+			data.setJobId(inputJob.getId());
+			data.setDataStructureId(dataStructure.getId());
+			data.setDataInputId(dataInput.getId());
 			data.setPrimEntityName(dataStructure.getTargetPriEntityCd());
 			data.setSecEntityName(dataStructure.getTargetSecEntityCd());
 			// 3. Get the data processor and process the data
@@ -76,7 +79,7 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 			dataLoader.loadData(data, dataStructure.getDataFields());
 			// 5. Log the data input
 			DataInputLogger dataInputLogger = inputLoggerProducer.getDataInputLogger(inputJob);
-			//dataInputLogger.logDataInp/ut(inputJob, data);
+			dataInputLogger.logDataInput(inputJob, data);
 		} 
 		catch (ApplicationException e) 
 		{

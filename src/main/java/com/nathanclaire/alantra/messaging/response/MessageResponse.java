@@ -26,6 +26,8 @@ public class MessageResponse extends BaseResponse {
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
+    private String msgAttachmentTy;
+    private String msgAttachmentFile;
 
     public MessageResponse() {
     }
@@ -124,6 +126,22 @@ public class MessageResponse extends BaseResponse {
     
     public void setMessageTxt(String messageTxt) {
         this.messageTxt = messageTxt;
+    }
+
+    public String getMsgAttachmentTy() {
+        return this.msgAttachmentTy;
+    }
+    
+    public void setMsgAttachmentTy(String msgAttachmentTy) {
+        this.msgAttachmentTy = msgAttachmentTy;
+    }
+
+    public String getMsgAttachmentFile() {
+        return this.msgAttachmentFile;
+    }
+    
+    public void setMsgAttachmentFile(String msgAttachmentFile) {
+        this.msgAttachmentFile = msgAttachmentFile;
     }
 
 

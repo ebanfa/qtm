@@ -38,6 +38,8 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
 	private MessageCategory messageCategory;
     private String name;
     private String description;
+    private Character autoRespFg;
+	private Set<MessageTypeTemplate> messageTypeTemplates = new HashSet<MessageTypeTemplate>(0);
 	private Set<MessageTypeTag> messageTypeTags = new HashSet<MessageTypeTag>(0);
 	private Set<Message> messages = new HashSet<Message>(0);
 
@@ -53,18 +55,20 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public MessageType(MessageCategory messageCategory, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageTypeTag> messageTypeTags, Set<Message> messages ) 
+    public MessageType(MessageCategory messageCategory, String code, String name, String description, Date effectiveDt, Character autoRespFg, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageTypeTemplate> messageTypeTemplates, Set<MessageTypeTag> messageTypeTags, Set<Message> messages ) 
     {
 		this.messageCategory = messageCategory;
 		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.effectiveDt = effectiveDt;
+		this.autoRespFg = autoRespFg;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.messageTypeTemplates = messageTypeTemplates;
 		this.messageTypeTags = messageTypeTags;
 		this.messages = messages;
     }
@@ -104,6 +108,29 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
     {
         this.description = description;
     }
+		
+    @Column(name="AUTO_RESP_FG" , unique=true, length=1)
+    public Character getAutoRespFg() 
+    {
+        return this.autoRespFg;
+    }
+    
+    public void setAutoRespFg(Character autoRespFg) 
+    {
+        this.autoRespFg = autoRespFg;
+    }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
+    @JsonIgnore
+    public Set<MessageTypeTemplate> getMessageTypeTemplates() 
+    {
+        return this.messageTypeTemplates;
+    }
+    
+    public void setMessageTypeTemplates(Set<MessageTypeTemplate> messageTypeTemplates) 
+    {
+        this.messageTypeTemplates = messageTypeTemplates;
+    }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
     @JsonIgnore

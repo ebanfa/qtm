@@ -73,12 +73,12 @@ public class CustomerDataInputServiceImpl extends BaseProcessService implements 
 	{
 		if(customer == null) throw new ApplicationException(CUSTOMER_NOT_FOUND);
 		if(customerAccountRequest == null) throw new ApplicationException(INVALID_ACCOUNT_REQUEST);
-		CustomerAccount account = customerAccountService.findByCode(customerAccountRequest.getAccountNo());
+		CustomerAccount account = null; //customerAccountService.findByCode(customerAccountRequest.getAccountNo());
 		if(account != null)
 			return account;
 		PropertyUtils.initializeBaseFields(customerAccountRequest);
 		customerAccountRequest.setName(customer.getName());
-		customerAccountRequest.setCode(customerAccountRequest.getAccountNo());
+		//customerAccountRequest.setCode(customerAccountRequest..getAccountNo());
 		customerAccountRequest.setCustomerId(customer.getId());
 		return customerAccountService.create(customerAccountRequest);
 	}

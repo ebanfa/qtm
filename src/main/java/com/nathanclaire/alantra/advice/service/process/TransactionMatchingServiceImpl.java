@@ -20,11 +20,11 @@ import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.businessdata.model.Currency;
-import com.nathanclaire.alantra.channel.model.ServiceTransaction;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
+import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
+import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
 
 /**
  * @author Edward Banfa 
@@ -45,7 +45,7 @@ public class TransactionMatchingServiceImpl extends BaseProcessService
 	private Logger logger = LoggerFactory.getLogger(AdviceServiceImpl.class);
 	
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.advice.service.process.TransactionMatchingService#match(com.nathanclaire.alantra.channel.model.ServiceTransaction)
+	 * @see com.nathanclaire.alantra.advice.service.process.TransactionMatchingService#match(com.nathanclaire.alantra.transaction.model.ServiceTransaction)
 	 */
 	@Override
 	public Advice match(ServiceTransaction transaction) throws ApplicationException  {

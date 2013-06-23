@@ -26,6 +26,8 @@ public class AdviceRequestMessageResponse extends BaseResponse {
     private String chequeNo;
     private String cardNo;
     private String currencyCd;
+    private String adviceTyTxt;
+    private String adviceTxt;
 
     public AdviceRequestMessageResponse() {
     }
@@ -126,7 +128,22 @@ public class AdviceRequestMessageResponse extends BaseResponse {
         this.currencyCd = currencyCd;
     }
 
+    public String getAdviceTyTxt() {
+        return this.adviceTyTxt;
+    }
+    
+    public void setAdviceTyTxt(String adviceTyTxt) {
+        this.adviceTyTxt = adviceTyTxt;
+    }
+
+    public String getAdviceTxt() {
+        return this.adviceTxt;
+    }
+    
+    public void setAdviceTxt(String adviceTxt) {
+        this.adviceTxt = adviceTxt;
+    }
+
 
 }
-
 

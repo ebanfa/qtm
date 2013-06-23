@@ -3,6 +3,8 @@
  */
 package com.nathanclaire.alantra.messaging.util;
 
+import java.util.Map;
+
 /**
  * @author Edward Banfa 
  *
@@ -14,9 +16,11 @@ public class MessageLite {
 	private String subjectLine;
 	private String messageBody;
 	private String messageId;
+	private String messageTemplate;
 	private String attachementFileName;
-	private boolean containsAttachement;
 	private String attachementMimeType;
+	private boolean containsAttachement;
+	private Map<String, String> templateTagValues;
 	
 	/**
 	 * @return the messageTo
@@ -113,5 +117,29 @@ public class MessageLite {
 	 */
 	public void setAttachementMimeType(String attachementMimeType) {
 		this.attachementMimeType = attachementMimeType;
+	}
+	/**
+	 * @return the messageTemplate
+	 */
+	public String getMessageTemplate() {
+		return messageTemplate;
+	}
+	/**
+	 * @param messageTemplate the messageTemplate to set
+	 */
+	public void setMessageTemplate(String messageTemplate) {
+		this.messageTemplate = messageTemplate;
+	}
+	/**
+	 * @return the templateTagValues
+	 */
+	public Map<String, String> getTemplateTagValues() {
+		return templateTagValues;
+	}
+	/**
+	 * @param templateTagValues the templateTagValues to set
+	 */
+	public void setTemplateTagValues(Map<String, String> templateTagValues) {
+		this.templateTagValues = templateTagValues;
 	}
 }

@@ -40,27 +40,27 @@ public class AdviceRequestMessageStatus  extends BaseEntity implements java.io.S
     public AdviceRequestMessageStatus() {
     }
 
-    public AdviceRequestMessageStatus(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public AdviceRequestMessageStatus(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AdviceRequestMessageStatus(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceRequestMessage> adviceRequestMessages ) 
+    public AdviceRequestMessageStatus(String name, String description, Set<AdviceRequestMessage> adviceRequestMessages, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.adviceRequestMessages = adviceRequestMessages;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.adviceRequestMessages = adviceRequestMessages;
     }
     
 		

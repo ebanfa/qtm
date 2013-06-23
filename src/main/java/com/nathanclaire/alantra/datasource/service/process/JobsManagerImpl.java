@@ -16,8 +16,15 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.service.process.BaseTimerService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
+import com.nathanclaire.alantra.datasource.model.DataStructure;
+import com.nathanclaire.alantra.datasource.model.DataType;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelTypeService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
+import com.nathanclaire.alantra.datasource.service.entity.DataStructureService;
+import com.nathanclaire.alantra.datasource.service.entity.DataTypeService;
 
 /**
  * @author Edward Banfa 
@@ -30,6 +37,10 @@ public class JobsManagerImpl extends BaseTimerService implements JobsManager
 	private List<DataInputJob> inputJobs;
 	@Inject DataInputJobService jobsService;
 	@Inject	DataInputJobRunner inputJobRunner;
+	@Inject	DataStructureService dataStructureService;;
+	@Inject	DataTypeService dataTypeService;
+	@Inject DataChannelService channelService;
+	@Inject JobHelper helper;
 	private Logger logger = LoggerFactory.getLogger(JobsManagerImpl.class);
 
 	/* (non-Javadoc)
@@ -63,6 +74,7 @@ public class JobsManagerImpl extends BaseTimerService implements JobsManager
 	public void startAllJobs() throws ApplicationException 
 	{
 		inputJobs = this.getAllJobs(); 
+		//runDummyJob();
 		for(DataInputJob inputJob: inputJobs)
 		{
 			try {
@@ -71,6 +83,16 @@ public class JobsManagerImpl extends BaseTimerService implements JobsManager
 				logger.error("Problem executing job: {}. Message: {}", inputJob.getName(), e.getMessage());
 			}
 		}
+	}
+	
+	private void runDummyJob() throws ApplicationException
+	{
+
+		DataStructure dataStructure = dataStructureService.findByCode("CTS_TXN_DATA_STRUCTURE");
+		DataType dataType = dataTypeService.findByCode(DataTypeService.TRANSACTION_DATA);
+		DataChannel dataChannel = channelService.findByCode(DataChannelService.TRANSACTION_DATA_IMPORT_SERVICE);
+		helper.createNonCyclicLocalFileDataInputJob("/home/administrator/Projects/alantraadvice_data.csv", 
+				"CSV", dataStructure, dataType, DataChannelTypeService.FILE_CSV_CHANNEL);
 	}
 
 	/* (non-Javadoc)

@@ -22,8 +22,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
 import com.nathanclaire.alantra.base.model.BaseEntity;
-import com.nathanclaire.alantra.channel.model.ServiceTransaction;
 import com.nathanclaire.alantra.messaging.model.Message;
+import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 
 /**
  * DataChannel 

@@ -48,13 +48,15 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
     private String chequeNo;
     private String cardNo;
     private String currencyCd;
+    private String adviceTyTxt;
+    private String adviceTxt;
     private String description;
 	private Set<Advice> advices = new HashSet<Advice>(0);
 
     public AdviceRequestMessage() {
     }
 
-    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String currencyCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String currencyCd, String adviceTyTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.sourceAddress = sourceAddress;
 		this.code = code;
@@ -62,12 +64,13 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
 		this.amount = amount;
 		this.accountNo = accountNo;
 		this.currencyCd = currencyCd;
+		this.adviceTyTxt = adviceTyTxt;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String chequeNo, String cardNo, String currencyCd, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
+    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String chequeNo, String cardNo, String currencyCd, String adviceTyTxt, String adviceTxt, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
     {
 		this.customer = customer;
 		this.dataChannel = dataChannel;
@@ -80,6 +83,8 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
 		this.chequeNo = chequeNo;
 		this.cardNo = cardNo;
 		this.currencyCd = currencyCd;
+		this.adviceTyTxt = adviceTyTxt;
+		this.adviceTxt = adviceTxt;
 		this.description = description;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -205,6 +210,28 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
     public void setCurrencyCd(String currencyCd) 
     {
         this.currencyCd = currencyCd;
+    }
+		
+    @Column(name="ADVICE_TY_TXT" , nullable=false, length=75)
+    public String getAdviceTyTxt() 
+    {
+        return this.adviceTyTxt;
+    }
+    
+    public void setAdviceTyTxt(String adviceTyTxt) 
+    {
+        this.adviceTyTxt = adviceTyTxt;
+    }
+		
+    @Column(name="ADVICE_TXT" , unique=true, length=500)
+    public String getAdviceTxt() 
+    {
+        return this.adviceTxt;
+    }
+    
+    public void setAdviceTxt(String adviceTxt) 
+    {
+        this.adviceTxt = adviceTxt;
     }
 		
     @Column(name="DESCRIPTION" , unique=true, length=150)

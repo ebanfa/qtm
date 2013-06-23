@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
-import com.nathanclaire.alantra.channel.model.ServiceTransactionType;
+import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
 
 /**
  * AdviceType 
