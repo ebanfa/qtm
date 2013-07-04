@@ -12,6 +12,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.customer.model.Account;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
+import com.nathanclaire.alantra.messaging.service.process.MessageTextProcessingService;
 
 /**
  * @author Edward Banfa 
@@ -34,8 +35,8 @@ public interface AdviceTextProcessingService {
 	public static final String INCORRECT_CUSTOMER_SOURCE_ADDRESS = 
 			"AdviceRequestMessageProcessingService.INCORRECT_CUSTOMER_SOURCE_ADDRESS";
 	
-	public static final String AMOUNT_GRP_REGEX_PATTERN = "";
-	public static final String ADVICE_TEXT_REGEX_PATTERN = "";
+	public static final String AMOUNT_GRP_REGEX_PATTERN = "[0-9]+(\\.[0-9]{1,2})?";
+	public static final String ADVICE_TEXT_REGEX_PATTERN = MessageTextProcessingService.PARSE_REGEX_PATTERN;
 
 	public BigDecimal getAmountInAdviceText(String adviceText)	throws ApplicationException;
 

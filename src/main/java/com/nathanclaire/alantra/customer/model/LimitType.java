@@ -35,7 +35,10 @@ public class LimitType  extends BaseEntity implements java.io.Serializable {
 
     private String name;
     private String description;
-	private Set<CustomerLimit> customerLimits = new HashSet<CustomerLimit>(0);
+	private Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits = new HashSet<CustomerTypeTransactionLimit>(0);
+	private Set<CustomerCategoryTransactionLimit> customerCategoryTransactionLimits = new HashSet<CustomerCategoryTransactionLimit>(0);
+	private Set<CustomerTransactionLimit> customerTransactionLimits = new HashSet<CustomerTransactionLimit>(0);
+	private Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits = new HashSet<CustomerClassificationTransactionLimit>(0);
 
     public LimitType() {
     }
@@ -49,7 +52,7 @@ public class LimitType  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public LimitType(String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerLimit> customerLimits ) 
+    public LimitType(String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits, Set<CustomerCategoryTransactionLimit> customerCategoryTransactionLimits, Set<CustomerTransactionLimit> customerTransactionLimits, Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits ) 
     {
 		this.name = name;
 		this.description = description;
@@ -60,7 +63,10 @@ public class LimitType  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.customerLimits = customerLimits;
+		this.customerTypeTransactionLimits = customerTypeTransactionLimits;
+		this.customerCategoryTransactionLimits = customerCategoryTransactionLimits;
+		this.customerTransactionLimits = customerTransactionLimits;
+		this.customerClassificationTransactionLimits = customerClassificationTransactionLimits;
     }
     
 		
@@ -88,14 +94,50 @@ public class LimitType  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="limitType")
     @JsonIgnore
-    public Set<CustomerLimit> getCustomerLimits() 
+    public Set<CustomerTypeTransactionLimit> getCustomerTypeTransactionLimits() 
     {
-        return this.customerLimits;
+        return this.customerTypeTransactionLimits;
     }
     
-    public void setCustomerLimits(Set<CustomerLimit> customerLimits) 
+    public void setCustomerTypeTransactionLimits(Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits) 
     {
-        this.customerLimits = customerLimits;
+        this.customerTypeTransactionLimits = customerTypeTransactionLimits;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="limitType")
+    @JsonIgnore
+    public Set<CustomerCategoryTransactionLimit> getCustomerCategoryTransactionLimits() 
+    {
+        return this.customerCategoryTransactionLimits;
+    }
+    
+    public void setCustomerCategoryTransactionLimits(Set<CustomerCategoryTransactionLimit> customerCategoryTransactionLimits) 
+    {
+        this.customerCategoryTransactionLimits = customerCategoryTransactionLimits;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="limitType")
+    @JsonIgnore
+    public Set<CustomerTransactionLimit> getCustomerTransactionLimits() 
+    {
+        return this.customerTransactionLimits;
+    }
+    
+    public void setCustomerTransactionLimits(Set<CustomerTransactionLimit> customerTransactionLimits) 
+    {
+        this.customerTransactionLimits = customerTransactionLimits;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="limitType")
+    @JsonIgnore
+    public Set<CustomerClassificationTransactionLimit> getCustomerClassificationTransactionLimits() 
+    {
+        return this.customerClassificationTransactionLimits;
+    }
+    
+    public void setCustomerClassificationTransactionLimits(Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits) 
+    {
+        this.customerClassificationTransactionLimits = customerClassificationTransactionLimits;
     }			
 
 

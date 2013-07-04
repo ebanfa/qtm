@@ -48,32 +48,32 @@ public class CustomerAccount  extends BaseEntity implements java.io.Serializable
     public CustomerAccount() {
     }
 
-    public CustomerAccount(Customer customer, Account account, String code, String name, char isDefaultFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerAccount(Customer customer, Account account, String name, char isDefaultFg, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.code = code;
 		this.name = name;
 		this.isDefaultFg = isDefaultFg;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerAccount(Customer customer, Account account, String code, String name, String description, char isDefaultFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices, Set<ServiceTransaction> serviceTransactions ) 
+    public CustomerAccount(Customer customer, Account account, String name, String description, char isDefaultFg, Set<Advice> advices, Set<ServiceTransaction> serviceTransactions, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.customer = customer;
 		this.account = account;
-		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.isDefaultFg = isDefaultFg;
+		this.advices = advices;
+		this.serviceTransactions = serviceTransactions;
+		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.advices = advices;
-		this.serviceTransactions = serviceTransactions;
     }
     
     		

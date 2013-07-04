@@ -11,6 +11,9 @@ import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.model.AdviceTypeTag;
 import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
@@ -34,10 +37,13 @@ import com.nathanclaire.alantra.customer.service.process.CustomerProcessingServi
 public class AdviceTextProcessingServiceImpl extends BaseProcessService
 		implements AdviceTextProcessingService {
 
+	private static final String INVALID_ADVICE_TEXT_SPECIFIED_FOR_ACCOUNT_SEARCH = null;
+	private static final String INVALID_ACCT_MAP_SPECIFIED_FOR_ACCOUNT_SEARCH = null;
 	@Inject CustomerProcessingService customerService;
 	@Inject AdviceTypeTagService adviceTypeTagService;
 	@Inject BusinessDataProcessingService businessDataProcessingService;
 	@Inject AdviceRequestMessageProcessingService adviceRequestMessageProcessingService;
+	private Logger logger = LoggerFactory.getLogger(AdviceTextProcessingServiceImpl.class);
 	
 	
 	/* (non-Javadoc)
@@ -47,11 +53,14 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 	public void processAdviceText(Integer customerId, String sourceAddress, 
 			String adviceText, Integer dataChannelId) throws ApplicationException 
 	{
+		logger.debug("Processing advice text {}", adviceText);
 		// 1. Get the customer
 		Customer customer = customerService.getCustomerById(customerId);
+		logger.debug("Verifying customer {}", customer);
 		// 2. Verify the sourceAddress belongs to the customer
 		if(!customerService.verifyCustomerContact(customer, sourceAddress))
 			throw new ApplicationException(INCORRECT_CUSTOMER_SOURCE_ADDRESS);
+		logger.debug("Loading customer account mappings");
 		// 4. Get all accounts of the customer
 		Set<CustomerAccount> accountMappings = customer.getCustomerAccounts();
 		if(accountMappings.isEmpty())
@@ -85,8 +94,10 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 	 */
 	@Override
 	public AdviceType getAdviceTypeInAdviceText(String adviceText) throws ApplicationException {
+		logger.debug("Searching for advice type in advice text {}", adviceText);
 		// Group 1 is the advice type tag
-		String adviceTypeText = StringUtil.extractRegexGroupFromText(adviceText, ADVICE_TEXT_REGEX_PATTERN, 1);
+		String adviceTypeText = StringUtil.extractRegexGroupFromText(adviceText, ADVICE_TEXT_REGEX_PATTERN, 5);
+		logger.debug("Extracted advice type {} from advice text {}", adviceTypeText, adviceText);
 		// Abort if not found
 		if(!StringUtil.isValidString(adviceTypeText))
 			throw new ApplicationException(ADVICE_TY_TEXT_NOT_FOUND_ADVICE_TEXT);
@@ -101,6 +112,7 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 			if(StringUtil.isValidString(matchResult))
 				adviceType = tag.getAdviceType();
 		}
+		logger.debug("Found advice type {} in advice text {}", adviceType, adviceText);
 		if(adviceType == null)
 			throw new ApplicationException(ADVICE_TY_NOT_FOUND_ADVICE_TEXT);
 		return adviceType;
@@ -119,7 +131,14 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 	 */
 	@Override
 	public List<Account> findAccountsInAdviceText(	Set<CustomerAccount> accountMappings, String adviceText)  
-			throws ApplicationException {
+			throws ApplicationException 
+	{
+		if(!StringUtil.isValidString(adviceText))
+			throw new ApplicationException(INVALID_ADVICE_TEXT_SPECIFIED_FOR_ACCOUNT_SEARCH);
+		if(accountMappings == null)
+			throw new ApplicationException(INVALID_ACCT_MAP_SPECIFIED_FOR_ACCOUNT_SEARCH);
+		logger.debug("Searching for accounts in advice text {} using customer " +
+				"account map containing {} accounts", adviceText, accountMappings.size());
 		List<Account> accountsInAdviceText = new ArrayList<Account>();
 		for(CustomerAccount mapping : accountMappings)
 		{
@@ -206,11 +225,14 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 	 */
 	@Override
 	public BigDecimal getAmountInAdviceText(String adviceText) throws ApplicationException {
+		logger.debug("Searching for advice amount in advice text {}", adviceText);
 		String matchResult = StringUtil.match(adviceText, AMOUNT_GRP_REGEX_PATTERN, true);
+		logger.debug("Found advice amount {} in advice text {}", matchResult, adviceText);
 		if(!StringUtil.isValidString(matchResult))
 			throw new ApplicationException(ADVICE_AMOUNT_NOT_SPECIFIED);
 		BigDecimal amountInAdviceText = null;
-		try {
+		try 
+		{
 			amountInAdviceText = StringUtil.toBigDecimal(matchResult);
 		} catch (NumberFormatException e) {
 			throw new ApplicationException(INVALID_AMOUNT_STRING_SPECIFIED);

@@ -99,13 +99,30 @@ INSERT INTO COUNTRY(CODE, NAME, CNTRY_CD_ISO2, CNTRY_CD_ISO3, LOCAL_CRNCY_ID, EF
 INSERT INTO BUSINESS_UNIT(COUNTRY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (1,'HEAD_OFFICE', 'Head Office', 'Head Office', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
+/* -------------------------------------------------------------------- Customer Category -------------------------------------------------------------------------------------------- */
+
+INSERT INTO CUSTOMER_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('PERSONAL', 'Personal', 'Personal Customer', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CUSTOMER_CATEGORY(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('NON_PERSONAL', 'Non Personal', 'Non Personal Customer', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 /* -------------------------------------------------------------------- Customer Types -------------------------------------------------------------------------------------------- */
 
-INSERT INTO CUSTOMER_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('INDIVIDUAL', 'Individual', 'Individual Customer', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO CUSTOMER_TYPE(CUST_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'STUDENT', 'Student', 'Student', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO CUSTOMER_TYPE(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ORGANIZATION', 'Corporate', 'Corporate Customer', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO CUSTOMER_TYPE(CUST_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'SELF_EMPLOYED', 'Self Employed', 'Self Employed', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CUSTOMER_TYPE(CUST_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'PROFESSIONAL', 'Professional', 'Professional', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CUSTOMER_TYPE(CUST_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'CORPORATION', 'Corporation', 'Corporation', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CUSTOMER_TYPE(CUST_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'GOVERNMENT_AGENCY', 'Government Agency', 'Government Agency', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Customer Classification -------------------------------------------------------------------------------------------- */
 
@@ -114,7 +131,7 @@ INSERT INTO CUSTOMER_CLASSIFICATION(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_S
 
 /* -------------------------------------------------------------------- Customer-------------------------------------------------------------------------------------------- */
 
-INSERT INTO CUSTOMER(CUST_TY_ID, CUST_CLASS_ID, CODE, NAME, EMAIL, MOBILE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO CUSTOMER(CUST_TY_ID, CUST_CLASS_ID, CODE, NAME, PRIMARY_EMAIL, PRIMARY_MOBILE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('2', '1', '0183737262', 'Bristol Text', 'bristole@testserver.com', '+2549056543333', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Account Types -------------------------------------------------------------------------------------------- */

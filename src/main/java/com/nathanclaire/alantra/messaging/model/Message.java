@@ -23,6 +23,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.customer.model.CustomerMessage;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
+import com.nathanclaire.alantra.security.model.SystemUserMessage;
 
 /**
  * Message 
@@ -39,6 +40,7 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 
 	private MessageClassification messageClassification;
 	private MessageType messageType;
+	private MessageApplication messageApplication;
 	private MessageStatus messageStatus;
 	private DataChannel dataChannel;
     private String messageFrom;
@@ -47,46 +49,49 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     private String messageTxt;
     private String msgAttachmentTy;
     private String msgAttachmentFile;
-	private Set<MessageAttachements> messageAttachementses = new HashSet<MessageAttachements>(0);
+	private Set<MessageAction> messageActions = new HashSet<MessageAction>(0);
 	private Set<CustomerMessage> customerMessages = new HashSet<CustomerMessage>(0);
+	private Set<SystemUserMessage> systemUserMessages = new HashSet<SystemUserMessage>(0);
+	private Set<MessageAttachment> messageAttachments = new HashSet<MessageAttachment>(0);
 
     public Message() {
     }
 
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, DataChannel dataChannel, String messageFrom, String messageTo, String messageTxt, String msgAttachmentTy, String msgAttachmentFile, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageApplication messageApplication, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
 		this.messageTxt = messageTxt;
-		this.msgAttachmentTy = msgAttachmentTy;
-		this.msgAttachmentFile = msgAttachmentFile;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, DataChannel dataChannel, String messageFrom, String messageTo, String messageSubject, String messageTxt, String msgAttachmentTy, String msgAttachmentFile, Set<MessageAttachements> messageAttachementses, Set<CustomerMessage> customerMessages, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageApplication messageApplication, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, String msgAttachmentTy, String msgAttachmentFile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageAction> messageActions, Set<CustomerMessage> customerMessages, Set<SystemUserMessage> systemUserMessages, Set<MessageAttachment> messageAttachments ) 
     {
 		this.messageClassification = messageClassification;
 		this.messageType = messageType;
+		this.messageApplication = messageApplication;
 		this.messageStatus = messageStatus;
 		this.dataChannel = dataChannel;
+		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
 		this.messageSubject = messageSubject;
 		this.messageTxt = messageTxt;
 		this.msgAttachmentTy = msgAttachmentTy;
 		this.msgAttachmentFile = msgAttachmentFile;
-		this.messageAttachementses = messageAttachementses;
-		this.customerMessages = customerMessages;
-		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.messageActions = messageActions;
+		this.customerMessages = customerMessages;
+		this.systemUserMessages = systemUserMessages;
+		this.messageAttachments = messageAttachments;
     }
     
     		
@@ -114,6 +119,19 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageType(MessageType messageType)
     {
         this.messageType = messageType;
+    }
+    		
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="MSG_APPL_ID", nullable=false)
+    @JsonIgnore
+    public MessageApplication getMessageApplication() 
+    {
+        return this.messageApplication;
+    }
+    
+    public void setMessageApplication(MessageApplication messageApplication)
+    {
+        this.messageApplication = messageApplication;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -186,7 +204,7 @@ public class Message  extends BaseEntity implements java.io.Serializable {
         this.messageTxt = messageTxt;
     }
 		
-    @Column(name="MSG_ATTACHMENT_TY" , nullable=false, length=150)
+    @Column(name="MSG_ATTACHMENT_TY" , unique=true, length=150)
     public String getMsgAttachmentTy() 
     {
         return this.msgAttachmentTy;
@@ -197,7 +215,7 @@ public class Message  extends BaseEntity implements java.io.Serializable {
         this.msgAttachmentTy = msgAttachmentTy;
     }
 		
-    @Column(name="MSG_ATTACHMENT_FILE" , nullable=false)
+    @Column(name="MSG_ATTACHMENT_FILE" , unique=true)
     public String getMsgAttachmentFile() 
     {
         return this.msgAttachmentFile;
@@ -210,14 +228,14 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
     @JsonIgnore
-    public Set<MessageAttachements> getMessageAttachementses() 
+    public Set<MessageAction> getMessageActions() 
     {
-        return this.messageAttachementses;
+        return this.messageActions;
     }
     
-    public void setMessageAttachementses(Set<MessageAttachements> messageAttachementses) 
+    public void setMessageActions(Set<MessageAction> messageActions) 
     {
-        this.messageAttachementses = messageAttachementses;
+        this.messageActions = messageActions;
     }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
@@ -230,6 +248,30 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setCustomerMessages(Set<CustomerMessage> customerMessages) 
     {
         this.customerMessages = customerMessages;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
+    @JsonIgnore
+    public Set<SystemUserMessage> getSystemUserMessages() 
+    {
+        return this.systemUserMessages;
+    }
+    
+    public void setSystemUserMessages(Set<SystemUserMessage> systemUserMessages) 
+    {
+        this.systemUserMessages = systemUserMessages;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
+    @JsonIgnore
+    public Set<MessageAttachment> getMessageAttachments() 
+    {
+        return this.messageAttachments;
+    }
+    
+    public void setMessageAttachments(Set<MessageAttachment> messageAttachments) 
+    {
+        this.messageAttachments = messageAttachments;
     }			
 
 

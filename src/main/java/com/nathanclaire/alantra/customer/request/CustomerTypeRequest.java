@@ -14,12 +14,38 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class CustomerTypeRequest extends BaseRequest {
 
+    private Integer id;
+    private Integer customerCategoryId;
+    private String customerCategoryText;
     private String name;
     private String description;
-    private Integer id;
     private String code;
 
     public CustomerTypeRequest() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getCustomerCategoryId() {
+        return this.customerCategoryId;
+    }
+    
+    public void setCustomerCategoryId(Integer customerCategoryId) {
+        this.customerCategoryId = customerCategoryId;
+    }
+
+    public String getCustomerCategoryText() {
+        return this.customerCategoryText;
+    }
+    
+    public void setCustomerCategoryText(String customerCategoryText) {
+        this.customerCategoryText = customerCategoryText;
     }
 
     public String getName() {
@@ -36,14 +62,6 @@ public class CustomerTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCode() {

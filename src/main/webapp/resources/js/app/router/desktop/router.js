@@ -11,7 +11,7 @@ define("router", [
     'app/views/desktop/home/customer-home',
     'app/views/desktop/home/advice-home',
     'app/views/desktop/home/channel-home',
-    'app/views/desktop/home/product-home',
+    'app/views/desktop/home/notification-home',
     'app/views/desktop/home/order-home',
     'app/views/desktop/home/invoice-home',
     'app/views/desktop/home/payment-home',
@@ -38,7 +38,7 @@ define("router", [
             CustomerHomeView,
             AdviceHomeView,
             ChannelHomeView,
-            ProductHomeView,
+            NotificationHomeView,
             OrderHomeView,
             InvoiceHomeView,
             PaymentHomeView,
@@ -138,7 +138,7 @@ define("router", [
             "customer-module":"customerModuleIndex",
             "advice-module":"adviceModuleIndex",
             "channel-module":"channelModuleIndex",
-            "product-module":"productModuleIndex",
+            "notification-module":"notificationModuleIndex",
             "order-module":"orderModuleIndex",
             "datasource-module":"datasourceModuleIndex",
             "payment-module":"paymentModuleIndex",
@@ -186,9 +186,9 @@ define("router", [
         {
             utilities.viewManager.showView(new ChannelHomeView({el:$("#content-container")}));
         },
-        productModuleIndex:function()
+        notificationModuleIndex:function()
         {
-            utilities.viewManager.showView(new ProductHomeView({el:$("#content-container")}));
+            utilities.viewManager.showView(new NotificationHomeView({el:$("#content-container")}));
         },
         orderModuleIndex:function()
         {

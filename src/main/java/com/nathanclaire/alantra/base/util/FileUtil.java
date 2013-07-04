@@ -3,13 +3,23 @@
  */
 package com.nathanclaire.alantra.base.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.joda.time.DateTime;
 
 /**
  * @author Edward Banfa 
  *
  */
 public class FileUtil {
+
+	public static final String DEFAULT_ATTACHMENTS_FOLDER = "/home/administrator/Projects/alantra/data/attachments/";
 	
 	/**
 	 * @param directoryName
@@ -39,13 +49,70 @@ public class FileUtil {
 	{
 		try{
     		File file = new File(msgAttachmentFile);
-    		if(file.delete()){
+    		if(file.delete())
+    		{
     			System.out.println(file.getName() + " is deleted!>>>>>>>>>>>>>>>>>>>>>>.");
-    		}else{
+    		}else
+    		{
     			System.out.println("Delete operation is failed.>>>>>>>>>>>>>>>>>>>>>>>>>");
     		}
     	}catch(Exception e){
     		e.printStackTrace();
     	}
+	}
+	
+	/**
+	 * @param messageLite
+	 * @param filename
+	 * @param input
+	 * @throws IOException
+	 */
+	public static String saveFile(String filename, InputStream input) throws ApplicationException  
+	{ 
+		File file = initializeFile(filename);
+		writeToFile(input, file);
+		return file.getAbsolutePath();
+	}
+
+	/**
+	 * @param input
+	 * @param file
+	 * @throws ApplicationException
+	 */
+	public static void writeToFile(InputStream input, File file) throws ApplicationException {
+		try {
+			FileOutputStream fos = new FileOutputStream(file);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+			BufferedInputStream bis = new BufferedInputStream(input);
+			int aByte;
+			while ((aByte = bis.read()) != -1) {
+				bos.write(aByte);
+			}
+			bos.flush();
+			bos.close();
+			bis.close();
+		} catch (FileNotFoundException e) {
+			throw new ApplicationException("");
+		} catch (IOException e) {
+			throw new ApplicationException("");
+		}
+	}
+
+	/**
+	 * @param filename
+	 * @return
+	 */
+	public static File initializeFile(String filename) {
+		FileUtil.createDirectoryIfNeeded(DEFAULT_ATTACHMENTS_FOLDER);
+		filename = DEFAULT_ATTACHMENTS_FOLDER.concat(filename);
+		// Do no overwrite existing file
+		File file = new File(filename);
+		DateTime dt = new DateTime();
+		for (int i = 0; file.exists(); i++) {
+			filename = filename + dt.toString() ;
+			file = new File(filename);
+		}
+		return file;
 	}
 }

@@ -189,8 +189,8 @@ public class ApplicationEntityServiceImpl
 			{
 				String fieldKey = entityName + "." + field.getName();
 				String fieldMsgValue = Messages.getString(fieldKey);
-				if(!entityName.equals("ApplicationEntityField"))
-					logger.debug("Entity {} field {} has key {} with value {}", entityName, field.getName(), fieldKey, fieldMsgValue);
+				/*if(!entityName.equals("ApplicationEntityField"))
+					logger.debug("Entity {} field {} has key {} with value {}", entityName, field.getName(), fieldKey, fieldMsgValue);*/
 				field.setDescription(fieldMsgValue);
 				fieldResponses.add(field);
 			}

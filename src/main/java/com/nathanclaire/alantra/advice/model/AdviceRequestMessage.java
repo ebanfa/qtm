@@ -41,6 +41,7 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
 	private Customer customer;
 	private DataChannel dataChannel;
 	private AdviceRequestMessageStatus adviceRequestMessageStatus;
+    private String inputJobCd;
     private String sourceAddress;
     private String name;
     private BigDecimal amount;
@@ -70,11 +71,12 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String chequeNo, String cardNo, String currencyCd, String adviceTyTxt, String adviceTxt, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
+    public AdviceRequestMessage(Customer customer, DataChannel dataChannel, AdviceRequestMessageStatus adviceRequestMessageStatus, String inputJobCd, String sourceAddress, String code, String name, BigDecimal amount, String accountNo, String chequeNo, String cardNo, String currencyCd, String adviceTyTxt, String adviceTxt, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Advice> advices ) 
     {
 		this.customer = customer;
 		this.dataChannel = dataChannel;
 		this.adviceRequestMessageStatus = adviceRequestMessageStatus;
+		this.inputJobCd = inputJobCd;
 		this.sourceAddress = sourceAddress;
 		this.code = code;
 		this.name = name;
@@ -133,6 +135,17 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
     public void setAdviceRequestMessageStatus(AdviceRequestMessageStatus adviceRequestMessageStatus)
     {
         this.adviceRequestMessageStatus = adviceRequestMessageStatus;
+    }
+		
+    @Column(name="INPUT_JOB_CD" , unique=true, length=35)
+    public String getInputJobCd() 
+    {
+        return this.inputJobCd;
+    }
+    
+    public void setInputJobCd(String inputJobCd) 
+    {
+        this.inputJobCd = inputJobCd;
     }
 		
     @Column(name="SOURCE_ADDRESS" , nullable=false, length=75)
@@ -259,5 +272,4 @@ public class AdviceRequestMessage  extends BaseEntity implements java.io.Seriali
 
 
 }
-
 

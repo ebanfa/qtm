@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.messaging.model.MessageTypeTag;
-
 /**
  * @author Edward Banfa 
  *
@@ -21,6 +19,7 @@ public class StringUtil {
 	public static String EMPTY_STRING = "";
 	public static String UNDERSCORE = "_";
 	private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
+	public static String EMAIL_REGEX = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
 	
 	public static String capitalizeFirstLetter(String original){
 	    if(original.length() == 0)
@@ -63,13 +62,17 @@ public class StringUtil {
 	public static String match(String stringToLookIn, String stringToLookFor, boolean isRegex) 
 	{
 		logger.debug("Searching for string: {} within string: {}", stringToLookFor, stringToLookIn);
+		if(!isValidString(stringToLookIn))
+			return null;
+		if(!isValidString(stringToLookFor))
+			return null;
 		// - If the message type tag is a regex the apply the regex
 		if(isRegex)
 		{
 			// Create a Pattern object
 			Pattern r = Pattern.compile(stringToLookFor);
 			Matcher m = r.matcher(stringToLookIn);
-			if (m.find()) return stringToLookFor;
+			if (m.find()) return m.group();
 			// Else return null
 			else return null;
 		}
@@ -83,8 +86,31 @@ public class StringUtil {
 		}
 	}
 
-	public static BigDecimal toBigDecimal(String matchResult) 
+	/**
+	 * @param amountString
+	 * @return
+	 */
+	public static BigDecimal toBigDecimal(String amountString) 
 	{
+		return new BigDecimal(amountString);
+	}
+
+	public static String findAndReplace(String code, String header, boolean b) 
+	{
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static String extractEmailFromText(String text) 
+	{
+		String email = null;
+		Pattern pattern = Pattern.compile(EMAIL_REGEX);
+		Matcher matcher = pattern.matcher(text);
+		while (matcher.find()) {
+			email = matcher.group();
+			break;
+		}
+		return email;
+		
 	}
 }

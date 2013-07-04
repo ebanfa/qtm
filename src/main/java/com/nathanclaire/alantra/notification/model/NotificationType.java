@@ -21,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.messaging.model.MessageApplicationNotificationMap;
 
 /**
  * NotificationType 
@@ -41,6 +42,7 @@ public class NotificationType  extends BaseEntity implements java.io.Serializabl
     private String description;
     private Character autoRespFg;
 	private Set<SystemUserNotification> systemUserNotifications = new HashSet<SystemUserNotification>(0);
+	private Set<MessageApplicationNotificationMap> messageApplicationNotificationMaps = new HashSet<MessageApplicationNotificationMap>(0);
 	private Set<CustomerNotification> customerNotifications = new HashSet<CustomerNotification>(0);
 
     public NotificationType() {
@@ -55,7 +57,7 @@ public class NotificationType  extends BaseEntity implements java.io.Serializabl
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public NotificationType(Template template, NotificationCategory notificationCategory, String code, String name, String description, Date effectiveDt, Character autoRespFg, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<SystemUserNotification> systemUserNotifications, Set<CustomerNotification> customerNotifications ) 
+    public NotificationType(Template template, NotificationCategory notificationCategory, String code, String name, String description, Date effectiveDt, Character autoRespFg, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<SystemUserNotification> systemUserNotifications, Set<MessageApplicationNotificationMap> messageApplicationNotificationMaps, Set<CustomerNotification> customerNotifications ) 
     {
 		this.template = template;
 		this.notificationCategory = notificationCategory;
@@ -70,6 +72,7 @@ public class NotificationType  extends BaseEntity implements java.io.Serializabl
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.systemUserNotifications = systemUserNotifications;
+		this.messageApplicationNotificationMaps = messageApplicationNotificationMaps;
 		this.customerNotifications = customerNotifications;
     }
     
@@ -143,6 +146,18 @@ public class NotificationType  extends BaseEntity implements java.io.Serializabl
     public void setSystemUserNotifications(Set<SystemUserNotification> systemUserNotifications) 
     {
         this.systemUserNotifications = systemUserNotifications;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="notificationType")
+    @JsonIgnore
+    public Set<MessageApplicationNotificationMap> getMessageApplicationNotificationMaps() 
+    {
+        return this.messageApplicationNotificationMaps;
+    }
+    
+    public void setMessageApplicationNotificationMaps(Set<MessageApplicationNotificationMap> messageApplicationNotificationMaps) 
+    {
+        this.messageApplicationNotificationMaps = messageApplicationNotificationMaps;
     }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="notificationType")

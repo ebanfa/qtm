@@ -8,14 +8,14 @@ import javax.ejb.Stateless;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.annotation.EmailMessageSender;
+import com.nathanclaire.alantra.messaging.annotation.SMTPMessenger;
 
 /**
  * @author Edward Banfa 
  *
  */
 @Stateless
-@EmailMessageSender
+@SMTPMessenger
 public class EmailMessageSenderImpl extends BaseProcessService implements MessageSender {
 
 	/* (non-Javadoc)

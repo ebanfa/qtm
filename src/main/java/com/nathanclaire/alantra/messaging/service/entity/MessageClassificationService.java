@@ -14,6 +14,8 @@ import com.nathanclaire.alantra.messaging.response.MessageClassificationResponse
  */
 public interface MessageClassificationService extends BaseEntityService<MessageClassification, MessageClassificationResponse, MessageClassificationRequest>
 {
-	public static final String SMS = "SMS";
-	public static final String EMAIL = "EMAIL";
+
+	public static final String INBOUND = "INBOUND";
+	public static final String OUTBOUND = "OUTBOUND";
+	
 }

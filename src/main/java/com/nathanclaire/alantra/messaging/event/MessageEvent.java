@@ -26,6 +26,8 @@ public class MessageEvent {
 	private String attachmentFileName;
 	private String attachmentFileType;
 	private boolean containsAttachment;
+	private String messageApplicationCode;
+	private String messageApplicationActionCode;
 	
 	public static final String SENDER_TY_USER = "USER";
 	public static final String SENDER_TY_CUSTOMER = "CUSTOMER";
@@ -299,6 +301,34 @@ public class MessageEvent {
 	 */
 	public void setDataChannelId(Integer dataChannelId) {
 		this.dataChannelId = dataChannelId;
+	}
+
+	/**
+	 * @return the messageApplicationCode
+	 */
+	public String getMessageApplicationCode() {
+		return messageApplicationCode;
+	}
+
+	/**
+	 * @param messageApplicationCode the messageApplicationCode to set
+	 */
+	public void setMessageApplicationCode(String messageApplication) {
+		this.messageApplicationCode = messageApplication;
+	}
+
+	/**
+	 * @return the messageApplicationActionCode
+	 */
+	public String getMessageApplicationActionCode() {
+		return messageApplicationActionCode;
+	}
+
+	/**
+	 * @param messageApplicationActionCode the messageApplicationActionCode to set
+	 */
+	public void setMessageApplicationActionCode(String messageApplicationActionCode) {
+		this.messageApplicationActionCode = messageApplicationActionCode;
 	}
 
 }

@@ -50,6 +50,7 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 	 * @see com.nathanclaire.alantra.datasource.service.process.DataInputJobRunner#start()
 	 */
 	public void start(DataInputJob inputJob) throws ApplicationException {
+		logger.debug("Starting job {}", inputJob.getCode());
 		try {
 			// 1. Ensure we have an actual job
 			validateDataInputJob(inputJob);
@@ -62,6 +63,7 @@ public class DataInputJobRunnerImpl implements DataInputJobRunner {
 				throw new ApplicationException(NO_DATA_EXTRACTOR_FOUND);
 			// 2. Extract the data
 			TableData data = dataExtractor.extract(dataConfig);
+			logger.info("Table data extracted has {} rows", data.getRows().size());
 			// Set job related data
 			data.setJobId(inputJob.getId());
 			data.setDataStructureId(dataStructure.getId());

@@ -19,9 +19,11 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
+import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.Account;
 import com.nathanclaire.alantra.customer.request.CustomerAccountRequest;
 import com.nathanclaire.alantra.customer.response.CustomerAccountResponse;
+import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 import com.nathanclaire.alantra.customer.service.entity.AccountService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
@@ -37,6 +39,7 @@ public class CustomerAccountServiceImpl
 	extends BaseEntityServiceImpl<CustomerAccount, CustomerAccountResponse, CustomerAccountRequest> 
 	implements CustomerAccountService
 {
+	private static final String LIST_ITEM_CUSTOMER = "customer";
 	private static final String LIST_ITEM_ACCOUNT = "account";
 	private static final String ENTITY_NAME = "CustomerAccount";
 	private static final String LIST_ACTIVITY_CODE = "LIST_CUSTOMER_CUSTOMERACCOUNT";
@@ -46,6 +49,8 @@ public class CustomerAccountServiceImpl
 	
 	@Inject
 	ApplicationEntityService  applicationEntityService;
+	@Inject
+	CustomerService  customerService;
 	@Inject
 	AccountService  accountService;
 	
@@ -151,8 +156,10 @@ public class CustomerAccountServiceImpl
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() 
 	 throws ApplicationException {
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
+		List<ListItemResponse> customers = customerService.asListItem();
 		List<ListItemResponse> accounts = accountService.asListItem();
     	
+		listItems.put(LIST_ITEM_CUSTOMER, customers); 
 		listItems.put(LIST_ITEM_ACCOUNT, accounts); 
 		return listItems;
 	}
@@ -184,6 +191,11 @@ public class CustomerAccountServiceImpl
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(customerAccountRequest, customerAccount, allowedEntityFields);
     	//Process many to one relationships
+    	if (customerAccountRequest.getCustomerId() != null)
+    	{
+    		Customer customer = getEntityManager().find(Customer.class, customerAccountRequest.getCustomerId());
+    		customerAccount.setCustomer(customer);
+    	}
     	if (customerAccountRequest.getAccountId() != null)
     	{
     		Account account = getEntityManager().find(Account.class, customerAccountRequest.getAccountId());
@@ -199,6 +211,9 @@ public class CustomerAccountServiceImpl
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, customerAccountResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
+		if(model.getCustomer() != null)
+			customerAccountResponse.setCustomerId(model.getCustomer().getId());
+			customerAccountResponse.setCustomerText(model.getCustomer().getName());
 		if(model.getAccount() != null)
 			customerAccountResponse.setAccountId(model.getAccount().getId());
 			customerAccountResponse.setAccountText(model.getAccount().getName());

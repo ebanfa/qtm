@@ -139,7 +139,15 @@ public class Currency  extends BaseEntity implements java.io.Serializable {
     public void setCountries(Set<Country> countries) 
     {
         this.countries = countries;
-    }			
+    }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return code;
+	}			
 
 
 }

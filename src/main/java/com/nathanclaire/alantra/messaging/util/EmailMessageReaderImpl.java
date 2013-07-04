@@ -25,26 +25,33 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.FileUtil;
-import com.nathanclaire.alantra.messaging.annotation.EmailMessageReader;
+import com.nathanclaire.alantra.base.util.StringUtil;
+import com.nathanclaire.alantra.messaging.annotation.POP3Messenger;
+import com.nathanclaire.alantra.messaging.service.process.MessageDataInputServiceImpl;
 import com.sun.mail.pop3.POP3Store;
 
 /**
  * @author Edward Banfa 
  *
  */
-@EmailMessageReader
+@POP3Messenger
 @Stateless
 public class EmailMessageReaderImpl implements MessageReader {
 	
+	private static final String INVALID_SENDER_ADDRESS = null;
 	public final String POP3 = "pop3";
 	public final String INBOX_FOLDER = "INBOX";
 	public final Integer MAX_MESSAGE_BODY_SIZE = 250;
 	public final String POP3_HOST_PROPERTY = "mail.pop3.host";
 	public final String DEFAULT_LOCAL_MSG_SENDER = "ADVICEPRO";
 	public final String DEFAULT_ATTACHMENTS_FOLDER = "/home/administrator/Projects/alantra/attachments/";
+	private Logger logger = LoggerFactory.getLogger(EmailMessageReaderImpl.class);
+
 	
 	public List<MessageLite> getMessages(String connectionString, String username, String password) throws ApplicationException 
 	{
@@ -83,7 +90,11 @@ public class EmailMessageReaderImpl implements MessageReader {
 				Message message = messages[i];
 				MimeMessage m = (MimeMessage) message;
 				messageLite.setMessageId(m.getMessageID());
-				messageLite.setMessageFrom(message.getFrom()[0].toString());
+				if(message.getFrom().length < 1)
+					throw new ApplicationException(INVALID_SENDER_ADDRESS);
+				// Clean the email address if necessary
+				String senderAddress = cleanEmailAddress(message.getFrom()[0].toString());
+				messageLite.setMessageFrom(senderAddress);
 				messageLite.setMessageTo(DEFAULT_LOCAL_MSG_SENDER);
 				messageLite.setSubjectLine(message.getSubject());
 				// Process the message content
@@ -96,7 +107,6 @@ public class EmailMessageReaderImpl implements MessageReader {
 			    {
 			    	handlePart(message, messageLite);
 			    }
-				
 				liteMessages.add(messageLite);
 			}
 			return liteMessages;
@@ -107,6 +117,17 @@ public class EmailMessageReaderImpl implements MessageReader {
 		}
 	}
 	
+	private String cleanEmailAddress(String emailAddress) {
+		//String EMAIL_REGEX = "[a-zA-Z0-9_]*[@][a-zA-Z0-9_]*\\.[a-zA-Z0-9]+{2,}";
+		logger.debug("Email address before extraction {}", emailAddress);
+		if(emailAddress.contains(">") | emailAddress.contains("<"))
+		{
+			emailAddress = StringUtil.extractEmailFromText(emailAddress);
+			logger.debug("Email address after extraction {}", emailAddress);
+		}
+		return emailAddress;
+	}
+
 	/**
 	 * @param connectionString
 	 * @return

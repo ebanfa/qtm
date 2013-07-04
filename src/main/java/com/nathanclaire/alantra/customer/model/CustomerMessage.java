@@ -35,29 +35,23 @@ public class CustomerMessage  extends BaseEntity implements java.io.Serializable
 
 	private Customer customer;
 	private Message message;
-    private String dataTy;
-    private String dataUrl;
 
     public CustomerMessage() {
     }
 
-    public CustomerMessage(Customer customer, Message message, String code, String dataTy, String dataUrl, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerMessage(Customer customer, Message message, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
-		this.dataTy = dataTy;
-		this.dataUrl = dataUrl;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerMessage(Customer customer, Message message, String code, String dataTy, String dataUrl, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public CustomerMessage(Customer customer, Message message, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.customer = customer;
 		this.message = message;
 		this.code = code;
-		this.dataTy = dataTy;
-		this.dataUrl = dataUrl;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -92,29 +86,6 @@ public class CustomerMessage  extends BaseEntity implements java.io.Serializable
     {
         this.message = message;
     }
-		
-    @Column(name="DATA_TY" , nullable=false, length=15)
-    public String getDataTy() 
-    {
-        return this.dataTy;
-    }
-    
-    public void setDataTy(String dataTy) 
-    {
-        this.dataTy = dataTy;
-    }
-		
-    @Column(name="DATA_URL" , nullable=false, length=150)
-    public String getDataUrl() 
-    {
-        return this.dataUrl;
-    }
-    
-    public void setDataUrl(String dataUrl) 
-    {
-        this.dataUrl = dataUrl;
-    }
-
 
 }
 

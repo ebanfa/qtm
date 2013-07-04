@@ -39,8 +39,6 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
     private String name;
     private String description;
     private Character autoRespFg;
-	private Set<MessageTypeTemplate> messageTypeTemplates = new HashSet<MessageTypeTemplate>(0);
-	private Set<MessageTypeTag> messageTypeTags = new HashSet<MessageTypeTag>(0);
 	private Set<Message> messages = new HashSet<Message>(0);
 
     public MessageType() {
@@ -55,7 +53,7 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public MessageType(MessageCategory messageCategory, String code, String name, String description, Date effectiveDt, Character autoRespFg, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageTypeTemplate> messageTypeTemplates, Set<MessageTypeTag> messageTypeTags, Set<Message> messages ) 
+    public MessageType(MessageCategory messageCategory, String code, String name, String description, Date effectiveDt, Character autoRespFg, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Message> messages ) 
     {
 		this.messageCategory = messageCategory;
 		this.code = code;
@@ -68,8 +66,6 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.messageTypeTemplates = messageTypeTemplates;
-		this.messageTypeTags = messageTypeTags;
 		this.messages = messages;
     }
     
@@ -119,30 +115,6 @@ public class MessageType  extends BaseEntity implements java.io.Serializable {
     {
         this.autoRespFg = autoRespFg;
     }
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
-    @JsonIgnore
-    public Set<MessageTypeTemplate> getMessageTypeTemplates() 
-    {
-        return this.messageTypeTemplates;
-    }
-    
-    public void setMessageTypeTemplates(Set<MessageTypeTemplate> messageTypeTemplates) 
-    {
-        this.messageTypeTemplates = messageTypeTemplates;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
-    @JsonIgnore
-    public Set<MessageTypeTag> getMessageTypeTags() 
-    {
-        return this.messageTypeTags;
-    }
-    
-    public void setMessageTypeTags(Set<MessageTypeTag> messageTypeTags) 
-    {
-        this.messageTypeTags = messageTypeTags;
-    }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="messageType")
     @JsonIgnore

@@ -18,6 +18,9 @@ import com.nathanclaire.alantra.messaging.annotation.UserMessageReceivedEvent;
  *
  */
 public interface MessageReceivedEventListener {
+
+	public static final String COULD_NOT_CREATE_CUSTOMER_MESSAGE = 
+			"MessageReceivedEventListener.COULD_NOT_CREATE_CUSTOMER_MESSAGE";
 	
 	public void processUserMessageReceivedEvent(
 			@Observes @UserMessageReceivedEvent MessageEvent event) throws ApplicationException;

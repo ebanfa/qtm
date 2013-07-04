@@ -20,8 +20,10 @@ public class CustomerRequest extends BaseRequest {
     private String customerTypeText;
     private String pin;
     private String name;
-    private String email;
-    private String mobile;
+    private String primaryEmail;
+    private String secondaryEmail;
+    private String primaryMobile;
+    private String secondaryMobile;
     private Integer id;
     private String code;
 
@@ -76,20 +78,36 @@ public class CustomerRequest extends BaseRequest {
         this.name = name;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getPrimaryEmail() {
+        return this.primaryEmail;
     }
     
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrimaryEmail(String primaryEmail) {
+        this.primaryEmail = primaryEmail;
     }
 
-    public String getMobile() {
-        return this.mobile;
+    public String getSecondaryEmail() {
+        return this.secondaryEmail;
     }
     
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setSecondaryEmail(String secondaryEmail) {
+        this.secondaryEmail = secondaryEmail;
+    }
+
+    public String getPrimaryMobile() {
+        return this.primaryMobile;
+    }
+    
+    public void setPrimaryMobile(String primaryMobile) {
+        this.primaryMobile = primaryMobile;
+    }
+
+    public String getSecondaryMobile() {
+        return this.secondaryMobile;
+    }
+    
+    public void setSecondaryMobile(String secondaryMobile) {
+        this.secondaryMobile = secondaryMobile;
     }
 
     public Integer getId() {

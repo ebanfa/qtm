@@ -22,6 +22,8 @@ public class MessageResponse extends BaseResponse {
     private String messageStatusText;
     private Integer dataChannelId;
     private String dataChannelText;
+    private Integer messageApplicationId;
+    private String messageApplicationText;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
@@ -94,6 +96,22 @@ public class MessageResponse extends BaseResponse {
     
     public void setDataChannelText(String dataChannelText) {
         this.dataChannelText = dataChannelText;
+    }
+
+    public Integer getMessageApplicationId() {
+        return this.messageApplicationId;
+    }
+    
+    public void setMessageApplicationId(Integer messageApplicationId) {
+        this.messageApplicationId = messageApplicationId;
+    }
+
+    public String getMessageApplicationText() {
+        return this.messageApplicationText;
+    }
+    
+    public void setMessageApplicationText(String messageApplicationText) {
+        this.messageApplicationText = messageApplicationText;
     }
 
     public String getMessageFrom() {

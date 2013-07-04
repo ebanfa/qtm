@@ -3,6 +3,8 @@
  */
 package com.nathanclaire.alantra.base.service.process;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -11,7 +13,6 @@ import com.nathanclaire.alantra.datasource.etl.TableData;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelType;
-import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.datasource.model.DataInputJobSummary;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryService;
@@ -27,12 +28,16 @@ public class BaseProcessService {
      */
     @Inject
     private EntityManager entityManager;
-    
-	protected static final String DATA_IMPORT_SERVICE_NOT_FOUND = 
-			"BaseProcessService.DATA_IMPORT_SERVICE_NOT_FOUND";
 
 	@Inject DataChannelService dataChannelService;
 	@Inject DataInputJobSummaryService summaryService;
+
+	private static final String CONFIG_ERROR_DATA_CHANNEL_TYPE_NOT_SPECIFIED = 
+			"BaseProcessService.CONFIG_ERROR_DATA_CHANNEL_TYPE_NOT_SPECIFIED";
+	
+	private static final String INVALID_CHANNEL_PROVIDED = "BaseProcessService.INVALID_CHANNEL_PROVIDED";
+	protected static final String DATA_IMPORT_SERVICE_NOT_FOUND =  "BaseProcessService.DATA_IMPORT_SERVICE_NOT_FOUND";
+
 	/**
 	 * @return
 	 * @throws ApplicationException
@@ -54,6 +59,15 @@ public class BaseProcessService {
 		return dataChannelType.getDataChannelCategory();
 	}
 
+	protected DataChannelType getChannelType(DataChannel channel) throws ApplicationException
+	{
+		if(channel == null)
+			throw new ApplicationException(INVALID_CHANNEL_PROVIDED);
+		DataChannelType channelType = channel.getDataChannelType();
+		if(channelType == null)
+			throw new ApplicationException(CONFIG_ERROR_DATA_CHANNEL_TYPE_NOT_SPECIFIED);
+		return channelType;
+	}
 	/**
 	 * @return the entityManager
 	 */
@@ -93,6 +107,13 @@ public class BaseProcessService {
 		jobSummary.setPrimEntityRecordsRejected(jobSummary.getPrimEntityRecordsRejected() + 1);
 		jobSummary.setTotalEntitiesRejected(jobSummary.getTotalEntitiesRejected() + 1);
 		getEntityManager().merge(jobSummary);
+	}
+
+	/**
+	 * @return
+	 */
+	protected Long getCurrentTimeInMilliSeconds() {
+		return new Date().getTime();
 	}
 	
 

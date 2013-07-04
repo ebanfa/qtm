@@ -26,16 +26,14 @@ import com.nathanclaire.alantra.datasource.model.DataChannelType;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.datasource.model.DataType;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelTypeService;
-import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
 import com.nathanclaire.alantra.datasource.service.entity.DataTypeService;
 import com.nathanclaire.alantra.datasource.service.process.JobHelper;
 import com.nathanclaire.alantra.messaging.model.Message;
-import com.nathanclaire.alantra.messaging.model.MessageAttachements;
-import com.nathanclaire.alantra.messaging.service.entity.MessageAttachementsService;
-import com.nathanclaire.alantra.messaging.service.entity.MessageService;
+import com.nathanclaire.alantra.messaging.model.MessageAttachment;
+import com.nathanclaire.alantra.messaging.service.entity.MessageApplicationActionService;
+import com.nathanclaire.alantra.messaging.service.entity.MessageAttachmentService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
-import com.nathanclaire.alantra.messaging.service.process.MessageProcessingService;
-import com.nathanclaire.alantra.messaging.service.process.MessagingService;
+import com.nathanclaire.alantra.messaging.service.process.MessagingModuleService;
 import com.nathanclaire.alantra.notification.service.entity.TemplateTypeTagService;
 import com.nathanclaire.alantra.notification.service.process.NotificationService;
 import com.nathanclaire.alantra.security.model.SystemUser;
@@ -53,7 +51,7 @@ public class BaseMessageListener {
 	@Inject SecurityService securityService;
 	@Inject NotificationService notificationService;
 	@Inject AdviceProcessingService adviceProcessingService;
-	@Inject MessageProcessingService messageProcessingService;
+	@Inject MessagingModuleService messagingModuleService;
 	@Inject CustomerProcessingService customerProcessingService;
 
 	public static final String CONFIG_ERROR_DATA_WITHOUT_DATA_CHANNEL = 	"BaseMessageListener.CONFIG_ERROR_DATA_WITHOUT_DATA_CHANNEL";
@@ -69,7 +67,7 @@ public class BaseMessageListener {
 	 * @throws ApplicationException
 	 */
 	protected Message getMessage(MessageEvent event) throws ApplicationException {
-		return messageProcessingService.getMessage(event.getMessageId());
+		return messagingModuleService.getMessage(event.getMessageId());
 	}
 
 	/**
@@ -157,8 +155,8 @@ public class BaseMessageListener {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected MessageAttachements getMessageAttachment(Integer attachmentId) throws ApplicationException  {
-		return messageProcessingService.getAttachment(attachmentId);
+	protected MessageAttachment getMessageAttachment(Integer attachmentId) throws ApplicationException  {
+		return messagingModuleService.getAttachment(attachmentId);
 	}
 
 	/**
@@ -167,18 +165,18 @@ public class BaseMessageListener {
 	 */
 	protected DataInputJob processMessageAttachment(Integer attachmentId, String messageTyCode) throws ApplicationException {
 		// 1. Get the message type
-		MessageAttachements attachement = getMessageAttachment(attachmentId);
+		MessageAttachment attachement = getMessageAttachment(attachmentId);
 		// 2. Get the data channel type
 		Data attachmentDataConfig = null;
 		String dataChannelTypeCode = getDataChannelTypeCode(attachement.getDataTy());
 		// Ignore the attachments for advice inquiries
-		if(messageTyCode.equals(MessageTypeService.ADVICE_INQUIRY))
+		if(messageTyCode.equals(MessageApplicationActionService.ADVICE_INQUIRY))
 			return null;
 		// Process attachments for advice request
-		if(messageTyCode.equals(MessageTypeService.ADVICE_REQUEST))
+		if(messageTyCode.equals(MessageApplicationActionService.ADVICE_REQUEST))
 			attachmentDataConfig = getJobDataConfig(dataChannelTypeCode, DataTypeService.ADVICE_REQUEST_DATA);
 		// Process attachments for transaction data input requests
-		else if(messageTyCode.equals(MessageTypeService.TXN_DATA_INPUT_REQUEST))
+		else if(messageTyCode.equals(MessageApplicationActionService.TXN_DATA_INPUT_REQUEST))
 			attachmentDataConfig = getJobDataConfig(dataChannelTypeCode, DataTypeService.TRANSACTION_DATA);
 		else return null;
 		if(attachmentDataConfig == null)
@@ -222,9 +220,9 @@ public class BaseMessageListener {
 	 */
 	private String getDataChannelTypeCode(String fileType) {
 		String dataChannelType = null;
-		if(fileType.equalsIgnoreCase(MessageAttachementsService.CSV_MIME_TYPE))
+		if(fileType.equalsIgnoreCase(MessageAttachmentService.CSV_MIME_TYPE))
 			dataChannelType = DataChannelTypeService.FILE_CSV_CHANNEL;
-		if(fileType.equalsIgnoreCase(MessageAttachementsService.EXCEL_MIME_TYPE))
+		if(fileType.equalsIgnoreCase(MessageAttachmentService.EXCEL_MIME_TYPE))
 			dataChannelType = DataChannelTypeService.FILE_EXCEL_CHANNEL;
 		return dataChannelType;
 	}

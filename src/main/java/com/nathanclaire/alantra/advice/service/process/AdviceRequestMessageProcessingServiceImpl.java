@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.model.AdviceClassification;
 import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
@@ -31,6 +34,7 @@ import com.nathanclaire.alantra.customer.model.Account;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
+import com.nathanclaire.alantra.customer.service.process.CustomerProcessingServiceImpl;
 
 /**
  * @author Edward Banfa 
@@ -48,6 +52,7 @@ public class AdviceRequestMessageProcessingServiceImpl extends
 	@Inject AdviceClassificationService classificationService;
 	@Inject AdviceRequestMessageService requestMessageService;
 	@Inject AdviceRequestMessageStatusService adviceRequestMessageStatusService;
+	private Logger logger = LoggerFactory.getLogger(AdviceRequestMessageProcessingServiceImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.advice.service.process.AdviceRequestMessageProcessingService#getAdviceRequestMessageStatus(java.lang.String)
@@ -73,13 +78,20 @@ public class AdviceRequestMessageProcessingServiceImpl extends
 			Currency currencysInAdviceText, BigDecimal amount, String chequeNo, String cardNo, AdviceType adviceType, 
 			Integer dataChannelId, String adviceText) throws ApplicationException 
 	{
+		logger.debug("Creating advice request with the following customer {}, sourceAddress {}, " +
+				"account {}, currency {}, amountInAdviceText {}, chequeNoInAdviceText {}, cardNoInAdviceText {}, " +
+				"adviceTypeInAdviceText {}, dataChannelId {}, adviceText {}", customer, sourceAddress, account, currencysInAdviceText, 
+				amount, chequeNo, cardNo, adviceType, dataChannelId, adviceText);
 		AdviceRequestMessageRequest requestMessage = new AdviceRequestMessageRequest();
 		PropertyUtils.initializeBaseFields(requestMessage);
+		requestMessage.setCode(getCurrentTimeInMilliSeconds().toString());
 		requestMessage.setAmount(amount);
+		requestMessage.setName(customer.getName());
 		requestMessage.setChequeNo(chequeNo);
 		requestMessage.setCardNo(cardNo);
 		requestMessage.setAdviceTyTxt(adviceType.getCode());
 		requestMessage.setAdviceTxt(adviceText);
+		requestMessage.setSourceAddress(sourceAddress);
 		requestMessage.setDataChannelId(dataChannelId);
 		requestMessage.setCustomerId(customer.getId());
 		// Get the customers default account

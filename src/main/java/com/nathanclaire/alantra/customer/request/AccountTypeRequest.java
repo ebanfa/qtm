@@ -16,6 +16,9 @@ public class AccountTypeRequest extends BaseRequest {
 
     private String name;
     private String description;
+    private String accountNoFormat;
+    private String chequeNoFormat;
+    private String cardNoFormat;
     private Integer id;
     private String code;
 
@@ -36,6 +39,30 @@ public class AccountTypeRequest extends BaseRequest {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAccountNoFormat() {
+        return this.accountNoFormat;
+    }
+    
+    public void setAccountNoFormat(String accountNoFormat) {
+        this.accountNoFormat = accountNoFormat;
+    }
+
+    public String getChequeNoFormat() {
+        return this.chequeNoFormat;
+    }
+    
+    public void setChequeNoFormat(String chequeNoFormat) {
+        this.chequeNoFormat = chequeNoFormat;
+    }
+
+    public String getCardNoFormat() {
+        return this.cardNoFormat;
+    }
+    
+    public void setCardNoFormat(String cardNoFormat) {
+        this.cardNoFormat = cardNoFormat;
     }
 
     public Integer getId() {

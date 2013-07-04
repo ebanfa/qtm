@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.RowData;
 import com.nathanclaire.alantra.datasource.etl.TableData;
@@ -16,6 +19,7 @@ import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelType;
 import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.model.DataStructure;
+import com.nathanclaire.alantra.datasource.service.process.DataInputJobRunnerImpl;
 
 
 /**
@@ -26,6 +30,7 @@ public abstract class BaseDataExtractor<T> {
 	
 	private static final String CONFIG_ERROR_NO_CHANNEL_FOUND = "BaseProcessService.DATA_IMPORT_SERVICE_NOT_FOUND";
 
+	private Logger logger = LoggerFactory.getLogger(BaseDataExtractor.class);
 	/**
 	 * @param data
 	 * @return
@@ -33,6 +38,7 @@ public abstract class BaseDataExtractor<T> {
 	 */
 	public TableData extract(Data data) throws ApplicationException 
 	{
+		logger.debug("Extracting data {}", data.getCode());
 		return extractData(data, initializeTableData(data));
 	}
 
@@ -75,6 +81,7 @@ public abstract class BaseDataExtractor<T> {
 	 */
 	protected int processRows(DataStructure dataStructure, Set<DataField> dataFields, 
 			TableData tableToBePopulated, List<T[]> extractedData) {
+		logger.debug("Processing {} row ", extractedData.size());
 		int rowCount = 0;
 		int recordsRead = 0;
 		for(T[] row : extractedData)
@@ -85,6 +92,7 @@ public abstract class BaseDataExtractor<T> {
 				if(skipFirstRow(dataStructure))
 					continue;
 			}
+			logger.debug("Row has {} columns ", row.length);
 			// Fetch all columns in a given row
 			RowData currentRow = new RowData();
 			for(int i = 0; i < row.length; i++) 

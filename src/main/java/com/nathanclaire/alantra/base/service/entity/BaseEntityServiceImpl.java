@@ -119,7 +119,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      * @param searchCriteria
      * @return
      */
-    protected List<M> findByCriteria(Map<String, String> searchCriteria) throws ApplicationException{
+    public List<M> findByCriteria(Map<String, String> searchCriteria) throws ApplicationException{
     	queryParameters.clear();
     	for(Entry<String, String> entry: searchCriteria.entrySet())
     	{

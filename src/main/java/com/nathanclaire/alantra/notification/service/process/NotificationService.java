@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.notification.model.NotificationType;
 import com.nathanclaire.alantra.security.model.SystemUser;
 
 /**
@@ -14,6 +15,9 @@ import com.nathanclaire.alantra.security.model.SystemUser;
  *
  */
 public interface NotificationService {
+
+	public static final String NOTIFICATION_TYPE_NOT_FIND = "NotificationService.NOTIFICATION_TYPE_NOT_FIND";
+	public static final String CREATE_CUST_NOTIFICATION_ERROR = "NotificationService.CREATE_CUST_NOTIFICATION_ERROR";
 	
 	/**
 	 * @param customer
@@ -40,5 +44,11 @@ public interface NotificationService {
 	 */
 	public void notifyAdmin(String notificationType, Map<String, String> templateTagValues) throws ApplicationException;
 
+	/**
+	 * @param notificationTypeCode
+	 * @return
+	 * @throws ApplicationException
+	 */
+	public NotificationType getNotificationType(String notificationTypeCode) throws ApplicationException;
 
 }

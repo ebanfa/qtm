@@ -73,7 +73,7 @@ public abstract class BaseDataLoader {
 			try {
 				tableData = loadTableDataRow(tableData, fields, row, primEntityRequestClass, secEntityRequestClass);
 			} catch (ApplicationException e) {
-				logger.error("Error loading entity data: {}", e.getMessage());
+				logger.error("Error loading entity data: {}", e.getCode());
 			}
 		}
 		return tableData;

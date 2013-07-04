@@ -15,7 +15,7 @@ import com.nathanclaire.alantra.datasource.response.DataChannelTypeResponse;
 public interface DataChannelTypeService extends BaseEntityService<DataChannelType, DataChannelTypeResponse, DataChannelTypeRequest>
 {
 
-	public static final String FILE_CSV_CHANNEL = "FILE_CSV_CHANNEL";
-	public static final String FILE_EXCEL_CHANNEL = "FILE_EXCEL_CHANNEL";
+	public static final String FILE_CSV_CHANNEL = "FILE_CSV";
+	public static final String FILE_EXCEL_CHANNEL = "FILE_EXCEL";
 	
 }

@@ -15,16 +15,8 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
  */
 public interface MessagingService {
 
-	public List<MessageLite> getAllSMSMessages(List<DataChannel> smsChannels) throws ApplicationException;
-	
-	public List<MessageLite> getAllEmailMessages(List<DataChannel> emailChannels) throws ApplicationException;
-
 	public List<MessageLite> getAllMessages(List<DataChannel> channels) throws ApplicationException;
 	
 	public void sendMessage(DataChannel channel, MessageLite message) throws ApplicationException;
-	
-	public void sendSMSMessage(DataChannel channel, MessageLite message) throws ApplicationException;
-	
-	public void sendEmailMessage(DataChannel channel, MessageLite message) throws ApplicationException;
 
 }

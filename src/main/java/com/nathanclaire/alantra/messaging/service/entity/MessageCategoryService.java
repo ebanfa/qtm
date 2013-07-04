@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.messaging.response.MessageCategoryResponse;
  */
 public interface MessageCategoryService extends BaseEntityService<MessageCategory, MessageCategoryResponse, MessageCategoryRequest>
 {
+	public static final String SMS = "SMS";
 	
+	public static final String EMAIL = "EMAIL";
 }

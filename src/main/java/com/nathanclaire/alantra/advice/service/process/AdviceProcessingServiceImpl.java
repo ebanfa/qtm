@@ -20,6 +20,8 @@ import com.nathanclaire.alantra.customer.model.Account;
 import com.nathanclaire.alantra.customer.model.Customer;
 
 /**
+ * This class should be in charge triggering the firing of advice events.
+ * 
  * @author Edward Banfa 
  *
  */

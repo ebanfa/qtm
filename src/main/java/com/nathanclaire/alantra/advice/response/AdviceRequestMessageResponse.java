@@ -20,6 +20,7 @@ public class AdviceRequestMessageResponse extends BaseResponse {
     private String dataChannelText;
     private Integer adviceRequestMessageStatusId;
     private String adviceRequestMessageStatusText;
+    private String inputJobCd;
     private String sourceAddress;
     private BigDecimal amount;
     private String accountNo;
@@ -78,6 +79,14 @@ public class AdviceRequestMessageResponse extends BaseResponse {
     
     public void setAdviceRequestMessageStatusText(String adviceRequestMessageStatusText) {
         this.adviceRequestMessageStatusText = adviceRequestMessageStatusText;
+    }
+
+    public String getInputJobCd() {
+        return this.inputJobCd;
+    }
+    
+    public void setInputJobCd(String inputJobCd) {
+        this.inputJobCd = inputJobCd;
     }
 
     public String getSourceAddress() {
@@ -146,4 +155,5 @@ public class AdviceRequestMessageResponse extends BaseResponse {
 
 
 }
+
 

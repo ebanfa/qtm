@@ -3,6 +3,8 @@
  */
 package com.nathanclaire.alantra.customer.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,13 +38,25 @@ public class CustomerBlacklist  extends BaseEntity implements java.io.Serializab
     public CustomerBlacklist() {
     }
 
-    public CustomerBlacklist(Customer customer) 
+    public CustomerBlacklist(Customer customer, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public CustomerBlacklist(Customer customer, String description) 
+    public CustomerBlacklist(Customer customer, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.customer = customer;
 		this.description = description;
+		this.code = code;
+		this.effectiveDt = effectiveDt;
+		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
     }
     
     		

@@ -40,7 +40,7 @@ public class AdviceInquiryReceivedEventListenerImpl extends BaseMessageListener 
 			// 1. Fetch the customer and the advice and respond with the advice status
 			//  ( thats assuming the customer and advice referenced are valid).
 			Customer customer = getCustomer(event.getCustomerId());
-			String adviceReferenceNo = messageProcessingService.extractAdviceReference(getMessageText(getMessage(event)));
+			String adviceReferenceNo = messagingModuleService.getAdviceRefNoInMessageText(getMessageText(getMessage(event)));
 			if(StringUtil.isValidString(adviceReferenceNo))
 			{
 				String adviceStatus = getAdviceStatusInfo(adviceReferenceNo);

@@ -35,25 +35,31 @@ public class AccountType  extends BaseEntity implements java.io.Serializable {
 
     private String name;
     private String description;
+    private String accountNoFormat;
+    private String chequeNoFormat;
+    private String cardNoFormat;
 	private Set<Account> accounts = new HashSet<Account>(0);
 
     public AccountType() {
     }
 
-    public AccountType(String name, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public AccountType(String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
-		this.name = name;
 		this.code = code;
+		this.name = name;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public AccountType(String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Account> accounts ) 
+    public AccountType(String code, String name, String description, String accountNoFormat, String chequeNoFormat, String cardNoFormat, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Account> accounts ) 
     {
+		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.code = code;
+		this.accountNoFormat = accountNoFormat;
+		this.chequeNoFormat = chequeNoFormat;
+		this.cardNoFormat = cardNoFormat;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -84,6 +90,39 @@ public class AccountType  extends BaseEntity implements java.io.Serializable {
     public void setDescription(String description) 
     {
         this.description = description;
+    }
+		
+    @Column(name="ACCOUNT_NO_FORMAT" , unique=true, length=15)
+    public String getAccountNoFormat() 
+    {
+        return this.accountNoFormat;
+    }
+    
+    public void setAccountNoFormat(String accountNoFormat) 
+    {
+        this.accountNoFormat = accountNoFormat;
+    }
+		
+    @Column(name="CHEQUE_NO_FORMAT" , unique=true, length=15)
+    public String getChequeNoFormat() 
+    {
+        return this.chequeNoFormat;
+    }
+    
+    public void setChequeNoFormat(String chequeNoFormat) 
+    {
+        this.chequeNoFormat = chequeNoFormat;
+    }
+		
+    @Column(name="CARD_NO_FORMAT" , unique=true, length=15)
+    public String getCardNoFormat() 
+    {
+        return this.cardNoFormat;
+    }
+    
+    public void setCardNoFormat(String cardNoFormat) 
+    {
+        this.cardNoFormat = cardNoFormat;
     }
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="accountType")

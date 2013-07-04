@@ -37,7 +37,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataInputService;
 import com.nathanclaire.alantra.datasource.service.entity.DataLoaderService;
 import com.nathanclaire.alantra.datasource.service.entity.DataService;
 import com.nathanclaire.alantra.datasource.service.entity.DataTypeService;
-import com.nathanclaire.alantra.messaging.service.entity.MessageAttachementsService;
+import com.nathanclaire.alantra.messaging.service.entity.MessageAttachmentService;
 
 /**
  * @author Edward Banfa 
@@ -91,9 +91,9 @@ public class JobHelperImpl extends BaseProcessService implements JobHelper {
 	private DataChannelType getDataChannelType(String fileName, String fileMimeType) throws ApplicationException
 	{
 		DataChannelType dataChannelType = null;
-		if(fileMimeType.equals(MessageAttachementsService.CSV_MIME_TYPE))
+		if(fileMimeType.equals(MessageAttachmentService.CSV_MIME_TYPE))
 			dataChannelType = dataChannelTypeService.findByCode(DataChannelTypeService.FILE_CSV_CHANNEL);
-		if(fileMimeType.equals(MessageAttachementsService.EXCEL_MIME_TYPE))
+		if(fileMimeType.equals(MessageAttachmentService.EXCEL_MIME_TYPE))
 			dataChannelType = dataChannelTypeService.findByCode(DataChannelTypeService.FILE_EXCEL_CHANNEL);
 		return dataChannelType;
 	}

@@ -49,5 +49,6 @@ public interface BaseEntityService<M, T,V> {
 	public Map<String, List<ListItemResponse>> relatedEntitesToListItems() throws ApplicationException;
 	
 	public List<ListItemResponse> asListItem() throws ApplicationException;
-
+	
+	public List<M> findByCriteria(Map<String, String> searchCriteria) throws ApplicationException;
 }
