@@ -16,6 +16,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.messaging.annotation.AdviceInquiryReceivedEvent;
+import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.notification.service.entity.NotificationTypeService;
 import com.nathanclaire.alantra.notification.service.entity.TemplateTypeTagService;
 import com.nathanclaire.alantra.notification.service.process.NotificationService;
@@ -40,7 +41,8 @@ public class AdviceInquiryReceivedEventListenerImpl extends BaseMessageListener 
 			// 1. Fetch the customer and the advice and respond with the advice status
 			//  ( thats assuming the customer and advice referenced are valid).
 			Customer customer = getCustomer(event.getCustomerId());
-			String adviceReferenceNo = messagingModuleService.getAdviceRefNoInMessageText(getMessageText(getMessage(event)));
+			Message message = getMessage(event);
+			String adviceReferenceNo = messagingModuleService.getAdviceRefNoInMessageText(getMessageText(message));
 			if(StringUtil.isValidString(adviceReferenceNo))
 			{
 				String adviceStatus = getAdviceStatusInfo(adviceReferenceNo);
@@ -50,6 +52,8 @@ public class AdviceInquiryReceivedEventListenerImpl extends BaseMessageListener 
 				if(StringUtil.isValidString(adviceStatus))
 				{
 					templateTagValues = addToTemplateTagValues(TemplateTypeTagService.STATUS_INFORMATION, adviceStatus, templateTagValues);
+					templateTagValues = addToTemplateTagValues(
+							TemplateTypeTagService.MESSAGE_CATEGORY, getMessageCategory(message).getName(), templateTagValues);
 					notificationService.notifyCustomer(customer, NotificationTypeService.ADVICE_INQUIRY_RESPONSE, templateTagValues);
 				}
 				else

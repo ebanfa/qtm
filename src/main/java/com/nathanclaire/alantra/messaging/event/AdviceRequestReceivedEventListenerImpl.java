@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.messaging.annotation.AdviceRequestReceivedEvent;
 import com.nathanclaire.alantra.notification.service.entity.NotificationTypeService;
@@ -59,7 +60,15 @@ public class AdviceRequestReceivedEventListenerImpl extends BaseMessageListener 
 			notificationService.notifyCustomer(getCustomer(event.getCustomerId()), 
 					NotificationTypeService.ADVICE_REQUEST_TEXT_RESPONSE, initializeTemplateTagValues(event));
 			// Fire advice created event
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
+			logger.error(e.getMessage());
+			event.setStatusInformation(e.getMessage());
+			Customer customer = getCustomer(event.getCustomerId());
+			event.setCustomerName(customer.getName());
+			notificationService.notifyCustomer(customer, 
+					NotificationTypeService.ADVICE_REQUEST_TEXT_ERROR_RESPONSE, initializeTemplateTagValues(event));
+		}
+		catch (Exception e) {
 			logger.error(e.getMessage());
 			notificationService.notifyCustomer(getCustomer(event.getCustomerId()), 
 					NotificationTypeService.ADVICE_REQUEST_TEXT_ERROR_RESPONSE, initializeTemplateTagValues(event));

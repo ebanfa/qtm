@@ -6,7 +6,7 @@ define("router", [
     'underscore',
     'configuration',
     'utilities',
-    'app/views/desktop/login',
+    'app/views/desktop/login/loginView',
     'app/views/desktop/home',
     'app/views/desktop/home/customer-home',
     'app/views/desktop/home/advice-home',
@@ -18,12 +18,12 @@ define("router", [
     'app/views/desktop/home/messaging-home',
     'app/views/desktop/home/businessdata-home',
     'app/views/desktop/home/report-home',
-
+    'app/views/desktop/home/security-home',
     'app/models/activity/activity',
     'app/collections/activity/activity',
+    'app/views/desktop/activity/view-activity',
     'app/views/desktop/activity/edit-activity',
     'app/views/desktop/activity/list-activity',
-
     'text!../templates/desktop/main.html',
     'text!../templates/desktop/home/navbar.html',
     'text!../templates/desktop/home/footer.html',
@@ -45,12 +45,12 @@ define("router", [
             MessagingHomeView,
             BusinessDataHomeView,
             ReportsHomeView,
-
+            SecurityHomeView,
             ActivityModel,
             ActivityCollection,
+            ActivityViewView,
             ActivityEditView,
             ActivityListView,
-
             MainTemplate, navBarTemplate, footerTemplate, 
             sideBarTemplate, subNavBarTemplate, homeContentTemplate) {
 
@@ -145,8 +145,11 @@ define("router", [
             "messaging-module":"messagingModuleIndex",
             "businessdata-module":"businessDataModuleIndex",
             "reports-module":"reportsModuleIndex",
+            "security-module":"securityModuleIndex",
 
             "list/:activityURL":"showActivityList",
+            "view/:activityURL":"showActivityView",
+            "view/:activityURL/:id":"showActivityView",
             "edit/:activityURL":"showActivityEdit",
             "edit/:activityURL/:id":"showActivityEdit",
 
@@ -161,11 +164,16 @@ define("router", [
             utilities.viewManager.showView(loginView);
 
         },
-
         showActivityList:function(activityURL)
         {
             var model = new ActivityCollection({activityURL:activityURL});
             var activityListView = new ActivityListView({model:model, el:$("#content-container")});
+        },
+        showActivityView:function(activityURL, id)
+        {
+            var model = new ActivityModel({activityURL:activityURL, id:id});
+            var activityViewView = new ActivityViewView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(activityViewView);
         },
         showActivityEdit:function(activityURL, id)
         {
@@ -173,7 +181,6 @@ define("router", [
             var activityEditView = new ActivityEditView({model:model, el:$("#content-container")});
             utilities.viewManager.showView(activityEditView);
         },
-        
         customerModuleIndex:function()
         {
             utilities.viewManager.showView(new CustomerHomeView({el:$("#content-container")}));
@@ -213,6 +220,10 @@ define("router", [
         reportsModuleIndex:function()
         {
             utilities.viewManager.showView(new ReportsHomeView({el:$("#content-container")}));
+        },
+        securityModuleIndex:function()
+        {
+            utilities.viewManager.showView(new SecurityHomeView({el:$("#content-container")}));
         }
     });
     

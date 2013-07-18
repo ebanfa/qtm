@@ -3,19 +3,29 @@ define([
 ], function ($) {
   
  /*
-  * FieldInfo object's constructor function.
+  * Information of an entity that was selected from the entity search page.
   */
-  function FieldInfo(name, fieldTypeCode, description)
+  function SelectedRelatedEntityInfo(fieldName, entityLite)
   {
+    this.fieldName = fieldName;
+    this.entityLite = entityLite;
+  }
+
+ /*
+  * Entity lite.
+  */
+  function EntityLite(id, code, name, description)
+  {
+    this.id = id;
+    this.code = code;
     this.name = name;
     this.description = description;
-    this.fieldTypeCode = fieldTypeCode;
   }
 
  /*
   * Field object's constructor function.
   */
-  function Field(fieldInfo, fieldValue, listOptions)
+  function Field(fieldInfo, fieldValue, listOptions, fieldClassName)
   {
     // Field info contains name and field type
     this.fieldInfo = fieldInfo;
@@ -25,6 +35,17 @@ define([
     // drop downs but will be null for non list based 
     // widgets
     this.listOptions = listOptions;
+    this.fieldClassName = fieldClassName;
+  }
+
+ /*
+  * FieldInfo object's constructor function.
+  */
+  function FieldInfo(name, applicationEntityFieldTypeText, description)
+  {
+    this.name = name;
+    this.description = description;
+    this.applicationEntityFieldTypeText = applicationEntityFieldTypeText;
   }
 
  /*
@@ -48,6 +69,14 @@ define([
     this.fieldBlocks = [];
     this.relatedEntities = null;
   };
+
+  $.fn.createEntityLite = function(id, code, name, description) {
+    return new EntityLite(id, code, name, description);
+  }
+
+  $.fn.createSelectedRelatedEntityInfo = function (fieldName, entityLite) {
+    return new SelectedRelatedEntityInfo(fieldName, entityLite);
+  }
 
  /*
   * Serializes a form into an array.
@@ -86,10 +115,20 @@ define([
   {
       // The name and the type of the field
       var fieldValue = null;
+      var fieldClassName = null;
       var fieldName = form.fields[index].name;
+      var requiredFg = form.fields[index].requiredFg;
       var fieldDescription = form.fields[index].description;
-      var fieldType = form.fields[index].fieldTypeCode;
+      var fieldType = form.fields[index].applicationEntityFieldTypeText;
       var relationshipFieldSuffix = "Id";
+      // Are we dealing with a required field
+      if (requiredFg == "Y") 
+      {
+        fieldClassName = "field_required";
+      } else 
+      {
+        fieldClassName = "field";
+      }
       // Are we dealing with a relationship field
       if (fieldType == "RELATIONSHIP")
       {
@@ -100,7 +139,7 @@ define([
           form.name = "Create"
           fieldValue = null;
         }
-        return new Field(form.fields[index], fieldValue, form.relatedEntities[fieldName]);
+        return new Field(form.fields[index], fieldValue, form.relatedEntities[fieldName], fieldClassName);
       }
       // No we are dealing with a non relationship field
       else
@@ -112,19 +151,41 @@ define([
           form.name = "Create"
           fieldValue = null;
         }
-        return new Field(form.fields[index], fieldValue, null);
+        return new Field(form.fields[index], fieldValue, null, fieldClassName);
       }
-  }
+  };
 
+  function sortFields(first, second)
+  {
+    //var val = first.sequenceNo - second.sequenceNo;
+     console.log("Comparing" + first.sequenceNo + ":" + second.sequenceNo);
+    if(first.sequenceNo < second.sequenceNo)
+    {
+      console.log("first.sequenceNo: Before");
+      return -1;
+    }
+    if(first.sequenceNo > second.sequenceNo)
+    {
+      console.log("first.sequenceNo: Later");
+      return 1;
+    }
+    if(first.sequenceNo == second.sequenceNo)
+    {
+      console.log("first.sequenceNo: Equal ");
+      return 0;
+    }
+  }
  /*
   * Function to populate the field blocks on a form.
   */
   $.fn.populateFieldBlocks = function(form)
   {
     var currentFieldBlock = new FieldBlock();
+    // Sort fields
+    form.fields.sort(sortFields);
     for (var index=0; index<form.fields.length; index++) 
     {
-      if(form.fields[index].fieldTypeCode != "ID")
+      if(form.fields[index].applicationEntityFieldTypeText != "ID")
       {
         // Do we have space in the current field block
         if (currentFieldBlock.fields.length < currentFieldBlock.fieldsPerBlock) 
@@ -180,11 +241,12 @@ define([
         }
       }*/
 
-      console.log("Crack music!!2");
       $.fn.populateFieldBlocks(form);
     }
     return form;
   };
-  return {formSerializer:$.fn.serializeObject, formBuilder:$.fn.formBuilder}
+  return {formSerializer: $.fn.serializeObject, 
+    formBuilder: $.fn.formBuilder, entityLite: $.fn.createEntityLite, 
+    createSelectedRelatedEntityInfo: $.fn.createSelectedRelatedEntityInfo}
 });
 

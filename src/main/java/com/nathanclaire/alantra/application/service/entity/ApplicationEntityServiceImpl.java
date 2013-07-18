@@ -4,6 +4,8 @@
 package com.nathanclaire.alantra.application.service.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -196,7 +198,26 @@ public class ApplicationEntityServiceImpl
 			}
 		//logger.debug("Loaded {} fields for entity {}", entityFields.size(), entityName);
 		}
+		Collections.sort(fieldResponses, new ApplicationEntityFieldComparer());
 		return fieldResponses;
+	}
+	
+	/**
+	 * Comparator implementation to sort entity fields by sequence number
+	 * @author Edward Banfa 
+	 *
+	 */
+	private class ApplicationEntityFieldComparer implements Comparator<ApplicationEntityField> {
+		  @Override
+		  public int compare(ApplicationEntityField x, ApplicationEntityField y) {
+			  return compare(x.getSequenceNo(), y.getSequenceNo());
+		  }
+		  // I don't know why this isn't in Integer...
+		  private int compare(int a, int b) {
+		    return a < b ? -1
+		         : a > b ? 1
+		         : 0;
+		  }
 	}
 	
 	/* (non-Javadoc)

@@ -57,13 +57,19 @@ public interface MessagingModuleService {
 			String subjectText, String messageText) throws ApplicationException;
 
 	public void sendUserMessage(SystemUser user, List<DataChannel> channels, 
-			MessageType messageType, String subjectText, String messageText) throws ApplicationException;
+			String subjectText, String messageText) throws ApplicationException;
 
 	public MessageType getMessageType(DataChannel dataChannel) throws ApplicationException;
 
 	public MessageApplication getMessageApplication(MessageRequest messageRequest) throws ApplicationException;
 
 	public MessageApplicationAction getMessageApplicationAction(MessageRequest messageRequest) throws ApplicationException;
+
+	public void sendMessageToCustomers(String transport, 
+			List<Customer> customersToReceiveMsg, String subject, String text) throws ApplicationException;
+
+	public void sendMessageToUsers(String transport, 
+			List<SystemUser> usersToReceiveMsg, String subject, String text) throws ApplicationException;
 	
 
 }

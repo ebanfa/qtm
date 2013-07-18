@@ -22,6 +22,12 @@ define([
             /*if (!attrs.party) {
             	errors.push({name: 'party', message: entities_strings.alantra_form_field_required + entities_strings.organization_party + '.'});
         	}*/	
+            if (!attrs.code) {
+                errors.push({name: 'code', message: entities_strings.alantra_form_field_required + entities_strings.activity_code + '.'});
+            }
+            if (!attrs.name) {
+                errors.push({name: 'name', message: entities_strings.alantra_form_field_required + entities_strings.activity_name + '.'});
+            }
             return errors.length > 0 ? errors : false;
         },
         toJSON: function(options) {

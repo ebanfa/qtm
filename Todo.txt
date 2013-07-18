@@ -1,0 +1,15 @@
+
+--- Edit page should be different from view page --
+--- View page should have an edit button --
+--- Implement a pop up search for related entities
+--- Fix the listing page (Column names should be on one line) --
+--- Implement search capability
+--- IMplement  user login 
+--- Implement user audit
+--- Implement an compose email view
+--- Implement an Inbox view
+--- Implement a manual transaction matching view
+--- Implement a manual advice creation screen
+--- Fix a data input out statistics view
+--- Implement a dashbord to show different reports ()
+--  Implement excel data input functionality

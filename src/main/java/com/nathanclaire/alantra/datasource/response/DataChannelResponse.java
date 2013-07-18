@@ -25,7 +25,9 @@ public class DataChannelResponse extends BaseResponse {
     private String dsTblNm;
     private String username;
     private String password;
-    private char inboundOutboundFg;
+    private String inboundOutboundCd;
+    private String connSecurityCd;
+    private String authMethodCd;
 
     public DataChannelResponse() {
     }
@@ -118,12 +120,28 @@ public class DataChannelResponse extends BaseResponse {
         this.password = password;
     }
 
-    public char getInboundOutboundFg() {
-        return this.inboundOutboundFg;
+    public String getInboundOutboundCd() {
+        return this.inboundOutboundCd;
     }
     
-    public void setInboundOutboundFg(char inboundOutboundFg) {
-        this.inboundOutboundFg = inboundOutboundFg;
+    public void setInboundOutboundCd(String inboundOutboundCd) {
+        this.inboundOutboundCd = inboundOutboundCd;
+    }
+
+    public String getConnSecurityCd() {
+        return this.connSecurityCd;
+    }
+    
+    public void setConnSecurityCd(String connSecurityCd) {
+        this.connSecurityCd = connSecurityCd;
+    }
+
+    public String getAuthMethodCd() {
+        return this.authMethodCd;
+    }
+    
+    public void setAuthMethodCd(String authMethodCd) {
+        this.authMethodCd = authMethodCd;
     }
 
 

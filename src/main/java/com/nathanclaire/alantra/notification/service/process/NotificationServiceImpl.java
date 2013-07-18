@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.notification.service.process;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
@@ -17,15 +18,21 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.notification.annotation.CustomerNotificationCreatedEvent;
+import com.nathanclaire.alantra.notification.annotation.SystemUserNotificationCreatedEvent;
 import com.nathanclaire.alantra.notification.event.NotificationEvent;
 import com.nathanclaire.alantra.notification.model.CustomerNotification;
 import com.nathanclaire.alantra.notification.model.NotificationType;
+import com.nathanclaire.alantra.notification.model.SystemUserNotification;
 import com.nathanclaire.alantra.notification.model.Template;
 import com.nathanclaire.alantra.notification.request.CustomerNotificationRequest;
+import com.nathanclaire.alantra.notification.request.SystemUserNotificationRequest;
 import com.nathanclaire.alantra.notification.service.entity.CustomerNotificationService;
 import com.nathanclaire.alantra.notification.service.entity.NotificationTypeService;
+import com.nathanclaire.alantra.notification.service.entity.SystemUserNotificationService;
+import com.nathanclaire.alantra.notification.service.entity.TemplateTypeTagService;
 import com.nathanclaire.alantra.notification.util.FilledTemplate;
 import com.nathanclaire.alantra.security.model.SystemUser;
+import com.nathanclaire.alantra.security.service.process.SecurityModuleService;
 
 /**
  * @author Edward Banfa 
@@ -38,9 +45,13 @@ public class NotificationServiceImpl extends BaseProcessService implements Notif
 
 	@Inject NotificationTypeService notificationTypeService;
 	@Inject TemplateProcessingService templateProcessingService;
+	@Inject SystemUserNotificationService userNotificationService;
 	@Inject CustomerNotificationService customerNotificationService;
+	@Inject SecurityModuleService securityModuleService;
+	@Inject @SystemUserNotificationCreatedEvent Event<NotificationEvent> userNotificationCreatedEvent;
 	@Inject @CustomerNotificationCreatedEvent Event<NotificationEvent> customerNotificationCreatedEvent;
 	private Logger logger = LoggerFactory.getLogger(NotificationServiceImpl.class);
+	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#notifyCustomer(com.nathanclaire.alantra.customer.model.Customer, com.nathanclaire.alantra.notification.model.NotificationType, java.util.Map)
 	 */
@@ -72,9 +83,25 @@ public class NotificationServiceImpl extends BaseProcessService implements Notif
 	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#notifyUser(com.nathanclaire.alantra.security.model.SystemUser, com.nathanclaire.alantra.notification.model.NotificationType, java.util.Map)
 	 */
 	@Override
-	public void notifyUser(SystemUser user, String notificationType,
+	public void notifyUser(SystemUser user, String notificationTypeCode,
 			Map<String, String> templateTagValues) throws ApplicationException {
-		// TODO Use the above method as a template when it has been tested
+		SystemUserNotificationRequest notificationRequest = new SystemUserNotificationRequest();
+		PropertyUtils.initializeBaseFields(notificationRequest);
+		// 1. Get the notification type
+		NotificationType notificationType = getNotificationType(notificationTypeCode);
+		notificationRequest.setSystemUserId(user.getId());
+		notificationRequest.setNotificationTypeId(notificationType.getId());
+		notificationRequest.setCode(getCurrentTimeInMilliSeconds().toString());
+		notificationRequest.setName(notificationType.getName());
+		// Get and fill the template
+		Template template = notificationType.getTemplate();
+		templateTagValues = 
+				templateProcessingService.addToTemplate(TemplateTypeTagService.USER_NAME, user.getUsername(), templateTagValues);
+		FilledTemplate filledTemplate = templateProcessingService.fillTemplate(template, templateTagValues);
+		// Create notification and fire the event to signal we have a new customer notification
+		SystemUserNotification notification = userNotificationService.create(notificationRequest);
+		userNotificationCreatedEvent.fire(new NotificationEvent(notificationType.getCode(), 
+				notification.getId(), user.getId(), filledTemplate.getHeader(), filledTemplate.getBody()));
 	}
 
 	/* (non-Javadoc)
@@ -82,8 +109,10 @@ public class NotificationServiceImpl extends BaseProcessService implements Notif
 	 */
 	@Override
 	public void notifyAdmin(String notificationType, Map<String, String> templateTagValues) throws ApplicationException {
-		// TODO Auto-generated method stub
 		logger.debug("Sending notification {} to admin user. Using template tag values {}", notificationType, templateTagValues);
+		List<SystemUser> adminUsers = securityModuleService.findAdminUsers();
+		for(SystemUser user: adminUsers)
+			notifyUser(user, notificationType, templateTagValues);
 	}
 
 	/* (non-Javadoc)
@@ -92,6 +121,7 @@ public class NotificationServiceImpl extends BaseProcessService implements Notif
 	@Override
 	public NotificationType getNotificationType(String notificationTypeCode) throws ApplicationException {
 		// TODO Auto-generated method stub
+		logger.debug("Looking up notification type using code: {}", notificationTypeCode);
 		NotificationType notificationType = notificationTypeService.findByCode(notificationTypeCode);
 		if(notificationType == null)
 			throw new ApplicationException(NOTIFICATION_TYPE_NOT_FIND);

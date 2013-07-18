@@ -1,3 +1,8 @@
+.modal {
+   width:940px;
+   margin-left:-470px
+}
+
 .scrollable-main-content {
 	overflow:scroll; 
 	height:520px; 
@@ -6,4 +11,48 @@
 .scrollable-sidebar-content {
 	overflow:scroll; 
 	height:260px;
+}
+.field_required {
+	background:#FBE3E4; 
+}
+.hideextra { white-space: nowrap; overflow: hidden; text-overflow:ellipsis; }
+
+.mail_compose input {
+	width: 96%;
+	display: block;
+}
+.mail_compose textarea {
+	width: 96%;
+	display: block;
+}
+.mail_compose select {
+	width: 96%;
+	display: block;
+}
+.editable {
+    margin-top: 2px;
+	display: block;
+	border: solid #DCDCDC 1px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+.editable div {
+    height: 100%;
+    padding: 2px;
+	display: inline;
+	text-decoration: underline;
+}
+
+#customerModalBtnDiv {
+	padding: 1px;
+	margin: 1px;
+}
+
+#customerModalBtnDiv a {
+	width: 85%;
+}
+#search-result-div{
+	width: 70%;	
 }

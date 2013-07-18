@@ -9,6 +9,11 @@ package com.nathanclaire.alantra.base.util;
  */
 public class ApplicationException extends Exception {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5716304693948177473L;
+
 	public static final String UNKNOWN_EXCEPTION = "ApplicationException.UNKNOWN_EXCEPTION";
 	
 	private String code;

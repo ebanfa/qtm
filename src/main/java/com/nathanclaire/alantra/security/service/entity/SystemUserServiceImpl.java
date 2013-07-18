@@ -10,23 +10,22 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
-
-import com.nathanclaire.alantra.security.model.SystemUser;
-import com.nathanclaire.alantra.security.model.SystemGroup;
-import com.nathanclaire.alantra.security.request.SystemUserRequest;
-import com.nathanclaire.alantra.security.response.SystemUserResponse;
-import com.nathanclaire.alantra.security.service.entity.SystemGroupService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.security.model.SystemGroup;
+import com.nathanclaire.alantra.security.model.SystemUser;
+import com.nathanclaire.alantra.security.request.SystemUserRequest;
+import com.nathanclaire.alantra.security.response.SystemUserResponse;
 
 /**
  * @author Edward Banfa
@@ -62,6 +61,18 @@ public class SystemUserServiceImpl
 	@Override
 	public SystemUser findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.security.service.entity.SystemUserService#findByIds(java.util.List)
+	 */
+	@Override
+	public List<SystemUser> findByIds(List<Integer> idOfUsers)
+			throws ApplicationException {
+		List<SystemUser> users = new ArrayList<SystemUser>();
+		for(Integer id : idOfUsers)
+			users.add(findById(id));
+		return users;
 	}
 
 	/* (non-Javadoc)
@@ -110,6 +121,19 @@ public class SystemUserServiceImpl
 	@Override
 	public SystemUser update(SystemUserRequest systemUserRequest) throws ApplicationException {
 		return updateInstance(systemUserRequest);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.security.service.entity.SystemUserService#findByUsername(java.lang.String)
+	 */
+	@Override
+	public SystemUser findByUsername(String username) throws ApplicationException {
+    	queryParameters.clear();
+    	queryParameters.add("username", username);
+    	logger.debug("Using query parameters {}", queryParameters);
+    	List<SystemUser> instances = findAllInstances(queryParameters);
+    	if(instances.isEmpty()) return null;
+    	return instances.get(0);
 	}
 	
 	/* (non-Javadoc)
@@ -204,4 +228,16 @@ public class SystemUserServiceImpl
 			systemUserResponse.setSystemGroupText(model.getSystemGroup().getName());
 		return systemUserResponse;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.security.service.entity.SystemUserService#findAllAdminUsers()
+	 */
+	@Override
+	public List<SystemUser> findAllAdminUsers() throws ApplicationException {
+		SystemGroup adminGroup = systemGroupService.findByCode("ADMIN");
+		List<SystemUser> users = new ArrayList<SystemUser>();
+		users.addAll(adminGroup.getSystemUsers());
+		return users;
+	}
+
 }

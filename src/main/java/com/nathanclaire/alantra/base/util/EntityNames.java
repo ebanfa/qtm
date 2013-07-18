@@ -98,11 +98,11 @@ public class EntityNames{
 		entityNames.put("CustomerTransactionLimit", "CustomerTransactionLimit");
 		entityNames.put("CustomerCategoryNotificationChannel", "CustomerCategoryNotificationChannel");
 		entityNames.put("CustomerAccount", "CustomerAccount");
-		entityNames.put("CustomerTypeNotificationChannel", "CustomerTypeNotificationChannel");
+		entityNames.put("CustomerTypeNotificationChannel", "Customer Type Notification Channel");
 		entityNames.put("CustomerType", "CustomerType");
-		entityNames.put("CustomerClassification", "CustomerClassification");
-		entityNames.put("CustomerBlacklist", "CustomerBlacklist");
-		entityNames.put("CustomerNotificationChannel", "CustomerNotificationChannel");
+		entityNames.put("CustomerClassification", "Customer Classification");
+		entityNames.put("CustomerBlacklist", "Customer Blacklist");
+		entityNames.put("CustomerNotificationChannel", "Customer Notification Channel");
 		entityNames.put("Customer", "Customer");
 		entityNames.put("CustomerCategory", "CustomerCategory");
 		entityNames.put("BusinessUnit", "BusinessUnit");
@@ -112,6 +112,8 @@ public class EntityNames{
 		entityNames.put("SystemGroup", "System Group");
 		entityNames.put("SystemUserGroup", "System User Group");
 		entityNames.put("SystemUser", "System User");
+		entityNames.put("SystemUserNotificationChannel", "SystemUserNotificationChannel");
+		entityNames.put("CurrentUserSession", "Current User Session");
 	}
 
 

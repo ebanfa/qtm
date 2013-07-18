@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.notification.service.process;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,14 +33,19 @@ public class TemplateProcessingServiceImpl extends BaseProcessService implements
 	 */
 	@Override
 	public FilledTemplate fillTemplate(Template template, Map<String, String> tagValues) throws ApplicationException {
+		if(template == null)
+			throw new ApplicationException(INVALID_TEMPLATE_SPECIFIED);
+		if (tagValues == null)
+			tagValues = new HashMap<String, String>();
 		// Get the template tags associated with the template type
 		Set<TemplateTypeTag> tags = getTemplateTags(template);
-		logger.debug("Filling template {} with {} tag values {}", template.getCode(), tagValues.size(), tagValues.toString());
+		logger.debug("Filling template {} with {} tag values {}", template, tagValues.size(), tagValues);
 		// Get the template type
 		FilledTemplate filledTemplate = new FilledTemplate(
 				template.getSubjectTxt(), template.getMessageTxt());
 		if(tags.isEmpty())
 			return filledTemplate;
+		logger.debug("Filling template header {}\n body {}", filledTemplate.getHeader(), filledTemplate.getBody());
 		// For each tag search and replace its occurrence in subject 
 		// and body text of the template, keeping track of resulting string(s)
 		for(TemplateTypeTag tag:tags)
@@ -48,15 +54,26 @@ public class TemplateProcessingServiceImpl extends BaseProcessService implements
 			{
 				// Header
 				filledTemplate.setHeader(
-						StringUtil.findAndReplace(tag.getCode(), filledTemplate.getHeader(), false));
+						StringUtil.findAndReplace(filledTemplate.getHeader(), tag.getCode(), tagValues.get(tag.getCode()), false));
 				// Body
 				filledTemplate.setBody(
-						StringUtil.findAndReplace(tag.getCode(), filledTemplate.getBody(), false));
+						StringUtil.findAndReplace(filledTemplate.getBody(), tag.getCode(), tagValues.get(tag.getCode()), false));
 			}
 		}
 		return filledTemplate;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.notification.service.process.TemplateProcessingService#addToTemplate(java.lang.String, java.lang.String, java.util.Map)
+	 */
+	@Override
+	public Map<String, String> addToTemplate(String tagKey, String tagValue, Map<String, String> templateTagValues){
+		if(templateTagValues == null)
+			templateTagValues = new HashMap<String, String>();
+		templateTagValues.put(tagKey, tagValue);
+		return templateTagValues;
+	}
+	
 	/**
 	 * @param template
 	 * @return

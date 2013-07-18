@@ -219,6 +219,13 @@
 			<version>3.2.9.Final</version>
             <scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+	      <groupId>org.jasypt</groupId>
+	      <artifactId>jasypt</artifactId>
+	      <version>1.9.0</version>
+	      <scope>compile</scope>
+	    </dependency>
 	
 		<!-- <dependency>
 			

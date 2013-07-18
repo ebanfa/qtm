@@ -21,6 +21,6 @@ public interface MessageApplicationActionService extends BaseEntityService<Messa
 	public static final String ADVICE_INQUIRY_REPLY = "ADVICE_INQUIRY_REPLY";
 	public static final String TXN_DATA_INPUT_REQUEST = "TXN_DATA_INPUT_REQUEST";
 	public static final String UNKNOWN_MSG_APPLICATION = "UNKNOWN_MSG_APPLICATION";
-	public static final String UNKNOWN_MSG_APPLICATION_ACTION = "UNKNOWN_MSG_ACTION";
+	public static final String UNKNOWN_MSG_APPLICATION_ACTION = "UNCLASSIFIED_INBOUND_MSG";
 	
 }

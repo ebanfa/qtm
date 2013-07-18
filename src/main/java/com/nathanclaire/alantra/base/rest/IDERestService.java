@@ -41,6 +41,7 @@ import com.nathanclaire.alantra.base.model.TempRelatedActivity;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityNames;
 import com.nathanclaire.alantra.base.util.FieldNames;
+import com.nathanclaire.alantra.base.util.StringUtil;
 
 /**
  * @author Edward Banfa 
@@ -160,6 +161,9 @@ public class IDERestService
 	{
     	//logger.debug("Processing entity {}", entity.getCode());
 		entity.setApplicationModule(module);
+		Map<String, String> names = new EntityNames().getEntityNames();
+		System.out.println("Entity mapping: >>>>>>>>>>>>>>>:" + names.get(entity.getName()));
+		entity.setDisplayNm(names.get(entity.getName()));
 		entityManager.merge(entity);
 		this.processEntityFields(entity);
     	//logger.debug("Processed entity {}", entity.getCode());
@@ -199,10 +203,25 @@ public class IDERestService
 		}
 		field.setApplicationEntity(entity);
 		this.processEntityFieldType(field);
+		if(StringUtil.flagToBoolean(field.getRelatedFg()))
+			this.processRelatedField(field);
 		entityManager.merge(field);
     	logger.debug("Processed entity {}", field.getCode());
 	}
 	
+	private void processRelatedField(ApplicationEntityField field) 
+	{
+		String parentEntityName = extractRelatedEntityNameFromFieldCode(field.getCode());
+		System.out.print("%%%%%%%%%%%%%%%%%%%%%% " + parentEntityName);
+		for(ApplicationEntity entity: entities)
+		{
+			String entityName = extractEntityNameFromEntityCode(entity.getCode());
+			if(parentEntityName.equals(entityName))
+				field.setApplicationRelatedEntity(entity);
+		}
+		
+	}
+
 	public void processEntityFieldType(ApplicationEntityField field)
 	{
 		for(ApplicationEntityFieldType fieldType: fieldTypes)
@@ -271,6 +290,7 @@ public class IDERestService
 		{
 			logger.debug("Processed activity {} for entity {}", activity.getCode(), entity.getCode());
 			activity.setApplicationEntity(entity);
+			activity.setDisplayNm(entity.getDisplayNm());
 			activity.setApplicationModule(entity.getApplicationModule());
 		}
     	group.setApplicationModule(entity.getApplicationModule());
@@ -468,6 +488,16 @@ public class IDERestService
 		return "";
 	}
 	
+	private String extractRelatedEntityNameFromFieldCode(String codeString)
+	{
+		String[] codeSubstrings = codeString.split("_");
+		if(codeSubstrings.length > 1)
+		{
+			return codeSubstrings[1];
+		}
+		return "";
+	}
+	
 	/**
 	 * @param codeString
 	 * @return
@@ -503,9 +533,10 @@ public class IDERestService
 	private String extractFieldTypeFormFieldCode(String codeString)
 	{
 		String[] codeSubstrings = codeString.split("_");
-		if(codeSubstrings.length > 2)
+		if(codeSubstrings.length > 0 )
 		{
-			return codeSubstrings[2];
+			int lastItem = codeSubstrings.length - 1;
+			return codeSubstrings[lastItem];
 		}
 		return "";
 	}

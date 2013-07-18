@@ -36,8 +36,8 @@ public class ServiceTransactionStatusServiceImpl
 	implements ServiceTransactionStatusService
 {
 	private static final String ENTITY_NAME = "ServiceTransactionStatus";
-	private static final String LIST_ACTIVITY_CODE = "LIST_CHANNEL_SERVICETRANSACTIONSTATUS";
-	private static final String EDIT_ACTIVITY_CODE = "EDIT_CHANNEL_SERVICETRANSACTIONSTATUS";
+	private static final String LIST_ACTIVITY_CODE = "LIST_TRANSACTION_SERVICETRANSACTIONSTATUS";
+	private static final String EDIT_ACTIVITY_CODE = "EDIT_TRANSACTION_SERVICETRANSACTIONSTATUS";
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceTransactionStatusServiceImpl.class);
 	

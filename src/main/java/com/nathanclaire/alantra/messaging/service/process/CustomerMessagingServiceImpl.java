@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.messaging.service.process;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.model.MessageType;
 import com.nathanclaire.alantra.messaging.util.Contact;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 
@@ -36,6 +36,7 @@ public class CustomerMessagingServiceImpl extends BaseMessagingService implement
 	public void sendMessageToCustomer(Customer customer, List<DataChannel> channels, 
 			String subjectText, String messageText) throws ApplicationException 
 	{
+		logger.debug("Sending message to customer {} on {} channels", customer, channels);
 		try {
 			if(customer == null)
 				throw new ApplicationException(INVALID_CUST_TO_SEND_MESSAGE_TO);
@@ -51,6 +52,16 @@ public class CustomerMessagingServiceImpl extends BaseMessagingService implement
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw new ApplicationException(ERROR_SENDING_MESSAGE_TO_CUST);
+		}
+	}
+
+	@Override
+	public void sendMessageToCustomers(List<Customer> customers, 
+			String subjectText, String messageText) throws ApplicationException {
+		// TODO Auto-generated method stub
+		for(Customer customer: customers){
+			logger.debug("ERROR CHECK CODE!!!!!!!!!!!##################%%%%%%%%%%%%%%", customer);
+			sendMessageToCustomer(customer, new ArrayList<DataChannel>(), subjectText, messageText);
 		}
 	}
 }

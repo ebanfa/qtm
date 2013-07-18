@@ -27,7 +27,11 @@ public class DataChannelRequest extends BaseRequest {
     private String dsTblNm;
     private String username;
     private String password;
-    private char inboundOutboundFg;
+    private String inboundOutboundCd;
+    private String connSecurityCd;
+    private String authMethodCd;
+    private Integer id;
+    private String code;
 
     public DataChannelRequest() {
     }
@@ -136,12 +140,44 @@ public class DataChannelRequest extends BaseRequest {
         this.password = password;
     }
 
-    public char getInboundOutboundFg() {
-        return this.inboundOutboundFg;
+    public String getInboundOutboundCd() {
+        return this.inboundOutboundCd;
     }
     
-    public void setInboundOutboundFg(char inboundOutboundFg) {
-        this.inboundOutboundFg = inboundOutboundFg;
+    public void setInboundOutboundCd(String inboundOutboundCd) {
+        this.inboundOutboundCd = inboundOutboundCd;
+    }
+
+    public String getConnSecurityCd() {
+        return this.connSecurityCd;
+    }
+    
+    public void setConnSecurityCd(String connSecurityCd) {
+        this.connSecurityCd = connSecurityCd;
+    }
+
+    public String getAuthMethodCd() {
+        return this.authMethodCd;
+    }
+    
+    public void setAuthMethodCd(String authMethodCd) {
+        this.authMethodCd = authMethodCd;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

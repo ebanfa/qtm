@@ -1,0 +1,158 @@
+<div class="widget widget-table action-table">
+                            
+    <div class="widget-header">
+        <i class="icon-th-list"></i>
+        <h3>Table</h3>
+    </div> <!-- /widget-header -->
+    
+    <div class="widget-content">
+        <div class="container-fluid form-container">
+            <form id="compose-message-form" class="mail_compose">
+			    <fieldset>
+			    	<legend>Compose a new message</legend>
+						<!-- Start field block. -->
+						<div class="row-fluid">
+							<div class="span2">
+                                <label for="to">Type:</label>
+                            </div> 	 				
+							<div class="span5">
+                                <select name="transport" id="transport-mode" class="">
+                                    <option value="EMAIL">Email</option>
+                                    <option value="SMS">SMS</option>
+                                </select>
+                            </div> 	
+                            <div class="span5">
+                                <select name="targetMode" id="target-mode" class="">
+                                    <option value="ADDRESS">By Address</option>
+                                    <option value="CATEGORY">By Customer Category</option>
+                                    <option value="TYPE">By Customer Type</option>
+                                    <option value="CLASSIFICATION">By Customer Classification</option>
+                                    <option value="ALL">All Customers</option>
+                                </select>
+                            </div>						
+						</div> 
+						<div id="toDiv" class="row-fluid">
+							<div class="span2">
+                                <label for="to">To:</label>
+                            </div> 				
+							<div class="span8">
+                                <!-- <input type="text" id="toList" value="" name="toList" placeholder="" class=""> -->
+                                <div id="customerlistitem" class="editable">
+                                </div>
+                            </div> 
+                            <div id="customerModalBtnDiv" class="span2">
+                             <a id="show-customer-search-dialog-btn"class="btn btn-primary" href="#">Add</a>
+                            </div> 	 				
+							 							
+						</div> 
+                        <div id="categoryDiv" class="row-fluid">
+                            <div class="span2">
+                                <label for="category">Category:</label>
+                            </div>              
+                            <div class="span10">
+                                <select name="category" id="category" class="">
+                                    <option value=""></option>
+                                </select>
+                            </div>                  
+                        </div> 
+                        <div id="typeDiv" class="row-fluid">
+                            <div class="span2">
+                                <label for="type">Type:</label>
+                            </div>              
+                            <div class="span10">
+                                <select name="type" id="type" class="">
+                                    <option value=""></option>
+                                </select>
+                            </div>                  
+                        </div> 
+                        <div id="classificationDiv" class="row-fluid">
+                            <div class="span2">
+                                <label for="classification">Classification:</label>
+                            </div>              
+                            <div class="span10">
+                                <select name="classification" id="classification" class="">
+                                    <option value=""></option>
+                                </select>
+                            </div>                  
+                        </div> 
+						<div class="row-fluid">
+                            <div class="span2">
+                                <label for="ccList">Cc:</label>
+                            </div>              
+                            <div class="span8">
+                                <div id="systemuserlistitem" class="editable">
+                                </div>
+                            </div> 
+                            <div id="customerModalBtnDiv" class="span2">
+                             <a id="show-user-search-dialog-btn"class="btn btn-primary" href="#">Add</a>
+                            </div>      							
+						</div> 
+						<div id="subjectDiv" class="row-fluid">
+							<div class="span2">
+                                <label for="subject">Subject:</label>
+                            </div> 				
+							<div class="span10">
+                                <input type="text" id="subject" value="" name="subject" placeholder="" class="">
+                            </div> 							
+						</div> 
+						<div class="row-fluid">
+							<div class="span2">
+                                <label for="text">Message:</label>
+                            </div> 				
+							<div class="span10">
+                                <textarea name="text" rows="8" cols="50"></textarea>
+                            </div> 							
+						</div> 
+			    	
+				    <button type="submit" class="btn btn-primary">Send</button>
+                    <a id="cancel-edit-activity-form" class="btn" href="#"><%= entities_strings.alantra_label_cancel %></a>
+			    </fieldset>
+		    </form>
+	    </div> <!-- /form container -->
+        
+    </div> <!-- /widget-content -->
+
+</div> <!-- /widget -->
+<div id="entity-search-dialog-div"></div>
+<!-- <div id="entity-search-dialog" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><%= entities_strings.activity %> <%= entities_strings.alantra_label_search %></h3>
+    </div>
+    <div class="modal-body">
+        <div id="search-form-div">
+            <form id="activity-search-form">
+                <fieldset>
+                    <!-- Start field block. --
+                        <div class="row-fluid">
+                            <!-- activity. --
+                            <div class="span4">
+                                    <label for="subject">Customer name:</label>
+                            </div>
+                            <!-- code.                             <div class="span8">
+                                <input type="text" id="name" value="" name="name" placeholder="Name">
+                            </div>                                 
+                        </div> 
+                        <div class="row-fluid">
+                            <!-- activity. --
+                            <div class="span12">
+                                <a id="do-customer-search-btn" href="#" class="btn btn-primary">Search</a>
+                            </div>                        
+                        </div> 
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="search-result-div">
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <!-- <a id="do-customer-search-btn" href="#" class="btn btn-primary">Search</a>
+        <a id="close-entity-search-dialog-btn" href="#" class="btn">Close</a> --
+    </div>
+</div> -->
+
+
+
+

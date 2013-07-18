@@ -8,12 +8,12 @@ import java.util.List;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.model.MessageType;
 
 /**
  * @author Edward Banfa 
  *
  */
+
 public interface CustomerMessagingService {
 
 	public static final String APP_PHONE_NO = "BaseMessagingService.APP_PHONE_NO";
@@ -25,5 +25,8 @@ public interface CustomerMessagingService {
 	
 	
 	public void sendMessageToCustomer(Customer customer, List<DataChannel> channels, 
+			String subjectText, String messageText) throws ApplicationException;
+	
+	public void sendMessageToCustomers(List<Customer> customers, 
 			String subjectText, String messageText) throws ApplicationException;
 }

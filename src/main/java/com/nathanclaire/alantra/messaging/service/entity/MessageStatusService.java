@@ -19,4 +19,6 @@ public interface MessageStatusService extends BaseEntityService<MessageStatus, M
 	public static final String SYSTEM_USER_NOT_REGISTERED = "SYSTEM_USER_NOT_REGISTERED";
 	public static final String SYSTEM_USER_MESSAGE_RECEIVED = "SYSTEM_USER_NOT_REGISTERED";
 	public static final String UNCLASSIFIED_MESSAGE_RECEIVED = "UNCLASSIFIED_MESSAGE_RECEIVED";
+	public static final String MESSAGE_SENT = "MESSAGE_SENT";
+	public static final String MESSAGE_NOT_SENT = "MESSAGE_NOT_SENT";
 }

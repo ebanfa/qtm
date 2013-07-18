@@ -14,5 +14,5 @@ import com.nathanclaire.alantra.businessdata.response.CurrencyResponse;
  */
 public interface CurrencyService extends BaseEntityService<Currency, CurrencyResponse, CurrencyRequest>
 {
-	
+	public final static String DEFAULT_CURRENCY_CODE= "13";
 }

@@ -49,26 +49,30 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     private String dsTblNm;
     private String username;
     private String password;
-    private char inboundOutboundFg;
+    private String inboundOutboundCd;
+    private String connSecurityCd;
+    private String authMethodCd;
 	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
 	private Set<Data> datas = new HashSet<Data>(0);
-	private Set<AdviceRequestMessage> adviceRequestMessages = new HashSet<AdviceRequestMessage>(0);
 	private Set<Message> messages = new HashSet<Message>(0);
+	private Set<AdviceRequestMessage> adviceRequestMessages = new HashSet<AdviceRequestMessage>(0);
 
     public DataChannel() {
     }
 
-    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, char inboundOutboundFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
-		this.inboundOutboundFg = inboundOutboundFg;
+		this.inboundOutboundCd = inboundOutboundCd;
+		this.connSecurityCd = connSecurityCd;
+		this.authMethodCd = authMethodCd;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, String description, String ipAddr, Integer portNo, String url, String dsDb, String dsTblNm, String username, String password, char inboundOutboundFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ServiceTransaction> serviceTransactions, Set<Data> datas, Set<AdviceRequestMessage> adviceRequestMessages, Set<Message> messages ) 
+    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, String description, String ipAddr, Integer portNo, String url, String dsDb, String dsTblNm, String username, String password, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ServiceTransaction> serviceTransactions, Set<Data> datas, Set<Message> messages, Set<AdviceRequestMessage> adviceRequestMessages ) 
     {
 		this.dataChannelStatus = dataChannelStatus;
 		this.dataChannelType = dataChannelType;
@@ -82,7 +86,9 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 		this.dsTblNm = dsTblNm;
 		this.username = username;
 		this.password = password;
-		this.inboundOutboundFg = inboundOutboundFg;
+		this.inboundOutboundCd = inboundOutboundCd;
+		this.connSecurityCd = connSecurityCd;
+		this.authMethodCd = authMethodCd;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -91,8 +97,8 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.serviceTransactions = serviceTransactions;
 		this.datas = datas;
-		this.adviceRequestMessages = adviceRequestMessages;
 		this.messages = messages;
+		this.adviceRequestMessages = adviceRequestMessages;
     }
     
     		
@@ -221,15 +227,37 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
         this.password = password;
     }
 		
-    @Column(name="INBOUND_OUTBOUND_FG" , nullable=false, length=1)
-    public char getInboundOutboundFg() 
+    @Column(name="INBOUND_OUTBOUND_CD" , nullable=false, length=15)
+    public String getInboundOutboundCd() 
     {
-        return this.inboundOutboundFg;
+        return this.inboundOutboundCd;
     }
     
-    public void setInboundOutboundFg(char inboundOutboundFg) 
+    public void setInboundOutboundCd(String inboundOutboundCd) 
     {
-        this.inboundOutboundFg = inboundOutboundFg;
+        this.inboundOutboundCd = inboundOutboundCd;
+    }
+		
+    @Column(name="CONN_SECURITY_CD" , nullable=false, length=15)
+    public String getConnSecurityCd() 
+    {
+        return this.connSecurityCd;
+    }
+    
+    public void setConnSecurityCd(String connSecurityCd) 
+    {
+        this.connSecurityCd = connSecurityCd;
+    }
+		
+    @Column(name="AUTH_METHOD_CD" , nullable=false, length=15)
+    public String getAuthMethodCd() 
+    {
+        return this.authMethodCd;
+    }
+    
+    public void setAuthMethodCd(String authMethodCd) 
+    {
+        this.authMethodCd = authMethodCd;
     }
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataChannel")
@@ -258,18 +286,6 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataChannel")
     @JsonIgnore
-    public Set<AdviceRequestMessage> getAdviceRequestMessages() 
-    {
-        return this.adviceRequestMessages;
-    }
-    
-    public void setAdviceRequestMessages(Set<AdviceRequestMessage> adviceRequestMessages) 
-    {
-        this.adviceRequestMessages = adviceRequestMessages;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataChannel")
-    @JsonIgnore
     public Set<Message> getMessages() 
     {
         return this.messages;
@@ -278,6 +294,18 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     public void setMessages(Set<Message> messages) 
     {
         this.messages = messages;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataChannel")
+    @JsonIgnore
+    public Set<AdviceRequestMessage> getAdviceRequestMessages() 
+    {
+        return this.adviceRequestMessages;
+    }
+    
+    public void setAdviceRequestMessages(Set<AdviceRequestMessage> adviceRequestMessages) 
+    {
+        this.adviceRequestMessages = adviceRequestMessages;
     }			
 
 

@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,6 +27,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
@@ -161,6 +163,18 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
 		return query.getResultList();
     }
     
+    public List<ApplicationEntityField> getEntitySearchFields(String entityName) throws ApplicationException
+    {
+    	String qlString = "SELECT o FROM ApplicationEntityField o WHERE " +
+    			"o.searchFieldFg = :searchFieldFg and o.applicationEntity.name = :name";
+    	Query query = entityManager.createQuery(qlString);
+    	query.setParameter("searchFieldFg", new Character('Y'));
+    	query.setParameter("name", entityName);
+    	List<ApplicationEntityField> fields = query.getResultList();
+    	System.out.print("Hey:>>>>>>>>>>>>:"+fields.size());
+    	return fields;
+    }
+    
     /**
      * @param request
      * @return
@@ -274,6 +288,15 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
         if (queryParameters.containsKey(NAME_CRITERIA)) {
             String name = queryParameters.getFirst(NAME_CRITERIA);
             predicates.add(criteriaBuilder.equal(root.get(NAME_CRITERIA), name));
+        }
+        for(String CRITERIA : queryParameters.keySet())
+        {
+        	if(CRITERIA.equals(CODE_CRITERIA));
+        	else if(CRITERIA.equals(CODE_CRITERIA));
+        	else {
+        		String VALUE = queryParameters.getFirst(CRITERIA);
+                predicates.add(criteriaBuilder.equal(root.get(CRITERIA), VALUE));
+        	}
         }
         return predicates.toArray(new Predicate[]{});
     }

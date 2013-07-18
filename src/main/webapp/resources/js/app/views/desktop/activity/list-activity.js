@@ -1,10 +1,12 @@
 define([
     'utilities',
     'i18n!app/nls/entities',
+    'app/util/formUtilities',
     'text!../../../../../templates/desktop/activity/list-activity.html'
 ], function (
     utilities,
-    entities_strings,
+    entities_strings, 
+    formUtilities, 
     activityListTemplate) {
 
     var ActivityListView = Backbone.View.extend({

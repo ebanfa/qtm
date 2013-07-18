@@ -96,7 +96,7 @@ public class AdviceTextProcessingServiceImpl extends BaseProcessService
 	public AdviceType getAdviceTypeInAdviceText(String adviceText) throws ApplicationException {
 		logger.debug("Searching for advice type in advice text {}", adviceText);
 		// Group 1 is the advice type tag
-		String adviceTypeText = StringUtil.extractRegexGroupFromText(adviceText, ADVICE_TEXT_REGEX_PATTERN, 5);
+		String adviceTypeText = StringUtil.extractRegexGroupFromText(adviceText, ADVICE_TEXT_REGEX_PATTERN, 1);
 		logger.debug("Extracted advice type {} from advice text {}", adviceTypeText, adviceText);
 		// Abort if not found
 		if(!StringUtil.isValidString(adviceTypeText))

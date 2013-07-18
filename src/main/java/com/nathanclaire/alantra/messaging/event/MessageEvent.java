@@ -15,6 +15,7 @@ public class MessageEvent {
 	private Integer messageId;
 	private String messageText;
 	private Integer customerId;
+	private String customerName;
 	private String messageCode;
 	private Integer systemUserId;
 	private Integer attachmentId;
@@ -28,6 +29,7 @@ public class MessageEvent {
 	private boolean containsAttachment;
 	private String messageApplicationCode;
 	private String messageApplicationActionCode;
+	private String statusInformation;
 	
 	public static final String SENDER_TY_USER = "USER";
 	public static final String SENDER_TY_CUSTOMER = "CUSTOMER";
@@ -329,6 +331,34 @@ public class MessageEvent {
 	 */
 	public void setMessageApplicationActionCode(String messageApplicationActionCode) {
 		this.messageApplicationActionCode = messageApplicationActionCode;
+	}
+
+	/**
+	 * @return the statusInformation
+	 */
+	public String getStatusInformation() {
+		return statusInformation;
+	}
+
+	/**
+	 * @param statusInformation the statusInformation to set
+	 */
+	public void setStatusInformation(String statusInformation) {
+		this.statusInformation = statusInformation;
+	}
+
+	/**
+	 * @return the customerName
+	 */
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	/**
+	 * @param customerName the customerName to set
+	 */
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 }

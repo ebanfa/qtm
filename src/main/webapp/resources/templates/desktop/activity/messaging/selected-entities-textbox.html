@@ -1,0 +1,11 @@
+<%
+_.each(model, function (entity) {
+%> 
+
+    <% if  (entity.fieldName == fieldName) { %>       
+		<div tabindex="-1" contenteditable="true">
+			<%=entity.entityLite.name%>;
+			<input type="hidden" class="entityId" name="entityId" value="<%=entity.entityLite.id%>" >
+		</div>
+    <% }  %>
+<% }); %>    

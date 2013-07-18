@@ -152,7 +152,8 @@ public class CustomerProcessingServiceImpl extends BaseProcessService implements
 	 * @return
 	 * @throws ApplicationException
 	 */
-	private Customer findCustomerByPhone(String sourceAddress) throws ApplicationException 
+	@Override
+	public  Customer findCustomerByPhone(String sourceAddress) throws ApplicationException 
 	{
 		Map<String, String> criteria = new HashMap<String, String>();
 		// First we search by primary phone number
@@ -175,7 +176,8 @@ public class CustomerProcessingServiceImpl extends BaseProcessService implements
 	 * @return
 	 * @throws ApplicationException
 	 */
-	private Customer findCustomerByEmail(String sourceAddress) throws ApplicationException 
+	@Override
+	public Customer findCustomerByEmail(String sourceAddress) throws ApplicationException 
 	{
 		Map<String, String> criteria = new HashMap<String, String>();
 		// First we search by primary phone number

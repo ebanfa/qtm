@@ -20,6 +20,8 @@ public class SystemUserResponse extends BaseResponse {
     private String password;
     private String email;
     private String mobile;
+    private String lockedFg;
+    private String multiLoginFg;
 
     public SystemUserResponse() {
     }
@@ -70,6 +72,22 @@ public class SystemUserResponse extends BaseResponse {
     
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getLockedFg() {
+        return this.lockedFg;
+    }
+    
+    public void setLockedFg(String lockedFg) {
+        this.lockedFg = lockedFg;
+    }
+
+    public String getMultiLoginFg() {
+        return this.multiLoginFg;
+    }
+    
+    public void setMultiLoginFg(String multiLoginFg) {
+        this.multiLoginFg = multiLoginFg;
     }
 
 

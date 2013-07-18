@@ -59,5 +59,6 @@ require([
 });
 
 define("configuration", {
-    baseUrl : ""
+    baseUrl : "",
+    entitySearchFieldPath: "/searchFields"
 });

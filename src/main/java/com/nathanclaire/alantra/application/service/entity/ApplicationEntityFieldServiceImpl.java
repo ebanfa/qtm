@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.MultivaluedMap;
 
+import com.nathanclaire.alantra.application.model.ApplicationEntity;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationEntityFieldType;
 import com.nathanclaire.alantra.application.request.ApplicationEntityFieldRequest;
@@ -175,17 +176,43 @@ public class ApplicationEntityFieldServiceImpl
      * @return
      */
 	@Override
+     public ApplicationEntityField convertRequestToModel(ApplicationEntityFieldRequest applicationEntityFieldRequest) 
+	     throws ApplicationException {
+			ApplicationEntityField applicationEntityField = new ApplicationEntityField();
+			// Copy properties
+			List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
+			PropertyUtils.copyProperties(applicationEntityFieldRequest, applicationEntityField, allowedEntityFields);
+	    	//Process many to one relationships
+	    	if (applicationEntityFieldRequest.getApplicationEntityFieldTypeId() != null)
+	    	{
+	    		ApplicationEntityFieldType applicationEntityFieldType = getEntityManager().find(ApplicationEntityFieldType.class, applicationEntityFieldRequest.getApplicationEntityFieldTypeId());
+	    		applicationEntityField.setApplicationEntityFieldType(applicationEntityFieldType);
+	    	}
+	    	if (applicationEntityFieldRequest.getApplicationRelatedEntityId() != null)
+	    	{
+	    		ApplicationEntity applicationRelatedEntity = getEntityManager().find(ApplicationEntity.class, applicationEntityFieldRequest.getApplicationRelatedEntityId());
+	    		applicationEntityField.setApplicationRelatedEntity(applicationRelatedEntity);
+	    	}
+	    	if (applicationEntityFieldRequest.getApplicationEntityId() != null)
+	    	{
+	    		ApplicationEntity applicationEntity = getEntityManager().find(ApplicationEntity.class, applicationEntityFieldRequest.getApplicationEntityId());
+	    		applicationEntityField.setApplicationEntity(applicationEntity);
+	    	}
+			return applicationEntityField;
+		}
+    		/*
+	@Override
     public ApplicationEntityField convertRequestToModel(ApplicationEntityFieldRequest applicationEntityFieldRequest) 
     {
 		ApplicationEntityField applicationEntityField = new ApplicationEntityField();
 		applicationEntityField = this.loadDefaultFieldsFromRequest(applicationEntityField, applicationEntityFieldRequest);
     	//Process many to one relationships
-    	if (applicationEntityFieldRequest.getApplicationEntityFieldType() != null)
+    	if (applicationEntityFieldRequest.getApplicationEntityFieldTypeId() != null)
     	{
-    		ApplicationEntityFieldType applicationEntityFieldType = getEntityManager().find(ApplicationEntityFieldType.class, applicationEntityFieldRequest.getApplicationEntityFieldType());
+    		ApplicationEntityFieldType applicationEntityFieldType = getEntityManager().find(ApplicationEntityFieldType.class, applicationEntityFieldRequest.getApplicationEntityFieldTypeId());
     		applicationEntityField.setApplicationEntityFieldType(applicationEntityFieldType);
     	}
-    	/*if (applicationEntityFieldRequest.getApplicationRelatedEntity() != null)
+    	if (applicationEntityFieldRequest.getApplicationRelatedEntity() != null)
     	{
     		ApplicationEntity applicationRelatedEntity = getEntityManager().find(ApplicationEntity.class, applicationEntityFieldRequest.getApplicationRelatedEntity());
     		applicationEntityField.setApplicationRelatedEntity(applicationRelatedEntity);
@@ -194,7 +221,7 @@ public class ApplicationEntityFieldServiceImpl
     	{
     		ApplicationEntity applicationEntity = getEntityManager().find(ApplicationEntity.class, applicationEntityFieldRequest.getApplicationEntity());
     		applicationEntityField.setApplicationEntity(applicationEntity);
-    	}*/
+    	}
     	applicationEntityField.setName(applicationEntityFieldRequest.getName()); 
     	applicationEntityField.setDescription(applicationEntityFieldRequest.getDescription()); 
     	applicationEntityField.setPrimarykeyFg(applicationEntityFieldRequest.getPrimarykeyFg()); 
@@ -209,16 +236,34 @@ public class ApplicationEntityFieldServiceImpl
     	applicationEntityField.setCode(applicationEntityFieldRequest.getCode()); 
     	applicationEntityField.setRecSt(applicationEntityFieldRequest.getRecSt()); 
 		return applicationEntityField;
-	}
+	}*/
 	
 	@Override
 	public ApplicationEntityFieldResponse convertModelToResponse(ApplicationEntityField model)  throws ApplicationException {
 		if (model == null) return null;
-		ApplicationEntityFieldResponse applicationEntityFieldResponse = new ApplicationEntityFieldResponse();
+		/*ApplicationEntityFieldResponse applicationEntityFieldResponse = new ApplicationEntityFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtils.copyProperties(model, applicationEntityFieldResponse, allowedEntityFields);
 		ApplicationEntityFieldType fieldType = model.getApplicationEntityFieldType();
-		applicationEntityFieldResponse.setFieldTypeCode(this.getFieldTypeCode(fieldType));
+		applicationEntityFieldResponse.setApplicationEntityFieldTypeText(this.getFieldTypeCode(fieldType));
+		return applicationEntityFieldResponse;*/
+		ApplicationEntityFieldResponse applicationEntityFieldResponse = new ApplicationEntityFieldResponse();
+		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
+		PropertyUtils.copyProperties(model, applicationEntityFieldResponse, allowedEntityFields);
+		// Set the value of the response to the value of the id of the related Entity
+		if(model.getApplicationEntityFieldType() != null){
+			applicationEntityFieldResponse.setApplicationEntityFieldTypeId(model.getApplicationEntityFieldType().getId());
+			ApplicationEntityFieldType fieldType = model.getApplicationEntityFieldType();
+			applicationEntityFieldResponse.setApplicationEntityFieldTypeText(this.getFieldTypeCode(fieldType));
+		}
+		if(model.getApplicationRelatedEntity() != null){
+			applicationEntityFieldResponse.setApplicationRelatedEntityId(model.getApplicationRelatedEntity().getId());
+			applicationEntityFieldResponse.setApplicationRelatedEntityText(model.getApplicationRelatedEntity().getName());
+		}
+		if(model.getApplicationEntity() != null){
+			applicationEntityFieldResponse.setApplicationEntityId(model.getApplicationEntity().getId());
+			applicationEntityFieldResponse.setApplicationEntityText(model.getApplicationEntity().getName());
+		}
 		return applicationEntityFieldResponse;
 	}
 	

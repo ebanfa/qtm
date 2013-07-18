@@ -16,6 +16,7 @@ import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
 import com.nathanclaire.alantra.advice.service.entity.AdviceService;
 import com.nathanclaire.alantra.advice.service.process.AdviceProcessingService;
+import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
@@ -30,6 +31,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataTypeService;
 import com.nathanclaire.alantra.datasource.service.process.JobHelper;
 import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.model.MessageAttachment;
+import com.nathanclaire.alantra.messaging.model.MessageCategory;
 import com.nathanclaire.alantra.messaging.service.entity.MessageApplicationActionService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageAttachmentService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
@@ -37,18 +39,18 @@ import com.nathanclaire.alantra.messaging.service.process.MessagingModuleService
 import com.nathanclaire.alantra.notification.service.entity.TemplateTypeTagService;
 import com.nathanclaire.alantra.notification.service.process.NotificationService;
 import com.nathanclaire.alantra.security.model.SystemUser;
-import com.nathanclaire.alantra.security.service.process.SecurityService;
+import com.nathanclaire.alantra.security.service.process.SecurityModuleService;
 
 /**
  * @author Edward Banfa 
  *
  */
-public class BaseMessageListener {
+public class BaseMessageListener extends BaseProcessService {
 
 	@Inject JobHelper helper;
 	@Inject AdviceService adviceService;
 	@Inject DataTypeService dataTypeService;
-	@Inject SecurityService securityService;
+	@Inject SecurityModuleService securityModuleService;
 	@Inject NotificationService notificationService;
 	@Inject AdviceProcessingService adviceProcessingService;
 	@Inject MessagingModuleService messagingModuleService;
@@ -111,11 +113,14 @@ public class BaseMessageListener {
 			throws ApplicationException 
 	{
 		Map<String,String> templateTagValues = new HashMap<String, String>();
+		templateTagValues.put(TemplateTypeTagService.CUSTOMER_NAME, event.getCustomerName());
 		templateTagValues.put(TemplateTypeTagService.MESSAGE_CODE, event.getMessageCode());
 		templateTagValues.put(TemplateTypeTagService.MESSAGE_JOB_CODE, event.getJobCode());
 		templateTagValues.put(TemplateTypeTagService.MESSAGE_TY_CODE, event.getMessageTypeCode());
+		//templateTagValues.put(TemplateTypeTagService.MESSAGE_CATEGORY, event.getMessageTypeCode());
 		templateTagValues.put(TemplateTypeTagService.MESSAGE_SOURCE_ADDR, event.getSourceAddress());
 		templateTagValues.put(TemplateTypeTagService.MESSAGE_DESTINATION_ADDR, event.getDestinationAddress());
+		templateTagValues.put(TemplateTypeTagService.STATUS_INFORMATION, event.getStatusInformation());
 		return templateTagValues;
 	}
 
@@ -135,7 +140,7 @@ public class BaseMessageListener {
 	 * @throws ApplicationException
 	 */
 	protected SystemUser getUser(Integer userId) throws ApplicationException {
-		return securityService.getUserById(userId);
+		return securityModuleService.getUserById(userId);
 	}
 	
 	/**
@@ -187,6 +192,11 @@ public class BaseMessageListener {
 				attachmentDataConfig.getDataStructure(), attachmentDataConfig.getDataType(), dataChannelTypeCode);
 		return inputJob;
 	}
+	
+	protected MessageCategory getMessageCategory(Message message)
+	{
+		return message.getMessageType().getMessageCategory();
+	}
 
 	/**
 	 * @param dataChannelTypeCode
@@ -226,4 +236,5 @@ public class BaseMessageListener {
 			dataChannelType = DataChannelTypeService.FILE_EXCEL_CHANNEL;
 		return dataChannelType;
 	}
+	
 }

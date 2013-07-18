@@ -16,7 +16,7 @@ public interface MessageTextProcessingService {
 
 	public static final String READ_MSG_APPL_FAILED = 
 			"MessageTextProcessingService.READ_MSG_APPL_FAILED";
-	public static final String PARSE_REGEX_PATTERN = "([a-zA-Z]*)([\\s]*)([a-zA-Z]*)([\\s]*)([a-zA-Z]*)([\\s]*)([a-zA-Z]*)([\\s]*)([.]*)";
+	public static final String PARSE_REGEX_PATTERN = "((?i)[a-zA-Z]*)([\\s]*)((?i)[a-zA-Z]*)([\\s]*)((?i)[a-zA-Z]*)([\\s]*)((?i)[a-zA-Z]*)([\\s]*)([.]*)";
 	public static final String MESSAGE_APPL_NOT_FOUND = "MessageTextProcessingService.MESSAGE_APPL_NOT_FOUND";
 	public static final String GET_MESSSAGE_TEXT_FAILED = "MessageTextProcessingService.GET_MESSSAGE_TEXT_FAILED";
 	public static final String READ_MSG_APPL_ACTION_FAILED = "MessageTextProcessingService.READ_MSG_APPL_ACTION_FAILED";

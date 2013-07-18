@@ -16,6 +16,7 @@ public interface CustomerTypeService extends BaseEntityService<CustomerType, Cus
 {
 	public final String ORG_CUST_TYPE_CODE = "ORGANIZATION";
 	public final String INDIVIDUAL_CUST_TYPE_CODE = "INDIVIDUAL";
+	public final String PROFESSIONAL = "PROFESSIONAL";
 
 
 }

@@ -19,6 +19,7 @@ public class BaseActivityResponse extends BaseResponse {
 	private String activityUrl;
 	private Integer errorCode;
 	private String errorMessage;
+	private String displayNm;
 	private List<ApplicationRelatedActivityResponse> relatedActivities = new ArrayList<ApplicationRelatedActivityResponse>();
 	private List<ApplicationEntityFieldResponse> fields = new ArrayList<ApplicationEntityFieldResponse>();
 
@@ -90,6 +91,20 @@ public class BaseActivityResponse extends BaseResponse {
 	 */
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+
+	/**
+	 * @return the displayNm
+	 */
+	public String getDisplayNm() {
+		return displayNm;
+	}
+
+	/**
+	 * @param displayNm the displayNm to set
+	 */
+	public void setDisplayNm(String displayNm) {
+		this.displayNm = displayNm;
 	}
 
 }

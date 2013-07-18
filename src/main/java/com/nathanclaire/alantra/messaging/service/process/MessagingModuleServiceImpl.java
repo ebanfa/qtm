@@ -3,7 +3,10 @@
  */
 package com.nathanclaire.alantra.messaging.service.process;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,8 +17,11 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.customer.service.process.CustomerChannelProcessingService;
 import com.nathanclaire.alantra.customer.service.process.CustomerProcessingService;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
+import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.model.MessageApplication;
 import com.nathanclaire.alantra.messaging.model.MessageApplicationAction;
@@ -26,7 +32,7 @@ import com.nathanclaire.alantra.messaging.model.MessageType;
 import com.nathanclaire.alantra.messaging.request.MessageAttachmentRequest;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.security.model.SystemUser;
-import com.nathanclaire.alantra.security.service.process.SecurityService;
+import com.nathanclaire.alantra.security.service.process.SecurityModuleService;
 
 /**
  * @author Edward Banfa 
@@ -35,13 +41,18 @@ import com.nathanclaire.alantra.security.service.process.SecurityService;
 @Stateless
 public class MessagingModuleServiceImpl extends BaseProcessService implements MessagingModuleService {
 
+	public static final String SMS = "SMS";
+	public static final String EMAIL = "EMAIL";
+	@Inject DataChannelService channelService;
 	@Inject MessageProcessService messageProcessService;
-	@Inject SecurityService securityService;
+	@Inject SecurityModuleService securityModuleService;
 	@Inject AttachmentService attachmentService;
 	@Inject ClassificationService classificationService;
 	@Inject CustomerMessagingService customerMessagingService;
+	@Inject SystemUserMessagingService userMessagingService;
 	@Inject CustomerProcessingService customerProcessingService;
 	@Inject MessageTextProcessingService messageTextProcessingService;
+	@Inject CustomerChannelProcessingService channelProcessingService;
 	
 	private Logger logger = LoggerFactory.getLogger(MessagingModuleServiceImpl.class);
 
@@ -79,7 +90,7 @@ public class MessagingModuleServiceImpl extends BaseProcessService implements Me
 	public SystemUser findSystemUserFromMessageRequest(DataChannel dataChannel, MessageRequest messageRequest 
 			) throws ApplicationException {
 		// Users cannot share source addresses
-		return securityService.findUserBySourceAddress(messageRequest.getMessageFrom());
+		return securityModuleService.findUserBySourceAddress(messageRequest.getMessageFrom());
 	}
 
 	/* (non-Javadoc)
@@ -160,8 +171,8 @@ public class MessagingModuleServiceImpl extends BaseProcessService implements Me
 	 */
 	@Override
 	public void sendUserMessage(SystemUser user, List<DataChannel> channels,
-			MessageType messageType, String subjectText, String messageText) throws ApplicationException {
-		// TODO Auto-generated method stub
+			String subjectText, String messageText) throws ApplicationException {
+		userMessagingService.sendMessageToUser(user, channels, subjectText, messageText);
 	}
 
 	/* (non-Javadoc)
@@ -185,6 +196,58 @@ public class MessagingModuleServiceImpl extends BaseProcessService implements Me
 	public MessageApplicationAction getMessageApplicationAction(MessageRequest messageRequest) throws ApplicationException {
 		String messageText = messageTextProcessingService.getMessageText(messageRequest);
 		return messageTextProcessingService.getMessageApplicationAction(messageText);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.messaging.service.process.MessagingModuleService#sendMessageToCustomers(java.lang.String, java.util.List, java.util.List, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void sendMessageToCustomers(String transport, 
+			List<Customer> customersToReceiveMsg, String subject, String text) throws ApplicationException 
+	{
+		for(Customer customer: customersToReceiveMsg){
+			Map<String, Boolean> channelCategoriesProcessed = new HashMap<String, Boolean>();
+			List<DataChannel> customerChannels = channelProcessingService.getCustomerOutboundChannels(customer);
+			sendMessageToCustomer(transport, subject, text, customer,
+					channelCategoriesProcessed, customerChannels);
+		}
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.messaging.service.process.MessagingModuleService#sendMessageToUsers(java.lang.String, java.util.List, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void sendMessageToUsers(String transport, 
+			List<SystemUser> usersToReceiveMsg, String subject, String text) throws ApplicationException {
+	}
+
+	/**
+	 * @param transport
+	 * @param subject
+	 * @param text
+	 * @param customer
+	 * @param channelCategoriesProcessed
+	 * @param customerChannels
+	 * @throws ApplicationException
+	 */
+	private void sendMessageToCustomer(String transport, String subject, 
+			String text, Customer customer,	Map<String, Boolean> channelCategoriesProcessed, 
+			List<DataChannel> customerChannels) throws ApplicationException {
+		for(DataChannel channel: customerChannels)
+		{
+			DataChannelCategory channelCategory = channelService.getChannelCategory(channel);
+			if(!channelCategoriesProcessed.containsKey(channelCategory.getCode()))
+			{
+				logger.debug("Verifying channel category code: {} against transaport: {}" , channelCategory.getCode(), transport);
+				if(channelCategory.getCode().contains(transport)){
+					List<DataChannel> singleChannelList = new ArrayList<DataChannel>();
+					singleChannelList.add(channel);
+					customerMessagingService.sendMessageToCustomer(customer, singleChannelList, subject, text);
+					channelCategoriesProcessed.put(channelCategory.getCode(), true);
+				}
+			}
+		}
 	}
 	
 }

@@ -19,12 +19,14 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.customer.model.CustomerCategory;
 import com.nathanclaire.alantra.customer.model.CustomerClassification;
 import com.nathanclaire.alantra.customer.model.CustomerType;
 import com.nathanclaire.alantra.customer.request.CustomerRequest;
 import com.nathanclaire.alantra.customer.response.CustomerResponse;
 import com.nathanclaire.alantra.customer.service.entity.CustomerClassificationService;
 import com.nathanclaire.alantra.customer.service.entity.CustomerTypeService;
+import com.nathanclaire.alantra.security.model.SystemUser;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
@@ -46,13 +48,11 @@ public class CustomerServiceImpl
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_CUSTOMER_CUSTOMER";
 	
 	private Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
-	
-	@Inject
-	ApplicationEntityService  applicationEntityService;
-	@Inject
-	CustomerClassificationService  customerClassificationService;
-	@Inject
-	CustomerTypeService  customerTypeService;
+
+	@Inject	CustomerTypeService  customerTypeService;
+	@Inject	CustomerCategoryService  customerCategoryService;
+	@Inject	ApplicationEntityService  applicationEntityService;
+	@Inject	CustomerClassificationService  customerClassificationService;
 	
 	/**
 	 * @param entityClass
@@ -83,6 +83,51 @@ public class CustomerServiceImpl
 	@Override
 	public Customer findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.customer.service.entity.CustomerService#findByIds(java.util.List)
+	 */
+	@Override
+	public List<Customer> findByIds(List<Integer> idsOfCustomers) throws ApplicationException {
+		List<Customer> customers = new ArrayList<Customer>();
+		for(Integer id : idsOfCustomers)
+			customers.add(findById(id));
+		return customers;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.customer.service.entity.CustomerService#findByType(java.lang.String)
+	 */
+	@Override
+	public List<Customer> findByType(String code) throws ApplicationException {
+		CustomerType customerType = customerTypeService.findByCode(code);
+		List<Customer> customers = new ArrayList<Customer>();
+		customers.addAll(customerType.getCustomers());
+		return customers;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.customer.service.entity.CustomerService#findByCategory(java.lang.String)
+	 */
+	@Override
+	public List<Customer> findByCategory(String code) throws ApplicationException {
+		List<Customer> customers = new ArrayList<Customer>();
+		CustomerCategory customerCategory = customerCategoryService.findByCode(code);
+		for(CustomerType customerType: customerCategory.getCustomerTypes())
+			customers.addAll(customerType.getCustomers());
+		return customers;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.customer.service.entity.CustomerService#findByClassification(java.lang.String)
+	 */
+	@Override
+	public List<Customer> findByClassification(String code) throws ApplicationException {
+		CustomerClassification customerClassification = customerClassificationService.findByCode(code);
+		List<Customer> customers = new ArrayList<Customer>();
+		customers.addAll(customerClassification.getCustomers());
+		return customers;
 	}
 
 	/* (non-Javadoc)

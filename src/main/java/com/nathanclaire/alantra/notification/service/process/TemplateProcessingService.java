@@ -18,7 +18,12 @@ public interface TemplateProcessingService {
 	public static final String CONFIG_ERROR_NO_TEMPLATE_TYPE_CONFIGURED = 
 			"TemplateProcessingService.CONFIG_ERROR_NO_TEMPLATE_TYPE_CONFIGURED";
 	public static final String INVALID_TEMPLATE_SPECIFIED_NULL = "TemplateProcessingService.INVALID_TEMPLATE_SPECIFIED_NULL";
+
+	public static final String INVALID_TEMPLATE_SPECIFIED = "TemplateProcessingService.INVALID_TEMPLATE_SPECIFIED";
+	
 	
 	public FilledTemplate fillTemplate(Template template, Map<String, String> tagValues) 
 			throws ApplicationException;
+
+	public Map<String, String> addToTemplate(String tagKey, String tagValue, Map<String, String> templateTagValues) throws ApplicationException;
 }

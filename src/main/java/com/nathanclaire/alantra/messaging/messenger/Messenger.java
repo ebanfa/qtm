@@ -16,6 +16,10 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
 public interface Messenger {
 	
 
+	public static final String ADDRESS_ERROR = "Messenger.ADDRESS_ERROR";
+	public static final String MESSAGING_ERROR = "Messenger.MESSAGING_ERROR";
+	public static final String SEND_FAILED_ERROR = "Messenger.SEND_FAILED_ERROR";
+	public static final String NO_SUCH_PROVIDER_ERROR = "Messenger.NO_SUCH_PROVIDER_ERROR";
 	public static final String INVALID_SENDER_ADDRESS = "MessageReader.INVALID_SENDER_ADDRESS";
 	
 	/**

@@ -19,6 +19,7 @@ import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
 import com.nathanclaire.alantra.datasource.model.DataChannel;
+import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelStatus;
 import com.nathanclaire.alantra.datasource.model.DataChannelType;
 import com.nathanclaire.alantra.datasource.request.DataChannelRequest;
@@ -92,7 +93,20 @@ public class DataChannelServiceImpl
 	public List<DataChannel> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
-
+	
+	/**
+	 * @param channel
+	 * @return
+	 */
+	@Override
+	public DataChannelCategory getChannelCategory(DataChannel channel) throws ApplicationException {
+		if(channel == null) 	throw new ApplicationException(INVALID_CHANNEL_SPECIFIED);
+		DataChannelType channelType = channel.getDataChannelType();
+		if(channelType == null) throw new ApplicationException(CONFIG_ERROR_INVALID_NO_PARENT_TYPE_FOUND);
+		DataChannelCategory channelCategory = channelType.getDataChannelCategory();
+		if(channelCategory == null) throw new ApplicationException(CONFIG_ERROR_INVALID_NO_PARENT_CATEGORY_FOUND);
+		return channelCategory;
+	}
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.DataChannel#createDataChannel(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */

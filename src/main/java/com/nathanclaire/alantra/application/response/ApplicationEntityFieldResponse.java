@@ -3,6 +3,9 @@
  */
 package com.nathanclaire.alantra.application.response;
 
+import java.util.Date;
+import java.math.BigDecimal;
+
 import com.nathanclaire.alantra.base.response.BaseResponse;
 
 /**
@@ -12,19 +15,21 @@ import com.nathanclaire.alantra.base.response.BaseResponse;
 public class ApplicationEntityFieldResponse extends BaseResponse {
 
     private Integer applicationEntityFieldTypeId;
+    private String applicationEntityFieldTypeText;
     private Integer applicationRelatedEntityId;
+    private String applicationRelatedEntityText;
     private Integer applicationEntityId;
-    private String fieldTypeCode;
-    private String description;
-    private char primarykeyFg;
+    private String applicationEntityText;
     private String storage;
-    private char requiredFg;
+    private Character primarykeyFg;
+    private Character requiredFg;
+    private Character searchFieldFg;
     private Character uniqueFg;
     private Character relatedFg;
     private Integer size;
     private Integer maxDigits;
     private Integer decimalPrecision;
-    private int sequenceNo;
+    private Integer sequenceNo;
 
     public ApplicationEntityFieldResponse() {
     }
@@ -37,12 +42,28 @@ public class ApplicationEntityFieldResponse extends BaseResponse {
         this.applicationEntityFieldTypeId = applicationEntityFieldTypeId;
     }
 
+    public String getApplicationEntityFieldTypeText() {
+        return this.applicationEntityFieldTypeText;
+    }
+    
+    public void setApplicationEntityFieldTypeText(String applicationEntityFieldTypeText) {
+        this.applicationEntityFieldTypeText = applicationEntityFieldTypeText;
+    }
+
     public Integer getApplicationRelatedEntityId() {
         return this.applicationRelatedEntityId;
     }
     
     public void setApplicationRelatedEntityId(Integer applicationRelatedEntityId) {
         this.applicationRelatedEntityId = applicationRelatedEntityId;
+    }
+
+    public String getApplicationRelatedEntityText() {
+        return this.applicationRelatedEntityText;
+    }
+    
+    public void setApplicationRelatedEntityText(String applicationRelatedEntityText) {
+        this.applicationRelatedEntityText = applicationRelatedEntityText;
     }
 
     public Integer getApplicationEntityId() {
@@ -53,20 +74,12 @@ public class ApplicationEntityFieldResponse extends BaseResponse {
         this.applicationEntityId = applicationEntityId;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getApplicationEntityText() {
+        return this.applicationEntityText;
     }
     
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public char getPrimarykeyFg() {
-        return this.primarykeyFg;
-    }
-    
-    public void setPrimarykeyFg(char primarykeyFg) {
-        this.primarykeyFg = primarykeyFg;
+    public void setApplicationEntityText(String applicationEntityText) {
+        this.applicationEntityText = applicationEntityText;
     }
 
     public String getStorage() {
@@ -77,12 +90,28 @@ public class ApplicationEntityFieldResponse extends BaseResponse {
         this.storage = storage;
     }
 
-    public char getRequiredFg() {
+    public Character getPrimarykeyFg() {
+        return this.primarykeyFg;
+    }
+    
+    public void setPrimarykeyFg(Character primarykeyFg) {
+        this.primarykeyFg = primarykeyFg;
+    }
+
+    public Character getRequiredFg() {
         return this.requiredFg;
     }
     
-    public void setRequiredFg(char requiredFg) {
+    public void setRequiredFg(Character requiredFg) {
         this.requiredFg = requiredFg;
+    }
+
+    public Character getSearchFieldFg() {
+        return this.searchFieldFg;
+    }
+    
+    public void setSearchFieldFg(Character searchFieldFg) {
+        this.searchFieldFg = searchFieldFg;
     }
 
     public Character getUniqueFg() {
@@ -125,27 +154,13 @@ public class ApplicationEntityFieldResponse extends BaseResponse {
         this.decimalPrecision = decimalPrecision;
     }
 
-    public int getSequenceNo() {
+    public Integer getSequenceNo() {
         return this.sequenceNo;
     }
     
-    public void setSequenceNo(int sequenceNo) {
+    public void setSequenceNo(Integer sequenceNo) {
         this.sequenceNo = sequenceNo;
     }
-
-	/**
-	 * @return the fieldTypeCode
-	 */
-	public String getFieldTypeCode() {
-		return fieldTypeCode;
-	}
-
-	/**
-	 * @param fieldTypeCode the fieldTypeCode to set
-	 */
-	public void setFieldTypeCode(String fieldTypeCode) {
-		this.fieldTypeCode = fieldTypeCode;
-	}
 
 
 }

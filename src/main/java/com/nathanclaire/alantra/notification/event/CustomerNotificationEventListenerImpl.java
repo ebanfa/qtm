@@ -17,11 +17,8 @@ import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.service.process.CustomerChannelProcessingService;
 import com.nathanclaire.alantra.customer.service.process.CustomerProcessingService;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.model.MessageApplicationAction;
-import com.nathanclaire.alantra.messaging.model.MessageType;
 import com.nathanclaire.alantra.messaging.service.process.MessagingModuleService;
 import com.nathanclaire.alantra.notification.annotation.CustomerNotificationCreatedEvent;
-import com.nathanclaire.alantra.notification.model.NotificationType;
 import com.nathanclaire.alantra.notification.service.process.MessageMappingProcessingService;
 import com.nathanclaire.alantra.notification.service.process.NotificationService;
 
@@ -52,10 +49,10 @@ public class CustomerNotificationEventListenerImpl implements
 		// 3. Call message service to send message to customer
 		try {
 			Customer customer = customerProcessingService.getCustomerById(event.getUserId());
-			logger.debug("Processing notification creation event for customer {}", customer.getName());
-			List<DataChannel> channels = channelProcessingService.getCustomerChannels(customer);
+			logger.debug("Processing notification creation event for customer {}", customer);
+			List<DataChannel> channels = channelProcessingService.getCustomerOutboundChannels(customer);
 			//NotificationType notificationType = notificationService.getNotificationType(event.getNotificationTypeCode());
-			
+			logger.debug("Found {} outbound communication channels for customer {}", channels.size(), customer);
 			//MessageApplicationAction messageApplicationAction = messageMappingProcessingService.getMessageType(notificationType);
 			messagingModuleService.sendCustomerMessage(customer, channels, event.getHeaderText(), event.getBodyText());
 		} catch (Exception e) {

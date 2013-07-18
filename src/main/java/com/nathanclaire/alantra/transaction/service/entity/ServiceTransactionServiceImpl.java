@@ -51,8 +51,8 @@ public class ServiceTransactionServiceImpl
 	private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "serviceTransactionType";
 	private static final String LIST_ITEM_CUSTOMERACCOUNT = "customerAccount";
 	private static final String ENTITY_NAME = "ServiceTransaction";
-	private static final String LIST_ACTIVITY_CODE = "LIST_CHANNEL_SERVICETRANSACTION";
-	private static final String EDIT_ACTIVITY_CODE = "EDIT_CHANNEL_SERVICETRANSACTION";
+	private static final String LIST_ACTIVITY_CODE = "LIST_TRANSACTION_SERVICETRANSACTION";
+	private static final String EDIT_ACTIVITY_CODE = "EDIT_TRANSACTION_SERVICETRANSACTION";
 	
 	private Logger logger = LoggerFactory.getLogger(ServiceTransactionServiceImpl.class);
 	

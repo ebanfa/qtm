@@ -55,9 +55,7 @@ define([
         {
             if(this.model.activityURL == "message")
             {
-                //alert("We in:" + );
-                utilities.applyTemplate($(this.el), this.messageTemplate, {form:form, entities_strings:entities_strings}); 
-                this.renderedActivity();
+                this.renderAlternateView(form);
             }
             else
             {

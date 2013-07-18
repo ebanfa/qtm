@@ -3,6 +3,8 @@
  */
 package com.nathanclaire.alantra.messaging.event;
 
+import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -27,8 +29,10 @@ import com.nathanclaire.alantra.messaging.annotation.UnclassifiedMessageReceived
 import com.nathanclaire.alantra.messaging.annotation.UnregisteredCustomerMessageReceivedEvent;
 import com.nathanclaire.alantra.messaging.annotation.UnregisteredUserMessageReceivedEvent;
 import com.nathanclaire.alantra.messaging.annotation.UserMessageReceivedEvent;
+import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.service.entity.MessageApplicationActionService;
 import com.nathanclaire.alantra.notification.service.entity.NotificationTypeService;
+import com.nathanclaire.alantra.notification.service.entity.TemplateTypeTagService;
 import com.nathanclaire.alantra.notification.service.process.NotificationService;
 
 /**
@@ -139,7 +143,8 @@ public class MessageReceivedEventListenerImpl extends BaseMessageListener implem
 			throws ApplicationException {
 		try {
 			logger.info("Processing unregistered customer message received");
-			notificationService.notifyAdmin(NotificationTypeService.UNREGISTERED_CUSTOMER_MESSAGE_RECEIVED, null);
+			notificationService.notifyAdmin(
+					NotificationTypeService.UNREGISTERED_CUSTOMER_MESSAGE_RECEIVED, expandTemplateTagValues(event));
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}	
@@ -153,7 +158,8 @@ public class MessageReceivedEventListenerImpl extends BaseMessageListener implem
 			throws ApplicationException {
 		try {
 			logger.info("Processing unregistered user message received");
-			notificationService.notifyAdmin(NotificationTypeService.UNREGISTERED_USER_MESSAGE_RECEIVED, null);
+			notificationService.notifyAdmin(
+					NotificationTypeService.UNREGISTERED_USER_MESSAGE_RECEIVED, expandTemplateTagValues(event));
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -167,9 +173,24 @@ public class MessageReceivedEventListenerImpl extends BaseMessageListener implem
 			throws ApplicationException {
 		try {
 			logger.info("Processing unclassified message received");
-			notificationService.notifyAdmin(NotificationTypeService.UNCLASSIFIED_MESSAGE_RECEIVED, null);
+			notificationService.notifyAdmin(
+					NotificationTypeService.UNCLASSIFIED_MESSAGE_RECEIVED, expandTemplateTagValues(event));
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}	
+	}
+
+	/**
+	 * @param event
+	 * @return
+	 * @throws ApplicationException
+	 */
+	private Map<String, String> expandTemplateTagValues(MessageEvent event)
+			throws ApplicationException {
+		Message message = getMessage(event);
+		Map<String, String> templateTagValues = this.initializeTemplateTagValues(event);
+		templateTagValues = addToTemplateTagValues(
+				TemplateTypeTagService.MESSAGE_CATEGORY, getMessageCategory(message).getName(), templateTagValues);
+		return templateTagValues;
 	}
 }

@@ -3,9 +3,6 @@
  */
 package com.nathanclaire.alantra.security.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
@@ -14,17 +11,27 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class SystemUserRequest extends BaseRequest {
 
+    private Integer id;
     private Integer systemGroupId;
     private String systemGroupText;
+    private String code;
     private String name;
     private String username;
     private String password;
     private String email;
     private String mobile;
-    private Integer id;
-    private String code;
+    private String lockedFg;
+    private String multiLoginFg;
 
     public SystemUserRequest() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSystemGroupId() {
@@ -41,6 +48,14 @@ public class SystemUserRequest extends BaseRequest {
     
     public void setSystemGroupText(String systemGroupText) {
         this.systemGroupText = systemGroupText;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -83,20 +98,20 @@ public class SystemUserRequest extends BaseRequest {
         this.mobile = mobile;
     }
 
-    public Integer getId() {
-        return this.id;
+    public String getLockedFg() {
+        return this.lockedFg;
     }
     
-    public void setId(Integer id) {
-        this.id = id;
+    public void setLockedFg(String lockedFg) {
+        this.lockedFg = lockedFg;
     }
 
-    public String getCode() {
-        return this.code;
+    public String getMultiLoginFg() {
+        return this.multiLoginFg;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setMultiLoginFg(String multiLoginFg) {
+        this.multiLoginFg = multiLoginFg;
     }
 
 

@@ -42,44 +42,54 @@ public class SystemUser  extends BaseEntity implements java.io.Serializable {
     private String password;
     private String email;
     private String mobile;
+    private String lockedFg;
+    private String multiLoginFg;
 	private Set<SystemUserNotification> systemUserNotifications = new HashSet<SystemUserNotification>(0);
 	private Set<SystemUserGroup> systemUserGroups = new HashSet<SystemUserGroup>(0);
+	private Set<CurrentUserSession> currentUserSessions = new HashSet<CurrentUserSession>(0);
 	private Set<SystemUserMessage> systemUserMessages = new HashSet<SystemUserMessage>(0);
+	private Set<SystemUserNotificationChannel> systemUserNotificationChannels = new HashSet<SystemUserNotificationChannel>(0);
 
     public SystemUser() {
     }
 
-    public SystemUser(SystemGroup systemGroup, String name, String username, String password, String email, String mobile, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public SystemUser(SystemGroup systemGroup, String code, String name, String username, String password, String email, String mobile, String lockedFg, String multiLoginFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
+		this.code = code;
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.mobile = mobile;
-		this.code = code;
+		this.lockedFg = lockedFg;
+		this.multiLoginFg = multiLoginFg;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public SystemUser(SystemGroup systemGroup, String name, String username, String password, String email, String mobile, Set<SystemUserNotification> systemUserNotifications, Set<SystemUserGroup> systemUserGroups, Set<SystemUserMessage> systemUserMessages, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public SystemUser(SystemGroup systemGroup, String code, String name, String username, String password, String email, String mobile, String lockedFg, String multiLoginFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<SystemUserNotification> systemUserNotifications, Set<SystemUserGroup> systemUserGroups, Set<CurrentUserSession> currentUserSessions, Set<SystemUserMessage> systemUserMessages, Set<SystemUserNotificationChannel> systemUserNotificationChannels ) 
     {
 		this.systemGroup = systemGroup;
+		this.code = code;
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.mobile = mobile;
-		this.systemUserNotifications = systemUserNotifications;
-		this.systemUserGroups = systemUserGroups;
-		this.systemUserMessages = systemUserMessages;
-		this.code = code;
+		this.lockedFg = lockedFg;
+		this.multiLoginFg = multiLoginFg;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.systemUserNotifications = systemUserNotifications;
+		this.systemUserGroups = systemUserGroups;
+		this.currentUserSessions = currentUserSessions;
+		this.systemUserMessages = systemUserMessages;
+		this.systemUserNotificationChannels = systemUserNotificationChannels;
     }
     
     		
@@ -150,6 +160,28 @@ public class SystemUser  extends BaseEntity implements java.io.Serializable {
     {
         this.mobile = mobile;
     }
+		
+    @Column(name="LOCKED_FG" , nullable=false, length=1)
+    public String getLockedFg() 
+    {
+        return this.lockedFg;
+    }
+    
+    public void setLockedFg(String lockedFg) 
+    {
+        this.lockedFg = lockedFg;
+    }
+		
+    @Column(name="MULTI_LOGIN_FG" , nullable=false, length=1)
+    public String getMultiLoginFg() 
+    {
+        return this.multiLoginFg;
+    }
+    
+    public void setMultiLoginFg(String multiLoginFg) 
+    {
+        this.multiLoginFg = multiLoginFg;
+    }
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="systemUser")
     @JsonIgnore
@@ -177,6 +209,18 @@ public class SystemUser  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="systemUser")
     @JsonIgnore
+    public Set<CurrentUserSession> getCurrentUserSessions() 
+    {
+        return this.currentUserSessions;
+    }
+    
+    public void setCurrentUserSessions(Set<CurrentUserSession> currentUserSessions) 
+    {
+        this.currentUserSessions = currentUserSessions;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="systemUser")
+    @JsonIgnore
     public Set<SystemUserMessage> getSystemUserMessages() 
     {
         return this.systemUserMessages;
@@ -185,6 +229,18 @@ public class SystemUser  extends BaseEntity implements java.io.Serializable {
     public void setSystemUserMessages(Set<SystemUserMessage> systemUserMessages) 
     {
         this.systemUserMessages = systemUserMessages;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="systemUser")
+    @JsonIgnore
+    public Set<SystemUserNotificationChannel> getSystemUserNotificationChannels() 
+    {
+        return this.systemUserNotificationChannels;
+    }
+    
+    public void setSystemUserNotificationChannels(Set<SystemUserNotificationChannel> systemUserNotificationChannels) 
+    {
+        this.systemUserNotificationChannels = systemUserNotificationChannels;
     }			
 
 

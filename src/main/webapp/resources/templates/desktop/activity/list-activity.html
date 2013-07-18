@@ -34,7 +34,12 @@
     
     <div class="widget-header">
         <span class="icon-list-alt"></span>
-        <h3><%= entities_strings.activity%> <%= entities_strings.alantra_label_list %></h3>
+        <h3>
+            <%= model.displayNm %> 
+            <%= entities_strings.alantra_label_list %> 
+            (<%= model.data.length %>)
+
+        </h3>
         
 
         <div class="pull-right" style="padding-right:10px;">
@@ -56,11 +61,14 @@
             <%
             _.each(model.fields, function (field) {
             %>  
-                <% if  (field.name == "lastModifiedDt") { %> 
+                <% if  (field.name == "id") { %> 
+                <% } else if  (field.name == "lastModifiedDt") { %>
                 <% } else if  (field.name == "lastModifiedUsr") { %>
                 <% } else if  (field.name == "createdDt") { %>
                 <% } else { %> 
-                    <th style="width:100px"><%=field.description%></th>  
+                    <th>
+                        <div class="hideextra" style="width:150px"><%=field.description%></div>
+                    </th>  
                 <% }  %>
 
             <% }); %>                           
@@ -79,22 +87,27 @@
                 <%
                 _.each(model.fields, function (field) {
                 %>  
-                    <% if  (field.fieldTypeCode == "RELATIONSHIP") { %>                      
+                    <% if  (field.applicationEntityFieldTypeText == "RELATIONSHIP") { %>                      
                     <td class="td-actions">
-                        <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>">
-                            <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
-                        </a>
+                        <div class="hideextra" style="width:150px">
+                            <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
+                            </a>
+                        </div>
                     </td>  
                     <% } else { %> 
                         <!-- Filter fields --> 
-                        <% if  (field.name == "lastModifiedDt") { %> 
+                        <% if  (field.name == "id") { %> 
+                        <% } else if  (field.name == "lastModifiedDt") { %>
                         <% } else if  (field.name == "lastModifiedUsr") { %>
                         <% } else if  (field.name == "createdDt") { %> 
                         <% } else { %> 
                     <td class="td-actions">
-                        <a href="#edit/<%=model.activityUrl%>/<%=activity.id%>">
-                            <%= activity[field.name] ? activity[field.name] : '' %>
-                        </a>
+                        <div class="hideextra" style="width:150px">
+                            <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                <%= activity[field.name] ? activity[field.name] : '' %>
+                            </a>
+                        </div>
                     </td>   
                         <% }  %>   <!-- End if -->                  
                      

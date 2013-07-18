@@ -14,64 +14,76 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class ApplicationEntityFieldRequest extends BaseRequest {
 
-    private Integer id;
-    private Integer applicationEntityFieldType;
-    private Integer applicationEntityByRelatedEntityId;
-    private Integer applicationEntityByEntityId;
-    private String code;
+    private Integer applicationEntityFieldTypeId;
+    private String applicationEntityFieldTypeText;
+    private Integer applicationRelatedEntityId;
+    private String applicationRelatedEntityText;
+    private Integer applicationEntityId;
+    private String applicationEntityText;
     private String name;
     private String description;
-    private char primarykeyFg;
     private String storage;
-    private char requiredFg;
+    private Character primarykeyFg;
+    private Character requiredFg;
+    private Character searchFieldFg;
     private Character uniqueFg;
     private Character relatedFg;
     private Integer size;
     private Integer maxDigits;
     private Integer decimalPrecision;
-    private int sequenceNo;
+    private Integer sequenceNo;
+    private Integer id;
+    private String code;
 
     public ApplicationEntityFieldRequest() {
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getApplicationEntityFieldTypeId() {
+        return this.applicationEntityFieldTypeId;
     }
     
-    public void setId(Integer id) {
-        this.id = id;
+    public void setApplicationEntityFieldTypeId(Integer applicationEntityFieldTypeId) {
+        this.applicationEntityFieldTypeId = applicationEntityFieldTypeId;
     }
 
-    public Integer getApplicationEntityFieldType() {
-        return this.applicationEntityFieldType;
+    public String getApplicationEntityFieldTypeText() {
+        return this.applicationEntityFieldTypeText;
     }
     
-    public void setApplicationEntityFieldType(Integer applicationEntityFieldType) {
-        this.applicationEntityFieldType = applicationEntityFieldType;
+    public void setApplicationEntityFieldTypeText(String applicationEntityFieldTypeText) {
+        this.applicationEntityFieldTypeText = applicationEntityFieldTypeText;
     }
 
-    public Integer getApplicationEntityByRelatedEntityId() {
-        return this.applicationEntityByRelatedEntityId;
+    public Integer getApplicationRelatedEntityId() {
+        return this.applicationRelatedEntityId;
     }
     
-    public void setApplicationEntityByRelatedEntityId(Integer applicationEntityByRelatedEntityId) {
-        this.applicationEntityByRelatedEntityId = applicationEntityByRelatedEntityId;
+    public void setApplicationRelatedEntityId(Integer applicationRelatedEntityId) {
+        this.applicationRelatedEntityId = applicationRelatedEntityId;
     }
 
-    public Integer getApplicationEntityByEntityId() {
-        return this.applicationEntityByEntityId;
+    public String getApplicationRelatedEntityText() {
+        return this.applicationRelatedEntityText;
     }
     
-    public void setApplicationEntityByEntityId(Integer applicationEntityByEntityId) {
-        this.applicationEntityByEntityId = applicationEntityByEntityId;
+    public void setApplicationRelatedEntityText(String applicationRelatedEntityText) {
+        this.applicationRelatedEntityText = applicationRelatedEntityText;
     }
 
-    public String getCode() {
-        return this.code;
+    public Integer getApplicationEntityId() {
+        return this.applicationEntityId;
     }
     
-    public void setCode(String code) {
-        this.code = code;
+    public void setApplicationEntityId(Integer applicationEntityId) {
+        this.applicationEntityId = applicationEntityId;
+    }
+
+    public String getApplicationEntityText() {
+        return this.applicationEntityText;
+    }
+    
+    public void setApplicationEntityText(String applicationEntityText) {
+        this.applicationEntityText = applicationEntityText;
     }
 
     public String getName() {
@@ -90,14 +102,6 @@ public class ApplicationEntityFieldRequest extends BaseRequest {
         this.description = description;
     }
 
-    public char getPrimarykeyFg() {
-        return this.primarykeyFg;
-    }
-    
-    public void setPrimarykeyFg(char primarykeyFg) {
-        this.primarykeyFg = primarykeyFg;
-    }
-
     public String getStorage() {
         return this.storage;
     }
@@ -106,12 +110,28 @@ public class ApplicationEntityFieldRequest extends BaseRequest {
         this.storage = storage;
     }
 
-    public char getRequiredFg() {
+    public Character getPrimarykeyFg() {
+        return this.primarykeyFg;
+    }
+    
+    public void setPrimarykeyFg(Character primarykeyFg) {
+        this.primarykeyFg = primarykeyFg;
+    }
+
+    public Character getRequiredFg() {
         return this.requiredFg;
     }
     
-    public void setRequiredFg(char requiredFg) {
+    public void setRequiredFg(Character requiredFg) {
         this.requiredFg = requiredFg;
+    }
+
+    public Character getSearchFieldFg() {
+        return this.searchFieldFg;
+    }
+    
+    public void setSearchFieldFg(Character searchFieldFg) {
+        this.searchFieldFg = searchFieldFg;
     }
 
     public Character getUniqueFg() {
@@ -154,12 +174,28 @@ public class ApplicationEntityFieldRequest extends BaseRequest {
         this.decimalPrecision = decimalPrecision;
     }
 
-    public int getSequenceNo() {
+    public Integer getSequenceNo() {
         return this.sequenceNo;
     }
     
-    public void setSequenceNo(int sequenceNo) {
+    public void setSequenceNo(Integer sequenceNo) {
         this.sequenceNo = sequenceNo;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+    
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

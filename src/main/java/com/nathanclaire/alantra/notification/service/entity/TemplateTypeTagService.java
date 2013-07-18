@@ -15,9 +15,11 @@ import com.nathanclaire.alantra.notification.response.TemplateTypeTagResponse;
 public interface TemplateTypeTagService extends BaseEntityService<TemplateTypeTag, TemplateTypeTagResponse, TemplateTypeTagRequest>
 {
 	public static final String MESSAGE_CODE = "MESSAGE_CODE";
-	public static final String CUSTOMER_NAME = "CUSTOMER_NAME";
+	public static final String CUSTOMER_NAME = "CUSTOMER";
 	public static final String USER_FULL_NAME = "USER_FULL_NAME";
+	public static final String USER_NAME = "USER_NAME";
 	public static final String MESSAGE_TY_CODE = "MESSAGE_TY_CODE";
+	public static final String MESSAGE_CATEGORY = "MESSAGE_CATEGORY";
 	public static final String MESSAGE_JOB_CODE = "MESSAGE_JOB_CODE";
 	public static final String ADVICE_REFERENCE = "ADVICE_REFERENCE";
 	public static final String STATUS_INFORMATION = "STATUS_INFORMATION";

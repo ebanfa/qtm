@@ -15,6 +15,6 @@ import com.nathanclaire.alantra.messaging.response.MessageTypeResponse;
 public interface MessageTypeService extends BaseEntityService<MessageType, MessageTypeResponse, MessageTypeRequest>
 {
 
-	public static final String SMTP_POP3_MSG = "MessageTypeService.SMTP_POP3_MSG";
+	public static final String SMTP_POP3_MSG = "SMTP_POP3";
 	
 }

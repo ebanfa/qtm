@@ -1,0 +1,88 @@
+
+        
+        <div id="search-result-template-div">
+            <table id="search-result-table" class="table table-bordered table-striped">
+            
+                <thead>
+                    <tr>   
+                    <th><input id="table-header-checkbox" type="radio"></th>
+                <%
+                _.each(model.fields, function (field) {
+                %>  
+                    <% if  (field.name == "id") { %> 
+                    <% } else if  (field.name == "lastModifiedDt") { %>
+                    <% } else if  (field.name == "lastModifiedUsr") { %>
+                    <% } else if  (field.name == "createdDt") { %>
+                    <% } else { %> 
+                        <th>
+                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+                        </th>  
+                    <% }  %>
+
+                <% }); %>                           
+                    </tr>
+                </thead> 
+
+        
+                <tbody>
+               <%
+                _.each(model.data, function (activity) {
+                %>     
+                <tr>
+                    <td class="description">
+                        <input class="select-entity-radio" type="radio" value="<%=activity.id%>">
+                    </td> 
+                    <%
+                    _.each(model.fields, function (field) {
+                    %>  
+                        <% if  (field.fieldTypeCode == "RELATIONSHIP") { %>                      
+                        <td class="td-actions">
+                            <div class="hideextra relationship-cell" style="width:150px">
+                                <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                    <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
+                                </a>
+                            </div>
+                        </td>  
+                        <% } else { %> 
+                            <!-- Filter fields --> 
+                            <% if  (field.name == "id") { %> 
+                            <% } else if  (field.name == "lastModifiedDt") { %>
+                            <% } else if  (field.name == "lastModifiedUsr") { %>
+                            <% } else if  (field.name == "createdDt") { %> 
+                            <% } else if  (field.name == "code") { %>
+                        <td class="td-actions">
+                            <div class="hideextra  code-field-cell" style="width:150px">
+                                <a href="<%=activity.id%>">
+                                    <%= activity[field.name] ? activity[field.name] : '' %>
+                                </a>
+                            </div>
+                        </td>    
+                            <% } else if  (field.name == "name") { %>
+                        <td class="td-actions">
+                            <div class="hideextra  name-field-cell" style="width:150px">
+                                <a href="<%=activity.id%>">
+                                    <%= activity[field.name] ? activity[field.name] : '' %>
+                                </a>
+                            </div>
+                        </td>    
+                            <% } else { %> 
+                        <td class="td-actions">
+                            <div class="hideextra  other-field-cell" style="width:150px">
+                                <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                    <%= activity[field.name] ? activity[field.name] : '' %>
+                                </a>
+                            </div>
+                        </td>   
+                            <% }  %>   <!-- End if -->                  
+                         
+                        <% }  %>    <!-- End if --> 
+                    <% }); %>  
+                </tr>  
+                <% }); %>                      
+                </tbody>
+            </table>
+            <% if  (model.data.length > 0) { %> 
+                <a id="add-selected-customer-btn" href="#" class="btn btn-primary">Add</a>
+                <a id="add-next-selected-customer-btn" href="#" class="btn btn-primary">Add Next</a>
+            <% } %> 
+        </div>

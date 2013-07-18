@@ -4,6 +4,9 @@
 package com.nathanclaire.alantra.base.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +23,12 @@ public class StringUtil {
 	public static String UNDERSCORE = "_";
 	private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
 	public static String EMAIL_REGEX = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
+
+	private static final String randChars = "$#_";
+	private static final String numbers = "01234567890";
+	private static final String alphabet = 
+			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
 	
 	public static String capitalizeFirstLetter(String original){
 	    if(original.length() == 0)
@@ -41,7 +50,7 @@ public class StringUtil {
 	}
 	
 	public static String extractRegexGroupFromText(String text, String pattern, int groupNo) {
-		logger.debug("Extracting group {} from text {} using pattern {}", groupNo, text, pattern);
+		logger.info("Extracting group {} from text {} using pattern {}", groupNo, text, pattern);
 		Pattern r = Pattern.compile(pattern);
 		// Now create matcher object.
 		Matcher m = r.matcher(text);
@@ -95,10 +104,17 @@ public class StringUtil {
 		return new BigDecimal(amountString);
 	}
 
-	public static String findAndReplace(String code, String header, boolean b) 
+	/**
+	 * @param stringToLookInside
+	 * @param stringToReplace
+	 * @param replacementString
+	 * @param isRegex
+	 * @return
+	 */
+	public static String findAndReplace(String stringToLookInside, 
+			String stringToReplace, String replacementString, boolean isRegex) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return stringToLookInside.replaceAll(stringToReplace, replacementString);
 	}
 
 	public static String extractEmailFromText(String text) 
@@ -113,4 +129,20 @@ public class StringUtil {
 		return email;
 		
 	}
+
+	public static List<String> parseCommaSeparatedString(String text) {
+		List<String> tokens = new ArrayList<String>();
+		for(String token :text.split("\\,"))
+			tokens.add(token);
+		return tokens;
+	}
+	
+	public static String getRandomString(int len) {
+		char[] choices = ( alphabet + numbers + randChars).toCharArray();
+		Random random = new Random();
+	    StringBuilder salt = new StringBuilder(len);
+	    for (int i = 0; i<len; ++i)
+	      salt.append(choices[random.nextInt(choices.length)]);
+	    return salt.toString();
+	  }
 }

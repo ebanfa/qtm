@@ -23,8 +23,8 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
  */
 public class BaseMessagingService extends BaseProcessService {
 	
-	public static final String APP_PHONE_NO = "BaseMessagingService.APP_PHONE_NO";
-	public static final String APP_EMAIL_ADDR = "BaseMessagingService.APP_EMAIL_ADDR";
+	public static final String APP_PHONE_NO = "";
+	public static final String APP_EMAIL_ADDR = "advicepro@nathanclaire.com";
 	public static final String CONFIG_ERROR_NO_CHANNEL_TY_FOUND = "BaseMessagingService.CONFIG_ERROR_NO_CHANNEL_TY_FOUND";
 	public static final String CONFIG_ERROR_NO_CHANNEL_CAT_FOUND = "BaseMessagingService.CONFIG_ERROR_NO_CHANNEL_CAT_FOUND";
 

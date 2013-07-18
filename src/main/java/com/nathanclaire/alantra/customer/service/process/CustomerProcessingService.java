@@ -48,4 +48,8 @@ public interface CustomerProcessingService {
 	public Account getDefaultCustomerAccount(Customer customer, List<Account> accounts) throws ApplicationException;
 
 	public Account getDefaultCustomerAccount(Customer customer) throws ApplicationException;
+
+	public Customer findCustomerByPhone(String sourceAddress) throws ApplicationException;
+
+	public Customer findCustomerByEmail(String sourceAddress) throws ApplicationException;
 }

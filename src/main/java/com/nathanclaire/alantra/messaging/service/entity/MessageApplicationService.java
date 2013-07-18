@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.messaging.response.MessageApplicationResponse;
 public interface MessageApplicationService extends BaseEntityService<MessageApplication, MessageApplicationResponse, MessageApplicationRequest>
 {
 
-	String UNKNOWN_MSG_APPLICATION = "UNKNOWN_MSG_APPLICATION";
+	public String OUT_BOUND_MSG_APPLICATION = "OUT_BOUND_MSG_APPLICATION";
+	public String UNKNOWN_MSG_APPLICATION = "UNKNOWN_MSG_APPLICATION";
 	
 }

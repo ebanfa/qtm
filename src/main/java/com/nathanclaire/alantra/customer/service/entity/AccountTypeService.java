@@ -14,5 +14,7 @@ import com.nathanclaire.alantra.customer.response.AccountTypeResponse;
  */
 public interface AccountTypeService extends BaseEntityService<AccountType, AccountTypeResponse, AccountTypeRequest>
 {
+
+	final static String OD_CURRENT_ACCOUNT = "OD_CURRENT_ACCOUNT";
 	
 }

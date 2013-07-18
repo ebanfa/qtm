@@ -40,42 +40,47 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
 	private ApplicationEntity applicationEntity;
     private String name;
     private String description;
-    private char primarykeyFg;
     private String storage;
-    private char requiredFg;
+    private Character primarykeyFg;
+    private Character requiredFg;
+    private Character searchFieldFg;
     private Character uniqueFg;
     private Character relatedFg;
     private Integer size;
     private Integer maxDigits;
     private Integer decimalPrecision;
-    private int sequenceNo;
+    private Integer sequenceNo;
 	private Set<ApplicationFormField> applicationFormFields = new HashSet<ApplicationFormField>(0);
 
     public ApplicationEntityField() {
     }
 
-    public ApplicationEntityField(ApplicationEntityFieldType applicationEntityFieldType, ApplicationEntity applicationEntityByEntityId, String code, String name, char primarykeyFg, String storage, char requiredFg, int sequenceNo, Date effectiveDt, char recSt) 
+    public ApplicationEntityField(ApplicationEntityFieldType applicationEntityFieldType, ApplicationEntity applicationEntity, String code, String name, String storage, Character primarykeyFg, Character requiredFg, Character searchFieldFg, Integer sequenceNo, Date effectiveDt, Character recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
-		this.primarykeyFg = primarykeyFg;
 		this.storage = storage;
+		this.primarykeyFg = primarykeyFg;
 		this.requiredFg = requiredFg;
+		this.searchFieldFg = searchFieldFg;
 		this.sequenceNo = sequenceNo;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
     }
-    public ApplicationEntityField(ApplicationEntityFieldType applicationEntityFieldType, ApplicationEntity applicationEntityByRelatedEntityId, ApplicationEntity applicationEntityByEntityId, String code, String name, String description, char primarykeyFg, String storage, char requiredFg, Character uniqueFg, Character relatedFg, Integer size, Integer maxDigits, Integer decimalPrecision, int sequenceNo, Date effectiveDt, char recSt, Set<ApplicationFormField> applicationFormFields ) 
+    public ApplicationEntityField(ApplicationEntityFieldType applicationEntityFieldType, ApplicationEntity applicationRelatedEntity, ApplicationEntity applicationEntity, String code, String name, String description, String storage, Character primarykeyFg, Character requiredFg, Character searchFieldFg, Character uniqueFg, Character relatedFg, Integer size, Integer maxDigits, Integer decimalPrecision, Integer sequenceNo, Date effectiveDt, Character recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ApplicationFormField> applicationFormFields ) 
     {
 		this.applicationEntityFieldType = applicationEntityFieldType;
-		this.applicationRelatedEntity = applicationEntityByRelatedEntityId;
-		this.applicationEntity = applicationEntityByEntityId;
+		this.applicationRelatedEntity = applicationRelatedEntity;
+		this.applicationEntity = applicationEntity;
 		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.primarykeyFg = primarykeyFg;
 		this.storage = storage;
+		this.primarykeyFg = primarykeyFg;
 		this.requiredFg = requiredFg;
+		this.searchFieldFg = searchFieldFg;
 		this.uniqueFg = uniqueFg;
 		this.relatedFg = relatedFg;
 		this.size = size;
@@ -84,6 +89,10 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
 		this.sequenceNo = sequenceNo;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
+		this.createdDt = createdDt;
+		this.createdByUsr = createdByUsr;
+		this.lastModifiedDt = lastModifiedDt;
+		this.lastModifiedUsr = lastModifiedUsr;
 		this.applicationFormFields = applicationFormFields;
     }
     
@@ -109,9 +118,9 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
         return this.applicationRelatedEntity;
     }
     
-    public void setApplicationRelatedEntity(ApplicationEntity applicationEntityByRelatedEntityId)
+    public void setApplicationRelatedEntity(ApplicationEntity applicationRelatedEntity)
     {
-        this.applicationRelatedEntity = applicationEntityByRelatedEntityId;
+        this.applicationRelatedEntity = applicationRelatedEntity;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -122,9 +131,9 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
         return this.applicationEntity;
     }
     
-    public void setApplicationEntity(ApplicationEntity applicationEntityByEntityId)
+    public void setApplicationEntity(ApplicationEntity applicationEntity)
     {
-        this.applicationEntity = applicationEntityByEntityId;
+        this.applicationEntity = applicationEntity;
     }
 		
     @Column(name="NAME" , nullable=false, length=75)
@@ -149,17 +158,6 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
         this.description = description;
     }
 		
-    @Column(name="PRIMARYKEY_FG" , nullable=false, length=1)
-    public char getPrimarykeyFg() 
-    {
-        return this.primarykeyFg;
-    }
-    
-    public void setPrimarykeyFg(char primarykeyFg) 
-    {
-        this.primarykeyFg = primarykeyFg;
-    }
-		
     @Column(name="STORAGE" , nullable=false, length=35)
     public String getStorage() 
     {
@@ -171,15 +169,37 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
         this.storage = storage;
     }
 		
+    @Column(name="PRIMARYKEY_FG" , nullable=false, length=1)
+    public Character getPrimarykeyFg() 
+    {
+        return this.primarykeyFg;
+    }
+    
+    public void setPrimarykeyFg(Character primarykeyFg) 
+    {
+        this.primarykeyFg = primarykeyFg;
+    }
+		
     @Column(name="REQUIRED_FG" , nullable=false, length=1)
-    public char getRequiredFg() 
+    public Character getRequiredFg() 
     {
         return this.requiredFg;
     }
     
-    public void setRequiredFg(char requiredFg) 
+    public void setRequiredFg(Character requiredFg) 
     {
         this.requiredFg = requiredFg;
+    }
+		
+    @Column(name="SEARCH_FIELD_FG" , nullable=false, length=1)
+    public Character getSearchFieldFg() 
+    {
+        return this.searchFieldFg;
+    }
+    
+    public void setSearchFieldFg(Character searchFieldFg) 
+    {
+        this.searchFieldFg = searchFieldFg;
     }
 		
     @Column(name="UNIQUE_FG" , unique=true, length=1)
@@ -238,12 +258,12 @@ public class ApplicationEntityField  extends BaseEntity implements java.io.Seria
     }
 		
     @Column(name="SEQUENCE_NO" , nullable=false)
-    public int getSequenceNo() 
+    public Integer getSequenceNo() 
     {
         return this.sequenceNo;
     }
     
-    public void setSequenceNo(int sequenceNo) 
+    public void setSequenceNo(Integer sequenceNo) 
     {
         this.sequenceNo = sequenceNo;
     }

@@ -59,13 +59,13 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableData tableData) 
 			throws ApplicationException {
 
-		logger.info("Processing data input request for primary entity {}, " +
+		logger.debug("Processing data input request for primary entity {}, " +
 				"with secondary entity {} with table data of size {}", primaryEntityRequest, secEntityRequest, tableData.getRows().size());
 		if(primaryEntityRequest == null) throw new ApplicationException(INVALID_PRIM_ENTITY_SPECIFIED);
 		PropertyUtils.initializeBaseFields(primaryEntityRequest);
 		// 1. Cast to message request and check if the message already exists
 		MessageRequest messageRequest = (MessageRequest) primaryEntityRequest;
-		logger.info("Processing data input for message with message code: {}", messageRequest.getCode());
+		logger.debug("Processing data input for message with message code: {}", messageRequest.getCode());
 		Message message = messagingModuleService.findMessage(messageRequest.getCode());
 		if(message != null) 
 			return rejectMessage(message, secEntityRequest, tableData);
@@ -92,7 +92,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	private BaseEntity processCustomerMessage(MessageRequest messageRequest, 
 			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
 	{
-		logger.info("Processing customer message {} ", messageRequest.getCode());
+		logger.debug("Processing customer message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
 		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
 		Customer customer = messagingModuleService.findCustomerFromMessageRequest(dataChannel, messageRequest);
@@ -112,7 +112,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	private BaseEntity processUserMessage(MessageRequest messageRequest, 
 			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
 	{
-		logger.info("Processing user message {} ", messageRequest.getCode());
+		logger.debug("Processing user message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
 		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
 		SystemUser user = messagingModuleService.findSystemUserFromMessageRequest(dataChannel, messageRequest);
@@ -132,7 +132,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	private BaseEntity processUnknownMessageType(MessageRequest messageRequest,
 			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
 	{
-		logger.info("Processing unknown message {} ", messageRequest.getCode());
+		logger.debug("Processing unknown message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
 		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
 		initializeMessageRequest(MessageStatusService.UNCLASSIFIED_MESSAGE_RECEIVED, messageRequest, dataChannel);
@@ -222,7 +222,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	private Message acceptMessage(String senderType, Integer customerId, Integer userId, MessageRequest messageRequest, 
 			MessageAttachmentRequest attachmentRequest, TableData tableData) throws ApplicationException 
 	{
-		logger.info("Accepting {} message for customer with id {} and" +
+		logger.debug("Accepting {} message for customer with id {} and" +
 				" tabledata if size {}", senderType, customerId, tableData.getRows().size());
 		Message message = messagingModuleService.createMessage(messageRequest);
 		MessageType messageType = message.getMessageType();
@@ -280,7 +280,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 			throws ApplicationException 
 	{
 		// Update job statistics related information
-		logger.info("Rejecting message with code {}", message.getCode());
+		logger.debug("Rejecting message with code {}", message.getCode());
 		flagDataInputRejected(tableData);
 		// Create the message event
 		MessageEvent event = new MessageEvent();

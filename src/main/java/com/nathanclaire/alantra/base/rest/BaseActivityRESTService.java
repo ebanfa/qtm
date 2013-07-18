@@ -4,6 +4,7 @@
 package com.nathanclaire.alantra.base.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,22 +18,25 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.model.ApplicationRelatedActivity;
 import com.nathanclaire.alantra.application.response.ApplicationActivityResponse;
+import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
 import com.nathanclaire.alantra.application.response.ApplicationRelatedActivityResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationActivityService;
+import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationRelatedActivityService;
+import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.response.BaseActivityResponse;
 import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
-import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.Messages;
 import com.nathanclaire.alantra.base.util.StringUtil;
@@ -92,6 +96,8 @@ public abstract class BaseActivityRESTService<T,V> {
 	
 	@Inject
 	ApplicationActivityService applicationActivityService;
+	@Inject
+	ApplicationEntityFieldService applicationEntityFieldService;;
 
     /**
      * Default constructor
@@ -125,6 +131,23 @@ public abstract class BaseActivityRESTService<T,V> {
     public EditActivityResponse<T> getEditActivityWithEntityInstance(@PathParam("id") Integer id) {
     	return getEditActivityResponse(id);
     }
+
+    @GET
+    @Path("/searchFields")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ApplicationEntityFieldResponse> getEntitySearchFields(@QueryParam("entityName") String entityName)
+    {
+    	List<ApplicationEntityFieldResponse> fieldResponses = new ArrayList<ApplicationEntityFieldResponse>();
+    	try {
+    		List<ApplicationEntityField> fields = applicationEntityFieldService.getEntitySearchFields(entityName);
+    		for(ApplicationEntityField field: fields)
+    			fieldResponses.add(applicationEntityFieldService.convertModelToResponse(field));
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return fieldResponses;
+    }
     
     /**
      * <p>
@@ -151,6 +174,9 @@ public abstract class BaseActivityRESTService<T,V> {
     {
     	EditActivityResponse<T> response = null;
     	try {
+    		BaseRequest baseRequest = (BaseRequest) request;
+    		baseRequest.setCreatedDt(new Date());
+    		baseRequest.setCreatedByUsr("System");
     		response = this.saveEntityInstance(request);
 		} 
 		catch (Exception e) {
@@ -172,6 +198,8 @@ public abstract class BaseActivityRESTService<T,V> {
     {
     	EditActivityResponse<T> response = null;
 		try {
+    		BaseRequest baseRequest = (BaseRequest) request;
+    		baseRequest.setLastModifiedDt(new Date());
 			response = this.saveEditedEntityInstance(request);
 		} 
 		catch (Exception e) {
@@ -274,7 +302,7 @@ public abstract class BaseActivityRESTService<T,V> {
 	 * @param e
 	 * @return
 	 */
-	private BaseActivityResponse processActivityResponseException(
+	protected BaseActivityResponse processActivityResponseException(
 			BaseActivityResponse response, Exception e) {
 		response.setErrorCode(1);
 		response.setErrorMessage(e.getMessage());
@@ -399,6 +427,7 @@ public abstract class BaseActivityRESTService<T,V> {
     	{
         	response.setId(activity.getId());
         	response.setName(activity.getName());
+        	response.setDisplayNm(activity.getDisplayNm());
         	response.setCode(activity.getCode());
         	response.setActivityUrl(activity.getActivityUrl());
         	response.setRelatedActivities(getRelatedActivities(activity));
