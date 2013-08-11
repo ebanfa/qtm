@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.DataProcessor;
-import com.nathanclaire.alantra.datasource.etl.RowData;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.DataField;
 
 /**
@@ -18,16 +18,16 @@ import com.nathanclaire.alantra.datasource.model.DataField;
 public abstract class BaseDataProcessor implements DataProcessor{
 		
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.etl.DataProcessor#processData(com.nathanclaire.alantra.datasource.etl.TableData)
+	 * @see com.nathanclaire.alantra.datasource.etl.DataProcessor#processData(com.nathanclaire.alantra.datasource.etl.TableDataLite)
 	 */
-	public TableData processData(TableData data, Set<DataField> fields) throws ApplicationException {
-		for(RowData currentRow: data.getRows())
+	public TableDataLite processData(TableDataLite data, Set<DataField> fields) throws ApplicationException {
+		for(RowDataLite currentRow: data.getRows())
 		{
 			data = processTableDataRow(currentRow, data, fields);
 		}
 		return data;
 	}
 	
-	protected abstract TableData processTableDataRow(RowData currentRow, TableData data, Set<DataField> fields) throws ApplicationException ;
+	protected abstract TableDataLite processTableDataRow(RowDataLite currentRow, TableDataLite data, Set<DataField> fields) throws ApplicationException ;
 
 }

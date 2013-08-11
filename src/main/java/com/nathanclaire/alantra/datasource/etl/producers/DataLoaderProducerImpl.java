@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.DataLoader;
+import com.nathanclaire.alantra.datasource.etl.DataLoaderProducer;
 import com.nathanclaire.alantra.datasource.model.DataInput;
 
 /**

@@ -4,12 +4,15 @@
 package com.nathanclaire.alantra.datasource.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -41,24 +44,27 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
     private String targetEntityField;
     private String relTargetEntityCd;
     private String fieldFormat;
+    private char requiredFg;
     private int seqNo;
+	private Set<CellData> cellDatas = new HashSet<CellData>(0);
 
     public DataField() {
     }
 
-    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String targetEntityCd, String targetEntityField, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String targetEntityCd, String targetEntityField, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
 		this.targetEntityCd = targetEntityCd;
 		this.targetEntityField = targetEntityField;
+		this.requiredFg = requiredFg;
 		this.seqNo = seqNo;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String description, String targetEntityCd, String targetEntityField, String relTargetEntityCd, String fieldFormat, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String description, String targetEntityCd, String targetEntityField, String relTargetEntityCd, String fieldFormat, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CellData> cellDatas ) 
     {
 		this.dataTransformer = dataTransformer;
 		this.dataStructure = dataStructure;
@@ -70,6 +76,7 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
 		this.targetEntityField = targetEntityField;
 		this.relTargetEntityCd = relTargetEntityCd;
 		this.fieldFormat = fieldFormat;
+		this.requiredFg = requiredFg;
 		this.seqNo = seqNo;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -77,6 +84,7 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
+		this.cellDatas = cellDatas;
     }
     
     		
@@ -185,6 +193,17 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
         this.fieldFormat = fieldFormat;
     }
 		
+    @Column(name="REQUIRED_FG" , nullable=false, length=1)
+    public char getRequiredFg() 
+    {
+        return this.requiredFg;
+    }
+    
+    public void setRequiredFg(char requiredFg) 
+    {
+        this.requiredFg = requiredFg;
+    }
+		
     @Column(name="SEQ_NO" , nullable=false)
     public int getSeqNo() 
     {
@@ -195,6 +214,18 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
     {
         this.seqNo = seqNo;
     }
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataField")
+    @JsonIgnore
+    public Set<CellData> getCellDatas() 
+    {
+        return this.cellDatas;
+    }
+    
+    public void setCellDatas(Set<CellData> cellDatas) 
+    {
+        this.cellDatas = cellDatas;
+    }			
 
 
 }

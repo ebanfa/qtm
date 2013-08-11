@@ -37,6 +37,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFiel
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationModuleService;
+import com.nathanclaire.alantra.application.service.entity.ApplicationRelatedActivityService;
 import com.nathanclaire.alantra.base.model.TempRelatedActivity;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityNames;
@@ -60,6 +61,8 @@ public class IDERestService
 	
 	@Inject 
 	ApplicationActivityService applicationActivityService;
+	
+	@Inject ApplicationRelatedActivityService relatedActivityService;
 	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
@@ -85,10 +88,11 @@ public class IDERestService
 
     /**
      * @param uriInfo
+     * @throws ApplicationException 
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-	public void process(@Context UriInfo uriInfo)
+	public void process(@Context UriInfo uriInfo) throws ApplicationException
 	{
     	logger.debug("Staring build process");
     	try {
@@ -300,9 +304,10 @@ public class IDERestService
 	}
 	
 	/**
+	 * @throws ApplicationException 
 	 * 
 	 */
-	private void processRelationships()
+	private void processRelationships() throws ApplicationException
 	{
 		List<TempRelatedActivity> tempRelatedActivities= this.findAllTempActivities();
 		Map<String,String> persistedRelationships = new HashMap<String, String>();
@@ -333,7 +338,7 @@ public class IDERestService
 	}
 	
 	private void createRelationship(ApplicationActivity parentActivity,
-			ApplicationActivity childActivity, String relationshipTy) 
+			ApplicationActivity childActivity, String relationshipTy) throws ApplicationException 
 	{
 		System.out.println(">>>>ApplicationActivity parentActivity: " + parentActivity.getCode() + 
 				"  ApplicationActivity childActivity: " + childActivity.getCode() +
@@ -343,17 +348,21 @@ public class IDERestService
 		if(!parentActivity.getCode().equals(childActivity.getCode()))
 		{
 			ApplicationRelatedActivity relatedActivity = new ApplicationRelatedActivity();
-			relatedActivity.setCode(parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy);
-			relatedActivity.setName(targetEntityName);
-			relatedActivity.setDescription(targetEntityName);
-			relatedActivity.setCreatedByUsr("SYSTEM");
-			relatedActivity.setCreatedDt(new Date());
-			relatedActivity.setEffectiveDt(new Date());
-			relatedActivity.setRecSt('A');
-			relatedActivity.setRelActSeq(0);
-			relatedActivity.setSourceApplicationActivity(parentActivity);
-			relatedActivity.setDestinationApplicationActivity(childActivity);
-			entityManager.persist(relatedActivity);
+			String code = parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy;
+			if(relatedActivityService.findByCode(code) != null)
+			{
+				relatedActivity.setCode(parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy);
+				relatedActivity.setName(targetEntityName);
+				relatedActivity.setDescription(targetEntityName);
+				relatedActivity.setCreatedByUsr("SYSTEM");
+				relatedActivity.setCreatedDt(new Date());
+				relatedActivity.setEffectiveDt(new Date());
+				relatedActivity.setRecSt('A');
+				relatedActivity.setRelActSeq(0);
+				relatedActivity.setSourceApplicationActivity(parentActivity);
+				relatedActivity.setDestinationApplicationActivity(childActivity);
+				entityManager.persist(relatedActivity);
+			}
 		}
 		
 		

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.DataInputLogger;
+import com.nathanclaire.alantra.datasource.etl.DataInputLoggerProducer;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 
 /**

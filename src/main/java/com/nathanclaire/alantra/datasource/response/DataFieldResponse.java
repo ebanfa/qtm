@@ -24,6 +24,7 @@ public class DataFieldResponse extends BaseResponse {
     private String targetEntityField;
     private String relTargetEntityCd;
     private String fieldFormat;
+    private char requiredFg;
     private int seqNo;
 
     public DataFieldResponse() {
@@ -107,6 +108,14 @@ public class DataFieldResponse extends BaseResponse {
     
     public void setFieldFormat(String fieldFormat) {
         this.fieldFormat = fieldFormat;
+    }
+
+    public char getRequiredFg() {
+        return this.requiredFg;
+    }
+    
+    public void setRequiredFg(char requiredFg) {
+        this.requiredFg = requiredFg;
     }
 
     public int getSeqNo() {

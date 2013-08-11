@@ -13,6 +13,7 @@ import com.nathanclaire.alantra.advice.service.process.AdviceRequestMessageDataI
 import com.nathanclaire.alantra.base.service.process.EntityDataInputService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.service.process.CustomerDataInputService;
+import com.nathanclaire.alantra.datasource.etl.EntityDataInputServiceProducer;
 import com.nathanclaire.alantra.messaging.service.process.MessageDataInputService;
 import com.nathanclaire.alantra.transaction.service.process.TransactionDataInputService;
 

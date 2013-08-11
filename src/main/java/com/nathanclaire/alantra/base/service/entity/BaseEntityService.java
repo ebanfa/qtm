@@ -17,6 +17,9 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
  *
  */
 public interface BaseEntityService<M, T,V> {
+
+	public static final Character ENTITY_FLAG_NO = 'N';
+	public static final Character ENTITY_FLAG_YES = 'Y';
 	
 	public M update(V request) throws ApplicationException;
 

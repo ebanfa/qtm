@@ -12,5 +12,5 @@ import com.nathanclaire.alantra.datasource.model.DataInputJob;
  */
 public interface DataInputLogger {
 
-	public void logDataInput(DataInputJob inputJob, TableData tableData) throws ApplicationException;
+	public TableDataLite logDataInput(DataInputJob inputJob, TableDataLite tableDataLite) throws ApplicationException;
 }

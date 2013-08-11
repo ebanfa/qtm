@@ -2,20 +2,19 @@ define([
     'utilities',
     'configuration',
     'app/util/ajax-utilities',
+    'app/util/formUtilities',
     'app/collections/activity/activity',
     'text!../../../../../templates/desktop/activity/entity-search.html',
     'text!../../../../../templates/desktop/activity/entity-search-result.html',
     'i18n!app/nls/entities'
-], function (utilities, config, ajaxUtil, ActivityCollection, EntitySearchTemplate, EntitySearchResultTemplate, entities_strings) {
+], function (utilities, config, ajaxUtil, formUtil, ActivityCollection, EntitySearchTemplate, EntitySearchResultTemplate, entities_strings) {
     
     var EntitySearchView = Backbone.View.extend({
         initialize: function (options) {
             _.bindAll(this, 'render');
             this.searchData = options.searchData;
+            this.parentView = options.parentView;
             this.activityURL = options.activityURL;
-        },
-        events : 
-        {
         },
         render:function () 
         {   var self = this;
@@ -31,17 +30,64 @@ define([
                     self.delegateEvents();
             }).fetch({ data: this.searchData});
             return this;
+        },
+        selectEntity:function(event)
+        {
+            // Properties of the selected record
+            var recordId = null;
+            var recordCode = null;
+            var recordName = null;
+
+            var parentTd = $(event.currentTarget).parent();
+            var parentTr = null;
+            if(parentTd != null)
+                parentTr = parentTd.parent();
+            if(parentTr != null)
+            {
+                var codeFieldCell = parentTr.find('.code-field-cell :first')
+                if(codeFieldCell != null)
+                {
+                    recordCode = codeFieldCell.text().trim();
+                    recordId = codeFieldCell.attr('href');
+                }
+                var codeFieldName = parentTr.find('.name-field-cell :first')
+                if(codeFieldName != null)
+                    recordName = codeFieldName.text().trim();
+                $.fn.entityLite = formUtil.entityLite;
+                var entityLite = $.fn.entityLite(recordId, recordCode, recordName, null);
+                this.parentView.entityLite = entityLite;
+                // Set up the current selected related entity (field name and entity lite)
+                $.fn.createSelectedRelatedEntityInfo = formUtil.createSelectedRelatedEntityInfo;
+                this.parentView.selectedRelatedEntity = 
+                    $.fn.createSelectedRelatedEntityInfo(this.parentView.currentModalField, entityLite);
+            }
+        },
+        addSelectedEntity:function(event)
+        {
+            this.addNextSelectedEntity(event);
+            $('#entity-search-dialog').modal('hide');
+
+        },
+        addNextSelectedEntity:function(event)
+        {
+            if (this.parentView.entityLite != null) 
+                this.parentView.addCurrentEntity();  
         }
     });
     
     var EntitySearchDialogView = Backbone.View.extend({
         initialize: function (options) {
             _.bindAll(this, 'render');
+            this.searchView = null;
+            this.parentView = options.parentView;
             this.activityURL = options.activityURL;
             this.fieldName = options.modalFieldName;
             this.entityName = options.modalEntityName;
         },
-        render:function () 
+       /*
+        * Render function. This loads the search fields for the given entity
+        */
+        render: function () 
         {           
             var self = this;
             // do an ajax query to fetch the sarch fields of the entity
@@ -49,27 +95,54 @@ define([
                 this.onSearchFieldsSuccessCallBack, this.onSearchFieldsErrorCallBack);
             return this;
         },
+       /*
+        * Called if search fields are successfully loaded
+        */
         onSearchFieldsSuccessCallBack: function(data)
         {
-            console.log("Callback success from the mechanic:" + config);
-            utilities.applyTemplate($('#entity-search-dialog-div'), EntitySearchTemplate,  {model:{}, fields:data, entities_strings:entities_strings});
+            utilities.applyTemplate($('#entity-search-dialog-div'), 
+                EntitySearchTemplate,  {model:{}, fields:data, entities_strings:entities_strings});
             $('#entity-search-dialog').modal('show');
-            //$(this.el).trigger('pagecreate');
-            //this.delegateEvents();
-            // get the search fields and display the template
         },
+       /*
+        * Called if there was an error while attempting to load search fields
+        */
         onSearchFieldsErrorCallBack: function(error)
         {
-            console.log("Callback error from the mechanic");
-            // get the search fields and display the template
         },
+       /*
+        * An item from the search result list has been selected
+        */
+        selectEntity:function(event, parentView)
+        {
+            // Delegate to the search view
+            console.log('slecting>>>>>>')
+            this.searchView.selectEntity(event, parentView);
+        },
+       /*
+        * Called when the entity search result button has been clicked
+        */
+        handleEntitySearchResultButtonClicked: function()
+        {
+            var buttonClicked = $(event.currentTarget);
+            if(buttonClicked.attr("id") == "add-selected-item-btn")
+                this.searchView.addSelectedEntity(event);
+            else
+                this.searchView.addNextSelectedEntity(event);
+        },
+       /*
+        * Calls the search view to perform the search and render the results
+        */
         doSearch:function(event)
         {   
-            console.log("Searching");
             var searchData = {name:'Bristol Text'};
             var modelToSearch = new ActivityCollection({activityURL:this.activityURL});
-            var searchView = new EntitySearchView({model:modelToSearch, searchData:searchData});
-            searchView.render();
+            this.searchView = new EntitySearchView({
+                model : modelToSearch, 
+                searchData : searchData, 
+                parentView : this.parentView
+            });
+            this.searchView.render();
         }
     });
     return EntitySearchDialogView;

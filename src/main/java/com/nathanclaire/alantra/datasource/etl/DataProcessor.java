@@ -15,6 +15,6 @@ import com.nathanclaire.alantra.datasource.model.DataField;
 public interface DataProcessor {
 
 	public static final String DATA_TRANSFORMER_NOT_FOUND = "DataProcessor.DATA_TRANSFORMER_NOT_FOUND";
-	public TableData processData(TableData data, Set<DataField> fields) throws ApplicationException;
+	public TableDataLite processData(TableDataLite data, Set<DataField> fields) throws ApplicationException;
 
 }

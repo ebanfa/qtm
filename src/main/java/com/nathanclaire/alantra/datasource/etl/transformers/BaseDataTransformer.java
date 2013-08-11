@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.model.DataField;
 
 /**
@@ -22,7 +23,8 @@ public abstract class BaseDataTransformer {
 	
 	private Logger logger = LoggerFactory.getLogger(BaseDataTransformer.class);
 	public static final String RELATED_ENTITY_NOT_FOUND = "NoOperationDataTransformer.RELATED_ENTITY_NOT_FOUND";
-	private static final String INVALID_RELATIONSHIP_FIELD = null;
+	private static final String INVALID_RELATIONSHIP_FIELD = "BaseDataTransformer.INVALID_RELATIONSHIP_FIELD";
+	private static final String INVALID_CODE_VALUE_PROVIDED = "BaseDataTransformer.INVALID_CODE_VALUE_PROVIDED";
 
 	
     /**
@@ -53,10 +55,11 @@ public abstract class BaseDataTransformer {
 	 */
 	protected Integer getRelatedIDFromRelatedCode(DataField field, String code) throws ApplicationException
 	{
-		String entityName = field.getTargetEntityCd();
-		String relatedEntityName = field.getRelTargetEntityCd();
-		if(relatedEntityName == null) throw new ApplicationException(INVALID_RELATIONSHIP_FIELD);
-		String queryString = "select e.id from " + relatedEntityName + " e where e.code ='" + code + "'";
+		if(field.getRelTargetEntityCd() == null) 
+			throw new ApplicationException(INVALID_RELATIONSHIP_FIELD);
+		if(!StringUtil.isValidString(code))
+			throw new ApplicationException(INVALID_CODE_VALUE_PROVIDED);
+		String queryString = "select e.id from " + field.getRelTargetEntityCd() + " e where e.code ='" + code + "'";
 		logger.info("Using the follow query string: {}", queryString); 
 		try {
 			Query query = this.getEntityManager().createQuery(queryString);

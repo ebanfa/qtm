@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
 import com.nathanclaire.alantra.customer.service.entity.CustomerClassificationService;
 import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 import com.nathanclaire.alantra.customer.service.entity.CustomerTypeService;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 
 /**
  * @author Edward Banfa 
@@ -53,7 +53,7 @@ public class CustomerDataInputServiceImpl extends BaseProcessService implements 
 	 * @see com.nathanclaire.alantra.base.service.process.EntityDataInputService#processDataInput(com.nathanclaire.alantra.base.request.BaseRequest)
 	 */
 	@Override
-	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableData tableData)	throws ApplicationException {
+	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableDataLite tableDataLite)	throws ApplicationException {
 		PropertyUtils.initializeBaseFields(primaryEntityRequest);
 		Customer customer = this.createCustomer((CustomerRequest) primaryEntityRequest);
 		this.createAccount(customer, (AccountRequest) secEntityRequest);

@@ -30,7 +30,7 @@
                 %>     
                 <tr>
                     <td class="description">
-                        <input class="select-entity-radio" type="radio" value="<%=activity.id%>">
+                        <input class="entity-list-item" type="radio" value="<%=activity.id%>">
                     </td> 
                     <%
                     _.each(model.fields, function (field) {
@@ -82,7 +82,7 @@
                 </tbody>
             </table>
             <% if  (model.data.length > 0) { %> 
-                <a id="add-selected-customer-btn" href="#" class="btn btn-primary">Add</a>
-                <a id="add-next-selected-customer-btn" href="#" class="btn btn-primary">Add Next</a>
+                <a id="add-selected-item-btn" href="#" class="search-result-button btn btn-primary">Add</a>
+                <a id="add-next-selected-item-btn" href="#" class="search-result-button btn btn-primary">Add Next</a>
             <% } %> 
         </div>

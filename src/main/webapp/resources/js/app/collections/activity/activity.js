@@ -29,7 +29,7 @@ define([
                 data: JSON.stringify(arrayOfIds),
                 dataType: "json",
                 success: function(data){ 
-                    alert(arrayOfIds); 
+                    //alert(arrayOfIds); 
                     for (var i = 0; i < arrayOfIds.length; i++) {
                       this.remove(this.findWhere({id:arrayOfIds[i]}));
                     }

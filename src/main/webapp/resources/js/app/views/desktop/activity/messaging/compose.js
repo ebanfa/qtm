@@ -103,7 +103,6 @@ define([
             var formData = $('#compose-message-form').serializeObject();
             formData['toList'] = this.getToCustomerList();
             formData['ccList'] = this.getToUserList();
-            console.log("%%%%%%%:formData.toList"+ formData['ccList']);
             delete formData.entityId;
             console.log("Sending message:" + formData);   
             $.ajax({
@@ -231,12 +230,7 @@ define([
         doSearch:function(event)
         {
             event.preventDefault();
-            this.entitySearchDialogView.doSearch()
-
-            /*var customerName = $('#name').val();
-            var searchModel = new ActivityCollection({activityURL:this.currentModalEntity});
-            var searchView = new SearchView({model:searchModel, customerName:customerName, parentView:this});
-            searchView.render();*/
+            this.entitySearchDialogView.doSearch();
         },
         doUserSearch:function(event)
         {
@@ -301,23 +295,13 @@ define([
             // check for duplicates before adding
             var addCurrentEntityFg = true;
             var entityLite = this.selectedRelatedEntity.entityLite;
-            console.log(">>>>>>adding current entity: " + 
-                this.selectedRelatedEntity.fieldName + ":" + entityLite.name);
             for(var i = 0; i < this.selectedRelatedEntities.length; i++) 
             {  
                 if (this.selectedRelatedEntities[i].fieldName == this.selectedRelatedEntity.fieldName) {
                     if(this.selectedRelatedEntities[i].entityLite.id == entityLite.id) {
-                        console.log(">>>>>>not adding current entity: " + 
-                            this.selectedRelatedEntity.fieldName + ":" + entityLite.name);
                         addCurrentEntityFg = false;
                     }
                 }
-                /*else {
-                    if(this.selectedRelatedEntities[i].entityLite.id == entityLite.id){
-                        console.log(">>>>>>not adding current user entity: " + entityLite.name);
-                        addCurrentEntityFg = false;
-                    }
-                }*/
             }
             if (addCurrentEntityFg){
                 this.selectedRelatedEntities.push(this.selectedRelatedEntity);

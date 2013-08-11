@@ -17,7 +17,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.messaging.annotation.CustomerMessageReceivedEvent;
 import com.nathanclaire.alantra.messaging.annotation.ExistingMessageReceivedEvent;
@@ -56,11 +56,11 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	 * @see com.nathanclaire.alantra.base.service.process.EntityDataInputService#processDataInput(com.nathanclaire.alantra.base.request.BaseRequest, com.nathanclaire.alantra.base.request.BaseRequest)
 	 */
 	@Override
-	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableData tableData) 
+	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableDataLite tableDataLite) 
 			throws ApplicationException {
 
 		logger.debug("Processing data input request for primary entity {}, " +
-				"with secondary entity {} with table data of size {}", primaryEntityRequest, secEntityRequest, tableData.getRows().size());
+				"with secondary entity {} with table data of size {}", primaryEntityRequest, secEntityRequest, tableDataLite.getRows().size());
 		if(primaryEntityRequest == null) throw new ApplicationException(INVALID_PRIM_ENTITY_SPECIFIED);
 		PropertyUtils.initializeBaseFields(primaryEntityRequest);
 		// 1. Cast to message request and check if the message already exists
@@ -68,130 +68,130 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 		logger.debug("Processing data input for message with message code: {}", messageRequest.getCode());
 		Message message = messagingModuleService.findMessage(messageRequest.getCode());
 		if(message != null) 
-			return rejectMessage(message, secEntityRequest, tableData);
+			return rejectMessage(message, secEntityRequest, tableDataLite);
 		// 2. Check for attachments
 		MessageAttachmentRequest attachments = null;
 		if(secEntityRequest != null) attachments = (MessageAttachmentRequest) secEntityRequest;
 		// 3. Process customer message
 		if(messagingModuleService.isCustomerMessage(messageRequest)) 
-			return processCustomerMessage(messageRequest, attachments, tableData);
+			return processCustomerMessage(messageRequest, attachments, tableDataLite);
 		// 4. Process user message
 		else if(messagingModuleService.isUserMessage(messageRequest))
-			return processUserMessage(messageRequest, attachments, tableData);
+			return processUserMessage(messageRequest, attachments, tableDataLite);
 		else
-			return processUnknownMessageType(messageRequest, attachments, tableData);
+			return processUnknownMessageType(messageRequest, attachments, tableDataLite);
 	}
 
 	/**
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processCustomerMessage(MessageRequest messageRequest, 
-			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite) throws ApplicationException 
 	{
 		logger.debug("Processing customer message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
-		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
+		DataChannel dataChannel = getDataImportService(tableDataLite.getSourceServiceCode());
 		Customer customer = messagingModuleService.findCustomerFromMessageRequest(dataChannel, messageRequest);
 		if(customer == null) 
-			return processUnregisteredCustomerMessage(messageRequest, attachments, tableData, dataChannel);
+			return processUnregisteredCustomerMessage(messageRequest, attachments, tableDataLite, dataChannel);
 		else 
-			return processRegisteredCustomerMessage(customer, messageRequest, attachments, tableData, dataChannel);
+			return processRegisteredCustomerMessage(customer, messageRequest, attachments, tableDataLite, dataChannel);
 	}
 
 	/**
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processUserMessage(MessageRequest messageRequest, 
-			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite) throws ApplicationException 
 	{
 		logger.debug("Processing user message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
-		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
+		DataChannel dataChannel = getDataImportService(tableDataLite.getSourceServiceCode());
 		SystemUser user = messagingModuleService.findSystemUserFromMessageRequest(dataChannel, messageRequest);
 		if(user == null) 
-			return processUnregisteredUserMessage(messageRequest, attachments, tableData, dataChannel);
+			return processUnregisteredUserMessage(messageRequest, attachments, tableDataLite, dataChannel);
 		else 
-			return processRegisteredUserMessage(user, messageRequest, attachments, tableData, dataChannel);
+			return processRegisteredUserMessage(user, messageRequest, attachments, tableDataLite, dataChannel);
 	}
 
 	/**
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processUnknownMessageType(MessageRequest messageRequest,
-			MessageAttachmentRequest attachments, TableData tableData) throws ApplicationException 
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite) throws ApplicationException 
 	{
 		logger.debug("Processing unknown message {} ", messageRequest.getCode());
 		// Data channel will be used to find out what type of message we have;
-		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
+		DataChannel dataChannel = getDataImportService(tableDataLite.getSourceServiceCode());
 		initializeMessageRequest(MessageStatusService.UNCLASSIFIED_MESSAGE_RECEIVED, messageRequest, dataChannel);
-		return acceptMessage(MessageEvent.SENDER_TY_UNCLASSIFIED, null, null, messageRequest, attachments, tableData);
+		return acceptMessage(MessageEvent.SENDER_TY_UNCLASSIFIED, null, null, messageRequest, attachments, tableDataLite);
 	}
 	
 	/**
 	 * @param customer
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processRegisteredCustomerMessage(Customer customer, 	MessageRequest messageRequest,
-			MessageAttachmentRequest attachments, TableData tableData, DataChannel dataChannel) throws ApplicationException  
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite, DataChannel dataChannel) throws ApplicationException  
 	{
 		initializeMessageRequest(MessageStatusService.CUSTOMER_MESSAGE_RECEIVED, messageRequest, dataChannel);
-		return acceptMessage(MessageEvent.SENDER_TY_CUSTOMER, customer.getId(), null, messageRequest, attachments, tableData);
+		return acceptMessage(MessageEvent.SENDER_TY_CUSTOMER, customer.getId(), null, messageRequest, attachments, tableDataLite);
 	}
 
 	/**
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processUnregisteredCustomerMessage(MessageRequest messageRequest,
-			MessageAttachmentRequest attachments, TableData tableData, DataChannel dataChannel)  throws ApplicationException {
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite, DataChannel dataChannel)  throws ApplicationException {
 		initializeMessageRequest(MessageStatusService.CUSTOMER_NOT_REGISTERED, messageRequest, dataChannel);
-		return acceptMessage(MessageEvent.SENDER_TY_CUSTOMER, null, null, messageRequest, attachments, tableData);
+		return acceptMessage(MessageEvent.SENDER_TY_CUSTOMER, null, null, messageRequest, attachments, tableDataLite);
 	}
 
 	/**
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processUnregisteredUserMessage(MessageRequest messageRequest,
-			MessageAttachmentRequest attachments, TableData tableData, DataChannel dataChannel) throws ApplicationException {
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite, DataChannel dataChannel) throws ApplicationException {
 		initializeMessageRequest(MessageStatusService.SYSTEM_USER_NOT_REGISTERED, messageRequest, dataChannel);
-		return acceptMessage(MessageEvent.SENDER_TY_USER, null, null, messageRequest, attachments, tableData);
+		return acceptMessage(MessageEvent.SENDER_TY_USER, null, null, messageRequest, attachments, tableDataLite);
 	}
 
 	/**
 	 * @param user
 	 * @param messageRequest
 	 * @param attachments
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 * @throws ApplicationException
 	 */
 	private BaseEntity processRegisteredUserMessage(SystemUser user, MessageRequest messageRequest,
-			MessageAttachmentRequest attachments, TableData tableData, DataChannel dataChannel) throws ApplicationException {
+			MessageAttachmentRequest attachments, TableDataLite tableDataLite, DataChannel dataChannel) throws ApplicationException {
 		initializeMessageRequest(MessageStatusService.SYSTEM_USER_MESSAGE_RECEIVED, messageRequest, dataChannel);
-		return acceptMessage(MessageEvent.SENDER_TY_USER, null, null, messageRequest, attachments, tableData);
+		return acceptMessage(MessageEvent.SENDER_TY_USER, null, null, messageRequest, attachments, tableDataLite);
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	/**
 	 * @param senderTyCustomer 
 	 * @param secEntityRequest
-	 * @param tableData
+	 * @param tableDataLite
 	 * @param messageRequest
 	 * @param attachmentFileName
 	 * @param attachmentMimeType
@@ -220,16 +220,16 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 	 * @throws ApplicationException
 	 */
 	private Message acceptMessage(String senderType, Integer customerId, Integer userId, MessageRequest messageRequest, 
-			MessageAttachmentRequest attachmentRequest, TableData tableData) throws ApplicationException 
+			MessageAttachmentRequest attachmentRequest, TableDataLite tableDataLite) throws ApplicationException 
 	{
 		logger.debug("Accepting {} message for customer with id {} and" +
-				" tabledata if size {}", senderType, customerId, tableData.getRows().size());
+				" tabledata if size {}", senderType, customerId, tableDataLite.getRows().size());
 		Message message = messagingModuleService.createMessage(messageRequest);
 		MessageType messageType = message.getMessageType();
 		// Update job statistics related information
-		flagDataInputAccepted(tableData);		
+		flagDataInputAccepted(tableDataLite);		
 
-		MessageEvent event = new MessageEvent(tableData.getJobId(),
+		MessageEvent event = new MessageEvent(tableDataLite.getJobId(),
 				message.getId(), messageType.getCode(), customerId, userId, null, null, false);
 		event.setMessageCode(message.getCode());
 		event.setDataChannelId(message.getDataChannel().getId());
@@ -272,16 +272,16 @@ public class MessageDataInputServiceImpl extends BaseProcessService implements M
 
 	/**
 	 * @param attachmentRequest
-	 * @param tableData
+	 * @param tableDataLite
 	 * @param message
 	 * @throws ApplicationException
 	 */
-	private Message rejectMessage(Message message, BaseRequest attachmentRequest, TableData tableData) 
+	private Message rejectMessage(Message message, BaseRequest attachmentRequest, TableDataLite tableDataLite) 
 			throws ApplicationException 
 	{
 		// Update job statistics related information
 		logger.debug("Rejecting message with code {}", message.getCode());
-		flagDataInputRejected(tableData);
+		flagDataInputRejected(tableDataLite);
 		// Create the message event
 		MessageEvent event = new MessageEvent();
 		event.setMessageId(message.getId());

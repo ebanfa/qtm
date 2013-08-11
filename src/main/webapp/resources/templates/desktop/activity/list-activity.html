@@ -25,8 +25,8 @@
     	</form>
     </div>
     <div class="modal-footer">
-    	<a id="do-activity-search" href="#" class="btn btn-primary">Search</a>
-    	<a id="hide-activity-dialog" href="#" class="btn">Close</a>
+    	<a id="default-entity-search-btn" href="#" class="search-btn btn btn-primary">Search</a>
+    	<a id="default-cancel-search-btn" href="#" class="cancel-search-btn btn">Close</a>
     </div>
 </div>
 
@@ -44,11 +44,11 @@
 
         <div class="pull-right" style="padding-right:10px;">
 
-        	<a id="delete-activity-button" class="btn btn-danger" href=""><%= entities_strings.alantra_label_delete %></a>
+        	<a id="delete-list-item-btn" class="list-item-btn btn btn-danger" href=""><%= entities_strings.alantra_label_delete %></a>
 
-        	<a id="search-activity-button" class="btn btn-primary" href=""><%= entities_strings.alantra_label_search %></a>
+        	<a id="show-search-view-btn" class="non-list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_search %></a>
 
-        	<a id="create-activity-button" class="btn btn-primary" href=""><%= entities_strings.alantra_label_create %></a>
+        	<a id="show-create-view-btn" class="non-list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_create %></a>
     	</div>
     </div> <!-- .widget-header -->
     
@@ -57,7 +57,7 @@
             
             <thead>
                 <tr>   
-                <th><input id="table-header-checkbox" type="checkbox"></th>
+                <th><input class="select-all-list-items" type="checkbox"></th>
             <%
             _.each(model.fields, function (field) {
             %>  
@@ -82,7 +82,7 @@
 	        %>     
 	        <tr>
                 <td class="description">
-                	<input class="delete-activity-checkbox" type="checkbox" value="<%=activity.id%>">
+                	<input class="entity-list-item" type="checkbox" value="<%=activity.id%>">
                 </td> 
                 <%
                 _.each(model.fields, function (field) {

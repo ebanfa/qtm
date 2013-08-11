@@ -1,0 +1,130 @@
+<!-- Content -->
+<div id="activity-search-dialog" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><%= entities_strings.activity %> <%= entities_strings.alantra_label_search %></h3>
+    </div>
+    <div class="modal-body">
+        <form id="activity-search-form">
+            <fieldset>
+                <!-- Start field block. -->
+                    <div class="row-fluid">
+                        <!-- activity. -->
+                        <div id="activitySearchContainerDiv" class="span6">
+                        </div>
+                        <!-- code. -->
+                        <div class="span6">
+                            <input type="text" id="code" value="" name="code" placeholder="Code">
+                        </div>      
+                        <!-- code. -->
+                        <div class="span6">
+                            <input type="text" id="name" name="name" value="" placeholder="Name">
+                        </div>                                  
+                    </div> 
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a id="default-entity-search-btn" href="#" class="search-btn btn btn-primary">Search</a>
+        <a id="default-cancel-search-btn" href="#" class="cancel-search-btn btn">Close</a>
+    </div>
+</div>
+
+<div id="entity-search-dialog-div"></div>
+
+<div class="widget widget-table">
+    
+    <div class="widget-header">
+        <span class="icon-list-alt"></span>
+        <h3>
+            <%= model.displayNm %> 
+            <%= entities_strings.alantra_label_list %> 
+            (<%= model.data.length %>)
+
+        </h3>
+        
+
+        <div class="pull-right" style="padding-right:10px;">
+
+        	<a id="auto-match-activity-button" class="list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_transaction_servicetransaction_automatch %></a>
+
+            <a id="manual-match-activity-button" class="list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_transaction_servicetransaction_manualmatch %></a>
+
+            <a id="delete-list-item-btn" class="list-item-btn btn btn-danger" href=""><%= entities_strings.alantra_label_delete %></a>
+
+            <a id="show-search-view-btn" class="non-list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_search %></a>
+
+            <a id="show-create-view-btn" class="non-list-item-btn btn btn-primary" href=""><%= entities_strings.alantra_label_create %></a>
+    	</div>
+    </div> <!-- .widget-header -->
+    
+    <div class="widget-content scrollable-main-content">
+        <table class="table table-bordered table-striped">
+            
+            <thead>
+                <tr>   
+                <th><input class="select-all-list-items" type="checkbox"></th>
+            <%
+            _.each(model.fields, function (field) {
+            %>  
+                <% if  (field.name == "id") { %> 
+                <% } else if  (field.name == "lastModifiedDt") { %>
+                <% } else if  (field.name == "lastModifiedUsr") { %>
+                <% } else if  (field.name == "createdDt") { %>
+                <% } else { %> 
+                    <th>
+                        <div class="hideextra" style="width:150px"><%=field.description%></div>
+                    </th>  
+                <% }  %>
+
+            <% }); %>                           
+                </tr>
+            </thead> 
+
+    
+            <tbody>
+           <%
+	        _.each(model.data, function (activity) {
+	        %>     
+	        <tr>
+                <td class="description">
+                	<input class="entity-list-item" type="checkbox" value="<%=activity.id%>">
+                </td> 
+                <%
+                _.each(model.fields, function (field) {
+                %>  
+                    <% if  (field.applicationEntityFieldTypeText == "RELATIONSHIP") { %>                      
+                    <td class="td-actions">
+                        <div class="hideextra" style="width:150px">
+                            <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
+                            </a>
+                        </div>
+                    </td>  
+                    <% } else { %> 
+                        <!-- Filter fields --> 
+                        <% if  (field.name == "id") { %> 
+                        <% } else if  (field.name == "lastModifiedDt") { %>
+                        <% } else if  (field.name == "lastModifiedUsr") { %>
+                        <% } else if  (field.name == "createdDt") { %> 
+                        <% } else { %> 
+                    <td class="td-actions">
+                        <div class="hideextra" style="width:150px">
+                            <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                                <%= activity[field.name] ? activity[field.name] : '' %>
+                            </a>
+                        </div>
+                    </td>   
+                        <% }  %>   <!-- End if -->                  
+                     
+                    <% }  %>    <!-- End if --> 
+                <% }); %>  
+            </tr>  
+	        <% }); %>                      
+        	</tbody>
+    	</table>
+        
+    </div> <!-- .widget-content -->
+    
+</div> <!-- /widget --> 
+

@@ -24,6 +24,7 @@ define("router", [
     'app/views/desktop/activity/view-activity',
     'app/views/desktop/activity/edit-activity',
     'app/views/desktop/activity/list-activity',
+    'app/views/desktop/activity/transaction/list-activity',
     'text!../templates/desktop/main.html',
     'text!../templates/desktop/home/navbar.html',
     'text!../templates/desktop/home/footer.html',
@@ -51,6 +52,7 @@ define("router", [
             ActivityViewView,
             ActivityEditView,
             ActivityListView,
+            TransactionListView,
             MainTemplate, navBarTemplate, footerTemplate, 
             sideBarTemplate, subNavBarTemplate, homeContentTemplate) {
 
@@ -167,7 +169,10 @@ define("router", [
         showActivityList:function(activityURL)
         {
             var model = new ActivityCollection({activityURL:activityURL});
-            var activityListView = new ActivityListView({model:model, el:$("#content-container")});
+            if(activityURL == 'servicetransaction')
+                var activityListView = new TransactionListView({model:model, el:$("#content-container")});
+            else
+                var activityListView = new ActivityListView({model:model, el:$("#content-container")});
         },
         showActivityView:function(activityURL, id)
         {

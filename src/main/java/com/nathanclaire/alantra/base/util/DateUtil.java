@@ -21,11 +21,16 @@ public class DateUtil {
 	 * @param dateString
 	 * @return
 	 */
-	public static Date convertStringToJavaDate(String dateString)
+	private static final String INVALID_DATE_STRING_PROVIDED = "DateUtil.INVALID_DATE_STRING_PROVIDED";
+	public static Date convertStringToJavaDate(String dateString) throws ApplicationException
 	{
-		DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
-		DateTime dt = formatter.parseDateTime(dateString);
-		return dt.toDate();
+		try {
+			DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
+			DateTime dt = formatter.parseDateTime(dateString);
+			return dt.toDate();
+		} catch (Exception e) {
+			throw new ApplicationException(INVALID_DATE_STRING_PROVIDED);
+		}
 	}
 	
 	/**
@@ -38,6 +43,10 @@ public class DateUtil {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern(dataFormatString);
 		DateTime dt = formatter.parseDateTime(dateString);
 		return dt.toDate();
+	}
+	
+	public static Long getCurrentTimeInMilliSeconds() {
+		return new Date().getTime();
 	}
 
 }

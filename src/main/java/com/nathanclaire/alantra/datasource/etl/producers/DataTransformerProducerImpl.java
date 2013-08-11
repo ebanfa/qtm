@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.DataTransformer;
+import com.nathanclaire.alantra.datasource.etl.DataTransformerProducer;
 import com.nathanclaire.alantra.datasource.etl.transformers.NoOperationDataTransformer;
 import com.nathanclaire.alantra.datasource.etl.transformers.RelatedEntityCodeToIDTransformer;
 import com.nathanclaire.alantra.datasource.model.DataField;

@@ -12,5 +12,10 @@ import com.nathanclaire.alantra.datasource.model.DataField;
  */
 public interface DataTransformer 
 {
-	public CellData transform(CellData cellData, DataField field) throws ApplicationException;
+	public static final String ENTITY_FIELD_ERROR = "DataTransformer.ENTITY_FIELD_ERROR";
+	public static final String ENTITY_DATE_FIELD_ERROR = "DataTransformer.ENTITY_DATE_FIELD_ERROR";
+	public static final String USR_WRONG_FIELD_DATA_TYPE = "DataTransformer.USR_WRONG_FIELD_DATA_TYPE";
+	public static final String ENTITY_RELATIONSHIP_FIELD_ERROR = "DataTransformer.ENTITY_RELATIONSHIP_FIELD_ERROR";
+
+	public CellDataLite transform(CellDataLite cellDataLite, DataField field) throws ApplicationException;
 }

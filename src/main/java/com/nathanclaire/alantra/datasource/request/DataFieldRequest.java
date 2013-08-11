@@ -26,6 +26,7 @@ public class DataFieldRequest extends BaseRequest {
     private String targetEntityField;
     private String relTargetEntityCd;
     private String fieldFormat;
+    private char requiredFg;
     private int seqNo;
     private Integer id;
     private String code;
@@ -127,6 +128,14 @@ public class DataFieldRequest extends BaseRequest {
     
     public void setFieldFormat(String fieldFormat) {
         this.fieldFormat = fieldFormat;
+    }
+
+    public char getRequiredFg() {
+        return this.requiredFg;
+    }
+    
+    public void setRequiredFg(char requiredFg) {
+        this.requiredFg = requiredFg;
     }
 
     public int getSeqNo() {

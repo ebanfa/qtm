@@ -47,6 +47,9 @@ public class EntityNames{
 		entityNames.put("DataLoader", "Data Loader");
 		entityNames.put("DataProcessor", "Data Processor");
 		entityNames.put("DataTransformer", "DataTransformer");
+		entityNames.put("TableData", "Table Data");
+		entityNames.put("RowData", "Row Data");
+		entityNames.put("CellData", "Cell Data");
 		entityNames.put("ServiceTransactionCategory", "Transaction Category");
 		entityNames.put("ServiceTransactionType", "Transaction Type");
 		entityNames.put("ServiceTransactionStatus", "Transaction Status");

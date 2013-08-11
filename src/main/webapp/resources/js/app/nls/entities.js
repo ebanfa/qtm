@@ -32,6 +32,9 @@ define({
 	    "activity_description": "Description",
 	    "activity_effectivedt": "Effective Date",
 		"activity_lastmodifieddt": "Last Modified",
-		"activity_lastmodifiedusr": "Last Modified By"
+		"activity_lastmodifiedusr": "Last Modified By",
+
+		"alantra_label_transaction_servicetransaction_automatch":"Auto match",
+		"alantra_label_transaction_servicetransaction_manualmatch":"Manual match"
     }
 });

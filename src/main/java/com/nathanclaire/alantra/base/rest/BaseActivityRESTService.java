@@ -303,9 +303,21 @@ public abstract class BaseActivityRESTService<T,V> {
 	 * @return
 	 */
 	protected BaseActivityResponse processActivityResponseException(
-			BaseActivityResponse response, Exception e) {
+			BaseActivityResponse response, Exception e) 
+	{
+		return this.processActivityResponseException(response, e.getMessage());
+	}
+	
+	/**
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	protected BaseActivityResponse processActivityResponseException(
+			BaseActivityResponse response, String message)
+	{
 		response.setErrorCode(1);
-		response.setErrorMessage(e.getMessage());
+		response.setErrorMessage(message);
 		return response;
 	}
     

@@ -43,6 +43,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     private int diFreqVal;
     private String diFreqCd;
 	private Set<DataInputJobSummary> dataInputJobSummaries = new HashSet<DataInputJobSummary>(0);
+	private Set<TableData> tableDatas = new HashSet<TableData>(0);
 
     public DataInputJob() {
     }
@@ -58,7 +59,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJobSummary> dataInputJobSummaries ) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJobSummary> dataInputJobSummaries, Set<TableData> tableDatas ) 
     {
 		this.dataInputJobStatus = dataInputJobStatus;
 		this.dataInputJobType = dataInputJobType;
@@ -75,6 +76,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.dataInputJobSummaries = dataInputJobSummaries;
+		this.tableDatas = tableDatas;
     }
     
     		
@@ -171,6 +173,18 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     public void setDataInputJobSummaries(Set<DataInputJobSummary> dataInputJobSummaries) 
     {
         this.dataInputJobSummaries = dataInputJobSummaries;
+    }			
+			
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataInputJob")
+    @JsonIgnore
+    public Set<TableData> getTableDatas() 
+    {
+        return this.tableDatas;
+    }
+    
+    public void setTableDatas(Set<TableData> tableDatas) 
+    {
+        this.tableDatas = tableDatas;
     }			
 
 

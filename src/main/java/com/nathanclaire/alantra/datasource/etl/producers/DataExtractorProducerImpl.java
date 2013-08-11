@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.DataExtractor;
+import com.nathanclaire.alantra.datasource.etl.DataExtractorProducer;
 import com.nathanclaire.alantra.datasource.etl.extractors.CSVDataExtractor;
 import com.nathanclaire.alantra.datasource.etl.extractors.EmailDataExtractor;
 import com.nathanclaire.alantra.datasource.etl.extractors.ExcelDataExtractor;

@@ -19,7 +19,7 @@ import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.DataInputJobSummary;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryService;
@@ -64,11 +64,11 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 	 * @see com.nathanclaire.alantra.transaction.service.process.TransactionDataInputService#processTransactionRequest()
 	 */
 	@Override
-	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableData tableData) throws ApplicationException {
+	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableDataLite tableDataLite) throws ApplicationException {
 		PropertyUtils.initializeBaseFields(primaryEntityRequest);
 		ServiceTransactionRequest transactionRequest = (ServiceTransactionRequest) primaryEntityRequest;
 		// Process relationships
-		transactionRequest.setDataChannelId(getDataImportService(tableData.getSourceServiceCode()).getId());
+		transactionRequest.setDataChannelId(getDataImportService(tableDataLite.getSourceServiceCode()).getId());
 		transactionRequest.setServiceTransactionStatusId(getTransactionPendingStatus().getId());
 		CustomerAccount account = getTransactionAccount(transactionRequest.getCustomerAccountId());
 		String transactionCode = processTransactionType(transactionRequest, account);
@@ -80,35 +80,35 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 		ServiceTransaction transaction = serviceTransactionService.findByCode(transactionCode);		
 		if(transaction != null) 
 		{
-			flagDataInputRejected(tableData);
+			flagDataInputRejected(tableDataLite);
 			String transactionType = transaction.getServiceTransactionType().getCode();
 			// Fire event and throw exception
-			transactionAlreadyExistEvent.fire(initializeEvent(tableData, transaction, transactionType));
+			transactionAlreadyExistEvent.fire(initializeEvent(tableDataLite, transaction, transactionType));
 			return transaction;
 		}
-		flagDataInputAccepted(tableData);
+		flagDataInputAccepted(tableDataLite);
 		transaction = serviceTransactionService.create(transactionRequest);
 		String transactionType = transaction.getServiceTransactionType().getCode();
 		// Process ATM transactions events
 		if(transactionType.equals(ServiceTransactionTypeService.ATM_WITHDRAWAL))
-			aTMTransactionCreatedEvent.fire(initializeEvent(tableData, transaction, ServiceTransactionTypeService.ATM_WITHDRAWAL));
+			aTMTransactionCreatedEvent.fire(initializeEvent(tableDataLite, transaction, ServiceTransactionTypeService.ATM_WITHDRAWAL));
 		// Process Cheque transactions events
 		if(transactionType.equals(ServiceTransactionTypeService.CHEQUE_WITHDRAWAL))
-			chequeTransactionCreatedEvent.fire(initializeEvent(tableData,transaction, ServiceTransactionTypeService.CHEQUE_WITHDRAWAL));
+			chequeTransactionCreatedEvent.fire(initializeEvent(tableDataLite,transaction, ServiceTransactionTypeService.CHEQUE_WITHDRAWAL));
 		return transaction;
 	}
 	
 	/**
-	 * @param tableData
+	 * @param tableDataLite
 	 * @return
 	 */
-	private TransactionCreationEvent initializeEvent(TableData tableData, ServiceTransaction transaction, String transactionTypeCode)
+	private TransactionCreationEvent initializeEvent(TableDataLite tableDataLite, ServiceTransaction transaction, String transactionTypeCode)
 	{
 		TransactionCreationEvent event = new TransactionCreationEvent();
-		event.setJobId(tableData.getJobId());
+		event.setJobId(tableDataLite.getJobId());
 		if(transaction != null) event.setTransactionId(transaction.getId());
-		event.setChannelId(tableData.getChannelId());
-		event.setJobSummaryId(tableData.getJobSummaryId());
+		event.setChannelId(tableDataLite.getChannelId());
+		event.setJobSummaryId(tableDataLite.getJobSummaryId());
 		event.setTransactionTypeCode(transactionTypeCode);
 		return event;
 	}

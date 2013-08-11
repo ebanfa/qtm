@@ -3,9 +3,8 @@
  */
 package com.nathanclaire.alantra.datasource.etl.extractors;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,10 +13,11 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.StringUtil;
-import com.nathanclaire.alantra.datasource.etl.CellData;
-import com.nathanclaire.alantra.datasource.etl.RowData;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.CellDataLite;
+import com.nathanclaire.alantra.datasource.etl.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.Data;
+import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.model.DataStructure;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
 
@@ -28,8 +28,6 @@ import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
 @Stateless
 public class CSVDataExtractorImpl extends BaseDataExtractor<String> implements CSVDataExtractor {
 
-	private static final String CSV_FILE_NOT_FOUND = "CSVDataExtractorImpl.CSV_FILE_NOT_FOUND";
-	private static final String INPUT_OUTPUT_ERROR = "CSVDataExtractorImpl.INPUT_OUTPUT_ERROR";
 	private static final String INVALID_URL_STRING_PASSED = "CSVDataExtractorImpl.INVALID_URL_STRING_PASSED";
 	
 
@@ -40,7 +38,7 @@ public class CSVDataExtractorImpl extends BaseDataExtractor<String> implements C
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected TableData extractData(Data data, TableData tableDataToBePopulated) throws ApplicationException {
+	protected TableDataLite extractData(Data data, TableDataLite tableDataToBePopulated) throws ApplicationException {
 		DataStructure dataStructure = data.getDataStructure();
 		try 
 		{
@@ -52,27 +50,123 @@ public class CSVDataExtractorImpl extends BaseDataExtractor<String> implements C
 			int recordsRead = processRows(dataStructure, dataStructure.getDataFields(), tableDataToBePopulated, extractedData);
 			tableDataToBePopulated.setRecordsRead(recordsRead);
 			reader.close();
-		} catch (FileNotFoundException e) {
-			throw new ApplicationException(CSV_FILE_NOT_FOUND, e.getMessage());
-		} catch (IOException e) {
-			throw new ApplicationException(INPUT_OUTPUT_ERROR, e.getMessage());
+		} catch (Exception e) {
+			throw new ApplicationException(USR_DATA_EXTRACTION_ERROR, e.getMessage());
 		}
 		return tableDataToBePopulated;
 	}
-	
-	/**
-	 * @param columns
-	 * @param rowData
-	 * @param i
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processStringDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected void getCellData(String cellName, String dataType, String data, RowData rowData) {
-		CellData cellData = new CellData();
-		cellData.setName(cellName);
-		cellData.setDataType(dataType);
+	@Override
+	protected CellDataLite processStringDataField(DataField dataField, String data, RowDataLite currentRow) 
+			throws ApplicationException 
+	{
+		String cellDataType = dataField.getDataFieldType().getCode();
+		CellDataLite cellDataLite = this.initializeCell(dataField.getCode(), cellDataType);
+		if(cellDataType.equals(DataFieldTypeService.STRING)) 
+		{
+			if(StringUtil.isValidString(data))
+				cellDataLite.setData(data);
+			else
+				handleCellReadError(StringUtil.EMPTY_STRING, 
+						cellDataLite, INVALID_STRING_VALUE, NO_VALUE_PROVIDED);
+		}
+		return cellDataLite;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processIntegerDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
+	 */
+	@Override
+	protected CellDataLite processIntegerDataField(DataField dataField, String data, RowDataLite currentRow) 
+			throws ApplicationException 
+	{
+		String cellDataType = dataField.getDataFieldType().getCode();
+		CellDataLite cellDataLite = this.initializeCell(dataField.getCode(), cellDataType);
+		if(cellDataType.equals(DataFieldTypeService.INTEGER))
+		{
+			if(StringUtil.isValidString(data))
+			{
+				try {
+			        cellDataLite.setData(new Integer(data));
+				} catch (Exception e) {
+					handleCellReadError(data, cellDataLite, USR_INVALID_INTEGER_STRING, e.getMessage());
+				}
+			}
+			else
+				handleCellReadError(StringUtil.EMPTY_STRING, cellDataLite, USR_INVALID_INTEGER_STRING, NO_VALUE_PROVIDED);
+		}
+		return cellDataLite;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDecimalDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
+	 */
+	@Override
+	protected CellDataLite processDecimalDataField(DataField dataField, String data, RowDataLite currentRow) 
+			throws ApplicationException 
+	{
+		String cellDataType = dataField.getDataFieldType().getCode();
+		CellDataLite cellDataLite = this.initializeCell(dataField.getCode(), cellDataType);
 		// Clean decimal fields
-		if(dataType.equals(DataFieldTypeService.DECIMAL))
-			data = cleanDecimal(data);
-		cellData.setData((String) data);
-		rowData.getColumns().add(cellData);
+		if(cellDataType.equals(DataFieldTypeService.DECIMAL))
+		{
+			if(StringUtil.isValidString(data))
+			{
+				data = cleanDecimal(data);
+				try {
+					BigDecimal cellValueBigDecimal = new BigDecimal(data);
+			        cellDataLite.setData(cellValueBigDecimal);
+				} catch (Exception e) {
+					handleCellReadError(data, cellDataLite, USR_INVALID_DECIMAL_STRING, e.getMessage());
+				}
+			}
+			else
+				handleCellReadError(StringUtil.EMPTY_STRING, cellDataLite, USR_INVALID_DECIMAL_STRING, NO_VALUE_PROVIDED);
+		}
+		return cellDataLite;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDateDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
+	 */
+	@Override
+	protected CellDataLite processDateDataField(DataField dataField, String data, RowDataLite currentRow) 
+			throws ApplicationException 
+	{
+		String cellDataType = dataField.getDataFieldType().getCode();
+		CellDataLite cellDataLite = this.initializeCell(dataField.getCode(), cellDataType);
+		if(cellDataType.equals(DataFieldTypeService.DATE))
+		{
+			if(StringUtil.isValidString(data)) {
+				cellDataLite.setData(parseDateString(dataField.getFieldFormat(), data));
+			}
+			else 
+	        	handleCellReadError(StringUtil.EMPTY_STRING, 
+	        			cellDataLite, INVALID_DATE_VALUE, INVALID_CELL_DATA_TYPE);
+		}
+		return cellDataLite;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processRelationshipDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
+	 */
+	@Override
+	protected CellDataLite processRelationshipDataField(DataField dataField, String data, RowDataLite currentRow) 
+			throws ApplicationException 
+	{
+		String cellDataType = dataField.getDataFieldType().getCode();
+		CellDataLite cellDataLite = this.initializeCell(dataField.getCode(), cellDataType);
+		if(cellDataType.equals(DataFieldTypeService.RELATIONSHIP))
+		{
+			if(StringUtil.isValidString(data))
+				cellDataLite.setData(data);
+			else
+				handleCellReadError(StringUtil.EMPTY_STRING, 
+						cellDataLite, INVALID_STRING_VALUE, NO_VALUE_PROVIDED);
+		}
+		return cellDataLite;
 	}
 }

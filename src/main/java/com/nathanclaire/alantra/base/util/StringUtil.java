@@ -19,8 +19,10 @@ import org.slf4j.LoggerFactory;
  */
 public class StringUtil {
 
-	public static String EMPTY_STRING = "";
-	public static String UNDERSCORE = "_";
+	public static final String EMPTY_STRING = "";
+	public static final String UNDERSCORE = "_";
+	public static final String DECIMAL_SYMBOL = ".";
+	public static final String EXPONENTIAL_SYMBOL = "E";
 	private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
 	public static String EMAIL_REGEX = "[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})";
 

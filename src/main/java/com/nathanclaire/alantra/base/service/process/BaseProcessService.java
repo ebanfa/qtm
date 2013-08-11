@@ -9,13 +9,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelType;
-import com.nathanclaire.alantra.datasource.model.DataInputJobSummary;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
-import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryService;
 
 /**
  * @author Edward Banfa 
@@ -26,11 +24,9 @@ public class BaseProcessService {
     /**
      * Entity
      */
-    @Inject
-    private EntityManager entityManager;
+    @Inject EntityManager entityManager;
 
 	@Inject DataChannelService dataChannelService;
-	@Inject DataInputJobSummaryService summaryService;
 
 	private static final String CONFIG_ERROR_DATA_CHANNEL_TYPE_NOT_SPECIFIED = 
 			"BaseProcessService.CONFIG_ERROR_DATA_CHANNEL_TYPE_NOT_SPECIFIED";
@@ -87,26 +83,26 @@ public class BaseProcessService {
 	 * @param jobSummary
 	 * @throws ApplicationException 
 	 */
-	protected void flagDataInputAccepted(TableData tableData) throws ApplicationException {
+	protected void flagDataInputAccepted(TableDataLite tableDataLite) throws ApplicationException {
 
-		DataInputJobSummary jobSummary = summaryService.findById(tableData.getJobSummaryId());
+		/*DataInputJobSummary jobSummary = summaryService.findById(tableDataLite.getJobSummaryId());
 		jobSummary.setRecordsRead(jobSummary.getRecordsRead() + 1);
 		jobSummary.setPrimEntityRecordsCreated(jobSummary.getPrimEntityRecordsCreated() + 1);
 		jobSummary.setTotalEntitiesCreated(jobSummary.getTotalEntitiesCreated() + 1);
-		getEntityManager().flush();
+		getEntityManager().flush();*/
 	}
 
 	/**
 	 * @param jobSummary
 	 * @throws ApplicationException 
 	 */
-	protected void flagDataInputRejected(TableData tableData) throws ApplicationException 
+	protected void flagDataInputRejected(TableDataLite tableDataLite) throws ApplicationException 
 	{
-		DataInputJobSummary jobSummary = summaryService.findById(tableData.getJobSummaryId());
+		/*DataInputJobSummary jobSummary = summaryService.findById(tableDataLite.getJobSummaryId());
 		jobSummary.setRecordsRejected(jobSummary.getRecordsRejected() + 1);
 		jobSummary.setPrimEntityRecordsRejected(jobSummary.getPrimEntityRecordsRejected() + 1);
 		jobSummary.setTotalEntitiesRejected(jobSummary.getTotalEntitiesRejected() + 1);
-		getEntityManager().merge(jobSummary);
+		getEntityManager().merge(jobSummary);*/
 	}
 
 	/**

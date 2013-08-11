@@ -22,7 +22,7 @@ import com.nathanclaire.alantra.businessdata.service.process.BusinessDataProcess
 import com.nathanclaire.alantra.customer.model.Account;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.service.process.CustomerProcessingService;
-import com.nathanclaire.alantra.datasource.etl.TableData;
+import com.nathanclaire.alantra.datasource.etl.TableDataLite;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 
 /**
@@ -42,21 +42,21 @@ public class AdviceRequestMessageDataInputServiceImpl extends BaseProcessService
 	
 
 	@Override
-	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableData tableData) 
+	public BaseEntity processDataInput(BaseRequest primaryEntityRequest, BaseRequest secEntityRequest, TableDataLite tableDataLite) 
 			throws ApplicationException {
 		PropertyUtils.initializeBaseFields(primaryEntityRequest);		
 		AdviceRequestMessageRequest adviceRequest = (AdviceRequestMessageRequest) primaryEntityRequest;
 		// Verify that the advice request does not exist
 		AdviceRequestMessage adviceRequestMessage = adviceProcessingService.findAdviceRequestMessage(adviceRequest.getCode());
 		if(adviceRequestMessage != null){
-			flagDataInputRejected(tableData);
+			flagDataInputRejected(tableDataLite);
 			//requestMessageCreatedFailedEvent.fire(new AdviceRequestMessageCreationEvent(adviceRequestMessage.getId()));
 			return adviceRequestMessage;
 		}
 		// Currency, customer, account, data channel and friends
 		Currency currency = businessProcessingService.getCurrency(adviceRequest.getCurrencyCd());
 		Account account = customerService.getAccount(adviceRequest.getAccountNo());
-		DataChannel dataChannel = getDataImportService(tableData.getSourceServiceCode());
+		DataChannel dataChannel = getDataImportService(tableDataLite.getSourceServiceCode());
 		Customer customer = customerService.getFirstCustomerWithAccount(account.getAccountNo());
 		AdviceType adviceType = adviceProcessingService.getAdviceTypeInAdviceText(adviceRequest.getAdviceTxt());
 		// Create the advice request
@@ -66,9 +66,9 @@ public class AdviceRequestMessageDataInputServiceImpl extends BaseProcessService
 							adviceRequest.getAmount(), adviceRequest.getChequeNo(), adviceRequest.getCardNo(), 
 							adviceType, dataChannel.getId(), adviceRequest.getAdviceTxt());
 			// Update job stats
-			flagDataInputAccepted(tableData);
+			flagDataInputAccepted(tableDataLite);
 		} catch (Exception e) {
-			flagDataInputRejected(tableData);
+			flagDataInputRejected(tableDataLite);
 			logger.error(e.getMessage());
 		}
 		return adviceRequestMessage;
