@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.notification.model.NotificationType;
 import com.nathanclaire.alantra.security.model.SystemUser;
 
@@ -16,39 +17,9 @@ import com.nathanclaire.alantra.security.model.SystemUser;
  */
 public interface NotificationService {
 
-	public static final String NOTIFICATION_TYPE_NOT_FIND = "NotificationService.NOTIFICATION_TYPE_NOT_FIND";
-	public static final String CREATE_CUST_NOTIFICATION_ERROR = "NotificationService.CREATE_CUST_NOTIFICATION_ERROR";
+	public void createCustomerNotification(NotificationType notificationType, Customer customer, 
+			DataChannel channel, Map<String, String> templateTageValues) throws ApplicationException;
 	
-	/**
-	 * @param customer
-	 * @param notificationType
-	 * @param templateTagValues
-	 * @throws ApplicationException
-	 */
-	public void notifyCustomer(Customer customer, String notificationType, 
-			Map<String, String> templateTagValues) throws ApplicationException;
-	
-	/**
-	 * @param user
-	 * @param notificationType
-	 * @param templateTagValues
-	 * @throws ApplicationException
-	 */
-	public void notifyUser(SystemUser user, String notificationType, 
-			Map<String, String> templateTagValues) throws ApplicationException;
-	
-	/**
-	 * @param notificationType
-	 * @param templateTagValues
-	 * @throws ApplicationException
-	 */
-	public void notifyAdmin(String notificationType, Map<String, String> templateTagValues) throws ApplicationException;
-
-	/**
-	 * @param notificationTypeCode
-	 * @return
-	 * @throws ApplicationException
-	 */
-	public NotificationType getNotificationType(String notificationTypeCode) throws ApplicationException;
-
+	public void createUserNotification(NotificationType notificationType, SystemUser user, 
+			DataChannel channel, Map<String, String> templateTageValues) throws ApplicationException;
 }

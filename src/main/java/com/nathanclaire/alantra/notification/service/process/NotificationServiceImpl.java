@@ -17,8 +17,9 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 import com.nathanclaire.alantra.customer.model.Customer;
-import com.nathanclaire.alantra.notification.annotation.CustomerNotificationCreatedEvent;
-import com.nathanclaire.alantra.notification.annotation.SystemUserNotificationCreatedEvent;
+import com.nathanclaire.alantra.datasource.model.DataChannel;
+import com.nathanclaire.alantra.notification.annotation.event.NotificationCreatedEvent;
+import com.nathanclaire.alantra.notification.annotation.event.SMSNotificationCreatedEvent;
 import com.nathanclaire.alantra.notification.event.NotificationEvent;
 import com.nathanclaire.alantra.notification.model.CustomerNotification;
 import com.nathanclaire.alantra.notification.model.NotificationType;
@@ -43,89 +44,26 @@ import com.nathanclaire.alantra.security.service.process.SecurityModuleService;
 @Stateless
 public class NotificationServiceImpl extends BaseProcessService implements NotificationService {
 
-	@Inject NotificationTypeService notificationTypeService;
-	@Inject TemplateProcessingService templateProcessingService;
-	@Inject SystemUserNotificationService userNotificationService;
-	@Inject CustomerNotificationService customerNotificationService;
-	@Inject SecurityModuleService securityModuleService;
-	@Inject @SystemUserNotificationCreatedEvent Event<NotificationEvent> userNotificationCreatedEvent;
-	@Inject @CustomerNotificationCreatedEvent Event<NotificationEvent> customerNotificationCreatedEvent;
-	private Logger logger = LoggerFactory.getLogger(NotificationServiceImpl.class);
-	
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#notifyCustomer(com.nathanclaire.alantra.customer.model.Customer, com.nathanclaire.alantra.notification.model.NotificationType, java.util.Map)
+	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#createCustomerNotification(com.nathanclaire.alantra.notification.model.NotificationType, com.nathanclaire.alantra.customer.model.Customer, com.nathanclaire.alantra.datasource.model.DataChannel, java.util.Map)
 	 */
 	@Override
-	public void notifyCustomer(Customer customer, String notificationTypeCode,	 Map<String, String> templateTagValues) 
-			throws ApplicationException {
-		try {
-			CustomerNotificationRequest notificationRequest = new CustomerNotificationRequest();
-			PropertyUtils.initializeBaseFields(notificationRequest);
-			// 1. Get the notification type
-			NotificationType notificationType = getNotificationType(notificationTypeCode);
-			notificationRequest.setCustomerId(customer.getId());
-			notificationRequest.setNotificationTypeId(notificationType.getId());
-			notificationRequest.setCode(getCurrentTimeInMilliSeconds().toString());
-			notificationRequest.setName(notificationType.getName());
-			// Get and fill the template
-			Template template = notificationType.getTemplate();
-			FilledTemplate filledTemplate = templateProcessingService.fillTemplate(template, templateTagValues);
-			// Create notification and fire the event to signal we have a new customer notification
-			CustomerNotification notification = customerNotificationService.create(notificationRequest);
-			customerNotificationCreatedEvent.fire(new NotificationEvent(notificationType.getCode(), 
-					notification.getId(), customer.getId(), filledTemplate.getHeader(), filledTemplate.getBody()));
-		} catch (Exception e) {
-			throw new ApplicationException(CREATE_CUST_NOTIFICATION_ERROR, e.getMessage());
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#notifyUser(com.nathanclaire.alantra.security.model.SystemUser, com.nathanclaire.alantra.notification.model.NotificationType, java.util.Map)
-	 */
-	@Override
-	public void notifyUser(SystemUser user, String notificationTypeCode,
-			Map<String, String> templateTagValues) throws ApplicationException {
-		SystemUserNotificationRequest notificationRequest = new SystemUserNotificationRequest();
-		PropertyUtils.initializeBaseFields(notificationRequest);
-		// 1. Get the notification type
-		NotificationType notificationType = getNotificationType(notificationTypeCode);
-		notificationRequest.setSystemUserId(user.getId());
-		notificationRequest.setNotificationTypeId(notificationType.getId());
-		notificationRequest.setCode(getCurrentTimeInMilliSeconds().toString());
-		notificationRequest.setName(notificationType.getName());
-		// Get and fill the template
-		Template template = notificationType.getTemplate();
-		templateTagValues = 
-				templateProcessingService.addToTemplate(TemplateTypeTagService.USER_NAME, user.getUsername(), templateTagValues);
-		FilledTemplate filledTemplate = templateProcessingService.fillTemplate(template, templateTagValues);
-		// Create notification and fire the event to signal we have a new customer notification
-		SystemUserNotification notification = userNotificationService.create(notificationRequest);
-		userNotificationCreatedEvent.fire(new NotificationEvent(notificationType.getCode(), 
-				notification.getId(), user.getId(), filledTemplate.getHeader(), filledTemplate.getBody()));
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#notifyAdmin(java.lang.String, java.util.Map)
-	 */
-	@Override
-	public void notifyAdmin(String notificationType, Map<String, String> templateTagValues) throws ApplicationException {
-		logger.debug("Sending notification {} to admin user. Using template tag values {}", notificationType, templateTagValues);
-		List<SystemUser> adminUsers = securityModuleService.findAdminUsers();
-		for(SystemUser user: adminUsers)
-			notifyUser(user, notificationType, templateTagValues);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#getNotificationType(java.lang.String)
-	 */
-	@Override
-	public NotificationType getNotificationType(String notificationTypeCode) throws ApplicationException {
+	public void createCustomerNotification(NotificationType notificationType,
+			Customer customer, DataChannel channel,
+			Map<String, String> templateTageValues) throws ApplicationException {
 		// TODO Auto-generated method stub
-		logger.debug("Looking up notification type using code: {}", notificationTypeCode);
-		NotificationType notificationType = notificationTypeService.findByCode(notificationTypeCode);
-		if(notificationType == null)
-			throw new ApplicationException(NOTIFICATION_TYPE_NOT_FIND);
-		return notificationType;
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.notification.service.process.NotificationService#createUserNotification(com.nathanclaire.alantra.notification.model.NotificationType, com.nathanclaire.alantra.security.model.SystemUser, com.nathanclaire.alantra.datasource.model.DataChannel, java.util.Map)
+	 */
+	@Override
+	public void createUserNotification(NotificationType notificationType,
+			SystemUser user, DataChannel channel,
+			Map<String, String> templateTageValues) throws ApplicationException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

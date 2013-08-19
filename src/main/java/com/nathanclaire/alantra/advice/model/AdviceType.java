@@ -121,7 +121,7 @@ public class AdviceType  extends BaseEntity implements java.io.Serializable {
         this.reqFeedback = reqFeedback;
     }
 		
-    @Column(name="FEEDBACK_MSG" , unique=true)
+    @Column(name="FEEDBACK_MSG" , unique=true, length=150)
     public String getFeedbackMsg() 
     {
         return this.feedbackMsg;

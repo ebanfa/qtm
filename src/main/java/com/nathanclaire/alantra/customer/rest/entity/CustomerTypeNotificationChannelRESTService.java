@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.customer.model.CustomerTypeNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerTypeCommsChannel;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.customer.request.CustomerTypeNotificationChannelRequest;
 import com.nathanclaire.alantra.customer.response.CustomerTypeNotificationChannelResponse;
@@ -63,7 +63,7 @@ public class CustomerTypeNotificationChannelRESTService extends BaseActivityREST
 		response.setFields(responseFields);
 		// Load the list of CustomerTypeNotificationChannel's
 		List<CustomerTypeNotificationChannelResponse> dataItems = new ArrayList<CustomerTypeNotificationChannelResponse>();
-		for (CustomerTypeNotificationChannel item:customerTypeNotificationChannelService.findAll(queryParameters))
+		for (CustomerTypeCommsChannel item:customerTypeNotificationChannelService.findAll(queryParameters))
 		{
 			dataItems.add(customerTypeNotificationChannelService.convertModelToResponse(item));
 		}
@@ -111,8 +111,8 @@ public class CustomerTypeNotificationChannelRESTService extends BaseActivityREST
 	@Override
 	protected EditActivityResponse<CustomerTypeNotificationChannelResponse> saveEntityInstance(
 			CustomerTypeNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerTypeNotificationChannel customerTypeNotificationChannel = customerTypeNotificationChannelService.create(entityInstance);
-		return this.getEditActivityResponse(customerTypeNotificationChannel.getId());
+		CustomerTypeCommsChannel customerTypeCommsChannel = customerTypeNotificationChannelService.create(entityInstance);
+		return this.getEditActivityResponse(customerTypeCommsChannel.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -121,8 +121,8 @@ public class CustomerTypeNotificationChannelRESTService extends BaseActivityREST
 	@Override
 	protected EditActivityResponse<CustomerTypeNotificationChannelResponse> saveEditedEntityInstance(
 			CustomerTypeNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerTypeNotificationChannel customerTypeNotificationChannel = customerTypeNotificationChannelService.update(entityInstance);
-		return this.getEditActivityResponse(customerTypeNotificationChannel.getId());
+		CustomerTypeCommsChannel customerTypeCommsChannel = customerTypeNotificationChannelService.update(entityInstance);
+		return this.getEditActivityResponse(customerTypeCommsChannel.getId());
 	}
 	
 	@Override

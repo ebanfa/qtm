@@ -37,7 +37,7 @@ public class CustomerClassification  extends BaseEntity implements java.io.Seria
     private String description;
 	private Set<Customer> customers = new HashSet<Customer>(0);
 	private Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits = new HashSet<CustomerClassificationTransactionLimit>(0);
-	private Set<CustomerClassificationNotificationChannel> customerClassificationNotificationChannels = new HashSet<CustomerClassificationNotificationChannel>(0);
+	private Set<CustomerClassificationCommsChannel> customerClassificationCommsChannels = new HashSet<CustomerClassificationCommsChannel>(0);
 
     public CustomerClassification() {
     }
@@ -51,7 +51,7 @@ public class CustomerClassification  extends BaseEntity implements java.io.Seria
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerClassification(String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Customer> customers, Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits, Set<CustomerClassificationNotificationChannel> customerClassificationNotificationChannels ) 
+    public CustomerClassification(String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Customer> customers, Set<CustomerClassificationTransactionLimit> customerClassificationTransactionLimits, Set<CustomerClassificationCommsChannel> customerClassificationCommsChannels ) 
     {
 		this.name = name;
 		this.description = description;
@@ -64,7 +64,7 @@ public class CustomerClassification  extends BaseEntity implements java.io.Seria
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.customers = customers;
 		this.customerClassificationTransactionLimits = customerClassificationTransactionLimits;
-		this.customerClassificationNotificationChannels = customerClassificationNotificationChannels;
+		this.customerClassificationCommsChannels = customerClassificationCommsChannels;
     }
     
 		
@@ -116,14 +116,14 @@ public class CustomerClassification  extends BaseEntity implements java.io.Seria
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerClassification")
     @JsonIgnore
-    public Set<CustomerClassificationNotificationChannel> getCustomerClassificationNotificationChannels() 
+    public Set<CustomerClassificationCommsChannel> getCustomerClassificationNotificationChannels() 
     {
-        return this.customerClassificationNotificationChannels;
+        return this.customerClassificationCommsChannels;
     }
     
-    public void setCustomerClassificationNotificationChannels(Set<CustomerClassificationNotificationChannel> customerClassificationNotificationChannels) 
+    public void setCustomerClassificationNotificationChannels(Set<CustomerClassificationCommsChannel> customerClassificationCommsChannels) 
     {
-        this.customerClassificationNotificationChannels = customerClassificationNotificationChannels;
+        this.customerClassificationCommsChannels = customerClassificationCommsChannels;
     }			
 
 

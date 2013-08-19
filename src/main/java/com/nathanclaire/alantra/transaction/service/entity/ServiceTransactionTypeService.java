@@ -15,7 +15,11 @@ import com.nathanclaire.alantra.transaction.response.ServiceTransactionTypeRespo
 public interface ServiceTransactionTypeService extends BaseEntityService<ServiceTransactionType, ServiceTransactionTypeResponse, ServiceTransactionTypeRequest>
 {
 
-	public static final String ATM_WITHDRAWAL = "ATM_WITHDRAWAL";
-	public static final String CHEQUE_WITHDRAWAL = "CHQ_WITHDRAWAL";
+	public static final String CASH_DEPOSIT = "CASH_DEPOSIT";
+	public static final String FUNDS_TRANSFER = "FUNDS_TRANSFER";
+	public static final String CASH_WITHDRAWAL = "CASH_WITHDRAWAL";
+	public static final String CHEQUE_WITHDRAWAL = "CHEQUE_WITHDRAWAL";
+	public static final String CHEQUE_DEPOSIT_ON_CUSTOMER = "CHEQUE_DEPOSIT_ON_CUSTOMER";
+	public static final String CHEQUE_DEPOSIT_ON_NON_CUSTOMERS = "CHEQUE_DEPOSIT_ON_NON_CUSTOMERS";
 	
 }

@@ -3,19 +3,13 @@
  */
 package com.nathanclaire.alantra.transaction.event;
 
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.transaction.annotation.TransactionAlreadyExistEvent;
-import com.nathanclaire.alantra.transaction.annotation.TransactionMatchedEvent;
-import com.nathanclaire.alantra.transaction.annotation.TransactionNotMatchedEvent;
+import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
 import com.nathanclaire.alantra.transaction.service.entity.ServiceTransactionService;
-import com.nathanclaire.alantra.transaction.service.entity.ServiceTransactionStatusService;
-import com.nathanclaire.alantra.transaction.service.process.TransactionMatchingService;
 
 /**
  * @author Edward Banfa 
@@ -23,13 +17,7 @@ import com.nathanclaire.alantra.transaction.service.process.TransactionMatchingS
  */
 public class BaseTransactionEventListener {
 
-	@Inject ServiceTransactionService transactionService;
-	@Inject TransactionMatchingService transactionMatchingService;
-	@Inject ServiceTransactionStatusService serviceTransactionStatusService;
-	@Inject @TransactionMatchedEvent Event<TransactionMatchingEvent> transactionMatchedEvent;
-	@Inject @TransactionNotMatchedEvent Event<TransactionMatchingEvent> transactionNotMatchingEvent;
-	@Inject @TransactionAlreadyExistEvent Event<TransactionMatchingEvent> transactionAlreadyExistEvent;
-	
+	@Inject ServiceTransactionService transactionService;	
 	public static final String INVALID_TRANSACTION_TYPE = 
 			"BaseTransactionEventListener.INVALID_TRANSACTION_TYPE";
 	public static final String TRANSACTION_DOES_NOT_EXIST = 
@@ -50,41 +38,19 @@ public class BaseTransactionEventListener {
 	}
 	
 	/**
-	 * @param transaction
-	 * @throws ApplicationException
-	 */
-	protected Advice matchTransaction(ServiceTransaction transaction, TransactionCreationEvent event)
-			throws ApplicationException {
-		Advice advice = transactionMatchingService.match(transaction);
-		// 4. If matching succeeds then update the status of the transaction to match successful
-		if(advice != null){
-			transaction.setServiceTransactionStatus(
-					serviceTransactionStatusService.findByCode(ServiceTransactionStatusService.MATCHED));
-			transactionMatchedEvent.fire(initializeEvent(advice.getId(), transaction.getId(), event));
-		}
-		// 5. If matching fails update the status to matched failed and fire match failed event
-		else{
-			transaction.setServiceTransactionStatus(
-					serviceTransactionStatusService.findByCode(ServiceTransactionStatusService.NOT_MATCHED));
-			transactionNotMatchingEvent.fire(initializeEvent(null, transaction.getId(), event));
-		}
-		return advice;
-	}
-	
-	/**
 	 * @param adviceId
 	 * @param transactionId
 	 * @param event
 	 * @return
 	 */
-	protected TransactionMatchingEvent initializeEvent(Integer adviceId, Integer transactionId, TransactionCreationEvent event)
+	protected TransactionEvent initializeEvent(Integer adviceId, Integer transactionId, TransactionEvent event)
 	{
-		TransactionMatchingEvent transactionMatchingEvent = new TransactionMatchingEvent(adviceId, transactionId);
-		transactionMatchingEvent.setJobId(event.getJobId());
-		transactionMatchingEvent.setChannelId(event.getChannelId());
-		transactionMatchingEvent.setTransactionId(event.getTransactionId());
-		transactionMatchingEvent.setJobSummaryId(event.getJobSummaryId());
-		return transactionMatchingEvent;
+		TransactionEvent transactioEvent = new TransactionEvent(adviceId, transactionId);
+		transactioEvent.setJobId(event.getJobId());
+		transactioEvent.setChannelId(event.getChannelId());
+		transactioEvent.setTransactionId(event.getTransactionId());
+		transactioEvent.setJobSummaryId(event.getJobSummaryId());
+		return transactioEvent;
 	}
 
 	/**
@@ -103,5 +69,12 @@ public class BaseTransactionEventListener {
 			// and throw application exception if the validation fails
 			throw new ApplicationException(INVALID_TRANSACTION_TYPE);
 	}
+
+
+	protected Customer getCustomer(ServiceTransaction transaction) {
+		Customer customer = transaction.getCustomerAccount().getCustomer();
+		return customer;
+	}
+	
 
 }

@@ -17,10 +17,10 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerCategory;
-import com.nathanclaire.alantra.customer.model.CustomerCategoryNotificationChannel;
-import com.nathanclaire.alantra.customer.model.CustomerNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCategoryCommsChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCommsChannel;
 import com.nathanclaire.alantra.customer.model.CustomerType;
-import com.nathanclaire.alantra.customer.model.CustomerTypeNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerTypeCommsChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelType;
@@ -47,11 +47,11 @@ public class CustomerChannelProcessingServiceImpl extends
 		if(customer == null)
 			throw new ApplicationException(INVALID_CUST_SPECIFIED);
 		logger.debug("Loading channel categories for customer {}", customer.getName());
-		Set<CustomerNotificationChannel> notificationChannels = customer.getCustomerNotificationChannels();
+		Set<CustomerCommsChannel> notificationChannels = customer.getCustomerNotificationChannels();
 		List<DataChannelCategory> channelCategories = new ArrayList<DataChannelCategory>();
 		if(notificationChannels.isEmpty()) 
 			return getCustomerTypeChannelCategories(customer.getCustomerType());
-		for(CustomerNotificationChannel notificationChannel: notificationChannels)
+		for(CustomerCommsChannel notificationChannel: notificationChannels)
 		{
 			channelCategories.add(notificationChannel.getDataChannelCategory());
 		}
@@ -67,11 +67,11 @@ public class CustomerChannelProcessingServiceImpl extends
 		if(customerType == null)
 			throw new ApplicationException(INVALID_CUST_TYPE_SPECIFIED);
 		logger.debug("Loading communication channels for customer type {}", customerType);
-		Set<CustomerTypeNotificationChannel> notificationChannels = customerType.getCustomerTypeNotificationChannels();
+		Set<CustomerTypeCommsChannel> notificationChannels = customerType.getCustomerTypeNotificationChannels();
 		List<DataChannelCategory> channelCategories = new ArrayList<DataChannelCategory>();
 		if(notificationChannels.isEmpty()) 
 			return getCustomerCategoryChannelCategories(customerType.getCustomerCategory());
-		for(CustomerTypeNotificationChannel notificationChannel: notificationChannels)
+		for(CustomerTypeCommsChannel notificationChannel: notificationChannels)
 		{
 			channelCategories.add(notificationChannel.getDataChannelCategory());
 		}
@@ -87,11 +87,11 @@ public class CustomerChannelProcessingServiceImpl extends
 		if(customerCategory == null)
 			throw new ApplicationException(INVALID_CUST_CAT_SPECIFIED);
 		logger.debug("Loading communication channels for customer category {}", customerCategory);
-		Set<CustomerCategoryNotificationChannel> notificationChannels = customerCategory.getCustomerCategoryNotificationChannels();
+		Set<CustomerCategoryCommsChannel> notificationChannels = customerCategory.getCustomerCategoryNotificationChannels();
 		List<DataChannelCategory> channelCategories = new ArrayList<DataChannelCategory>();
 		if(notificationChannels.isEmpty()) 
 			throw new ApplicationException(NO_CHANNELS_CAT_CONFIGURED_FOR_CUSTOMER_CAT);
-		for(CustomerCategoryNotificationChannel notificationChannel: notificationChannels)
+		for(CustomerCategoryCommsChannel notificationChannel: notificationChannels)
 		{
 			channelCategories.add(notificationChannel.getDataChannelCategory());
 		}

@@ -1,3 +1,40 @@
+Downlaods
+------------
+1. Download jqplot ---
+2. Download Qdox and Velocity template engine ---
+3. JQuery mobile
+4. Download jasmine from mail box
+5. Download any java pdf tutorial
+6. Download CVS contacts from mail box ---
+7. Download information about jboss netty ---
+
+BATTLE ORDER
+-----------
+1. Build code generator in 3 hrs
+2. Build a remastered version of current system and test with VMWare player
+3. Build integration with Ozeki
+4. Build interation with Asterisk 
+5. Create online repos for alantra and code genereator
+6. Build JQuery mobile version of the application
+7. Build UI dash board
+8. Fix login and login audit
+9. Do data source input for data bases
+10. DO an upload button for datasource files
+11. Fix notifications for the data input jobs
+12. Build a UI for the customer to log into and to manage certain activities -- postponed
+13. Implement the ATM functionality
+
+1. Generate entitiies
+2. Generate entitiy fields
+3. Generate activitiy groups
+4. Generate activities
+5. Generate models
+6. Generate request
+7. Generate response
+8. Generate rest service
+9. Generate service interface
+10. Generate service implementation
+
 
 --- Edit page should be different from view page --
 --- View page should have an edit button --

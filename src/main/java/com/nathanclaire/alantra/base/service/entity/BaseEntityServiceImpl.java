@@ -153,9 +153,9 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
     		queryParameters = this.queryParameters; 
     		queryParameters.clear();
     	}
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<M> criteriaQuery = criteriaBuilder.createQuery(ENTITY_CLASS);
-        
+
         TypedQuery<M> query = 
         		initCriteria(queryParameters, criteriaBuilder, criteriaQuery);
         initQuery(queryParameters, query);
@@ -171,7 +171,6 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
     	query.setParameter("searchFieldFg", new Character('Y'));
     	query.setParameter("name", entityName);
     	List<ApplicationEntityField> fields = query.getResultList();
-    	System.out.print("Hey:>>>>>>>>>>>>:"+fields.size());
     	return fields;
     }
     
@@ -244,7 +243,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
         
         criteriaQuery.select(criteriaQuery.getSelection()).where(predicates);
         criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
-        TypedQuery<M> query = entityManager.createQuery(criteriaQuery);
+        TypedQuery<M> query = getEntityManager().createQuery(criteriaQuery);
 		return query;
 	}
 
@@ -292,10 +291,12 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
         for(String CRITERIA : queryParameters.keySet())
         {
         	if(CRITERIA.equals(CODE_CRITERIA));
-        	else if(CRITERIA.equals(CODE_CRITERIA));
+        	else if(CRITERIA.equals(NAME_CRITERIA));
         	else {
-        		String VALUE = queryParameters.getFirst(CRITERIA);
-                predicates.add(criteriaBuilder.equal(root.get(CRITERIA), VALUE));
+        		if(!CRITERIA.contains(".")){
+            		String VALUE = queryParameters.getFirst(CRITERIA);
+                    predicates.add(criteriaBuilder.equal(root.get(CRITERIA), VALUE));
+        		}
         	}
         }
         return predicates.toArray(new Predicate[]{});

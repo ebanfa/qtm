@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
-import com.nathanclaire.alantra.customer.model.CustomerClassificationNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerClassificationCommsChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.customer.model.CustomerClassification;
 import com.nathanclaire.alantra.customer.request.CustomerClassificationNotificationChannelRequest;
@@ -36,7 +36,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtils;
  */
 @Stateless
 public class CustomerClassificationNotificationChannelServiceImpl 
-	extends BaseEntityServiceImpl<CustomerClassificationNotificationChannel, CustomerClassificationNotificationChannelResponse, CustomerClassificationNotificationChannelRequest> 
+	extends BaseEntityServiceImpl<CustomerClassificationCommsChannel, CustomerClassificationNotificationChannelResponse, CustomerClassificationNotificationChannelRequest> 
 	implements CustomerClassificationNotificationChannelService
 {
 	private static final String LIST_ITEM_DATACHANNELCATEGORY = "dataChannelCategory";
@@ -58,14 +58,14 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @param entityClass
 	 */
 	public CustomerClassificationNotificationChannelServiceImpl() {
-		super(CustomerClassificationNotificationChannel.class);
+		super(CustomerClassificationCommsChannel.class);
 	}
 
     /* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#findById(java.lang.Integer)
 	 */
 	@Override
-	public CustomerClassificationNotificationChannel findById(Integer id) throws ApplicationException {
+	public CustomerClassificationCommsChannel findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -73,7 +73,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#findByCode(java.lang.String)
 	 */
 	@Override
-	public CustomerClassificationNotificationChannel findByCode(String code) throws ApplicationException {
+	public CustomerClassificationCommsChannel findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -81,7 +81,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#findByName(java.lang.String)
 	 */
 	@Override
-	public CustomerClassificationNotificationChannel findByName(String name) throws ApplicationException {
+	public CustomerClassificationCommsChannel findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -89,7 +89,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#findAll(java.util.Map)
 	 */
 	@Override
-	public List<CustomerClassificationNotificationChannel> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
+	public List<CustomerClassificationCommsChannel> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -97,7 +97,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#createCustomerClassificationNotificationChannel(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerClassificationNotificationChannel create(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) throws ApplicationException {
+	public CustomerClassificationCommsChannel create(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) throws ApplicationException {
 		return createInstance(customerClassificationNotificationChannelRequest);
 	}
 
@@ -113,7 +113,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerClassificationNotificationChannel#updateCustomerClassificationNotificationChannel(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerClassificationNotificationChannel update(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) throws ApplicationException {
+	public CustomerClassificationCommsChannel update(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) throws ApplicationException {
 		return updateInstance(customerClassificationNotificationChannelRequest);
 	}
 	
@@ -171,7 +171,7 @@ public class CustomerClassificationNotificationChannelServiceImpl
 	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
-		for(CustomerClassificationNotificationChannel customerclassificationnotificationchannel: findAll(queryParameters))
+		for(CustomerClassificationCommsChannel customerclassificationnotificationchannel: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(customerclassificationnotificationchannel.getId(), customerclassificationnotificationchannel.getCode(), customerclassificationnotificationchannel.getCode());
 			listItems.add(item);
@@ -184,28 +184,28 @@ public class CustomerClassificationNotificationChannelServiceImpl
      * @return
      */
 	@Override
-    public CustomerClassificationNotificationChannel convertRequestToModel(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) 
+    public CustomerClassificationCommsChannel convertRequestToModel(CustomerClassificationNotificationChannelRequest customerClassificationNotificationChannelRequest) 
      throws ApplicationException {
-		CustomerClassificationNotificationChannel customerClassificationNotificationChannel = new CustomerClassificationNotificationChannel();
+		CustomerClassificationCommsChannel customerClassificationCommsChannel = new CustomerClassificationCommsChannel();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerClassificationNotificationChannelRequest, customerClassificationNotificationChannel, allowedEntityFields);
+		PropertyUtils.copyProperties(customerClassificationNotificationChannelRequest, customerClassificationCommsChannel, allowedEntityFields);
     	//Process many to one relationships
     	if (customerClassificationNotificationChannelRequest.getDataChannelCategoryId() != null)
     	{
     		DataChannelCategory dataChannelCategory = getEntityManager().find(DataChannelCategory.class, customerClassificationNotificationChannelRequest.getDataChannelCategoryId());
-    		customerClassificationNotificationChannel.setDataChannelCategory(dataChannelCategory);
+    		customerClassificationCommsChannel.setDataChannelCategory(dataChannelCategory);
     	}
     	if (customerClassificationNotificationChannelRequest.getCustomerClassificationId() != null)
     	{
     		CustomerClassification customerClassification = getEntityManager().find(CustomerClassification.class, customerClassificationNotificationChannelRequest.getCustomerClassificationId());
-    		customerClassificationNotificationChannel.setCustomerClassification(customerClassification);
+    		customerClassificationCommsChannel.setCustomerClassification(customerClassification);
     	}
-		return customerClassificationNotificationChannel;
+		return customerClassificationCommsChannel;
 	}
 	
 	@Override
-	public CustomerClassificationNotificationChannelResponse convertModelToResponse(CustomerClassificationNotificationChannel model) throws ApplicationException {
+	public CustomerClassificationNotificationChannelResponse convertModelToResponse(CustomerClassificationCommsChannel model) throws ApplicationException {
 		if (model == null) return null;
 		CustomerClassificationNotificationChannelResponse customerClassificationNotificationChannelResponse = new CustomerClassificationNotificationChannelResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

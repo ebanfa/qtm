@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
@@ -264,4 +267,23 @@ public class ServiceTransactionServiceImpl
 			serviceTransactionResponse.setCustomerAccountText(model.getCustomerAccount().getName());
 		return serviceTransactionResponse;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl#extractPredicates(javax.ws.rs.core.MultivaluedMap, javax.persistence.criteria.CriteriaBuilder, javax.persistence.criteria.Root)
+	 */
+	@Override
+	protected Predicate[] extractPredicates(
+			MultivaluedMap<String, String> queryParameters,
+			CriteriaBuilder criteriaBuilder, Root<ServiceTransaction> root) {
+		List<Predicate> predicates = new ArrayList<Predicate>() ;
+        if (queryParameters.containsKey("serviceTransactionStatus.code")) {
+            String statusCode = queryParameters.getFirst("serviceTransactionStatus.code");
+            predicates.add(criteriaBuilder.equal(root.get("serviceTransactionStatus").get("code"), statusCode));
+        }
+        for(Predicate predicate : super.extractPredicates(queryParameters, criteriaBuilder, root))
+        	predicates.add(predicate);
+        return predicates.toArray(new Predicate[]{});
+	}
+	
+	
 }

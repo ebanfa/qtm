@@ -39,6 +39,7 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
 	private ServiceTransactionCategory serviceTransactionCategory;
     private String name;
     private String description;
+    private Character matchFg;
 	private Set<AdviceType> adviceTypes = new HashSet<AdviceType>(0);
 	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
 
@@ -54,10 +55,11 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public ServiceTransactionType(ServiceTransactionCategory serviceTransactionCategory, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceType> adviceTypes, Set<ServiceTransaction> serviceTransactions ) 
+    public ServiceTransactionType(Character matchFg, ServiceTransactionCategory serviceTransactionCategory, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<AdviceType> adviceTypes, Set<ServiceTransaction> serviceTransactions ) 
     {
 		this.serviceTransactionCategory = serviceTransactionCategory;
 		this.code = code;
+		this.matchFg = matchFg;
 		this.name = name;
 		this.description = description;
 		this.effectiveDt = effectiveDt;
@@ -104,7 +106,17 @@ public class ServiceTransactionType  extends BaseEntity implements java.io.Seria
     public void setDescription(String description) 
     {
         this.description = description;
+    }	
+    
+    @Column(name="MATCH_FG" , length=1)
+    public Character getMatchFg() {
+        return this.matchFg;
     }
+    
+    public void setMatchFg(Character matchFg) {
+        this.matchFg = matchFg;
+    }
+
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceTransactionType")
     @JsonIgnore

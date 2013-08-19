@@ -9,40 +9,16 @@ package com.nathanclaire.alantra.notification.event;
  *
  */
 public class NotificationEvent {
-
-	private Integer userId;
+	
 	private String bodyText;
 	private String headerText;
-	private Integer notificationId;
+	private String recipientType;
+	private String channelCatCode;
 	private String notificationTypeCode;
-	
-	/**
-	 * @param userId
-	 * @param bodyText
-	 * @param headerText
-	 * @param customerId
-	 * @param notificationId
-	 */
-	public NotificationEvent(String notificationTypeCode, 
-			Integer notificationId,	Integer userId, String headerText, String bodyText) {
-		this.userId = userId;
-		this.bodyText = bodyText;
-		this.headerText = headerText;
-		this.notificationId = notificationId;
-		this.notificationTypeCode = notificationTypeCode;
-	}
-	/**
-	 * @return the userId
-	 */
-	public Integer getUserId() {
-		return userId;
-	}
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+	private Integer userId;
+	private Integer channelId;
+	private Integer customerId;
+	private Integer notificationId;
 	/**
 	 * @return the bodyText
 	 */
@@ -67,18 +43,29 @@ public class NotificationEvent {
 	public void setHeaderText(String headerText) {
 		this.headerText = headerText;
 	}
-	
 	/**
-	 * @return the notificationId
+	 * @return the recipientType
 	 */
-	public Integer getNotificationId() {
-		return notificationId;
+	public String getRecipientType() {
+		return recipientType;
 	}
 	/**
-	 * @param notificationId the notificationId to set
+	 * @param recipientType the recipientType to set
 	 */
-	public void setNotificationId(Integer notificationId) {
-		this.notificationId = notificationId;
+	public void setRecipientType(String recipientType) {
+		this.recipientType = recipientType;
+	}
+	/**
+	 * @return the channelCatCode
+	 */
+	public String getChannelCatCode() {
+		return channelCatCode;
+	}
+	/**
+	 * @param channelCatCode the channelCatCode to set
+	 */
+	public void setChannelCatCode(String channelCatCode) {
+		this.channelCatCode = channelCatCode;
 	}
 	/**
 	 * @return the notificationTypeCode
@@ -92,5 +79,79 @@ public class NotificationEvent {
 	public void setNotificationTypeCode(String notificationTypeCode) {
 		this.notificationTypeCode = notificationTypeCode;
 	}
-
+	/**
+	 * @return the userId
+	 */
+	public Integer getUserId() {
+		return userId;
+	}
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	/**
+	 * @return the channelId
+	 */
+	public Integer getChannelId() {
+		return channelId;
+	}
+	/**
+	 * @param channelId the channelId to set
+	 */
+	public void setChannelId(Integer channelId) {
+		this.channelId = channelId;
+	}
+	/**
+	 * @return the customerId
+	 */
+	public Integer getCustomerId() {
+		return customerId;
+	}
+	/**
+	 * @param customerId the customerId to set
+	 */
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+	/**
+	 * @return the notificationId
+	 */
+	public Integer getNotificationId() {
+		return notificationId;
+	}
+	/**
+	 * @param notificationId the notificationId to set
+	 */
+	public void setNotificationId(Integer notificationId) {
+		this.notificationId = notificationId;
+	}
+	/**
+	 * @param bodyText
+	 * @param headerText
+	 * @param recipientType
+	 * @param channelCatCode
+	 * @param notificationTypeCode
+	 * @param userId
+	 * @param channelId
+	 * @param customerId
+	 * @param notificationId
+	 */
+	public NotificationEvent(String bodyText, String headerText,
+			String recipientType, String channelCatCode,
+			String notificationTypeCode, Integer userId, Integer channelId,
+			Integer customerId, Integer notificationId) {
+		super();
+		this.bodyText = bodyText;
+		this.headerText = headerText;
+		this.recipientType = recipientType;
+		this.channelCatCode = channelCatCode;
+		this.notificationTypeCode = notificationTypeCode;
+		this.userId = userId;
+		this.channelId = channelId;
+		this.customerId = customerId;
+		this.notificationId = notificationId;
+	}
+	
 }

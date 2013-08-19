@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.customer.model.CustomerCategoryNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCategoryCommsChannel;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.customer.request.CustomerCategoryNotificationChannelRequest;
 import com.nathanclaire.alantra.customer.response.CustomerCategoryNotificationChannelResponse;
@@ -63,7 +63,7 @@ public class CustomerCategoryNotificationChannelRESTService extends BaseActivity
 		response.setFields(responseFields);
 		// Load the list of CustomerCategoryNotificationChannel's
 		List<CustomerCategoryNotificationChannelResponse> dataItems = new ArrayList<CustomerCategoryNotificationChannelResponse>();
-		for (CustomerCategoryNotificationChannel item:customerCategoryNotificationChannelService.findAll(queryParameters))
+		for (CustomerCategoryCommsChannel item:customerCategoryNotificationChannelService.findAll(queryParameters))
 		{
 			dataItems.add(customerCategoryNotificationChannelService.convertModelToResponse(item));
 		}
@@ -111,8 +111,8 @@ public class CustomerCategoryNotificationChannelRESTService extends BaseActivity
 	@Override
 	protected EditActivityResponse<CustomerCategoryNotificationChannelResponse> saveEntityInstance(
 			CustomerCategoryNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerCategoryNotificationChannel customerCategoryNotificationChannel = customerCategoryNotificationChannelService.create(entityInstance);
-		return this.getEditActivityResponse(customerCategoryNotificationChannel.getId());
+		CustomerCategoryCommsChannel customerCategoryCommsChannel = customerCategoryNotificationChannelService.create(entityInstance);
+		return this.getEditActivityResponse(customerCategoryCommsChannel.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -121,8 +121,8 @@ public class CustomerCategoryNotificationChannelRESTService extends BaseActivity
 	@Override
 	protected EditActivityResponse<CustomerCategoryNotificationChannelResponse> saveEditedEntityInstance(
 			CustomerCategoryNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerCategoryNotificationChannel customerCategoryNotificationChannel = customerCategoryNotificationChannelService.update(entityInstance);
-		return this.getEditActivityResponse(customerCategoryNotificationChannel.getId());
+		CustomerCategoryCommsChannel customerCategoryCommsChannel = customerCategoryNotificationChannelService.update(entityInstance);
+		return this.getEditActivityResponse(customerCategoryCommsChannel.getId());
 	}
 	
 	@Override

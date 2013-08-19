@@ -18,6 +18,8 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
  */
 public interface BaseEntityService<M, T,V> {
 
+	public static final String ENTITY_INSTANCE_NOT_FOUND = "BaseEntityService.ENTITY_INSTANCE_NOT_FOUND";
+	
 	public static final Character ENTITY_FLAG_NO = 'N';
 	public static final Character ENTITY_FLAG_YES = 'Y';
 	

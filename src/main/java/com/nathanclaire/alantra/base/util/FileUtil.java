@@ -8,6 +8,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -43,6 +44,18 @@ public class FileUtil {
 		  //System.out.println(String.format("The directory %s already exits", directoryName));
 	  }
 	  return theDir;
+	}
+	
+	public static File[] getFilesWithExtension(String directory, final String extension){
+		File dir = new File(directory);
+		File[] matches = dir.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				// TODO Auto-generated method stub
+				return name.endsWith(extension);
+			}
+		});
+		return matches;
 	}
 
 	public static void deleteFile(String msgAttachmentFile) 

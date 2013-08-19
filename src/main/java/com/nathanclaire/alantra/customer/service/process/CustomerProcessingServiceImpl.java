@@ -155,6 +155,7 @@ public class CustomerProcessingServiceImpl extends BaseProcessService implements
 	@Override
 	public  Customer findCustomerByPhone(String sourceAddress) throws ApplicationException 
 	{
+    	System.out.print("sourceAddress>>>>>>>>>>>>:"+sourceAddress);
 		Map<String, String> criteria = new HashMap<String, String>();
 		// First we search by primary phone number
 		criteria.put(PRIM_PHONE_CRITERIA, sourceAddress);

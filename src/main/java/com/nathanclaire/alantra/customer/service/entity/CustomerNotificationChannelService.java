@@ -4,7 +4,7 @@
 package com.nathanclaire.alantra.customer.service.entity;
 
 import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
-import com.nathanclaire.alantra.customer.model.CustomerNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCommsChannel;
 import com.nathanclaire.alantra.customer.request.CustomerNotificationChannelRequest;
 import com.nathanclaire.alantra.customer.response.CustomerNotificationChannelResponse;
 
@@ -12,7 +12,7 @@ import com.nathanclaire.alantra.customer.response.CustomerNotificationChannelRes
  * @author Edward Banfa
  *
  */
-public interface CustomerNotificationChannelService extends BaseEntityService<CustomerNotificationChannel, CustomerNotificationChannelResponse, CustomerNotificationChannelRequest>
+public interface CustomerNotificationChannelService extends BaseEntityService<CustomerCommsChannel, CustomerNotificationChannelResponse, CustomerNotificationChannelRequest>
 {
 	
 }

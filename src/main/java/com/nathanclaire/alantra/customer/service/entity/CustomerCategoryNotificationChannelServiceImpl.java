@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
-import com.nathanclaire.alantra.customer.model.CustomerCategoryNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCategoryCommsChannel;
 import com.nathanclaire.alantra.customer.model.CustomerCategory;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
 import com.nathanclaire.alantra.customer.request.CustomerCategoryNotificationChannelRequest;
@@ -36,7 +36,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtils;
  */
 @Stateless
 public class CustomerCategoryNotificationChannelServiceImpl 
-	extends BaseEntityServiceImpl<CustomerCategoryNotificationChannel, CustomerCategoryNotificationChannelResponse, CustomerCategoryNotificationChannelRequest> 
+	extends BaseEntityServiceImpl<CustomerCategoryCommsChannel, CustomerCategoryNotificationChannelResponse, CustomerCategoryNotificationChannelRequest> 
 	implements CustomerCategoryNotificationChannelService
 {
 	private static final String LIST_ITEM_CUSTOMERCATEGORY = "customerCategory";
@@ -58,14 +58,14 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @param entityClass
 	 */
 	public CustomerCategoryNotificationChannelServiceImpl() {
-		super(CustomerCategoryNotificationChannel.class);
+		super(CustomerCategoryCommsChannel.class);
 	}
 
     /* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#findById(java.lang.Integer)
 	 */
 	@Override
-	public CustomerCategoryNotificationChannel findById(Integer id) throws ApplicationException {
+	public CustomerCategoryCommsChannel findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -73,7 +73,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#findByCode(java.lang.String)
 	 */
 	@Override
-	public CustomerCategoryNotificationChannel findByCode(String code) throws ApplicationException {
+	public CustomerCategoryCommsChannel findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -81,7 +81,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#findByName(java.lang.String)
 	 */
 	@Override
-	public CustomerCategoryNotificationChannel findByName(String name) throws ApplicationException {
+	public CustomerCategoryCommsChannel findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -89,7 +89,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#findAll(java.util.Map)
 	 */
 	@Override
-	public List<CustomerCategoryNotificationChannel> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
+	public List<CustomerCategoryCommsChannel> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -97,7 +97,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#createCustomerCategoryNotificationChannel(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerCategoryNotificationChannel create(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) throws ApplicationException {
+	public CustomerCategoryCommsChannel create(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) throws ApplicationException {
 		return createInstance(customerCategoryNotificationChannelRequest);
 	}
 
@@ -113,7 +113,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	 * @see com.nathanclaire.alantra.customer.service.CustomerCategoryNotificationChannel#updateCustomerCategoryNotificationChannel(com.nathanclaire.alantra.customer.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CustomerCategoryNotificationChannel update(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) throws ApplicationException {
+	public CustomerCategoryCommsChannel update(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) throws ApplicationException {
 		return updateInstance(customerCategoryNotificationChannelRequest);
 	}
 	
@@ -171,7 +171,7 @@ public class CustomerCategoryNotificationChannelServiceImpl
 	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
-		for(CustomerCategoryNotificationChannel customercategorynotificationchannel: findAll(queryParameters))
+		for(CustomerCategoryCommsChannel customercategorynotificationchannel: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(customercategorynotificationchannel.getId(), customercategorynotificationchannel.getCode(), customercategorynotificationchannel.getCode());
 			listItems.add(item);
@@ -184,28 +184,28 @@ public class CustomerCategoryNotificationChannelServiceImpl
      * @return
      */
 	@Override
-    public CustomerCategoryNotificationChannel convertRequestToModel(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) 
+    public CustomerCategoryCommsChannel convertRequestToModel(CustomerCategoryNotificationChannelRequest customerCategoryNotificationChannelRequest) 
      throws ApplicationException {
-		CustomerCategoryNotificationChannel customerCategoryNotificationChannel = new CustomerCategoryNotificationChannel();
+		CustomerCategoryCommsChannel customerCategoryCommsChannel = new CustomerCategoryCommsChannel();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerCategoryNotificationChannelRequest, customerCategoryNotificationChannel, allowedEntityFields);
+		PropertyUtils.copyProperties(customerCategoryNotificationChannelRequest, customerCategoryCommsChannel, allowedEntityFields);
     	//Process many to one relationships
     	if (customerCategoryNotificationChannelRequest.getCustomerCategoryId() != null)
     	{
     		CustomerCategory customerCategory = getEntityManager().find(CustomerCategory.class, customerCategoryNotificationChannelRequest.getCustomerCategoryId());
-    		customerCategoryNotificationChannel.setCustomerCategory(customerCategory);
+    		customerCategoryCommsChannel.setCustomerCategory(customerCategory);
     	}
     	if (customerCategoryNotificationChannelRequest.getDataChannelCategoryId() != null)
     	{
     		DataChannelCategory dataChannelCategory = getEntityManager().find(DataChannelCategory.class, customerCategoryNotificationChannelRequest.getDataChannelCategoryId());
-    		customerCategoryNotificationChannel.setDataChannelCategory(dataChannelCategory);
+    		customerCategoryCommsChannel.setDataChannelCategory(dataChannelCategory);
     	}
-		return customerCategoryNotificationChannel;
+		return customerCategoryCommsChannel;
 	}
 	
 	@Override
-	public CustomerCategoryNotificationChannelResponse convertModelToResponse(CustomerCategoryNotificationChannel model) throws ApplicationException {
+	public CustomerCategoryNotificationChannelResponse convertModelToResponse(CustomerCategoryCommsChannel model) throws ApplicationException {
 		if (model == null) return null;
 		CustomerCategoryNotificationChannelResponse customerCategoryNotificationChannelResponse = new CustomerCategoryNotificationChannelResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();

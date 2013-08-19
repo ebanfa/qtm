@@ -86,7 +86,9 @@ public class MessageApplicationNotificationMap  extends BaseEntity implements ja
         this.messageApplicationAction = messageApplicationAction;
     }
 		
-    @Column(name="NOTIFICATION_TY_ID" , nullable=false)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="NOTIFICATION_TY_ID", nullable=false)
+    @JsonIgnore
     public NotificationType getNotificationType() 
     {
         return this.notificationType;

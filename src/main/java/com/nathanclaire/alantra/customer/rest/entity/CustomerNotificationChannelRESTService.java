@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.customer.model.CustomerNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerCommsChannel;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.customer.request.CustomerNotificationChannelRequest;
 import com.nathanclaire.alantra.customer.response.CustomerNotificationChannelResponse;
@@ -63,7 +63,7 @@ public class CustomerNotificationChannelRESTService extends BaseActivityRESTServ
 		response.setFields(responseFields);
 		// Load the list of CustomerNotificationChannel's
 		List<CustomerNotificationChannelResponse> dataItems = new ArrayList<CustomerNotificationChannelResponse>();
-		for (CustomerNotificationChannel item:customerNotificationChannelService.findAll(queryParameters))
+		for (CustomerCommsChannel item:customerNotificationChannelService.findAll(queryParameters))
 		{
 			dataItems.add(customerNotificationChannelService.convertModelToResponse(item));
 		}
@@ -111,8 +111,8 @@ public class CustomerNotificationChannelRESTService extends BaseActivityRESTServ
 	@Override
 	protected EditActivityResponse<CustomerNotificationChannelResponse> saveEntityInstance(
 			CustomerNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerNotificationChannel customerNotificationChannel = customerNotificationChannelService.create(entityInstance);
-		return this.getEditActivityResponse(customerNotificationChannel.getId());
+		CustomerCommsChannel customerCommsChannel = customerNotificationChannelService.create(entityInstance);
+		return this.getEditActivityResponse(customerCommsChannel.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -121,8 +121,8 @@ public class CustomerNotificationChannelRESTService extends BaseActivityRESTServ
 	@Override
 	protected EditActivityResponse<CustomerNotificationChannelResponse> saveEditedEntityInstance(
 			CustomerNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerNotificationChannel customerNotificationChannel = customerNotificationChannelService.update(entityInstance);
-		return this.getEditActivityResponse(customerNotificationChannel.getId());
+		CustomerCommsChannel customerCommsChannel = customerNotificationChannelService.update(entityInstance);
+		return this.getEditActivityResponse(customerCommsChannel.getId());
 	}
 	
 	@Override

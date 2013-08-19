@@ -167,6 +167,8 @@ public class IDERestService
 		entity.setApplicationModule(module);
 		Map<String, String> names = new EntityNames().getEntityNames();
 		System.out.println("Entity mapping: >>>>>>>>>>>>>>>:" + names.get(entity.getName()));
+		if(names.get(entity.getName()) == null)
+			throw new RuntimeException("No name mapping for entity" + entity.getName());
 		entity.setDisplayNm(names.get(entity.getName()));
 		entityManager.merge(entity);
 		this.processEntityFields(entity);
@@ -349,7 +351,7 @@ public class IDERestService
 		{
 			ApplicationRelatedActivity relatedActivity = new ApplicationRelatedActivity();
 			String code = parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy;
-			if(relatedActivityService.findByCode(code) != null)
+			if(relatedActivityService.findByCode(code) == null)
 			{
 				relatedActivity.setCode(parentActivity.getCode() + "_TO_" + childActivity.getCode() + "_" + relationshipTy);
 				relatedActivity.setName(targetEntityName);

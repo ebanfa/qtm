@@ -40,7 +40,7 @@ public class CustomerType  extends BaseEntity implements java.io.Serializable {
     private String description;
 	private Set<Customer> customers = new HashSet<Customer>(0);
 	private Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits = new HashSet<CustomerTypeTransactionLimit>(0);
-	private Set<CustomerTypeNotificationChannel> customerTypeNotificationChannels = new HashSet<CustomerTypeNotificationChannel>(0);
+	private Set<CustomerTypeCommsChannel> customerTypeCommsChannels = new HashSet<CustomerTypeCommsChannel>(0);
 
     public CustomerType() {
     }
@@ -54,7 +54,7 @@ public class CustomerType  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerType(CustomerCategory customerCategory, String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Customer> customers, Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits, Set<CustomerTypeNotificationChannel> customerTypeNotificationChannels ) 
+    public CustomerType(CustomerCategory customerCategory, String name, String description, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<Customer> customers, Set<CustomerTypeTransactionLimit> customerTypeTransactionLimits, Set<CustomerTypeCommsChannel> customerTypeCommsChannels ) 
     {
 		this.customerCategory = customerCategory;
 		this.name = name;
@@ -68,7 +68,7 @@ public class CustomerType  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.customers = customers;
 		this.customerTypeTransactionLimits = customerTypeTransactionLimits;
-		this.customerTypeNotificationChannels = customerTypeNotificationChannels;
+		this.customerTypeCommsChannels = customerTypeCommsChannels;
     }
     
     		
@@ -133,14 +133,14 @@ public class CustomerType  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerType")
     @JsonIgnore
-    public Set<CustomerTypeNotificationChannel> getCustomerTypeNotificationChannels() 
+    public Set<CustomerTypeCommsChannel> getCustomerTypeNotificationChannels() 
     {
-        return this.customerTypeNotificationChannels;
+        return this.customerTypeCommsChannels;
     }
     
-    public void setCustomerTypeNotificationChannels(Set<CustomerTypeNotificationChannel> customerTypeNotificationChannels) 
+    public void setCustomerTypeNotificationChannels(Set<CustomerTypeCommsChannel> customerTypeCommsChannels) 
     {
-        this.customerTypeNotificationChannels = customerTypeNotificationChannels;
+        this.customerTypeCommsChannels = customerTypeCommsChannels;
     }			
 
 }

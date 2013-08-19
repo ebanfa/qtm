@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.customer.model.CustomerClassificationNotificationChannel;
+import com.nathanclaire.alantra.customer.model.CustomerClassificationCommsChannel;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.customer.request.CustomerClassificationNotificationChannelRequest;
 import com.nathanclaire.alantra.customer.response.CustomerClassificationNotificationChannelResponse;
@@ -63,7 +63,7 @@ public class CustomerClassificationNotificationChannelRESTService extends BaseAc
 		response.setFields(responseFields);
 		// Load the list of CustomerClassificationNotificationChannel's
 		List<CustomerClassificationNotificationChannelResponse> dataItems = new ArrayList<CustomerClassificationNotificationChannelResponse>();
-		for (CustomerClassificationNotificationChannel item:customerClassificationNotificationChannelService.findAll(queryParameters))
+		for (CustomerClassificationCommsChannel item:customerClassificationNotificationChannelService.findAll(queryParameters))
 		{
 			dataItems.add(customerClassificationNotificationChannelService.convertModelToResponse(item));
 		}
@@ -111,8 +111,8 @@ public class CustomerClassificationNotificationChannelRESTService extends BaseAc
 	@Override
 	protected EditActivityResponse<CustomerClassificationNotificationChannelResponse> saveEntityInstance(
 			CustomerClassificationNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerClassificationNotificationChannel customerClassificationNotificationChannel = customerClassificationNotificationChannelService.create(entityInstance);
-		return this.getEditActivityResponse(customerClassificationNotificationChannel.getId());
+		CustomerClassificationCommsChannel customerClassificationCommsChannel = customerClassificationNotificationChannelService.create(entityInstance);
+		return this.getEditActivityResponse(customerClassificationCommsChannel.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -121,8 +121,8 @@ public class CustomerClassificationNotificationChannelRESTService extends BaseAc
 	@Override
 	protected EditActivityResponse<CustomerClassificationNotificationChannelResponse> saveEditedEntityInstance(
 			CustomerClassificationNotificationChannelRequest entityInstance) throws ApplicationException {
-		CustomerClassificationNotificationChannel customerClassificationNotificationChannel = customerClassificationNotificationChannelService.update(entityInstance);
-		return this.getEditActivityResponse(customerClassificationNotificationChannel.getId());
+		CustomerClassificationCommsChannel customerClassificationCommsChannel = customerClassificationNotificationChannelService.update(entityInstance);
+		return this.getEditActivityResponse(customerClassificationCommsChannel.getId());
 	}
 	
 	@Override

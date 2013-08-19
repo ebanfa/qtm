@@ -54,6 +54,16 @@ public class EntityNames{
 		entityNames.put("ServiceTransactionType", "Transaction Type");
 		entityNames.put("ServiceTransactionStatus", "Transaction Status");
 		entityNames.put("ServiceTransaction", "Transaction");
+		entityNames.put("CustCatTxnTypeNotificationOptions", "Customer Category Notification Options");
+		entityNames.put("CustTypeTxnTypeNotificationOptions", "Customer Type Notification Options");
+		entityNames.put("CustTxnTypeNotificationOptions", "Customer Notification Options");
+		entityNames.put("CustCatTxnTypeConfirmationOptions", "Customer Category Confirmation Options");
+		entityNames.put("CustTypeTxnTypeConfirmationOptions", "Customer Type Confirmation Options");
+		entityNames.put("CustTxnTypeConfirmationOptions", "Customer Confirmation Options");
+		entityNames.put("TxnNotificationStatus", "TxnNotificationStatus");
+		entityNames.put("TxnConfirmationStatus", "TxnConfirmationStatus");
+		entityNames.put("TxnAwaitingNotification", "TxnAwaitingNotification");
+		entityNames.put("TxnAwaitingConfirmation", "TxnAwaitingConfirmation");
 		entityNames.put("ApplicationActivityGroup", "Application Activity Group");
 		entityNames.put("ApplicationActivityType", "Application Activity Type");
 		entityNames.put("ApplicationFormFieldType", "Application Form Field Type");
@@ -61,6 +71,7 @@ public class EntityNames{
 		entityNames.put("ApplicationFormType", "Application Form Type");
 		entityNames.put("ApplicationEntityField", "Application Entity Field");
 		entityNames.put("ApplicationRelatedActivity", "Application Related Activity");
+		entityNames.put("TempRelatedActivity", "Temp Related Activity");
 		entityNames.put("ApplicationForm", "Application Form");
 		entityNames.put("ApplicationActivity", "Application Activity");
 		entityNames.put("ApplicationEntityFieldType", "Application Entity Field Type");

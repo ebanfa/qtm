@@ -51,7 +51,7 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 	private Set<CustomerAccount> customerAccounts = new HashSet<CustomerAccount>(0);
 	private Set<AdviceRequestMessage> adviceRequestMessages = new HashSet<AdviceRequestMessage>(0);
 	private Set<CustomerTransactionLimit> customerTransactionLimits = new HashSet<CustomerTransactionLimit>(0);
-	private Set<CustomerNotificationChannel> customerNotificationChannels = new HashSet<CustomerNotificationChannel>(0);
+	private Set<CustomerCommsChannel> customerCommsChannels = new HashSet<CustomerCommsChannel>(0);
 	private Set<CustomerMessage> customerMessages = new HashSet<CustomerMessage>(0);
 	private Set<CustomerBlacklist> customerBlacklists = new HashSet<CustomerBlacklist>(0);
 
@@ -70,7 +70,7 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String primaryEmail, String secondaryEmail, String primaryMobile, String secondaryMobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerNotification> customerNotifications, Set<Advice> advices, Set<CustomerAccount> customerAccounts, Set<AdviceRequestMessage> adviceRequestMessages, Set<CustomerTransactionLimit> customerTransactionLimits, Set<CustomerNotificationChannel> customerNotificationChannels, Set<CustomerMessage> customerMessages, Set<CustomerBlacklist> customerBlacklists ) 
+    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String primaryEmail, String secondaryEmail, String primaryMobile, String secondaryMobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerNotification> customerNotifications, Set<Advice> advices, Set<CustomerAccount> customerAccounts, Set<AdviceRequestMessage> adviceRequestMessages, Set<CustomerTransactionLimit> customerTransactionLimits, Set<CustomerCommsChannel> customerCommsChannels, Set<CustomerMessage> customerMessages, Set<CustomerBlacklist> customerBlacklists ) 
     {
 		this.customerClassification = customerClassification;
 		this.customerType = customerType;
@@ -92,7 +92,7 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 		this.customerAccounts = customerAccounts;
 		this.adviceRequestMessages = adviceRequestMessages;
 		this.customerTransactionLimits = customerTransactionLimits;
-		this.customerNotificationChannels = customerNotificationChannels;
+		this.customerCommsChannels = customerCommsChannels;
 		this.customerMessages = customerMessages;
 		this.customerBlacklists = customerBlacklists;
     }
@@ -252,14 +252,14 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
     @JsonIgnore
-    public Set<CustomerNotificationChannel> getCustomerNotificationChannels() 
+    public Set<CustomerCommsChannel> getCustomerNotificationChannels() 
     {
-        return this.customerNotificationChannels;
+        return this.customerCommsChannels;
     }
     
-    public void setCustomerNotificationChannels(Set<CustomerNotificationChannel> customerNotificationChannels) 
+    public void setCustomerNotificationChannels(Set<CustomerCommsChannel> customerCommsChannels) 
     {
-        this.customerNotificationChannels = customerNotificationChannels;
+        this.customerCommsChannels = customerCommsChannels;
     }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")

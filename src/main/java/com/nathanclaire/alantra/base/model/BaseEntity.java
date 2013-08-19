@@ -30,7 +30,7 @@ public class BaseEntity
 	protected Integer id;
     protected String code;
 	protected Date effectiveDt;
-    protected char recSt;
+    protected Character recSt;
     protected Integer versionNo;
     protected Date rowTs;
     protected Date createdDt;
@@ -76,11 +76,11 @@ public class BaseEntity
     }
 		
     @Column(name="REC_ST" , nullable=false, length=1)
-    public char getRecSt() {
+    public Character getRecSt() {
         return this.recSt;
     }
     
-    public void setRecSt(char recSt) {
+    public void setRecSt(Character recSt) {
         this.recSt = recSt;
     }
 		

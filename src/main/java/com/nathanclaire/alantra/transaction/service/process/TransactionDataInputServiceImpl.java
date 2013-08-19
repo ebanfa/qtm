@@ -20,13 +20,11 @@ import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
 import com.nathanclaire.alantra.datasource.etl.TableDataLite;
-import com.nathanclaire.alantra.datasource.model.DataInputJobSummary;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobSummaryService;
-import com.nathanclaire.alantra.transaction.annotation.ATMTransactionCreatedEvent;
-import com.nathanclaire.alantra.transaction.annotation.ChequeTransactionCreatedEvent;
-import com.nathanclaire.alantra.transaction.annotation.TransactionAlreadyExistEvent;
-import com.nathanclaire.alantra.transaction.event.TransactionCreationEvent;
+import com.nathanclaire.alantra.transaction.annotation.TransactionCreatedEvent;
+import com.nathanclaire.alantra.transaction.annotation.TransactionNotCreatedEvent;
+import com.nathanclaire.alantra.transaction.event.TransactionEvent;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionStatus;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
@@ -54,11 +52,10 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 	private static final String CHQ_TXN_TYPE_NOT_FOUND = "TransactionDataInputServiceImpl.CHQ_TXN_TYPE_NOT_FOUND";
 	private static final String CUSTOMER_ACCOUNT_DOES_NOT_EXIST = "TransactionDataInputServiceImpl.CUSTOMER_ACCOUNT_DOES_NOT_EXIST";
 
-	@Inject @ATMTransactionCreatedEvent Event<TransactionCreationEvent> aTMTransactionCreatedEvent;
-	@Inject @TransactionAlreadyExistEvent Event<TransactionCreationEvent> transactionAlreadyExistEvent;
-	@Inject @ChequeTransactionCreatedEvent Event<TransactionCreationEvent> chequeTransactionCreatedEvent;
+	@Inject @TransactionCreatedEvent Event<TransactionEvent> transactionCreatedEvent;
+	@Inject @TransactionNotCreatedEvent Event<TransactionEvent> transactionNotCreatedEvent;
 	
-	private Logger logger = LoggerFactory.getLogger(TransactionDataInputServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.transaction.service.process.TransactionDataInputService#processTransactionRequest()
@@ -71,7 +68,7 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 		transactionRequest.setDataChannelId(getDataImportService(tableDataLite.getSourceServiceCode()).getId());
 		transactionRequest.setServiceTransactionStatusId(getTransactionPendingStatus().getId());
 		CustomerAccount account = getTransactionAccount(transactionRequest.getCustomerAccountId());
-		String transactionCode = processTransactionType(transactionRequest, account);
+		String transactionCode = getTransactionCode(transactionRequest, account);
 		// Process other fields
 		transactionRequest.setCode(transactionCode);
 		transactionRequest.setName(account.getName());
@@ -83,18 +80,12 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 			flagDataInputRejected(tableDataLite);
 			String transactionType = transaction.getServiceTransactionType().getCode();
 			// Fire event and throw exception
-			transactionAlreadyExistEvent.fire(initializeEvent(tableDataLite, transaction, transactionType));
+			transactionNotCreatedEvent.fire(initializeEvent(tableDataLite, transaction, transactionType));
 			return transaction;
 		}
 		flagDataInputAccepted(tableDataLite);
 		transaction = serviceTransactionService.create(transactionRequest);
-		String transactionType = transaction.getServiceTransactionType().getCode();
-		// Process ATM transactions events
-		if(transactionType.equals(ServiceTransactionTypeService.ATM_WITHDRAWAL))
-			aTMTransactionCreatedEvent.fire(initializeEvent(tableDataLite, transaction, ServiceTransactionTypeService.ATM_WITHDRAWAL));
-		// Process Cheque transactions events
-		if(transactionType.equals(ServiceTransactionTypeService.CHEQUE_WITHDRAWAL))
-			chequeTransactionCreatedEvent.fire(initializeEvent(tableDataLite,transaction, ServiceTransactionTypeService.CHEQUE_WITHDRAWAL));
+		transactionCreatedEvent.fire(initializeEvent(tableDataLite, transaction, transaction.getServiceTransactionType().getCode()));
 		return transaction;
 	}
 	
@@ -102,9 +93,9 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 	 * @param tableDataLite
 	 * @return
 	 */
-	private TransactionCreationEvent initializeEvent(TableDataLite tableDataLite, ServiceTransaction transaction, String transactionTypeCode)
+	private TransactionEvent initializeEvent(TableDataLite tableDataLite, ServiceTransaction transaction, String transactionTypeCode)
 	{
-		TransactionCreationEvent event = new TransactionCreationEvent();
+		TransactionEvent event = new TransactionEvent();
 		event.setJobId(tableDataLite.getJobId());
 		if(transaction != null) event.setTransactionId(transaction.getId());
 		event.setChannelId(tableDataLite.getChannelId());
@@ -119,7 +110,7 @@ public class TransactionDataInputServiceImpl extends BaseProcessService implemen
 	 * @return
 	 * @throws ApplicationException
 	 */
-	private String processTransactionType(ServiceTransactionRequest transactionRequest, CustomerAccount account) 
+	private String getTransactionCode(ServiceTransactionRequest transactionRequest, CustomerAccount account) 
 			throws ApplicationException
 	{
 		String transactionCode = null;

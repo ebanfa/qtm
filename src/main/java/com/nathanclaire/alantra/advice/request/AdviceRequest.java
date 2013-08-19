@@ -1,10 +1,11 @@
 /**
- *  Nathan Claire Group.
+ *  Alantra.
  */
 package com.nathanclaire.alantra.advice.request;
 
-import java.util.Date;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Date;
 
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
@@ -13,7 +14,6 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  * @author Edward Banfa
  */
 public class AdviceRequest extends BaseRequest {
-
     private Integer customerId;
     private String customerText;
     private Integer currencyId;
@@ -39,13 +39,11 @@ public class AdviceRequest extends BaseRequest {
     private Date endDt;
     private int maxMatches;
     private int matchCount;
-    private Integer id;
-    private String code;
 
     public AdviceRequest() {
     }
-
-    public Integer getCustomerId() {
+    
+	public Integer getCustomerId() {
         return this.customerId;
     }
     
@@ -60,8 +58,7 @@ public class AdviceRequest extends BaseRequest {
     public void setCustomerText(String customerText) {
         this.customerText = customerText;
     }
-
-    public Integer getCurrencyId() {
+	public Integer getCurrencyId() {
         return this.currencyId;
     }
     
@@ -74,10 +71,9 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setCurrencyText(String currencyText) {
-        this.currencyText = currencyText;
+        this.customerText = customerText;
     }
-
-    public Integer getAdviceRequestMessageId() {
+	public Integer getAdviceRequestMessageId() {
         return this.adviceRequestMessageId;
     }
     
@@ -90,10 +86,9 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setAdviceRequestMessageText(String adviceRequestMessageText) {
-        this.adviceRequestMessageText = adviceRequestMessageText;
+        this.customerText = customerText;
     }
-
-    public Integer getAdviceStatusId() {
+	public Integer getAdviceStatusId() {
         return this.adviceStatusId;
     }
     
@@ -106,10 +101,9 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setAdviceStatusText(String adviceStatusText) {
-        this.adviceStatusText = adviceStatusText;
+        this.customerText = customerText;
     }
-
-    public Integer getAdviceClassificationId() {
+	public Integer getAdviceClassificationId() {
         return this.adviceClassificationId;
     }
     
@@ -122,10 +116,9 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setAdviceClassificationText(String adviceClassificationText) {
-        this.adviceClassificationText = adviceClassificationText;
+        this.customerText = customerText;
     }
-
-    public Integer getCustomerAccountId() {
+	public Integer getCustomerAccountId() {
         return this.customerAccountId;
     }
     
@@ -138,10 +131,9 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setCustomerAccountText(String customerAccountText) {
-        this.customerAccountText = customerAccountText;
+        this.customerText = customerText;
     }
-
-    public Integer getAdviceTypeId() {
+	public Integer getAdviceTypeId() {
         return this.adviceTypeId;
     }
     
@@ -154,114 +146,84 @@ public class AdviceRequest extends BaseRequest {
     }
     
     public void setAdviceTypeText(String adviceTypeText) {
-        this.adviceTypeText = adviceTypeText;
+        this.customerText = customerText;
     }
-
-    public String getName() {
+	public String getName() {
         return this.name;
     }
     
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getDescription() {
+	public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getAdviceTxt() {
+	public String getAdviceTxt() {
         return this.adviceTxt;
     }
     
     public void setAdviceTxt(String adviceTxt) {
         this.adviceTxt = adviceTxt;
     }
-
-    public String getCardNo() {
+	public String getCardNo() {
         return this.cardNo;
     }
     
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
-
-    public String getChequeNo() {
+	public String getChequeNo() {
         return this.chequeNo;
     }
     
     public void setChequeNo(String chequeNo) {
         this.chequeNo = chequeNo;
     }
-
-    public String getAccountNm() {
+	public String getAccountNm() {
         return this.accountNm;
     }
     
     public void setAccountNm(String accountNm) {
         this.accountNm = accountNm;
     }
-
-    public BigDecimal getAmount() {
+	public BigDecimal getAmount() {
         return this.amount;
     }
     
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-
-    public Date getStartDt() {
+	public Date getStartDt() {
         return this.startDt;
     }
     
     public void setStartDt(Date startDt) {
         this.startDt = startDt;
     }
-
-    public Date getEndDt() {
+	public Date getEndDt() {
         return this.endDt;
     }
     
     public void setEndDt(Date endDt) {
         this.endDt = endDt;
     }
-
-    public int getMaxMatches() {
+	public int getMaxMatches() {
         return this.maxMatches;
     }
     
     public void setMaxMatches(int maxMatches) {
         this.maxMatches = maxMatches;
     }
-
-    public int getMatchCount() {
+	public int getMatchCount() {
         return this.matchCount;
     }
     
     public void setMatchCount(int matchCount) {
         this.matchCount = matchCount;
     }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-
 }
-
 
