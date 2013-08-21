@@ -40,7 +40,6 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 
 	private MessageClassification messageClassification;
 	private MessageType messageType;
-	private MessageApplication messageApplication;
 	private MessageStatus messageStatus;
 	private DataChannel dataChannel;
     private String messageFrom;
@@ -49,7 +48,7 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     private String messageTxt;
     private String msgAttachmentTy;
     private String msgAttachmentFile;
-	private Set<MessageAction> messageActions = new HashSet<MessageAction>(0);
+    private Character inOutFg;
 	private Set<CustomerMessage> customerMessages = new HashSet<CustomerMessage>(0);
 	private Set<SystemUserMessage> systemUserMessages = new HashSet<SystemUserMessage>(0);
 	private Set<MessageAttachment> messageAttachments = new HashSet<MessageAttachment>(0);
@@ -57,22 +56,22 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public Message() {
     }
 
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageApplication messageApplication, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, Character inOutFg, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageTxt, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.messageFrom = messageFrom;
 		this.messageTo = messageTo;
 		this.messageTxt = messageTxt;
+		this.inOutFg = inOutFg;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Message(MessageClassification messageClassification, MessageType messageType, MessageApplication messageApplication, MessageStatus messageStatus, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, String msgAttachmentTy, String msgAttachmentFile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<MessageAction> messageActions, Set<CustomerMessage> customerMessages, Set<SystemUserMessage> systemUserMessages, Set<MessageAttachment> messageAttachments ) 
+    public Message(MessageClassification messageClassification, MessageType messageType, MessageStatus messageStatus, Character inOutFg, DataChannel dataChannel, String code, String messageFrom, String messageTo, String messageSubject, String messageTxt, String msgAttachmentTy, String msgAttachmentFile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerMessage> customerMessages, Set<SystemUserMessage> systemUserMessages, Set<MessageAttachment> messageAttachments ) 
     {
 		this.messageClassification = messageClassification;
 		this.messageType = messageType;
-		this.messageApplication = messageApplication;
 		this.messageStatus = messageStatus;
 		this.dataChannel = dataChannel;
 		this.code = code;
@@ -83,12 +82,12 @@ public class Message  extends BaseEntity implements java.io.Serializable {
 		this.msgAttachmentTy = msgAttachmentTy;
 		this.msgAttachmentFile = msgAttachmentFile;
 		this.effectiveDt = effectiveDt;
+		this.inOutFg = inOutFg;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.messageActions = messageActions;
 		this.customerMessages = customerMessages;
 		this.systemUserMessages = systemUserMessages;
 		this.messageAttachments = messageAttachments;
@@ -119,19 +118,6 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageType(MessageType messageType)
     {
         this.messageType = messageType;
-    }
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="MSG_APPL_ID", nullable=false)
-    @JsonIgnore
-    public MessageApplication getMessageApplication() 
-    {
-        return this.messageApplication;
-    }
-    
-    public void setMessageApplication(MessageApplication messageApplication)
-    {
-        this.messageApplication = messageApplication;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -224,19 +210,7 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMsgAttachmentFile(String msgAttachmentFile) 
     {
         this.msgAttachmentFile = msgAttachmentFile;
-    }
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
-    @JsonIgnore
-    public Set<MessageAction> getMessageActions() 
-    {
-        return this.messageActions;
-    }
-    
-    public void setMessageActions(Set<MessageAction> messageActions) 
-    {
-        this.messageActions = messageActions;
-    }			
+    }	
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="message")
     @JsonIgnore
@@ -272,7 +246,22 @@ public class Message  extends BaseEntity implements java.io.Serializable {
     public void setMessageAttachments(Set<MessageAttachment> messageAttachments) 
     {
         this.messageAttachments = messageAttachments;
-    }			
+    }
+
+	/**
+	 * @return the inOutFg
+	 */
+    @Column(name="IN_OUT_FG" , nullable=false)
+	public Character getInOutFg() {
+		return inOutFg;
+	}
+
+	/**
+	 * @param inOutFg the inOutFg to set
+	 */
+	public void setInOutFg(Character inOutFg) {
+		this.inOutFg = inOutFg;
+	}			
 
 
 }

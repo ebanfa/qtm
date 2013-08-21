@@ -9,356 +9,100 @@ package com.nathanclaire.alantra.messaging.event;
  */
 public class MessagingEvent {
 
-	private String jobCode;
-	private Integer jobId;
-	private String senderType;
-	private Integer messageId;
-	private String messageText;
-	private Integer customerId;
-	private String customerName;
-	private String messageCode;
-	private Integer systemUserId;
-	private Integer attachmentId;
-	private String sourceAddress;
-	private Integer dataChannelId;
-	private String messageTypeCode;
-	private Integer attachmentJobId;
-	private String destinationAddress;
-	private String attachmentFileName;
-	private String attachmentFileType;
-	private boolean containsAttachment;
-	private String messageApplicationCode;
-	private String messageApplicationActionCode;
-	private String statusInformation;
-	
-	public static final String SENDER_TY_USER = "USER";
-	public static final String SENDER_TY_CUSTOMER = "CUSTOMER";
-	public static final String SENDER_TY_UNCLASSIFIED = "UNCLASSIFIED";
+	private Integer msgId;
+	private Integer custId;
+	private Integer userId;
+	private Character inOutFg;
+	private Boolean custMsg;
+	private Boolean userMsg;
 	
 	/**
-	 * @param jobId
-	 * @param senderType
-	 * @param messageId
-	 * @param customerId
-	 * @param systemUserId
-	 * @param attachmentId
-	 * @param messageTypeCode
-	 * @param attachmentJobId
-	 * @param attachmentFileName
-	 * @param attachmentFileType
-	 * @param containsAttachment
+	 * @param msgId
+	 * @param custId
+	 * @param userId
+	 * @param inOutFg
+	 * @param custMsg
+	 * @param userMsg
 	 */
-	public MessagingEvent(Integer jobId, Integer messageId,  String messageTypeCode,
-			Integer customerId, Integer systemUserId, Integer attachmentId,	Integer attachmentJobId, boolean containsAttachment) {
-		this.jobId = jobId;
-		this.messageId = messageId;
-		this.customerId = customerId;
-		this.systemUserId = systemUserId;
-		this.attachmentId = attachmentId;
-		this.messageTypeCode = messageTypeCode;
-		this.attachmentJobId = attachmentJobId;
-		this.containsAttachment = containsAttachment;
+	public MessagingEvent(Integer msgId, Integer custId, Integer userId,
+			Character inOutFg, Boolean custMsg, Boolean userMsg) {
+		this.msgId = msgId;
+		this.custId = custId;
+		this.userId = userId;
+		this.inOutFg = inOutFg;
+		this.custMsg = custMsg;
+		this.userMsg = userMsg;
 	}
-
 	/**
-	 * 
+	 * @return the msgId
 	 */
-	public MessagingEvent() {
+	public Integer getMsgId() {
+		return msgId;
 	}
-
 	/**
-	 * @return the messageId
+	 * @param msgId the msgId to set
 	 */
-	public Integer getMessageId() {
-		return messageId;
+	public void setMsgId(Integer msgId) {
+		this.msgId = msgId;
 	}
-
 	/**
-	 * @param messageId the messageId to set
+	 * @return the custId
 	 */
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+	public Integer getCustId() {
+		return custId;
 	}
-
 	/**
-	 * @return the jobId
+	 * @param custId the custId to set
 	 */
-	public Integer getJobId() {
-		return jobId;
+	public void setCustId(Integer custId) {
+		this.custId = custId;
 	}
-
 	/**
-	 * @param jobId the jobId to set
+	 * @return the userId
 	 */
-	public void setJobId(Integer jobId) {
-		this.jobId = jobId;
+	public Integer getUserId() {
+		return userId;
 	}
-
 	/**
-	 * @return the customerId
+	 * @param userId the userId to set
 	 */
-	public Integer getCustomerId() {
-		return customerId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
-
 	/**
-	 * @param customerId the customerId to set
+	 * @return the inOutFg
 	 */
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public Character getInOutFg() {
+		return inOutFg;
 	}
-
 	/**
-	 * @return the attachmentJobId
+	 * @param inOutFg the inOutFg to set
 	 */
-	public Integer getAttachmentJobId() {
-		return attachmentJobId;
+	public void setInOutFg(Character inOutFg) {
+		this.inOutFg = inOutFg;
 	}
-
 	/**
-	 * @param attachmentJobId the attachmentJobId to set
+	 * @return the custMsg
 	 */
-	public void setAttachmentJobId(Integer attachmentJobId) {
-		this.attachmentJobId = attachmentJobId;
+	public Boolean getCustMsg() {
+		return custMsg;
 	}
-
 	/**
-	 * @return the systemUserId
+	 * @param custMsg the custMsg to set
 	 */
-	public Integer getSystemUserId() {
-		return systemUserId;
+	public void setCustMsg(Boolean custMsg) {
+		this.custMsg = custMsg;
 	}
-
 	/**
-	 * @param systemUserId the systemUserId to set
+	 * @return the userMsg
 	 */
-	public void setSystemUserId(Integer systemUserId) {
-		this.systemUserId = systemUserId;
+	public Boolean getUserMsg() {
+		return userMsg;
 	}
-
 	/**
-	 * @return the containsAttachment
+	 * @param userMsg the userMsg to set
 	 */
-	public boolean isContainsAttachment() {
-		return containsAttachment;
+	public void setUserMsg(Boolean userMsg) {
+		this.userMsg = userMsg;
 	}
-
-	/**
-	 * @param containsAttachment the containsAttachment to set
-	 */
-	public void setContainsAttachment(boolean containsAttachment) {
-		this.containsAttachment = containsAttachment;
-	}
-
-
-	/**
-	 * @return the attachmentId
-	 */
-	public Integer getAttachmentId() {
-		return attachmentId;
-	}
-
-	/**
-	 * @param attachmentId the attachmentId to set
-	 */
-	public void setAttachmentId(Integer attachmentId) {
-		this.attachmentId = attachmentId;
-	}
-
-	/**
-	 * @return the attachmentFileName
-	 */
-	public String getAttachmentFileName() {
-		return attachmentFileName;
-	}
-
-	/**
-	 * @param attachmentFileName the attachmentFileName to set
-	 */
-	public void setAttachmentFileName(String attachmentFileName) {
-		this.attachmentFileName = attachmentFileName;
-	}
-
-	/**
-	 * @return the senderType
-	 */
-	public String getSenderType() {
-		return senderType;
-	}
-
-	/**
-	 * @param senderType the senderType to set
-	 */
-	public void setSenderType(String senderType) {
-		this.senderType = senderType;
-	}
-
-	/**
-	 * @return the attachmentFileType
-	 */
-	public String getAttachmentFileType() {
-		return attachmentFileType;
-	}
-
-	/**
-	 * @param attachmentFileType the attachmentFileType to set
-	 */
-	public void setAttachmentFileType(String attachmentFileType) {
-		this.attachmentFileType = attachmentFileType;
-	}
-
-	/**
-	 * @return the messageTypeCode
-	 */
-	public String getMessageTypeCode() {
-		return messageTypeCode;
-	}
-
-	/**
-	 * @param messageTypeCode the messageTypeCode to set
-	 */
-	public void setMessageTypeCode(String messageTypeCode) {
-		this.messageTypeCode = messageTypeCode;
-	}
-
-	/**
-	 * @return the jobCode
-	 */
-	public String getJobCode() {
-		return jobCode;
-	}
-
-	/**
-	 * @param jobCode the jobCode to set
-	 */
-	public void setJobCode(String jobCode) {
-		this.jobCode = jobCode;
-	}
-
-	/**
-	 * @return the sourceAddress
-	 */
-	public String getSourceAddress() {
-		return sourceAddress;
-	}
-
-	/**
-	 * @param sourceAddress the sourceAddress to set
-	 */
-	public void setSourceAddress(String sourceAddress) {
-		this.sourceAddress = sourceAddress;
-	}
-
-	/**
-	 * @return the destinationAddress
-	 */
-	public String getDestinationAddress() {
-		return destinationAddress;
-	}
-
-	/**
-	 * @param destinationAddress the destinationAddress to set
-	 */
-	public void setDestinationAddress(String destinationAddress) {
-		this.destinationAddress = destinationAddress;
-	}
-
-	/**
-	 * @return the messageCode
-	 */
-	public String getMessageCode() {
-		return messageCode;
-	}
-
-	/**
-	 * @param messageCode the messageCode to set
-	 */
-	public void setMessageCode(String messageCode) {
-		this.messageCode = messageCode;
-	}
-
-	/**
-	 * @return the messageText
-	 */
-	public String getMessageText() {
-		return messageText;
-	}
-
-	/**
-	 * @param messageText the messageText to set
-	 */
-	public void setMessageText(String messageText) {
-		this.messageText = messageText;
-	}
-
-	/**
-	 * @return the dataChannelId
-	 */
-	public Integer getDataChannelId() {
-		return dataChannelId;
-	}
-
-	/**
-	 * @param dataChannelId the dataChannelId to set
-	 */
-	public void setDataChannelId(Integer dataChannelId) {
-		this.dataChannelId = dataChannelId;
-	}
-
-	/**
-	 * @return the messageApplicationCode
-	 */
-	public String getMessageApplicationCode() {
-		return messageApplicationCode;
-	}
-
-	/**
-	 * @param messageApplicationCode the messageApplicationCode to set
-	 */
-	public void setMessageApplicationCode(String messageApplication) {
-		this.messageApplicationCode = messageApplication;
-	}
-
-	/**
-	 * @return the messageApplicationActionCode
-	 */
-	public String getMessageApplicationActionCode() {
-		return messageApplicationActionCode;
-	}
-
-	/**
-	 * @param messageApplicationActionCode the messageApplicationActionCode to set
-	 */
-	public void setMessageApplicationActionCode(String messageApplicationActionCode) {
-		this.messageApplicationActionCode = messageApplicationActionCode;
-	}
-
-	/**
-	 * @return the statusInformation
-	 */
-	public String getStatusInformation() {
-		return statusInformation;
-	}
-
-	/**
-	 * @param statusInformation the statusInformation to set
-	 */
-	public void setStatusInformation(String statusInformation) {
-		this.statusInformation = statusInformation;
-	}
-
-	/**
-	 * @return the customerName
-	 */
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	/**
-	 * @param customerName the customerName to set
-	 */
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
 }

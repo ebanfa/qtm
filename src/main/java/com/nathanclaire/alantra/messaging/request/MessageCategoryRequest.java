@@ -1,60 +1,36 @@
 /**
- *  Nathan Claire Group.
+ *  Alantra.
  */
 package com.nathanclaire.alantra.messaging.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
- * MessageCategoryRequest 
+ * AdviceRequest 
  * @author Edward Banfa
  */
 public class MessageCategoryRequest extends BaseRequest {
-
     private String name;
     private String description;
-    private Integer id;
-    private String code;
 
     public MessageCategoryRequest() {
     }
-
-    public String getName() {
+    
+	public String getName() {
         return this.name;
     }
     
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getDescription() {
+	public String getDescription() {
         return this.description;
     }
     
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-
 }
 
 

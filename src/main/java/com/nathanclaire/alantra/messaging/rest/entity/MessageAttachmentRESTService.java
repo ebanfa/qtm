@@ -1,5 +1,5 @@
 /**
- * 
+ * Alantra.
  */
 package com.nathanclaire.alantra.messaging.rest.entity;
 
@@ -46,7 +46,7 @@ public class MessageAttachmentRESTService extends BaseActivityRESTService<Messag
 	private Logger logger = LoggerFactory.getLogger(MessageAttachmentRESTService.class);
 	
 	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.messaging.response.MessageAttachmentResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
+	 * @see com.nathanclaire.alantra.base.rest.BaseActivityRESTService#populateListActivityResponse(com.nathanclaire.alantra.messageAttachment.response.MessageAttachmentResponse, com.nathanclaire.alantra.base.response.ListActivityResponse, javax.ws.rs.core.MultivaluedMap)
 	 */
 	@Override
 	protected ListActivityResponse<MessageAttachmentResponse> populateListActivityResponse(

@@ -3,10 +3,12 @@
  */
 package com.nathanclaire.alantra.messaging.service.entity;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+
 import com.nathanclaire.alantra.messaging.model.MessageCategory;
 import com.nathanclaire.alantra.messaging.request.MessageCategoryRequest;
 import com.nathanclaire.alantra.messaging.response.MessageCategoryResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author Edward Banfa
@@ -14,7 +16,5 @@ import com.nathanclaire.alantra.messaging.response.MessageCategoryResponse;
  */
 public interface MessageCategoryService extends BaseEntityService<MessageCategory, MessageCategoryResponse, MessageCategoryRequest>
 {
-	public static final String SMS = "SMS";
-	
-	public static final String EMAIL = "EMAIL";
+
 }

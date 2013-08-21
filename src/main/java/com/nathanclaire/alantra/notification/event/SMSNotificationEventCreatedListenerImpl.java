@@ -11,12 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
+import com.nathanclaire.alantra.customer.model.Customer;
+import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
-import com.nathanclaire.alantra.messaging.messenger.MessengerService;
-import com.nathanclaire.alantra.messaging.messenger.MessengerServiceLocator;
-import com.nathanclaire.alantra.messaging.util.MessageLite;
+import com.nathanclaire.alantra.messaging.model.MessageType;
+import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
+import com.nathanclaire.alantra.messaging.service.process.MessagingService;
 import com.nathanclaire.alantra.notification.annotation.event.SMSNotificationEventCreated;
+import com.nathanclaire.alantra.security.model.SystemUser;
+import com.nathanclaire.alantra.security.service.entity.SystemUserService;
 
 /**
  * @author Edward Banfa 
@@ -26,9 +30,11 @@ import com.nathanclaire.alantra.notification.annotation.event.SMSNotificationEve
 public class SMSNotificationEventCreatedListenerImpl extends BaseNotificationEventListener implements
 		SMSNotificationEventCreatedListener {
 
-	private static final String APPL_NAME = "SMS Notifier";
+	@Inject SystemUserService userService;
+	@Inject CustomerService customerService;
+	@Inject MessagingService messagingService;
 	@Inject DataChannelService channelService;
-	@Inject MessengerServiceLocator serviceLocator;
+	@Inject MessageTypeService messageTypeService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/* (non-Javadoc)
@@ -39,18 +45,17 @@ public class SMSNotificationEventCreatedListenerImpl extends BaseNotificationEve
 	{
 		try 
 		{
-			String mobileNo = null;
 			DataChannel channel = channelService.findById(event.getChannelId());
-			MessengerService messengerService = serviceLocator.findMessengerService(channel);
-			// The mobile number will either that of a customer or that of a user
-			// depending on the recipient type
-			if(event.getRecipientType().equals(NotificationEvent.CUST_RECIPIENT))
-				mobileNo = getCustomerMobileNo(event.getCustomerId());
-			else
-				mobileNo = getUserMobileNo(event.getUserId());
-			// Initialize the message and send using the messenger
-			MessageLite message = initializeMessageLite(mobileNo, APPL_NAME, event.getHeaderText(), event.getBodyText());
-			messengerService.sendMessage(channel, message);
+			MessageType messageType = messageTypeService.findByCode(channel.getDataChannelType().getCode());
+			
+			if(event.getRecipientType().equals(NotificationEvent.CUST_RECIPIENT)) {
+				Customer customer = customerService.findById(event.getCustomerId());
+				messagingService.createOutboundCustMsg(customer, channel, messageType, event.getHeaderText(), event.getBodyText());
+			}
+			else {
+				SystemUser user = userService.findById(event.getCustomerId());
+				messagingService.createOutboundUserMsg(user, channel, messageType, event.getHeaderText(), event.getBodyText());
+			}
 		} catch (Exception e) {
 			logger.error("Error processing SMS notification created event. {}", e.getMessage());
 		}		

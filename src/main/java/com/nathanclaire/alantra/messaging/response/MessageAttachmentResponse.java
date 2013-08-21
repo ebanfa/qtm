@@ -1,19 +1,16 @@
 /**
- *  Nathan Claire Group.
+ *  Alantra.
  */
 package com.nathanclaire.alantra.messaging.response;
 
-import java.util.Date;
-import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.response.BaseResponse;
 
 /**
- * MessageAttachmentResponse 
+ * AdviceResponse 
  * @author Edward Banfa
  */
 public class MessageAttachmentResponse extends BaseResponse {
-
     private Integer messageId;
     private String messageText;
     private String dataTy;
@@ -21,8 +18,8 @@ public class MessageAttachmentResponse extends BaseResponse {
 
     public MessageAttachmentResponse() {
     }
-
-    public Integer getMessageId() {
+    
+	public Integer getMessageId() {
         return this.messageId;
     }
     
@@ -37,24 +34,20 @@ public class MessageAttachmentResponse extends BaseResponse {
     public void setMessageText(String messageText) {
         this.messageText = messageText;
     }
-
-    public String getDataTy() {
+	public String getDataTy() {
         return this.dataTy;
     }
     
     public void setDataTy(String dataTy) {
         this.dataTy = dataTy;
     }
-
-    public String getDataUrl() {
+	public String getDataUrl() {
         return this.dataUrl;
     }
     
     public void setDataUrl(String dataUrl) {
         this.dataUrl = dataUrl;
     }
-
-
 }
 
 

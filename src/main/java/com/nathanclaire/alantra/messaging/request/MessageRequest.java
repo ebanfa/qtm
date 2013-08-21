@@ -1,19 +1,16 @@
 /**
- *  Nathan Claire Group.
+ *  Alantra.
  */
 package com.nathanclaire.alantra.messaging.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
- * MessageRequest 
+ * AdviceRequest 
  * @author Edward Banfa
  */
 public class MessageRequest extends BaseRequest {
-
     private Integer messageClassificationId;
     private String messageClassificationText;
     private Integer messageTypeId;
@@ -22,21 +19,18 @@ public class MessageRequest extends BaseRequest {
     private String messageStatusText;
     private Integer dataChannelId;
     private String dataChannelText;
-    private Integer messageApplicationId;
-    private String messageApplicationText;
     private String messageFrom;
     private String messageTo;
     private String messageSubject;
     private String messageTxt;
     private String msgAttachmentTy;
     private String msgAttachmentFile;
-    private Integer id;
-    private String code;
+    private Character inOutFg;
 
     public MessageRequest() {
     }
-
-    public Integer getMessageClassificationId() {
+    
+	public Integer getMessageClassificationId() {
         return this.messageClassificationId;
     }
     
@@ -51,8 +45,7 @@ public class MessageRequest extends BaseRequest {
     public void setMessageClassificationText(String messageClassificationText) {
         this.messageClassificationText = messageClassificationText;
     }
-
-    public Integer getMessageTypeId() {
+	public Integer getMessageTypeId() {
         return this.messageTypeId;
     }
     
@@ -67,8 +60,7 @@ public class MessageRequest extends BaseRequest {
     public void setMessageTypeText(String messageTypeText) {
         this.messageTypeText = messageTypeText;
     }
-
-    public Integer getMessageStatusId() {
+	public Integer getMessageStatusId() {
         return this.messageStatusId;
     }
     
@@ -83,8 +75,7 @@ public class MessageRequest extends BaseRequest {
     public void setMessageStatusText(String messageStatusText) {
         this.messageStatusText = messageStatusText;
     }
-
-    public Integer getDataChannelId() {
+	public Integer getDataChannelId() {
         return this.dataChannelId;
     }
     
@@ -99,88 +90,55 @@ public class MessageRequest extends BaseRequest {
     public void setDataChannelText(String dataChannelText) {
         this.dataChannelText = dataChannelText;
     }
-
-    public Integer getMessageApplicationId() {
-        return this.messageApplicationId;
-    }
-    
-    public void setMessageApplicationId(Integer messageApplicationId) {
-        this.messageApplicationId = messageApplicationId;
-    }
-
-    public String getMessageApplicationText() {
-        return this.messageApplicationText;
-    }
-    
-    public void setMessageApplicationText(String messageApplicationText) {
-        this.messageApplicationText = messageApplicationText;
-    }
-
-    public String getMessageFrom() {
+	public String getMessageFrom() {
         return this.messageFrom;
     }
     
     public void setMessageFrom(String messageFrom) {
         this.messageFrom = messageFrom;
     }
-
-    public String getMessageTo() {
+	public String getMessageTo() {
         return this.messageTo;
     }
     
     public void setMessageTo(String messageTo) {
         this.messageTo = messageTo;
     }
-
-    public String getMessageSubject() {
+	public String getMessageSubject() {
         return this.messageSubject;
     }
     
     public void setMessageSubject(String messageSubject) {
         this.messageSubject = messageSubject;
     }
-
-    public String getMessageTxt() {
+	public String getMessageTxt() {
         return this.messageTxt;
     }
     
     public void setMessageTxt(String messageTxt) {
         this.messageTxt = messageTxt;
     }
-
-    public String getMsgAttachmentTy() {
+	public String getMsgAttachmentTy() {
         return this.msgAttachmentTy;
     }
     
     public void setMsgAttachmentTy(String msgAttachmentTy) {
         this.msgAttachmentTy = msgAttachmentTy;
     }
-
-    public String getMsgAttachmentFile() {
+	public String getMsgAttachmentFile() {
         return this.msgAttachmentFile;
     }
     
     public void setMsgAttachmentFile(String msgAttachmentFile) {
         this.msgAttachmentFile = msgAttachmentFile;
     }
-
-    public Integer getId() {
-        return this.id;
+	public Character getInOutFg() {
+        return this.inOutFg;
     }
     
-    public void setId(Integer id) {
-        this.id = id;
+    public void setInOutFg(Character inOutFg) {
+        this.inOutFg = inOutFg;
     }
-
-    public String getCode() {
-        return this.code;
-    }
-    
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-
 }
 
 

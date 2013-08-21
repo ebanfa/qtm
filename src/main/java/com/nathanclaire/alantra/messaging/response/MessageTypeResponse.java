@@ -1,27 +1,25 @@
 /**
- *  Nathan Claire Group.
+ *  Alantra.
  */
 package com.nathanclaire.alantra.messaging.response;
 
-import java.util.Date;
-import java.math.BigDecimal;
 
 import com.nathanclaire.alantra.base.response.BaseResponse;
 
 /**
- * MessageTypeResponse 
+ * AdviceResponse 
  * @author Edward Banfa
  */
 public class MessageTypeResponse extends BaseResponse {
-
     private Integer messageCategoryId;
     private String messageCategoryText;
-    private Character autoRespFg;
+    private String name;
+    private String description;
 
     public MessageTypeResponse() {
     }
-
-    public Integer getMessageCategoryId() {
+    
+	public Integer getMessageCategoryId() {
         return this.messageCategoryId;
     }
     
@@ -36,16 +34,20 @@ public class MessageTypeResponse extends BaseResponse {
     public void setMessageCategoryText(String messageCategoryText) {
         this.messageCategoryText = messageCategoryText;
     }
-
-    public Character getAutoRespFg() {
-        return this.autoRespFg;
+	public String getName() {
+        return this.name;
     }
     
-    public void setAutoRespFg(Character autoRespFg) {
-        this.autoRespFg = autoRespFg;
+    public void setName(String name) {
+        this.name = name;
     }
-
-
+	public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
 
 

@@ -3,10 +3,12 @@
  */
 package com.nathanclaire.alantra.messaging.service.entity;
 
-import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+
 import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.messaging.response.MessageResponse;
+import com.nathanclaire.alantra.base.service.entity.BaseEntityService;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 
 /**
  * @author Edward Banfa
@@ -14,5 +16,5 @@ import com.nathanclaire.alantra.messaging.response.MessageResponse;
  */
 public interface MessageService extends BaseEntityService<Message, MessageResponse, MessageRequest>
 {
-	
+
 }

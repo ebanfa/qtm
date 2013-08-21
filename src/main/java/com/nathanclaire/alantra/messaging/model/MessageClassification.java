@@ -97,8 +97,6 @@ public class MessageClassification  extends BaseEntity implements java.io.Serial
     {
         this.messages = messages;
     }			
-
-
 }
 
 
