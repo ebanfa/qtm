@@ -10,9 +10,9 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.annotation.POP3Messenger;
-import com.nathanclaire.alantra.messaging.annotation.SMTPMessenger;
-import com.nathanclaire.alantra.messaging.annotation.SMTPPOP3Messenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.POP3Messenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.SMTPMessenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.SMTPPOP3Messenger;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 
 /**
@@ -21,10 +21,10 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
  */
 @Stateless
 @SMTPPOP3Messenger
-public class SMTPPOP3MessengerImpl implements Messenger {
+public class SMTPPOP3MessengerImpl implements MessengerService {
 	
-	@Inject @POP3Messenger Messenger pop3Messenger;
-	@Inject @SMTPMessenger Messenger smtpMessenger;
+	@Inject @POP3Messenger MessengerService pop3Messenger;
+	@Inject @SMTPMessenger MessengerService smtpMessenger;
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.messaging.service.process.MailService#getMessages(java.lang.String, java.lang.String, java.lang.String)

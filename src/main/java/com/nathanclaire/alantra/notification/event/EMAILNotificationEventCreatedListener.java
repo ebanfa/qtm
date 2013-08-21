@@ -5,7 +5,7 @@ package com.nathanclaire.alantra.notification.event;
 
 import javax.enterprise.event.Observes;
 
-import com.nathanclaire.alantra.notification.annotation.event.EMAILNotificationCreatedEvent;
+import com.nathanclaire.alantra.notification.annotation.event.EMAILNotificationEventCreated;
 
 /**
  * @author Edward Banfa
@@ -13,6 +13,6 @@ import com.nathanclaire.alantra.notification.annotation.event.EMAILNotificationC
  */
 public interface EMAILNotificationEventCreatedListener {
 	
-	public void processEMAILNotificationEventCreatedEvent(@Observes @EMAILNotificationCreatedEvent NotificationEvent event);
+	public void processEMAILNotificationEventCreated(@Observes @EMAILNotificationEventCreated NotificationEvent event);
 
 }

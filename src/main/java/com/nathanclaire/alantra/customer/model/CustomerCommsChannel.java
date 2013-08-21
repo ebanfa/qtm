@@ -5,6 +5,7 @@ package com.nathanclaire.alantra.customer.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,11 +35,12 @@ public class CustomerCommsChannel  extends BaseEntity implements java.io.Seriali
 
 	private DataChannel dataChannel;
 	private Customer customer;
+	private Character defaultChannelFg;
 
     public CustomerCommsChannel() {
     }
 
-    public CustomerCommsChannel(DataChannel dataChannel, Customer customer, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerCommsChannel(Character defaultChannelFg, DataChannel dataChannel, Customer customer, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.effectiveDt = effectiveDt;
@@ -46,10 +48,11 @@ public class CustomerCommsChannel  extends BaseEntity implements java.io.Seriali
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerCommsChannel(DataChannel dataChannel, Customer customer, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public CustomerCommsChannel(Character defaultChannelFg, DataChannel dataChannel, Customer customer, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.dataChannel = dataChannel;
 		this.customer = customer;
+		this.defaultChannelFg = defaultChannelFg;
 		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -85,6 +88,20 @@ public class CustomerCommsChannel  extends BaseEntity implements java.io.Seriali
     {
         this.customer = customer;
     }
+	/**
+	 * @return the defaultChannelFg
+	 */
+    @Column(name="DEFAULT_CHANNEL_FG" , nullable=false, length=1)
+	public Character getDefaultChannelFg() {
+		return defaultChannelFg;
+	}
+
+	/**
+	 * @param defaultChannelFg the defaultChannelFg to set
+	 */
+	public void setDefaultChannelFg(Character defaultChannelFg) {
+		this.defaultChannelFg = defaultChannelFg;
+	}
 
 
 }

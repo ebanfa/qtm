@@ -5,6 +5,7 @@ package com.nathanclaire.alantra.customer.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,11 +35,12 @@ public class CustomerClassificationCommsChannel  extends BaseEntity implements j
 
 	private DataChannel dataChannel;
 	private CustomerClassification customerClassification;
+	private Character defaultChannelFg;
 
     public CustomerClassificationCommsChannel() {
     }
 
-    public CustomerClassificationCommsChannel(DataChannel dataChannel, CustomerClassification customerClassification, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerClassificationCommsChannel(DataChannel dataChannel, CustomerClassification customerClassification, Character defaultChannelFg, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.effectiveDt = effectiveDt;
@@ -46,10 +48,11 @@ public class CustomerClassificationCommsChannel  extends BaseEntity implements j
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerClassificationCommsChannel(DataChannel dataChannel, CustomerClassification customerClassification, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public CustomerClassificationCommsChannel(DataChannel dataChannel, CustomerClassification customerClassification, Character defaultChannelFg, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.dataChannel = dataChannel;
 		this.customerClassification = customerClassification;
+		this.defaultChannelFg = defaultChannelFg;
 		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -86,6 +89,20 @@ public class CustomerClassificationCommsChannel  extends BaseEntity implements j
         this.customerClassification = customerClassification;
     }
 
+	/**
+	 * @return the defaultChannelFg
+	 */
+    @Column(name="DEFAULT_CHANNEL_FG" , nullable=false, length=1)
+	public Character getDefaultChannelFg() {
+		return defaultChannelFg;
+	}
+
+	/**
+	 * @param defaultChannelFg the defaultChannelFg to set
+	 */
+	public void setDefaultChannelFg(Character defaultChannelFg) {
+		this.defaultChannelFg = defaultChannelFg;
+	}
 
 }
 

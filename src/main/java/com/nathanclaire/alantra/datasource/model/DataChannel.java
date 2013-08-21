@@ -40,6 +40,7 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 
 	private DataChannelStatus dataChannelStatus;
 	private DataChannelType dataChannelType;
+	private DataChannelClassification dataChannelClassification;
     private String name;
     private String description;
     private String ipAddr;
@@ -50,6 +51,7 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     private String username;
     private String password;
     private String inboundOutboundCd;
+    private Character localServiceFg;
     private String connSecurityCd;
     private String authMethodCd;
 	private Set<ServiceTransaction> serviceTransactions = new HashSet<ServiceTransaction>(0);
@@ -60,10 +62,11 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     public DataChannel() {
     }
 
-    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataChannel(DataChannelClassification dataChannelClassification, DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, Character localServiceFg, String code, String name, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
+		this.localServiceFg = localServiceFg;
 		this.inboundOutboundCd = inboundOutboundCd;
 		this.connSecurityCd = connSecurityCd;
 		this.authMethodCd = authMethodCd;
@@ -72,10 +75,11 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataChannel(DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, String code, String name, String description, String ipAddr, Integer portNo, String url, String dsDb, String dsTblNm, String username, String password, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ServiceTransaction> serviceTransactions, Set<Data> datas, Set<Message> messages, Set<AdviceRequestMessage> adviceRequestMessages ) 
+    public DataChannel(DataChannelClassification dataChannelClassification, DataChannelStatus dataChannelStatus, DataChannelType dataChannelType, Character localServiceFg, String code, String name, String description, String ipAddr, Integer portNo, String url, String dsDb, String dsTblNm, String username, String password, String inboundOutboundCd, String connSecurityCd, String authMethodCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<ServiceTransaction> serviceTransactions, Set<Data> datas, Set<Message> messages, Set<AdviceRequestMessage> adviceRequestMessages ) 
     {
 		this.dataChannelStatus = dataChannelStatus;
 		this.dataChannelType = dataChannelType;
+		this.dataChannelClassification = dataChannelClassification;
 		this.code = code;
 		this.name = name;
 		this.description = description;
@@ -87,6 +91,7 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
 		this.username = username;
 		this.password = password;
 		this.inboundOutboundCd = inboundOutboundCd;
+		this.localServiceFg = localServiceFg;
 		this.connSecurityCd = connSecurityCd;
 		this.authMethodCd = authMethodCd;
 		this.effectiveDt = effectiveDt;
@@ -127,7 +132,25 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     {
         this.dataChannelType = dataChannelType;
     }
-		
+	
+	/**
+	 * @return the dataChannelClassification
+	 */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CHANNEL_CLASS_ID", nullable=false)
+    @JsonIgnore
+	public DataChannelClassification getDataChannelClassification() {
+		return dataChannelClassification;
+	}
+
+	/**
+	 * @param dataChannelClassification the dataChannelClassification to set
+	 */
+	public void setDataChannelClassification(
+			DataChannelClassification dataChannelClassification) {
+		this.dataChannelClassification = dataChannelClassification;
+	}			
+    
     @Column(name="NAME" , nullable=false, length=75)
     public String getName() 
     {
@@ -237,7 +260,16 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     {
         this.inboundOutboundCd = inboundOutboundCd;
     }
-		
+	
+    @Column(name="LOCAL_SERVICE_FG" , nullable=false, length=1)
+    public Character getLocalServiceFg() {
+        return this.localServiceFg;
+    }
+    
+    public void setLocalServiceFg(Character localServiceFg) {
+        this.localServiceFg = localServiceFg;
+    }
+    
     @Column(name="CONN_SECURITY_CD" , nullable=false, length=15)
     public String getConnSecurityCd() 
     {
@@ -306,8 +338,7 @@ public class DataChannel  extends BaseEntity implements java.io.Serializable {
     public void setAdviceRequestMessages(Set<AdviceRequestMessage> adviceRequestMessages) 
     {
         this.adviceRequestMessages = adviceRequestMessages;
-    }			
-
+    }
 
 }
 

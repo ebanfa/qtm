@@ -116,12 +116,12 @@ public class CustomerCategory  extends BaseEntity implements java.io.Serializabl
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerCategory")
     @JsonIgnore
-    public Set<CustomerCategoryCommsChannel> getCustomerCategoryNotificationChannels() 
+    public Set<CustomerCategoryCommsChannel> getCustomerCategoryCommsChannels() 
     {
         return this.customerCategoryCommsChannels;
     }
     
-    public void setCustomerCategoryNotificationChannels(Set<CustomerCategoryCommsChannel> customerCategoryCommsChannels) 
+    public void setCustomerCategoryCommsChannels(Set<CustomerCategoryCommsChannel> customerCategoryCommsChannels) 
     {
         this.customerCategoryCommsChannels = customerCategoryCommsChannels;
     }			

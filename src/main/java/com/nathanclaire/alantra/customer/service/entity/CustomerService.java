@@ -25,5 +25,9 @@ public interface CustomerService extends BaseEntityService<Customer, CustomerRes
 	List<Customer> findByCategory(String type) throws ApplicationException;
 
 	List<Customer> findByClassification(String type) throws ApplicationException;
+
+	public Customer findCustomerByPhone(String mobileNo) throws ApplicationException;
+
+	public Customer findCustomerByEmail(String emailAddress) throws ApplicationException;
 	
 }

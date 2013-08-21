@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
-import com.nathanclaire.alantra.notification.service.process.NotifierService;
+import com.nathanclaire.alantra.notification.service.process.NotificationService;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.TxnAwaitingConfirmation;
 import com.nathanclaire.alantra.transaction.service.entity.TxnAwaitingConfirmationService;
@@ -35,7 +35,7 @@ public class TransactionConfirmationServiceImpl
 	@Resource(name = "java:jboss/datasources/alantraDS")
 	javax.sql.DataSource ds; 
 
-	@Inject NotifierService notificationsService;
+	@Inject NotificationService notificationsService;
 	@Inject TxnAwaitingConfirmationService txnAwaitingConfirmationService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	

@@ -5,6 +5,7 @@ package com.nathanclaire.alantra.customer.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,6 +35,7 @@ public class CustomerTypeCommsChannel  extends BaseEntity implements java.io.Ser
 
 	private DataChannel dataChannel;
 	private CustomerType customerType;
+	private Character defaultChannelFg;
 
 	
     public CustomerTypeCommsChannel() {
@@ -47,10 +49,11 @@ public class CustomerTypeCommsChannel  extends BaseEntity implements java.io.Ser
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerTypeCommsChannel(DataChannel dataChannel, CustomerType customerType, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public CustomerTypeCommsChannel(Character defaultChannelFg, DataChannel dataChannel, CustomerType customerType, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.dataChannel = dataChannel;
 		this.customerType = customerType;
+		this.defaultChannelFg = defaultChannelFg;
 		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -87,6 +90,20 @@ public class CustomerTypeCommsChannel  extends BaseEntity implements java.io.Ser
         this.customerType = customerType;
     }
 
+	/**
+	 * @return the defaultChannelFg
+	 */
+    @Column(name="DEFAULT_CHANNEL_FG" , nullable=false, length=1)
+	public Character getDefaultChannelFg() {
+		return defaultChannelFg;
+	}
+
+	/**
+	 * @param defaultChannelFg the defaultChannelFg to set
+	 */
+	public void setDefaultChannelFg(Character defaultChannelFg) {
+		this.defaultChannelFg = defaultChannelFg;
+	}
 
 }
 

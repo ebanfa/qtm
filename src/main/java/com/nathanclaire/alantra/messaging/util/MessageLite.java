@@ -11,6 +11,28 @@ import java.util.Map;
  */
 public class MessageLite {
 
+	/**
+	 * @param messageTo
+	 * @param messageFrom
+	 * @param subjectLine
+	 * @param messageBody
+	 * @param containsAttachement
+	 */
+	public MessageLite(String messageTo, String messageFrom,
+			String subjectLine, String messageBody, boolean containsAttachement) {
+		super();
+		this.messageTo = messageTo;
+		this.messageFrom = messageFrom;
+		this.subjectLine = subjectLine;
+		this.messageBody = messageBody;
+		this.containsAttachement = containsAttachement;
+	}
+	/**
+	 * 
+	 */
+	public MessageLite() {
+		// TODO Auto-generated constructor stub
+	}
 	private String messageTo;
 	private String messageFrom;
 	private String subjectLine;

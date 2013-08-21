@@ -116,12 +116,12 @@ public class CustomerClassification  extends BaseEntity implements java.io.Seria
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerClassification")
     @JsonIgnore
-    public Set<CustomerClassificationCommsChannel> getCustomerClassificationNotificationChannels() 
+    public Set<CustomerClassificationCommsChannel> getCustomerClassificationCommsChannels() 
     {
         return this.customerClassificationCommsChannels;
     }
     
-    public void setCustomerClassificationNotificationChannels(Set<CustomerClassificationCommsChannel> customerClassificationCommsChannels) 
+    public void setCustomerClassificationCommsChannels(Set<CustomerClassificationCommsChannel> customerClassificationCommsChannels) 
     {
         this.customerClassificationCommsChannels = customerClassificationCommsChannels;
     }			

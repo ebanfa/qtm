@@ -23,8 +23,8 @@ import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.model.DataStructure;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
-import com.nathanclaire.alantra.messaging.annotation.POP3Messenger;
-import com.nathanclaire.alantra.messaging.messenger.Messenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.POP3Messenger;
+import com.nathanclaire.alantra.messaging.messenger.MessengerService;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 
 
@@ -35,7 +35,7 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
 @Stateless
 public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implements EmailDataExtractor {
 
-	@Inject @POP3Messenger Messenger messenger;
+	@Inject @POP3Messenger MessengerService messengerService;
 	private Logger logger = LoggerFactory.getLogger(EmailDataExtractorImpl.class);
 	
 	/* (non-Javadoc)
@@ -48,7 +48,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 		DataStructure dataStructure = data.getDataStructure();
 		logger.debug("Extracting data from {} for data channel {}", data.getCode(), dataChannel.getCode());
 		try {
-			List<MessageLite> messages = messenger.getMessages(dataChannel);
+			List<MessageLite> messages = messengerService.getMessages(dataChannel);
 			logger.debug("Extracted {} messages", messages);
 			List<String[]> extractedData = this.emailToStringArrayList(messages);
 			logger.debug("Email messages as String list {}", extractedData);

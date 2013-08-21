@@ -5,6 +5,7 @@ package com.nathanclaire.alantra.customer.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,11 +35,12 @@ public class CustomerCategoryCommsChannel  extends BaseEntity implements java.io
 
 	private CustomerCategory customerCategory;
 	private DataChannel dataChannel;
+	private Character defaultChannelFg;
 
     public CustomerCategoryCommsChannel() {
     }
 
-    public CustomerCategoryCommsChannel(CustomerCategory customerCategory, DataChannel dataChannel, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public CustomerCategoryCommsChannel(CustomerCategory customerCategory, DataChannel dataChannel, Character defaultChannelFg, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.effectiveDt = effectiveDt;
@@ -46,10 +48,11 @@ public class CustomerCategoryCommsChannel  extends BaseEntity implements java.io
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public CustomerCategoryCommsChannel(CustomerCategory customerCategory, DataChannel dataChannel, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
+    public CustomerCategoryCommsChannel(CustomerCategory customerCategory, DataChannel dataChannel, Character defaultChannelFg, String code, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr) 
     {
 		this.customerCategory = customerCategory;
 		this.dataChannel = dataChannel;
+		this.defaultChannelFg = defaultChannelFg;
 		this.code = code;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
@@ -85,6 +88,21 @@ public class CustomerCategoryCommsChannel  extends BaseEntity implements java.io
     {
         this.dataChannel = dataChannel;
     }
+
+	/**
+	 * @return the defaultChannelFg
+	 */
+    @Column(name="DEFAULT_CHANNEL_FG" , nullable=false, length=1)
+	public Character getDefaultChannelFg() {
+		return defaultChannelFg;
+	}
+
+	/**
+	 * @param defaultChannelFg the defaultChannelFg to set
+	 */
+	public void setDefaultChannelFg(Character defaultChannelFg) {
+		this.defaultChannelFg = defaultChannelFg;
+	}
 
 
 }

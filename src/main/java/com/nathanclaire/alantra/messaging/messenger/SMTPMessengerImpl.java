@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.PropertyUtils;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.annotation.SMTPMessenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.SMTPMessenger;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.messaging.service.entity.MessageApplicationService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageService;
@@ -41,7 +41,7 @@ import com.sun.mail.smtp.SMTPTransport;
  */
 @Stateless
 @SMTPMessenger
-public class SMTPMessengerImpl extends BaseProcessService implements Messenger {
+public class SMTPMessengerImpl extends BaseProcessService implements MessengerService {
 
 	public static String AUTH_METH_NORMAL = "AUTH_METH_NORMAL";
 	public static String AUTH_METH_STARTTLS = "AUTH_METH_STARTTLS";

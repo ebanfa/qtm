@@ -9,7 +9,15 @@ package com.nathanclaire.alantra.notification.event;
  *
  */
 public class NotificationEvent {
+	public static final String CUST_RECIPIENT = "CUSTOMER";
+	public static final String USER_RECIPIENT = "USER";
 	
+	/**
+	 * 
+	 */
+	public NotificationEvent() {
+		// TODO Auto-generated constructor stub
+	}
 	private String bodyText;
 	private String headerText;
 	private String recipientType;

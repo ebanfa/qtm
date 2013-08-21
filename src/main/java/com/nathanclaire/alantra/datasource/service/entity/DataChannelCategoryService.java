@@ -17,5 +17,6 @@ public interface DataChannelCategoryService extends BaseEntityService<DataChanne
 
 	public static final String SMS_DATA_CHANNEL = "SMS_CHANNEL";
 	public static final String EMAIL_DATA_CHANNEL = "EMAIL_CHANNEL";
+	public static final String IVR_DATA_CHANNEL = "IVR_CHANNEL";
 	
 }

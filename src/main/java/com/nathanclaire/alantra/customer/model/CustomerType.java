@@ -133,12 +133,12 @@ public class CustomerType  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customerType")
     @JsonIgnore
-    public Set<CustomerTypeCommsChannel> getCustomerTypeNotificationChannels() 
+    public Set<CustomerTypeCommsChannel> getCustomerTypeCommsChannels() 
     {
         return this.customerTypeCommsChannels;
     }
     
-    public void setCustomerTypeNotificationChannels(Set<CustomerTypeCommsChannel> customerTypeCommsChannels) 
+    public void setCustomerTypeCommsChannels(Set<CustomerTypeCommsChannel> customerTypeCommsChannels) 
     {
         this.customerTypeCommsChannels = customerTypeCommsChannels;
     }			

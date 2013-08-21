@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.FileUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.messaging.annotation.POP3Messenger;
+import com.nathanclaire.alantra.messaging.annotation.messenger.POP3Messenger;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 import com.sun.mail.pop3.POP3Store;
 
@@ -35,7 +35,7 @@ import com.sun.mail.pop3.POP3Store;
  */
 @Stateless
 @POP3Messenger
-public class POP3MessengerImpl implements Messenger {
+public class POP3MessengerImpl implements MessengerService {
 
 	public static final String HANDLE_PART_ERROR = "MessageReader.HANDLE_PART_ERROR";
 	public static final String HANDLE_MULTIPART_ERROR = "MessageReader.HANDLE_MULTIPART_ERROR";
