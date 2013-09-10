@@ -27,7 +27,22 @@ public class CustomerAccountRequest extends BaseRequest {
     public CustomerAccountRequest() {
     }
 
-    public Integer getCustomerId() {
+    /**
+	 * @param customerId
+	 * @param accountId
+	 * @param name
+	 * @param isDefaultFg
+	 */
+	public CustomerAccountRequest(Integer customerId, Integer accountId,
+			String name, char isDefaultFg) {
+		super();
+		this.customerId = customerId;
+		this.accountId = accountId;
+		this.name = name;
+		this.isDefaultFg = isDefaultFg;
+	}
+
+	public Integer getCustomerId() {
         return this.customerId;
     }
     

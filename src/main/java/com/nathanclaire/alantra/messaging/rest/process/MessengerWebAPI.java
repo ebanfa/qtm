@@ -18,20 +18,16 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.DateUtil;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.service.process.CustomerService;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelEntityService;
 import com.nathanclaire.alantra.messaging.annotation.messenger.SMSHTTPMessenger;
 import com.nathanclaire.alantra.messaging.messenger.MessengerService;
-import com.nathanclaire.alantra.messaging.model.MessageApplication;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.messaging.service.entity.MessageStatusService;
-import com.nathanclaire.alantra.messaging.service.process.ClassificationService;
-import com.nathanclaire.alantra.messaging.service.process.MessageTextProcessingService;
-import com.nathanclaire.alantra.messaging.service.process.MessagingModuleService;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 
 /**
@@ -43,11 +39,8 @@ import com.nathanclaire.alantra.messaging.util.MessageLite;
 public class MessengerWebAPI {
 	
 	@Inject @SMSHTTPMessenger MessengerService messengerService;
-	@Inject DataChannelService dataChannelService;
+	@Inject DataChannelEntityService dataChannelEntityService;
 	@Inject CustomerService customerService;
-	@Inject MessageTextProcessingService messageTextProcessingService;
-	@Inject ClassificationService classificationService;
-	@Inject MessagingModuleService messagingModuleService;
 	private Logger logger = LoggerFactory.getLogger(MessengerWebAPI.class);
 	
 	/**
@@ -65,13 +58,13 @@ public class MessengerWebAPI {
     		if(!StringUtil.isValidString(dataChannelCode) | !StringUtil.isValidString(from) | !StringUtil.isValidString(to))
     			return Response.status(Status.BAD_REQUEST).build();
     		// 1. Verify the dataChannel
-			DataChannel channel = dataChannelService.findByCode(dataChannelCode);
+			DataChannel channel = dataChannelEntityService.findByCode(dataChannelCode);
 			if(channel == null){
 				logger.debug("Invalid channel specified. Channel not found");
 				return Response.status(Status.FORBIDDEN).build();
 			}
 			// 2. Verify the sender is a valid customer
-			Customer customer = customerService.findCustomerByPhone(from);
+			Customer customer = null;//customerService.findCustomerByPhone(from);
 			if(customer == null){
 				logger.debug("Invalid customer specified. Customer with source address {} not found", from);
 				return Response.status(Status.FORBIDDEN).build();
@@ -86,19 +79,19 @@ public class MessengerWebAPI {
 				logger.debug("Invalid message text specified");
 				return Response.status(Status.BAD_REQUEST).build();
 			}
-			MessageApplication messageApplication = messageTextProcessingService.getMessageApplication(messageText);
+			//MessageApplication messageApplication = messageTextProcessingService.getMessageApplication(messageText);
 			MessageRequest messageRequest = new MessageRequest();
-			PropertyUtils.initializeBaseFields(messageRequest);
-			messageRequest.setMessageApplicationId(messageApplication.getId());
-			messageRequest.setMessageClassificationId(classificationService.getMessageClassification(channel).getId());
-			messageRequest.setMessageStatusId(classificationService.getMessageStatus(MessageStatusService.CUSTOMER_MESSAGE_RECEIVED).getId());
-			messageRequest.setMessageTypeId(classificationService.getMessageType(channel).getId());
+			PropertyUtil.initializeBaseFields(messageRequest);
+			//messageRequest.setMessageApplicationId(messageApplication.getId());
+			//messageRequest.setMessageClassificationId(classificationService.getMessageClassification(channel).getId());
+			//messageRequest.setMessageStatusId(classificationService.getMessageStatus(MessageStatusService.CUSTOMER_MESSAGE_RECEIVED).getId());
+			//messageRequest.setMessageTypeId(classificationService.getMessageType(channel).getId());
 			messageRequest.setDataChannelId(channel.getId());
 			messageRequest.setCode(DateUtil.getCurrentTimeInMilliSeconds().toString());
 			messageRequest.setMessageTo(to);
 			messageRequest.setMessageFrom(from);
 			messageRequest.setMessageTxt(messageText);
-			messagingModuleService.createMessage(messageRequest);
+			//messagingModuleService.createMessage(messageRequest);
 		} catch (ApplicationException e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
@@ -119,13 +112,13 @@ public class MessengerWebAPI {
     		if(!StringUtil.isValidString(dataChannelCode) | !StringUtil.isValidString(from) | !StringUtil.isValidString(to))
     			return Response.status(Status.BAD_REQUEST).build();
     		// 1. Verify the dataChannel
-			DataChannel channel = dataChannelService.findByCode(dataChannelCode);
+			DataChannel channel = dataChannelEntityService.findByCode(dataChannelCode);
 			if(channel == null){
 				logger.debug("Invalid channel specified. Channel not found");
 				return Response.status(Status.FORBIDDEN).build();
 			}
 			// 2. Verify the sender is a valid customer
-			Customer customer = customerService.findCustomerByPhone(from);
+			Customer customer = null;//customerService.findCustomerByPhone(from);
 			if(customer == null){
 				logger.debug("Invalid customer specified. Customer with source address {} not found", from);
 				return Response.status(Status.FORBIDDEN).build();

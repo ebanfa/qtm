@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.datasource.response.DataStructureResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class DataStructureServiceImpl
 		DataStructure dataStructure = new DataStructure();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataStructureRequest, dataStructure, allowedEntityFields);
+		PropertyUtil.copyProperties(dataStructureRequest, dataStructure, allowedEntityFields);
     	//Process many to one relationships
 		return dataStructure;
 	}
@@ -185,7 +185,7 @@ public class DataStructureServiceImpl
 		if (model == null) return null;
 		DataStructureResponse dataStructureResponse = new DataStructureResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataStructureResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataStructureResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return dataStructureResponse;
 	}

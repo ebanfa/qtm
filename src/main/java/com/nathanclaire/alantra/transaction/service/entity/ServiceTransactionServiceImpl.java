@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.customer.model.CustomerAccount;
 import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
-import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelEntityService;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionStatus;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
@@ -37,7 +37,7 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerAccountService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -66,7 +66,7 @@ public class ServiceTransactionServiceImpl
 	@Inject
 	ServiceTransactionStatusService  serviceTransactionStatusService;
 	@Inject
-	DataChannelService  dataChannelService;
+	DataChannelEntityService  dataChannelEntityService;
 	@Inject
 	ServiceTransactionTypeService  serviceTransactionTypeService;
 	@Inject
@@ -176,7 +176,7 @@ public class ServiceTransactionServiceImpl
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> currencys = currencyService.asListItem();
 		List<ListItemResponse> serviceTransactionStatuss = serviceTransactionStatusService.asListItem();
-		List<ListItemResponse> dataChannels = dataChannelService.asListItem();
+		List<ListItemResponse> dataChannels = dataChannelEntityService.asListItem();
 		List<ListItemResponse> serviceTransactionTypes = serviceTransactionTypeService.asListItem();
 		List<ListItemResponse> customerAccounts = customerAccountService.asListItem();
     	
@@ -213,7 +213,7 @@ public class ServiceTransactionServiceImpl
 		ServiceTransaction serviceTransaction = new ServiceTransaction();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(serviceTransactionRequest, serviceTransaction, allowedEntityFields);
+		PropertyUtil.copyProperties(serviceTransactionRequest, serviceTransaction, allowedEntityFields);
     	//Process many to one relationships
     	if (serviceTransactionRequest.getCurrencyId() != null)
     	{
@@ -248,7 +248,7 @@ public class ServiceTransactionServiceImpl
 		if (model == null) return null;
 		ServiceTransactionResponse serviceTransactionResponse = new ServiceTransactionResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, serviceTransactionResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, serviceTransactionResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCurrency() != null)
 			serviceTransactionResponse.setCurrencyId(model.getCurrency().getId());

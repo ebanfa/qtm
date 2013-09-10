@@ -14,10 +14,9 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
 import com.nathanclaire.alantra.advice.model.AdviceType;
-import com.nathanclaire.alantra.advice.service.entity.AdviceServiceImpl;
 import com.nathanclaire.alantra.advice.service.entity.AdviceStatusService;
 import com.nathanclaire.alantra.advice.service.entity.AdviceTypeService;
-import com.nathanclaire.alantra.advice.service.process.AdviceProcessingService;
+import com.nathanclaire.alantra.advice.service.entity.AdviceService;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.businessdata.model.Currency;
@@ -34,7 +33,7 @@ import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
 public class TransactionMatchingServiceImpl extends BaseProcessService implements TransactionMatchingService {
 	
 
-	@Inject	AdviceProcessingService adviceProcessingService;
+	@Inject	AdviceService adviceProcessingService;
 	@Inject	AdviceTypeService adviceTypeService;
 	@Inject	AdviceStatusService adviceStatusService;
 	private Logger logger = LoggerFactory.getLogger(TransactionMatchingServiceImpl.class);

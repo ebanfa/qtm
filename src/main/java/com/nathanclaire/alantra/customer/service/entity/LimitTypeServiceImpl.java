@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.customer.response.LimitTypeResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class LimitTypeServiceImpl
 		LimitType limitType = new LimitType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(limitTypeRequest, limitType, allowedEntityFields);
+		PropertyUtil.copyProperties(limitTypeRequest, limitType, allowedEntityFields);
     	//Process many to one relationships
 		return limitType;
 	}
@@ -185,7 +185,7 @@ public class LimitTypeServiceImpl
 		if (model == null) return null;
 		LimitTypeResponse limitTypeResponse = new LimitTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, limitTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, limitTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return limitTypeResponse;
 	}

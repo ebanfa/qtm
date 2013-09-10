@@ -14,7 +14,22 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataRequest extends BaseRequest {
 
-    private Integer dataTypeId;
+    /**
+	 * @param dataTypeId
+	 * @param dataStructureId
+	 * @param name
+	 * @param code
+	 */
+	public DataRequest(Integer dataTypeId, Integer dataStructureId,
+			String name, String code) {
+		super();
+		this.dataTypeId = dataTypeId;
+		this.dataStructureId = dataStructureId;
+		this.name = name;
+		this.code = code;
+	}
+
+	private Integer dataTypeId;
     private String dataTypeText;
     private Integer dataStructureId;
     private String dataStructureText;

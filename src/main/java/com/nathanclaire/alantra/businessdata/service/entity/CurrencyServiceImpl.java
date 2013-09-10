@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.businessdata.response.CurrencyResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class CurrencyServiceImpl
 		Currency currency = new Currency();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(currencyRequest, currency, allowedEntityFields);
+		PropertyUtil.copyProperties(currencyRequest, currency, allowedEntityFields);
     	//Process many to one relationships
 		return currency;
 	}
@@ -185,7 +185,7 @@ public class CurrencyServiceImpl
 		if (model == null) return null;
 		CurrencyResponse currencyResponse = new CurrencyResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, currencyResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, currencyResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return currencyResponse;
 	}

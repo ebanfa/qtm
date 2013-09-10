@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.datasource.response.DataChannelStatusResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class DataChannelStatusServiceImpl
 		DataChannelStatus dataChannelStatus = new DataChannelStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataChannelStatusRequest, dataChannelStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(dataChannelStatusRequest, dataChannelStatus, allowedEntityFields);
     	//Process many to one relationships
 		return dataChannelStatus;
 	}
@@ -185,7 +185,7 @@ public class DataChannelStatusServiceImpl
 		if (model == null) return null;
 		DataChannelStatusResponse dataChannelStatusResponse = new DataChannelStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataChannelStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataChannelStatusResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return dataChannelStatusResponse;
 	}

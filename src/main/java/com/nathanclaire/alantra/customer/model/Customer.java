@@ -21,7 +21,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.nathanclaire.alantra.advice.model.Advice;
-import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.notification.model.CustomerNotification;
 
@@ -49,7 +48,6 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 	private Set<CustomerNotification> customerNotifications = new HashSet<CustomerNotification>(0);
 	private Set<Advice> advices = new HashSet<Advice>(0);
 	private Set<CustomerAccount> customerAccounts = new HashSet<CustomerAccount>(0);
-	private Set<AdviceRequestMessage> adviceRequestMessages = new HashSet<AdviceRequestMessage>(0);
 	private Set<CustomerTransactionLimit> customerTransactionLimits = new HashSet<CustomerTransactionLimit>(0);
 	private Set<CustomerCommsChannel> customerCommsChannels = new HashSet<CustomerCommsChannel>(0);
 	private Set<CustomerMessage> customerMessages = new HashSet<CustomerMessage>(0);
@@ -70,7 +68,7 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String primaryEmail, String secondaryEmail, String primaryMobile, String secondaryMobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerNotification> customerNotifications, Set<Advice> advices, Set<CustomerAccount> customerAccounts, Set<AdviceRequestMessage> adviceRequestMessages, Set<CustomerTransactionLimit> customerTransactionLimits, Set<CustomerCommsChannel> customerCommsChannels, Set<CustomerMessage> customerMessages, Set<CustomerBlacklist> customerBlacklists ) 
+    public Customer(CustomerClassification customerClassification, CustomerType customerType, String code, String pin, String name, String primaryEmail, String secondaryEmail, String primaryMobile, String secondaryMobile, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CustomerNotification> customerNotifications, Set<Advice> advices, Set<CustomerAccount> customerAccounts, Set<CustomerTransactionLimit> customerTransactionLimits, Set<CustomerCommsChannel> customerCommsChannels, Set<CustomerMessage> customerMessages, Set<CustomerBlacklist> customerBlacklists ) 
     {
 		this.customerClassification = customerClassification;
 		this.customerType = customerType;
@@ -90,7 +88,6 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
 		this.customerNotifications = customerNotifications;
 		this.advices = advices;
 		this.customerAccounts = customerAccounts;
-		this.adviceRequestMessages = adviceRequestMessages;
 		this.customerTransactionLimits = customerTransactionLimits;
 		this.customerCommsChannels = customerCommsChannels;
 		this.customerMessages = customerMessages;
@@ -224,18 +221,6 @@ public class Customer  extends BaseEntity implements java.io.Serializable {
     public void setCustomerAccounts(Set<CustomerAccount> customerAccounts) 
     {
         this.customerAccounts = customerAccounts;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")
-    @JsonIgnore
-    public Set<AdviceRequestMessage> getAdviceRequestMessages() 
-    {
-        return this.adviceRequestMessages;
-    }
-    
-    public void setAdviceRequestMessages(Set<AdviceRequestMessage> adviceRequestMessages) 
-    {
-        this.adviceRequestMessages = adviceRequestMessages;
     }			
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="customer")

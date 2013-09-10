@@ -18,15 +18,15 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
-import com.nathanclaire.alantra.datasource.model.RowData;
-import com.nathanclaire.alantra.datasource.model.TableData;
+import com.nathanclaire.alantra.datasource.model.DataRow;
+import com.nathanclaire.alantra.datasource.model.DataTable;
 import com.nathanclaire.alantra.datasource.request.RowDataRequest;
 import com.nathanclaire.alantra.datasource.response.RowDataResponse;
 import com.nathanclaire.alantra.datasource.service.entity.TableDataService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -34,7 +34,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtils;
  */
 @Stateless
 public class RowDataServiceImpl 
-	extends BaseEntityServiceImpl<RowData, RowDataResponse, RowDataRequest> 
+	extends BaseEntityServiceImpl<DataRow, RowDataResponse, RowDataRequest> 
 	implements RowDataService
 {
 	private static final String LIST_ITEM_TABLEDATA = "tableData";
@@ -53,14 +53,14 @@ public class RowDataServiceImpl
 	 * @param entityClass
 	 */
 	public RowDataServiceImpl() {
-		super(RowData.class);
+		super(DataRow.class);
 	}
 
     /* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#findById(java.lang.Integer)
 	 */
 	@Override
-	public RowData findById(Integer id) throws ApplicationException {
+	public DataRow findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -68,7 +68,7 @@ public class RowDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#findByCode(java.lang.String)
 	 */
 	@Override
-	public RowData findByCode(String code) throws ApplicationException {
+	public DataRow findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -76,7 +76,7 @@ public class RowDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#findByName(java.lang.String)
 	 */
 	@Override
-	public RowData findByName(String name) throws ApplicationException {
+	public DataRow findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -84,7 +84,7 @@ public class RowDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#findAll(java.util.Map)
 	 */
 	@Override
-	public List<RowData> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
+	public List<DataRow> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -92,7 +92,7 @@ public class RowDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#createRowData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RowData create(RowDataRequest rowDataRequest) throws ApplicationException {
+	public DataRow create(RowDataRequest rowDataRequest) throws ApplicationException {
 		return createInstance(rowDataRequest);
 	}
 
@@ -108,7 +108,7 @@ public class RowDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.RowData#updateRowData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public RowData update(RowDataRequest rowDataRequest) throws ApplicationException {
+	public DataRow update(RowDataRequest rowDataRequest) throws ApplicationException {
 		return updateInstance(rowDataRequest);
 	}
 	
@@ -164,7 +164,7 @@ public class RowDataServiceImpl
 	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
-		for(RowData rowdata: findAll(queryParameters))
+		for(DataRow rowdata: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(rowdata.getId(), rowdata.getCode(), rowdata.getName());
 			listItems.add(item);
@@ -177,31 +177,31 @@ public class RowDataServiceImpl
      * @return
      */
 	@Override
-    public RowData convertRequestToModel(RowDataRequest rowDataRequest) 
+    public DataRow convertRequestToModel(RowDataRequest rowDataRequest) 
      throws ApplicationException {
-		RowData rowData = new RowData();
+		DataRow dataRow = new DataRow();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(rowDataRequest, rowData, allowedEntityFields);
+		PropertyUtil.copyProperties(rowDataRequest, dataRow, allowedEntityFields);
     	//Process many to one relationships
     	if (rowDataRequest.getTableDataId() != null)
     	{
-    		TableData tableData = getEntityManager().find(TableData.class, rowDataRequest.getTableDataId());
-    		rowData.setTableData(tableData);
+    		DataTable dataTable = getEntityManager().find(DataTable.class, rowDataRequest.getTableDataId());
+    		dataRow.setDataTable(dataTable);
     	}
-		return rowData;
+		return dataRow;
 	}
 	
 	@Override
-	public RowDataResponse convertModelToResponse(RowData model) throws ApplicationException {
+	public RowDataResponse convertModelToResponse(DataRow model) throws ApplicationException {
 		if (model == null) return null;
 		RowDataResponse rowDataResponse = new RowDataResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, rowDataResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, rowDataResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
-		if(model.getTableData() != null)
-			rowDataResponse.setTableDataId(model.getTableData().getId());
-			rowDataResponse.setTableDataText(model.getTableData().getName());
+		if(model.getDataTable() != null)
+			rowDataResponse.setTableDataId(model.getDataTable().getId());
+			rowDataResponse.setTableDataText(model.getDataTable().getName());
 		return rowDataResponse;
 	}
 }

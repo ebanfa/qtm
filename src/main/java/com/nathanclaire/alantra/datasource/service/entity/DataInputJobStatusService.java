@@ -15,6 +15,9 @@ import com.nathanclaire.alantra.datasource.response.DataInputJobStatusResponse;
 public interface DataInputJobStatusService extends BaseEntityService<DataInputJobStatus, DataInputJobStatusResponse, DataInputJobStatusRequest>
 {
 
+	public static final String NOT_RUNNING = "PROCESSING_CYCLES";
 	public static final String RUNNING = "RUNNING";
+	public static final String PROCESSING_CYCLES = "PROCESSING_CYCLES";
+	public static final String COMPLETED = "COMPLETED";
 	
 }

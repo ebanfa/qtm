@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class MessageCategoryServiceImpl
 		MessageCategory messageCategory = new MessageCategory();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(messageCategoryRequest, messageCategory, allowedEntityFields);
+		PropertyUtil.copyProperties(messageCategoryRequest, messageCategory, allowedEntityFields);
     	//Process many to one relationships
 		return messageCategory;
 	}
@@ -192,7 +192,7 @@ public class MessageCategoryServiceImpl
 		if (model == null) return null;
 		MessageCategoryResponse messageCategoryResponse = new MessageCategoryResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, messageCategoryResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, messageCategoryResponse, allowedEntityFields);
 		return messageCategoryResponse;
 	}
 

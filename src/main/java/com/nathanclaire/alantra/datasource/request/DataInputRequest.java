@@ -3,9 +3,6 @@
  */
 package com.nathanclaire.alantra.datasource.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
@@ -16,12 +13,29 @@ public class DataInputRequest extends BaseRequest {
 
     private Integer dataLoaderId;
     private String dataLoaderText;
-    private Integer dataId;
+    private Integer dataChannelId;
+    private String dataChannelext;
+	private Integer dataId;
     private String dataText;
     private String name;
     private String description;
     private Integer id;
     private String code;
+    /**
+	 * @param dataLoaderId
+	 * @param dataChannelId
+	 * @param dataId
+	 * @param name
+	 * @param code
+	 */
+	public DataInputRequest(Integer dataId, 
+			Integer dataChannelId, String name, String code) {
+		this.dataChannelId = dataChannelId;
+		this.dataId = dataId;
+		this.name = name;
+		this.code = code;
+	}
+
 
     public DataInputRequest() {
     }
@@ -89,6 +103,36 @@ public class DataInputRequest extends BaseRequest {
     public void setCode(String code) {
         this.code = code;
     }
+
+	/**
+	 * @return the dataChannelext
+	 */
+	public String getDataChannelext() {
+		return dataChannelext;
+	}
+
+	/**
+	 * @param dataChannelext the dataChannelext to set
+	 */
+	public void setDataChannelext(String dataChannelext) {
+		this.dataChannelext = dataChannelext;
+	}
+
+
+	/**
+	 * @return the dataChannelId
+	 */
+	public Integer getDataChannelId() {
+		return dataChannelId;
+	}
+
+
+	/**
+	 * @param dataChannelId the dataChannelId to set
+	 */
+	public void setDataChannelId(Integer dataChannelId) {
+		this.dataChannelId = dataChannelId;
+	}
 
 
 }

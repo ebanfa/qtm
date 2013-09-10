@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.datasource.model.DataChannelCategory;
@@ -46,7 +46,7 @@ public class BaseNotifier extends BaseProcessService{
 			Customer customer, DataChannel channel,	Map<String, String> templateTagValues) throws ApplicationException {
 		try {
 			CustomerNotificationRequest notificationRequest = new CustomerNotificationRequest();
-			PropertyUtils.initializeBaseFields(notificationRequest);
+			PropertyUtil.initializeBaseFields(notificationRequest);
 			// 1. Get the notification type
 			notificationRequest.setCustomerId(customer.getId());
 			notificationRequest.setNotificationTypeId(notificationType.getId());

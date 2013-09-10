@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
@@ -194,7 +194,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		CustTxnTypeNotificationOptions custTxnTypeNotificationOptions = new CustTxnTypeNotificationOptions();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(custTxnTypeNotificationOptionsRequest, custTxnTypeNotificationOptions, allowedEntityFields);
+		PropertyUtil.copyProperties(custTxnTypeNotificationOptionsRequest, custTxnTypeNotificationOptions, allowedEntityFields);
     	//Process many to one relationships
         if (custTxnTypeNotificationOptionsRequest.getCustomerId() != null)
     	{
@@ -214,7 +214,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		if (model == null) return null;
 		CustTxnTypeNotificationOptionsResponse custTxnTypeNotificationOptionsResponse = new CustTxnTypeNotificationOptionsResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, custTxnTypeNotificationOptionsResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, custTxnTypeNotificationOptionsResponse, allowedEntityFields);
 		if(model.getCustomer() != null)
 			custTxnTypeNotificationOptionsResponse.setCustomerId(model.getCustomer().getId());
 			custTxnTypeNotificationOptionsResponse.setCustomerText(model.getCustomer().getName());

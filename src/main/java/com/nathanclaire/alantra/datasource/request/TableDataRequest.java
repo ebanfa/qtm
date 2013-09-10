@@ -3,9 +3,6 @@
  */
 package com.nathanclaire.alantra.datasource.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
@@ -18,7 +15,7 @@ public class TableDataRequest extends BaseRequest {
     private String dataInputJobText;
     private String name;
     private String description;
-    private int primEntity;
+    private String primEntity;
     private int primRecRead;
     private int primRecCreated;
     private int primRecRejected;
@@ -36,7 +33,38 @@ public class TableDataRequest extends BaseRequest {
     public TableDataRequest() {
     }
 
-    public Integer getDataInputJobId() {
+    /**
+	 * @param dataInputJobId
+	 * @param name
+	 * @param code
+	 * @param primEntity
+	 * @param primRecRead
+	 * @param primRecCreated
+	 * @param primRecRejected
+	 * @param totRecRead
+	 * @param totRecCreated
+	 * @param totRecRejected
+	 * @param importStatusFg
+	 */
+	public TableDataRequest(Integer dataInputJobId, String name, String code,
+			String primEntity, Integer primRecRead, Integer primRecCreated,
+			Integer primRecRejected, Integer totRecRead, Integer totRecCreated,
+			Integer totRecRejected, char importStatusFg) {
+		super();
+		this.dataInputJobId = dataInputJobId;
+		this.name = name;
+		this.code = code;
+		this.primEntity = primEntity;
+		this.primRecRead = primRecRead;
+		this.primRecCreated = primRecCreated;
+		this.primRecRejected = primRecRejected;
+		this.totRecRead = totRecRead;
+		this.totRecCreated = totRecCreated;
+		this.totRecRejected = totRecRejected;
+		this.importStatusFg = importStatusFg;
+	}
+
+	public Integer getDataInputJobId() {
         return this.dataInputJobId;
     }
     
@@ -68,11 +96,11 @@ public class TableDataRequest extends BaseRequest {
         this.description = description;
     }
 
-    public int getPrimEntity() {
+    public String getPrimEntity() {
         return this.primEntity;
     }
     
-    public void setPrimEntity(int primEntity) {
+    public void setPrimEntity(String primEntity) {
         this.primEntity = primEntity;
     }
 

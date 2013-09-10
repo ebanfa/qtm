@@ -32,15 +32,19 @@ define("initializer", ["jquery"],
     $('head').append('<link rel="stylesheet" href="resources/css/bootstrap-responsive.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/css.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/font-awesome.css"/>');
-    $('head').append('<link rel="stylesheet" href="resources/css/base-admin.css"/>');
+    $('head').append('<link rel="stylesheet" href="resources/css/base-admin-2.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/base-admin-responsive.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/dashboard.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/signin.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/datetimepicker.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/alantra.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/notifier-theme-plastic.css"/>');
+    $('head').append('<link rel="stylesheet" href="resources/css/jquery.jqplot.min.css" />');
 
     $('head').append('<script type="text/javascript" src="resources/js/libs/excanvas.js"></script>');
+    $('head').append('<script type="text/javascript" src="resources/js/libs/jquery.jqplot.min.js"></script>');
+    
+    
     $('head').append('<script type="text/javascript" src="resources/js/libs/bootstrap.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/base.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/area.js"></script>');

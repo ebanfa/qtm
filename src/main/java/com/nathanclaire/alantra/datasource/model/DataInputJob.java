@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -40,10 +42,12 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 	private DataInput dataInput;
     private String name;
     private String description;
+    private Date startTs;
+    private Date endTs;
+    private Date nextRunTs;
     private int diFreqVal;
     private String diFreqCd;
-	private Set<DataInputJobSummary> dataInputJobSummaries = new HashSet<DataInputJobSummary>(0);
-	private Set<TableData> tableDatas = new HashSet<TableData>(0);
+	private Set<DataTable> dataTables = new HashSet<DataTable>(0);
 
     public DataInputJob() {
     }
@@ -59,7 +63,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJobSummary> dataInputJobSummaries, Set<TableData> tableDatas ) 
+    public DataInputJob(DataInputJobStatus dataInputJobStatus, DataInputJobType dataInputJobType, DataInput dataInput, String code, String name, String description, int diFreqVal, String diFreqCd, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataTable> dataTables ) 
     {
 		this.dataInputJobStatus = dataInputJobStatus;
 		this.dataInputJobType = dataInputJobType;
@@ -75,8 +79,7 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.dataInputJobSummaries = dataInputJobSummaries;
-		this.tableDatas = tableDatas;
+		this.dataTables = dataTables;
     }
     
     		
@@ -162,30 +165,70 @@ public class DataInputJob  extends BaseEntity implements java.io.Serializable {
     {
         this.diFreqCd = diFreqCd;
     }
-			
+
+	/**
+	 * @return the startTs
+	 */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="START_TS" , length=19)
+	public Date getStartTs() {
+		return startTs;
+	}
+
+	/**
+	 * @param startTs the startTs to set
+	 */
+	public void setStartTs(Date startTs) {
+		this.startTs = startTs;
+	}
+
+	/**
+	 * @return the endTs
+	 */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="END_TS" , length=19)
+	public Date getEndTs() {
+		return endTs;
+	}
+
+	/**
+	 * @param endTs the endTs to set
+	 */
+	public void setEndTs(Date endTs) {
+		this.endTs = endTs;
+	}
+
+	/**
+	 * @return the nextRunTs
+	 */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="NEXT_TS" , length=19)
+	public Date getNextRunTs() {
+		return nextRunTs;
+	}
+
+	/**
+	 * @param nextRunTs the nextRunTs to set
+	 */
+	public void setNextRunTs(Date nextRunTs) {
+		this.nextRunTs = nextRunTs;
+	}
+
+	/**
+	 * @return the dataTables
+	 */
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataInputJob")
     @JsonIgnore
-    public Set<DataInputJobSummary> getDataInputJobSummaries() 
-    {
-        return this.dataInputJobSummaries;
-    }
-    
-    public void setDataInputJobSummaries(Set<DataInputJobSummary> dataInputJobSummaries) 
-    {
-        this.dataInputJobSummaries = dataInputJobSummaries;
-    }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataInputJob")
-    @JsonIgnore
-    public Set<TableData> getTableDatas() 
-    {
-        return this.tableDatas;
-    }
-    
-    public void setTableDatas(Set<TableData> tableDatas) 
-    {
-        this.tableDatas = tableDatas;
-    }			
+	public Set<DataTable> getDataTables() {
+		return dataTables;
+	}
+
+	/**
+	 * @param dataTables the dataTables to set
+	 */
+	public void setDataTables(Set<DataTable> dataTables) {
+		this.dataTables = dataTables;
+	}			
 
 
 }

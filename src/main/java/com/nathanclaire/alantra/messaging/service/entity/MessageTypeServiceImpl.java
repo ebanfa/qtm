@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.messaging.model.MessageCategory;
 import com.nathanclaire.alantra.messaging.service.entity.MessageCategoryService;
 
@@ -188,7 +188,7 @@ private static final String LIST_ITEM_MESSAGECATEGORY = "messageCategory";
 		MessageType messageType = new MessageType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(messageTypeRequest, messageType, allowedEntityFields);
+		PropertyUtil.copyProperties(messageTypeRequest, messageType, allowedEntityFields);
     	//Process many to one relationships
         if (messageTypeRequest.getMessageCategoryId() != null)
     	{
@@ -203,7 +203,7 @@ private static final String LIST_ITEM_MESSAGECATEGORY = "messageCategory";
 		if (model == null) return null;
 		MessageTypeResponse messageTypeResponse = new MessageTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, messageTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, messageTypeResponse, allowedEntityFields);
 		if(model.getMessageCategory() != null)
 			messageTypeResponse.setMessageCategoryId(model.getMessageCategory().getId());
 			messageTypeResponse.setMessageCategoryText(model.getMessageCategory().getName());

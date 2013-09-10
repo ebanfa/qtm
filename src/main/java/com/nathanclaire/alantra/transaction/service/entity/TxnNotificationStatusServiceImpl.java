@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.transaction.model.TxnNotificationStatus;
 import com.nathanclaire.alantra.transaction.request.TxnNotificationStatusRequest;
 import com.nathanclaire.alantra.transaction.response.TxnNotificationStatusResponse;
@@ -180,7 +180,7 @@ public class TxnNotificationStatusServiceImpl
 		TxnNotificationStatus txnNotificationStatus = new TxnNotificationStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(txnNotificationStatusRequest, txnNotificationStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(txnNotificationStatusRequest, txnNotificationStatus, allowedEntityFields);
     	//Process many to one relationships
 		return txnNotificationStatus;
 	}
@@ -190,7 +190,7 @@ public class TxnNotificationStatusServiceImpl
 		if (model == null) return null;
 		TxnNotificationStatusResponse txnNotificationStatusResponse = new TxnNotificationStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, txnNotificationStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, txnNotificationStatusResponse, allowedEntityFields);
 		return txnNotificationStatusResponse;
 	}
 

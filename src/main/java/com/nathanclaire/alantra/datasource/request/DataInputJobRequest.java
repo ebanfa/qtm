@@ -14,7 +14,28 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  */
 public class DataInputJobRequest extends BaseRequest {
 
-    private Integer dataInputJobStatusId;
+    /**
+	 * @param dataInputJobTypeId
+	 * @param dataInputId
+	 * @param dataInputJobStatusId
+	 * @param name
+	 * @param code
+	 * @param diFreqCd
+	 * @param diFreqVal
+	 */
+	public DataInputJobRequest(Integer dataInputJobTypeId, Integer dataInputId,
+			Integer dataInputJobStatusId, String name, String code,
+			String diFreqCd, int diFreqVal) {
+		this.dataInputJobTypeId = dataInputJobTypeId;
+		this.dataInputId = dataInputId;
+		this.dataInputJobStatusId = dataInputJobStatusId;
+		this.name = name;
+		this.code = code;
+		this.diFreqCd = diFreqCd;
+		this.diFreqVal = diFreqVal;
+	}
+
+	private Integer dataInputJobStatusId;
     private String dataInputJobStatusText;
     private Integer dataInputJobTypeId;
     private String dataInputJobTypeText;

@@ -96,6 +96,13 @@ public class StringUtil {
 			else return null;
 		}
 	}
+	
+	public static String cleanDecimalString(String data) 
+	{
+		String decimal = data.toString();
+		if(decimal.contains(",")) data = decimal.replaceAll(",", "").trim();
+		return data;
+	}
 
 	/**
 	 * @param amountString
@@ -138,6 +145,43 @@ public class StringUtil {
 			tokens.add(token);
 		return tokens;
 	}
+	
+	public static String[] split(String value, char delim) {
+        final int end = value.length();
+        final List<String> res = new ArrayList<String>();
+
+        int start = 0;
+        for (int i = 0; i < end; i ++) {
+            if (value.charAt(i) == delim) {
+                if (start == i) {
+                    res.add(EMPTY_STRING);
+                } else {
+                    res.add(value.substring(start, i));
+                }
+                start = i + 1;
+            }
+        }
+
+        if (start == 0) { // If no delimiter was found in the value
+            res.add(value);
+        } else {
+            if (start != end) {
+                // Add the last element if it's not empty.
+                res.add(value.substring(start, end));
+            } else {
+                // Truncate trailing empty elements.
+                for (int i = res.size() - 1; i >= 0; i --) {
+                    if (res.get(i).length() == 0) {
+                        res.remove(i);
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return res.toArray(new String[res.size()]);
+    }
 	
 	public static String getRandomString(int len) {
 		char[] choices = ( alphabet + numbers + randChars).toCharArray();

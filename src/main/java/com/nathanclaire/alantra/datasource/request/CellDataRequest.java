@@ -13,8 +13,8 @@ import com.nathanclaire.alantra.base.request.BaseRequest;
  * @author Edward Banfa
  */
 public class CellDataRequest extends BaseRequest {
-
-    private Integer rowDataId;
+	
+	private Integer rowDataId;
     private String rowDataText;
     private Integer dataFieldId;
     private String dataFieldText;
@@ -27,6 +27,25 @@ public class CellDataRequest extends BaseRequest {
 
     public CellDataRequest() {
     }
+
+    /**
+	 * @param rowDataId
+	 * @param dataFieldId
+	 * @param name
+	 * @param code
+	 * @param importStatusFg
+	 * @param cellData
+	 */
+	public CellDataRequest(Integer rowDataId, Integer dataFieldId, String name,
+			String code, char importStatusFg, String cellData) {
+		this.rowDataId = rowDataId;
+		this.dataFieldId = dataFieldId;
+		this.name = name;
+		this.code = code;
+		this.importStatusFg = importStatusFg;
+		this.cellData = cellData;
+	}
+
 
     public Integer getRowDataId() {
         return this.rowDataId;

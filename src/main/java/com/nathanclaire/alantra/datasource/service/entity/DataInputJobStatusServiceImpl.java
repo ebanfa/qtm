@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.datasource.response.DataInputJobStatusResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class DataInputJobStatusServiceImpl
 		DataInputJobStatus dataInputJobStatus = new DataInputJobStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataInputJobStatusRequest, dataInputJobStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(dataInputJobStatusRequest, dataInputJobStatus, allowedEntityFields);
     	//Process many to one relationships
 		return dataInputJobStatus;
 	}
@@ -185,7 +185,7 @@ public class DataInputJobStatusServiceImpl
 		if (model == null) return null;
 		DataInputJobStatusResponse dataInputJobStatusResponse = new DataInputJobStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataInputJobStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataInputJobStatusResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return dataInputJobStatusResponse;
 	}

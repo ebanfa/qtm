@@ -3,9 +3,6 @@
  */
 package com.nathanclaire.alantra.datasource.request;
 
-import java.util.Date;
-import java.math.BigDecimal;
-
 import com.nathanclaire.alantra.base.request.BaseRequest;
 
 /**
@@ -26,7 +23,22 @@ public class RowDataRequest extends BaseRequest {
     public RowDataRequest() {
     }
 
-    public Integer getTableDataId() {
+    /**
+	 * @param tableDataId
+	 * @param name
+	 * @param code
+	 * @param isHeaderFg
+	 */
+	public RowDataRequest(Integer tableDataId, String name, String code,
+			Character isHeaderFg, Character importStatusFg) {
+		this.tableDataId = tableDataId;
+		this.name = name;
+		this.code = code;
+		this.isHeaderFg = isHeaderFg;
+		this.importStatusFg = importStatusFg;
+	}
+
+	public Integer getTableDataId() {
         return this.tableDataId;
     }
     

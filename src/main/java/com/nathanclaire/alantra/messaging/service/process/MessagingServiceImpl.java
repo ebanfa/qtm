@@ -26,6 +26,7 @@ import com.nathanclaire.alantra.messaging.request.MessageRequest;
 import com.nathanclaire.alantra.messaging.service.entity.MessageClassificationService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageStatusService;
+import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
 import com.nathanclaire.alantra.messaging.util.MessagingUtil;
 import com.nathanclaire.alantra.security.model.SystemUser;
 import com.nathanclaire.alantra.security.service.entity.SystemUserMessageService;
@@ -37,6 +38,7 @@ import com.nathanclaire.alantra.security.service.entity.SystemUserMessageService
 public class MessagingServiceImpl extends BaseProcessService implements	MessagingService {
 	
 	@Inject MessageService messageService;
+	@Inject MessageTypeService messageTypeService;
 	@Inject MessageStatusService messageStatusService;
 	@Inject SystemUserMessageService userMessageService;
 	@Inject CustomerMessageService customerMessageService;
@@ -48,9 +50,10 @@ public class MessagingServiceImpl extends BaseProcessService implements	Messagin
 	 * @see com.nathanclaire.alantra.messaging.service.process.MessageService#createOutboundCustMsg(com.nathanclaire.alantra.customer.model.Customer, com.nathanclaire.alantra.datasource.model.DataChannel, com.nathanclaire.alantra.messaging.model.MessageType, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Message createOutboundCustMsg(Customer customer,	DataChannel channel, 
-			MessageType msgType, String msgHeader, String msgBody) throws ApplicationException {
+	public Message createOutboundCustMsg(Customer customer,	DataChannel channel,
+			String msgHeader, String msgBody) throws ApplicationException {
 		try {
+			MessageType msgType = getMessageType(channel);
 			MessageStatus status = this.getMessageStatus(MessageStatusService.MSG_SENT);
 			MessageClassification classification = this.getMessageClassification(MessageClassificationService.DEF_CUST_MSG);
 			Message message = createCustMsg(customer, 
@@ -68,9 +71,10 @@ public class MessagingServiceImpl extends BaseProcessService implements	Messagin
 	 * @see com.nathanclaire.alantra.messaging.service.process.MessageService#createInboundCustMsg(com.nathanclaire.alantra.customer.model.Customer, com.nathanclaire.alantra.datasource.model.DataChannel, com.nathanclaire.alantra.messaging.model.MessageType, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Message createInboundCustMsg(Customer customer, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody) throws ApplicationException {
+	public Message createInboundCustMsg(Customer customer, 
+			DataChannel channel, String msgHeader, String msgBody) throws ApplicationException {
 		try {
+			MessageType msgType = getMessageType(channel);
 			MessageStatus status = this.getMessageStatus(MessageStatusService.MSG_RECIEVED);
 			MessageClassification classification = this.getMessageClassification(MessageClassificationService.DEF_CUST_MSG);
 			Message message = createCustMsg(customer, 
@@ -88,9 +92,10 @@ public class MessagingServiceImpl extends BaseProcessService implements	Messagin
 	 * @see com.nathanclaire.alantra.messaging.service.process.MessageService#createOutboundUserMsg(com.nathanclaire.alantra.security.model.SystemUser, com.nathanclaire.alantra.datasource.model.DataChannel, com.nathanclaire.alantra.messaging.model.MessageType, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Message createOutboundUserMsg(SystemUser user, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody) throws ApplicationException {
+	public Message createOutboundUserMsg(SystemUser user, 
+			DataChannel channel, String msgHeader, String msgBody) throws ApplicationException {
 		try {
+			MessageType msgType = getMessageType(channel);
 			MessageStatus status = this.getMessageStatus(MessageStatusService.MSG_SENT);
 			MessageClassification classification = this.getMessageClassification(MessageClassificationService.DEF_USER_MSG);
 			Message message = createUserMsg(user, 
@@ -108,9 +113,10 @@ public class MessagingServiceImpl extends BaseProcessService implements	Messagin
 	 * @see com.nathanclaire.alantra.messaging.service.process.MessageService#createInboundUserMsg(com.nathanclaire.alantra.security.model.SystemUser, com.nathanclaire.alantra.datasource.model.DataChannel, com.nathanclaire.alantra.messaging.model.MessageType, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Message createInboundUserMsg(SystemUser user, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody) throws ApplicationException {
+	public Message createInboundUserMsg(SystemUser user, 
+			DataChannel channel, String msgHeader, String msgBody) throws ApplicationException {
 		try {
+			MessageType msgType = getMessageType(channel);
 			MessageStatus status = this.getMessageStatus(MessageStatusService.MSG_RECIEVED);
 			MessageClassification classification = this.getMessageClassification(MessageClassificationService.DEF_USER_MSG);
 			Message message = createUserMsg(user, 
@@ -156,5 +162,33 @@ public class MessagingServiceImpl extends BaseProcessService implements	Messagin
 		Message message = messageService.create(messageRequest);
 		userMessageService.create(MessagingUtil.getUserMessageRequest(user, message));
 		return message;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.messaging.service.process.MessagingService#getMessageType(com.nathanclaire.alantra.datasource.model.DataChannel)
+	 */
+	@Override
+	public MessageType getMessageType(DataChannel channel) throws ApplicationException {
+		MessageType messageType = messageTypeService.findByCode(channel.getDataChannelType().getCode());
+		return messageType;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.messaging.service.process.MessagingService#createInboundUnregisterUserMsg(com.nathanclaire.alantra.datasource.model.DataChannel, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public Message createInboundUnregisterUserMsg(DataChannel channel,
+			String messageFrom, String messageTo, String msgHeader,
+			String msgBody) throws ApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.messaging.service.process.MessagingService#getMessage(java.lang.String)
+	 */
+	@Override
+	public Message getMessage(String messageCode) throws ApplicationException {
+		return messageService.findByCode(messageCode);
 	} 
 }

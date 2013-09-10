@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.advice.response.AdviceStatusResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class AdviceStatusServiceImpl
 		AdviceStatus adviceStatus = new AdviceStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(adviceStatusRequest, adviceStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(adviceStatusRequest, adviceStatus, allowedEntityFields);
     	//Process many to one relationships
 		return adviceStatus;
 	}
@@ -185,7 +185,7 @@ public class AdviceStatusServiceImpl
 		if (model == null) return null;
 		AdviceStatusResponse adviceStatusResponse = new AdviceStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, adviceStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, adviceStatusResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return adviceStatusResponse;
 	}

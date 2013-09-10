@@ -22,22 +22,32 @@ public interface MessagingService {
 	public static final Character MSG_OUT_FG = 'O';
 
 	public Message createOutboundCustMsg(Customer customer,
-			DataChannel channel, MessageType msgType, String msgHeader,
+			DataChannel channel, String msgHeader,
 			String msgBody) throws ApplicationException;
 
 	public Message createInboundCustMsg(Customer customer, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody)
+			String msgHeader, String msgBody)
 			throws ApplicationException;
 
 	public Message createOutboundUserMsg(SystemUser user, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody)
+			String msgHeader, String msgBody)
 			throws ApplicationException;
 
 	public Message createInboundUserMsg(SystemUser user, DataChannel channel,
-			MessageType msgType, String msgHeader, String msgBody)
+			String msgHeader, String msgBody)
+			throws ApplicationException;
+	
+	public Message createInboundUnregisterUserMsg(DataChannel channel, 
+			String messageFrom, String messageTo,
+			String msgHeader, String msgBody)
 			throws ApplicationException;
 
 	public MessageStatus getMessageStatus(String statusCode) throws ApplicationException;
 
 	public MessageClassification getMessageClassification(String classificationCode) throws ApplicationException;
+	
+	public MessageType getMessageType(DataChannel channel) throws ApplicationException;
+
+	public Message getMessage(String messageCode) throws ApplicationException;
 }
+

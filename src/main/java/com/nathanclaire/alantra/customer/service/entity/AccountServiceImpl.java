@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.customer.service.entity.AccountTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class AccountServiceImpl
 		Account account = new Account();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(accountRequest, account, allowedEntityFields);
+		PropertyUtil.copyProperties(accountRequest, account, allowedEntityFields);
     	//Process many to one relationships
     	if (accountRequest.getCurrencyId() != null)
     	{
@@ -209,7 +209,7 @@ public class AccountServiceImpl
 		if (model == null) return null;
 		AccountResponse accountResponse = new AccountResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, accountResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, accountResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCurrency() != null)
 			accountResponse.setCurrencyId(model.getCurrency().getId());

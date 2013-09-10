@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.transaction.response.ServiceTransactionStatusRes
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class ServiceTransactionStatusServiceImpl
 		ServiceTransactionStatus serviceTransactionStatus = new ServiceTransactionStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(serviceTransactionStatusRequest, serviceTransactionStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(serviceTransactionStatusRequest, serviceTransactionStatus, allowedEntityFields);
     	//Process many to one relationships
 		return serviceTransactionStatus;
 	}
@@ -185,7 +185,7 @@ public class ServiceTransactionStatusServiceImpl
 		if (model == null) return null;
 		ServiceTransactionStatusResponse serviceTransactionStatusResponse = new ServiceTransactionStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, serviceTransactionStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, serviceTransactionStatusResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return serviceTransactionStatusResponse;
 	}

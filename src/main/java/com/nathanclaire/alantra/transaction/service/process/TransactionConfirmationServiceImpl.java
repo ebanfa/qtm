@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.transaction.service.process;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -53,8 +54,9 @@ public class TransactionConfirmationServiceImpl
 					txnAwaitingConfirmationService.getTransactionsAwaitingConfirmation();
 			for(TxnAwaitingConfirmation transactionAwaitingConfirmation : transactionsAwaitingConfirmation)
 			{
-					notificationsService.sendCustomerNotification(getCustomer(transactionAwaitingConfirmation), 
-							transactionAwaitingConfirmation.getNotificationType(), transactionAwaitingConfirmation.getChannelTypeCode());
+					notificationsService.sendCustomerNotification(
+							getCustomer(transactionAwaitingConfirmation), transactionAwaitingConfirmation.getNotificationType(), 
+							transactionAwaitingConfirmation.getChannelTypeCode(), new HashMap<String, String>());
 			}
 		} catch (ApplicationException e) {
 			logger.error("Error processing transaction awaiting confirmation", e.getMessage());

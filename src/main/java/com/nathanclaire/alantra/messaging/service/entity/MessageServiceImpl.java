@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.messaging.model.MessageClassification;
 import com.nathanclaire.alantra.messaging.service.entity.MessageClassificationService;
 import com.nathanclaire.alantra.messaging.model.MessageType;
@@ -38,7 +38,7 @@ import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
 import com.nathanclaire.alantra.messaging.model.MessageStatus;
 import com.nathanclaire.alantra.messaging.service.entity.MessageStatusService;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
-import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelEntityService;
 
 /**
  * @author Edward Banfa
@@ -65,7 +65,7 @@ private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 	@Inject MessageClassificationService  messageClassificationService;
 	@Inject MessageTypeService  messageTypeService;
 	@Inject MessageStatusService  messageStatusService;
-	@Inject DataChannelService  dataChannelService;
+	@Inject DataChannelEntityService  dataChannelEntityService;
 	
 	/**
 	 * @param entityClass
@@ -172,7 +172,7 @@ private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
         List<ListItemResponse> messageClassifications = messageClassificationService.asListItem();
         List<ListItemResponse> messageTypes = messageTypeService.asListItem();
         List<ListItemResponse> messageStatuss = messageStatusService.asListItem();
-        List<ListItemResponse> dataChannels = dataChannelService.asListItem();
+        List<ListItemResponse> dataChannels = dataChannelEntityService.asListItem();
 
         listItems.put(LIST_ITEM_MESSAGECLASSIFICATION, messageClassifications);
         listItems.put(LIST_ITEM_MESSAGETYPE, messageTypes);
@@ -190,7 +190,7 @@ private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 		queryParameters.clear();
 		for(Message message: findAll(queryParameters))
 		{
-			ListItemResponse item = new ListItemResponse(message.getId(), message.getCode(), message.getName());
+			ListItemResponse item = new ListItemResponse(message.getId(), message.getCode(), message.getCode());
 			listItems.add(item);
 		}
 		return listItems;
@@ -206,7 +206,7 @@ private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 		Message message = new Message();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(messageRequest, message, allowedEntityFields);
+		PropertyUtil.copyProperties(messageRequest, message, allowedEntityFields);
     	//Process many to one relationships
         if (messageRequest.getMessageClassificationId() != null)
     	{
@@ -236,7 +236,7 @@ private static final String LIST_ITEM_DATACHANNEL = "dataChannel";
 		if (model == null) return null;
 		MessageResponse messageResponse = new MessageResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, messageResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, messageResponse, allowedEntityFields);
 		if(model.getMessageClassification() != null)
 			messageResponse.setMessageClassificationId(model.getMessageClassification().getId());
 			messageResponse.setMessageClassificationText(model.getMessageClassification().getName());

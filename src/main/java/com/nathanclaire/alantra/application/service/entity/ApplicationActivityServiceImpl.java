@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.response.ApplicationActivityResponse
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author administrator
@@ -220,7 +220,7 @@ public class ApplicationActivityServiceImpl
 		ApplicationActivity applicationActivity = new ApplicationActivity();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(applicationActivityRequest, applicationActivity, allowedEntityFields);
+		PropertyUtil.copyProperties(applicationActivityRequest, applicationActivity, allowedEntityFields);
     	//Process many to one relationships
     	if (applicationActivityRequest.getApplicationActivityGroupId() != null)
     	{
@@ -270,7 +270,7 @@ public class ApplicationActivityServiceImpl
 		if(model.getApplicationForm() != null)
 			applicationActivityResponse.setApplicationFormId(model.getApplicationForm().getId());
 		// Copy properties
-		PropertyUtils.copyProperties(model, applicationActivityResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationActivityResponse, allowedEntityFields);
 		return applicationActivityResponse;
 	}
 

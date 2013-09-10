@@ -12,6 +12,8 @@ import com.nathanclaire.alantra.security.model.SystemUser;
  */
 public interface SystemUserContactService {
 	
+
+	public SystemUser findUserByContact(String contact) throws ApplicationException;
 	
 	public String getUserMobileNo(SystemUser user) throws ApplicationException;
 	

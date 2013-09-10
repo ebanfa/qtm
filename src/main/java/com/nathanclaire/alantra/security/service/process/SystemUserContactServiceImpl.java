@@ -33,4 +33,14 @@ public class SystemUserContactServiceImpl extends BaseProcessService implements
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.security.service.process.SystemUserContactService#findUserByContact(java.lang.String)
+	 */
+	@Override
+	public SystemUser findUserByContact(String contact)
+			throws ApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -21,7 +21,7 @@ import com.nathanclaire.alantra.datasource.request.DataChannelRequest;
 import com.nathanclaire.alantra.datasource.response.DataChannelResponse;
 import com.nathanclaire.alantra.application.response.ApplicationActivityResponse;
 import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
@@ -38,7 +38,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 public class DataChannelRESTService extends BaseActivityRESTService<DataChannelResponse, DataChannelRequest> 
 {
 	@Inject
-	DataChannelService dataChannelService;
+	DataChannelEntityService dataChannelEntityService;
 	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
@@ -55,7 +55,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	{
 		// Load the fields for the DataChannel entity
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
-		List<ApplicationEntityField> entityFields = dataChannelService.getEntityFields();
+		List<ApplicationEntityField> entityFields = dataChannelEntityService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
 			responseFields.add(applicationEntityFieldService.convertModelToResponse(entityField));
@@ -63,9 +63,9 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 		response.setFields(responseFields);
 		// Load the list of DataChannel's
 		List<DataChannelResponse> dataItems = new ArrayList<DataChannelResponse>();
-		for (DataChannel item:dataChannelService.findAll(queryParameters))
+		for (DataChannel item:dataChannelEntityService.findAll(queryParameters))
 		{
-			dataItems.add(dataChannelService.convertModelToResponse(item));
+			dataItems.add(dataChannelEntityService.convertModelToResponse(item));
 		}
 		response.setData(dataItems);
 		return response;
@@ -79,7 +79,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<DataChannelResponse> response) 
 					throws ApplicationException {
 		// Load the fields for the DataChannel entity
-		List<ApplicationEntityField> entityFields = dataChannelService.getEntityFields();
+		List<ApplicationEntityField> entityFields = dataChannelEntityService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Convert the entity fields into response fields
 		for(ApplicationEntityField entityField:entityFields)
@@ -87,9 +87,9 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 			responseFields.add(applicationEntityFieldService.convertModelToResponse(entityField));
 		}
 		response.setFields(responseFields);
-		response.setRelatedEntitiesListData(dataChannelService.relatedEntitesToListItems());
+		response.setRelatedEntitiesListData(dataChannelEntityService.relatedEntitesToListItems());
 		if(id != null)
-			response.setEntity(dataChannelService.convertModelToResponse(dataChannelService.findById(id)));
+			response.setEntity(dataChannelEntityService.convertModelToResponse(dataChannelEntityService.findById(id)));
 		// The response will now have the id of the embedded entity (WHY)
 		if(response.getEntity() != null)
 			response.setId(response.getEntity().getId());
@@ -102,7 +102,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	@Override
 	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
 				   throws ApplicationException {
-		return dataChannelService.relatedEntitesToListItems();
+		return dataChannelEntityService.relatedEntitesToListItems();
 	}
 
 	/* (non-Javadoc)
@@ -111,7 +111,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	@Override
 	protected EditActivityResponse<DataChannelResponse> saveEntityInstance(
 			DataChannelRequest entityInstance) throws ApplicationException {
-		DataChannel dataChannel = dataChannelService.create(entityInstance);
+		DataChannel dataChannel = dataChannelEntityService.create(entityInstance);
 		return this.getEditActivityResponse(dataChannel.getId());
 	}
 	
@@ -121,7 +121,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	@Override
 	protected EditActivityResponse<DataChannelResponse> saveEditedEntityInstance(
 			DataChannelRequest entityInstance) throws ApplicationException {
-		DataChannel dataChannel = dataChannelService.update(entityInstance);
+		DataChannel dataChannel = dataChannelEntityService.update(entityInstance);
 		return this.getEditActivityResponse(dataChannel.getId());
 	}
 	
@@ -130,7 +130,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
 		for(Integer id: idsOfEntitiesToDelete)
 		{
-			 dataChannelService.delete(id);
+			 dataChannelEntityService.delete(id);
 		}
 		return this.getListActivityResponse(null);
 	}
@@ -140,7 +140,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	 */
 	@Override
 	protected String getListActivityCode() throws ApplicationException {
-		return dataChannelService.getListActivityCode();
+		return dataChannelEntityService.getListActivityCode();
 	}
 
 	/* (non-Javadoc)
@@ -148,7 +148,7 @@ public class DataChannelRESTService extends BaseActivityRESTService<DataChannelR
 	 */
 	@Override
 	protected String getEditActivityCode() throws ApplicationException {
-		return dataChannelService.getEditActivityCode();
+		return dataChannelEntityService.getEditActivityCode();
 	}
 
 }

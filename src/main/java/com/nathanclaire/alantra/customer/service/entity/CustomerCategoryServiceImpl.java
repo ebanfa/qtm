@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.customer.response.CustomerCategoryResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class CustomerCategoryServiceImpl
 		CustomerCategory customerCategory = new CustomerCategory();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerCategoryRequest, customerCategory, allowedEntityFields);
+		PropertyUtil.copyProperties(customerCategoryRequest, customerCategory, allowedEntityFields);
     	//Process many to one relationships
 		return customerCategory;
 	}
@@ -185,7 +185,7 @@ public class CustomerCategoryServiceImpl
 		if (model == null) return null;
 		CustomerCategoryResponse customerCategoryResponse = new CustomerCategoryResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerCategoryResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerCategoryResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return customerCategoryResponse;
 	}

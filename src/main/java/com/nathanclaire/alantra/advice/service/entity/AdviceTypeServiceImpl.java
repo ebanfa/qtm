@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.transaction.service.entity.ServiceTransactionTyp
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class AdviceTypeServiceImpl
 		AdviceType adviceType = new AdviceType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(adviceTypeRequest, adviceType, allowedEntityFields);
+		PropertyUtil.copyProperties(adviceTypeRequest, adviceType, allowedEntityFields);
     	//Process many to one relationships
     	if (adviceTypeRequest.getServiceTransactionTypeId() != null)
     	{
@@ -197,7 +197,7 @@ public class AdviceTypeServiceImpl
 		if (model == null) return null;
 		AdviceTypeResponse adviceTypeResponse = new AdviceTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, adviceTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, adviceTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getServiceTransactionType() != null)
 			adviceTypeResponse.setServiceTransactionTypeId(model.getServiceTransactionType().getId());

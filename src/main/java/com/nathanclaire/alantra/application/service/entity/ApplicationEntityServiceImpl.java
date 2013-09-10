@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.Messages;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -268,7 +268,7 @@ public class ApplicationEntityServiceImpl
 		if (model == null) return null;
 		ApplicationEntityResponse applicationEntityResponse = new ApplicationEntityResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, applicationEntityResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationEntityResponse, allowedEntityFields);
 		return applicationEntityResponse;
 	}
 }

@@ -46,7 +46,7 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
     private String fieldFormat;
     private char requiredFg;
     private int seqNo;
-	private Set<CellData> cellDatas = new HashSet<CellData>(0);
+	private Set<DataCell> dataCells = new HashSet<DataCell>(0);
 
     public DataField() {
     }
@@ -64,7 +64,7 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String description, String targetEntityCd, String targetEntityField, String relTargetEntityCd, String fieldFormat, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<CellData> cellDatas ) 
+    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String description, String targetEntityCd, String targetEntityField, String relTargetEntityCd, String fieldFormat, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataCell> dataCells ) 
     {
 		this.dataTransformer = dataTransformer;
 		this.dataStructure = dataStructure;
@@ -84,7 +84,7 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.cellDatas = cellDatas;
+		this.dataCells = dataCells;
     }
     
     		
@@ -217,14 +217,14 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataField")
     @JsonIgnore
-    public Set<CellData> getCellDatas() 
+    public Set<DataCell> getDataCells() 
     {
-        return this.cellDatas;
+        return this.dataCells;
     }
     
-    public void setCellDatas(Set<CellData> cellDatas) 
+    public void setDataCells(Set<DataCell> dataCells) 
     {
-        this.cellDatas = cellDatas;
+        this.dataCells = dataCells;
     }			
 
 

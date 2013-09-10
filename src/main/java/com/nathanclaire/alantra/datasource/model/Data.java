@@ -37,7 +37,6 @@ public class Data  extends BaseEntity implements java.io.Serializable {
 
 	private DataType dataType;
 	private DataStructure dataStructure;
-	private DataChannel dataChannel;
     private String name;
     private String description;
 	private Set<DataInput> dataInputs = new HashSet<DataInput>(0);
@@ -45,7 +44,7 @@ public class Data  extends BaseEntity implements java.io.Serializable {
     public Data() {
     }
 
-    public Data(DataType dataType, DataStructure dataStructure, DataChannel dataChannel, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public Data(DataType dataType, DataStructure dataStructure, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
@@ -54,11 +53,10 @@ public class Data  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public Data(DataType dataType, DataStructure dataStructure, DataChannel dataChannel, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInput> dataInputs ) 
+    public Data(DataType dataType, DataStructure dataStructure, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInput> dataInputs ) 
     {
 		this.dataType = dataType;
 		this.dataStructure = dataStructure;
-		this.dataChannel = dataChannel;
 		this.code = code;
 		this.name = name;
 		this.description = description;
@@ -98,18 +96,7 @@ public class Data  extends BaseEntity implements java.io.Serializable {
         this.dataStructure = dataStructure;
     }
     		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="CHANNEL_ID", nullable=false)
-    @JsonIgnore
-    public DataChannel getDataChannel() 
-    {
-        return this.dataChannel;
-    }
     
-    public void setDataChannel(DataChannel dataChannel)
-    {
-        this.dataChannel = dataChannel;
-    }
 		
     @Column(name="NAME" , nullable=false, length=150)
     public String getName() 

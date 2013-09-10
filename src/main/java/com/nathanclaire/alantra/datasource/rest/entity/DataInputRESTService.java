@@ -21,7 +21,7 @@ import com.nathanclaire.alantra.datasource.request.DataInputRequest;
 import com.nathanclaire.alantra.datasource.response.DataInputResponse;
 import com.nathanclaire.alantra.application.response.ApplicationActivityResponse;
 import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
-import com.nathanclaire.alantra.datasource.service.entity.DataInputService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.base.response.EditActivityResponse;
 import com.nathanclaire.alantra.base.response.ListActivityResponse;
@@ -38,7 +38,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 public class DataInputRESTService extends BaseActivityRESTService<DataInputResponse, DataInputRequest> 
 {
 	@Inject
-	DataInputService dataInputService;
+	DataInputEntityService dataInputEntityService;
 	
 	@Inject 
 	ApplicationEntityFieldService applicationEntityFieldService;
@@ -55,7 +55,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	{
 		// Load the fields for the DataInput entity
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
-		List<ApplicationEntityField> entityFields = dataInputService.getEntityFields();
+		List<ApplicationEntityField> entityFields = dataInputEntityService.getEntityFields();
 		for(ApplicationEntityField entityField:entityFields)
 		{
 			responseFields.add(applicationEntityFieldService.convertModelToResponse(entityField));
@@ -63,9 +63,9 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 		response.setFields(responseFields);
 		// Load the list of DataInput's
 		List<DataInputResponse> dataItems = new ArrayList<DataInputResponse>();
-		for (DataInput item:dataInputService.findAll(queryParameters))
+		for (DataInput item:dataInputEntityService.findAll(queryParameters))
 		{
-			dataItems.add(dataInputService.convertModelToResponse(item));
+			dataItems.add(dataInputEntityService.convertModelToResponse(item));
 		}
 		response.setData(dataItems);
 		return response;
@@ -79,7 +79,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 			Integer id,	ApplicationActivityResponse activity, EditActivityResponse<DataInputResponse> response) 
 					throws ApplicationException {
 		// Load the fields for the DataInput entity
-		List<ApplicationEntityField> entityFields = dataInputService.getEntityFields();
+		List<ApplicationEntityField> entityFields = dataInputEntityService.getEntityFields();
 		List<ApplicationEntityFieldResponse> responseFields = new ArrayList<ApplicationEntityFieldResponse>();
 		// Convert the entity fields into response fields
 		for(ApplicationEntityField entityField:entityFields)
@@ -87,9 +87,9 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 			responseFields.add(applicationEntityFieldService.convertModelToResponse(entityField));
 		}
 		response.setFields(responseFields);
-		response.setRelatedEntitiesListData(dataInputService.relatedEntitesToListItems());
+		response.setRelatedEntitiesListData(dataInputEntityService.relatedEntitesToListItems());
 		if(id != null)
-			response.setEntity(dataInputService.convertModelToResponse(dataInputService.findById(id)));
+			response.setEntity(dataInputEntityService.convertModelToResponse(dataInputEntityService.findById(id)));
 		// The response will now have the id of the embedded entity (WHY)
 		if(response.getEntity() != null)
 			response.setId(response.getEntity().getId());
@@ -102,7 +102,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	@Override
 	protected Map<String, List<ListItemResponse>> prepareRelatedEntitiesListItems(MultivaluedMap<String, String> multivaluedMap) 
 				   throws ApplicationException {
-		return dataInputService.relatedEntitesToListItems();
+		return dataInputEntityService.relatedEntitesToListItems();
 	}
 
 	/* (non-Javadoc)
@@ -111,7 +111,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	@Override
 	protected EditActivityResponse<DataInputResponse> saveEntityInstance(
 			DataInputRequest entityInstance) throws ApplicationException {
-		DataInput dataInput = dataInputService.create(entityInstance);
+		DataInput dataInput = dataInputEntityService.create(entityInstance);
 		return this.getEditActivityResponse(dataInput.getId());
 	}
 	
@@ -121,7 +121,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	@Override
 	protected EditActivityResponse<DataInputResponse> saveEditedEntityInstance(
 			DataInputRequest entityInstance) throws ApplicationException {
-		DataInput dataInput = dataInputService.update(entityInstance);
+		DataInput dataInput = dataInputEntityService.update(entityInstance);
 		return this.getEditActivityResponse(dataInput.getId());
 	}
 	
@@ -130,7 +130,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 			List<Integer> idsOfEntitiesToDelete) throws ApplicationException {
 		for(Integer id: idsOfEntitiesToDelete)
 		{
-			 dataInputService.delete(id);
+			 dataInputEntityService.delete(id);
 		}
 		return this.getListActivityResponse(null);
 	}
@@ -140,7 +140,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	 */
 	@Override
 	protected String getListActivityCode() throws ApplicationException {
-		return dataInputService.getListActivityCode();
+		return dataInputEntityService.getListActivityCode();
 	}
 
 	/* (non-Javadoc)
@@ -148,7 +148,7 @@ public class DataInputRESTService extends BaseActivityRESTService<DataInputRespo
 	 */
 	@Override
 	protected String getEditActivityCode() throws ApplicationException {
-		return dataInputService.getEditActivityCode();
+		return dataInputEntityService.getEditActivityCode();
 	}
 
 }

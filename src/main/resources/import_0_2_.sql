@@ -359,65 +359,6 @@ INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC
 INSERT INTO MESSAGE_TYPE (MSG_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (2, 'SMS_HTTP', 'SMS HTTP Messages', 'SMS HTTP messages', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-/* --------------------------------------------------------------------Message Application-------------------------------------------------------------------------------------------- */
-
-INSERT INTO MESSAGE_APPLICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ADVICE', 'Application For Advices', 'Application for advices', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('TRANSACTION', 'Application For Transactions', 'Application for transactions', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('UNKNOWN_MSG_APPLICATION', 'Application For Unknown Messages', 'Application for unknown messages', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('OUT_BOUND_MSG_APPLICATION', 'Application For Outbound Messages', 'Application for outbound messages', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------Message Application Tag-------------------------------------------------------------------------------------------- */
-
-INSERT INTO MESSAGE_APPLICATION_TAG (MSG_APPL_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'ADVICE', 'Advice', 'Advice', 'Advice', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_TAG (MSG_APPL_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 'TRANSACTION', 'Transaction', 'Transaction', 'Transaction', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------Message Application Action-------------------------------------------------------------------------------------------- */
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'ADVICE_REQUEST', 'Advice Request', 'Advice Request', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'ADVICE_INQUIRY', 'Advice Inquiry', 'Advice Inquiry', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'ADVICE_REQUEST_REPLY', 'Advice Request Reply', 'Advice Request Reply', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'ADVICE_INQUIRY_REPLY', 'Advice Inquiry Reply', 'Advice Inquiry Reply', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 'TXN_DATA_INPUT_REQUEST', 'Transaction Data Input Request', 'Transaction Data Input Request', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION (MSG_APPL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 'UNCLASSIFIED_INBOUND_MSG', 'Unclassified Inbound Message', 'Unclassified Inbound Message', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------Message Application Action Tag-------------------------------------------------------------------------------------------- */
-
-INSERT INTO MESSAGE_APPLICATION_ACTION_TAG (ACTION_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'PAY', 'Pay', 'Pay', 'Pay', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION_TAG (ACTION_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 'CHEQUE', 'Cheque', 'Cheque', 'Cheque', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION_TAG (ACTION_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 'STATUS', 'Status', 'Status', 'Status', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION_TAG (ACTION_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 'ADVICE', 'Advice', 'Advice', 'Advice', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO MESSAGE_APPLICATION_ACTION_TAG (ACTION_ID, CODE, NAME, DESCRIPTION, TAG_VAL, IS_REGEX_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 'TXN_DATA', 'Transaction Data', 'Transaction data', 'Data', 'N', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
 /* --------------------------------------------------------------------Messages Status-------------------------------------------------------------------------------------------- */
 
 INSERT INTO MESSAGE_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -495,6 +436,14 @@ INSERT INTO DATA_CHANNEL_TYPE (CATEGORY_ID, ADAPTER_ID, CODE, NAME, DESCRIPTION,
 INSERT INTO DATA_CHANNEL_TYPE (CATEGORY_ID, ADAPTER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (3, 5, 'FILE_EXCEL', 'File (Excel) Channel', 'File (Excel) Gateway', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
+/* --------------------------------------------------------------------Data Channel Classification-------------------------------------------------------------------------------------------- */
+
+INSERT INTO DATA_CHANNEL_CLASSIFICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('COMMUNICATIONS_CHANNELS', 'Communications Channels', 'Communications Channels', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO DATA_CHANNEL_CLASSIFICATION (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('TRANSACTION_CHANNELS', 'Transaction Channels', 'Transaction Channels', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 /* --------------------------------------------------------------------Message Gateway Status-------------------------------------------------------------------------------------------- */
 
 INSERT INTO DATA_CHANNEL_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -503,48 +452,208 @@ INSERT INTO DATA_CHANNEL_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST ,
 INSERT INTO DATA_CHANNEL_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values ('INACTIVE', 'Inactive', 'Inactive', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
+
 /* --------------------------------------------------------------------Message Gateway-------------------------------------------------------------------------------------------- */
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 'mail.nathanclaire.com', '110', 'advicepro@nathanclaire.com', 'netfilter', 'I', 'CONN_METH_STARTTLS', 'AUTH_STARTTLS', 'NATHAN_CLAIRE_POP3_MAIL_SERVER', 'Nathan Claire POP3 Mail Server', 'Nathan Claire Mail Server', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 1, 'mail.nathanclaire.com', '110', 'advicepro@nathanclaire.com', 'netfilter', 'I', 'CONN_METH_STARTTLS', 'AUTH_STARTTLS', 'N', 'NATHAN_CLAIRE_POP3_MAIL_SERVER', 'Nathan Claire POP3 Mail Server', 'Nathan Claire Mail Server', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 'smtp.nathanclaire.com', '587', 'advicepro@nathanclaire.com', 'netfilter', 'O', 'CONN_METH_STARTTLS', 'AUTH_STARTTLS', 'NATHAN_CLAIRE_SMTP_MAIL_SERVER', 'Nathan Claire SMTP Mail Server', 'Nathan Claire Mail Server', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 1, 'smtp.nathanclaire.com', '587', 'advicepro@nathanclaire.com', 'netfilter', 'O', 'CONN_METH_STARTTLS', 'AUTH_STARTTLS', 'N', 'NATHAN_CLAIRE_SMTP_MAIL_SERVER', 'Nathan Claire SMTP Mail Server', 'Nathan Claire Mail Server', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/cts/cheque_txn.csv', NULL, NULL,  'I', '', '', 'CTS_CHQ_TXN_DATA_CSV_DATASOURCE', 'CTS Cheque Transactions CSV Data Source', 'CTS Cheque Transactions CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/cts/cheque_txn.csv', NULL, NULL,  'I', '', '', 'N', 'CTS_CHQ_TXN_DATA_CSV_DATASOURCE', 'CTS Cheque Transactions CSV Data Source', 'CTS Cheque Transactions CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/customer/customer_data.csv', NULL, NULL, 'I', '', '', 'CUST_ACCT_DATA_CSV_DATASOURCE', 'Customer And Account Information CSV Data Sourcece', 'Customer And Account Information CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/customer/customer_data.csv', NULL, NULL, 'I', '', '', 'N', 'CUST_ACCT_DATA_CSV_DATASOURCE', 'Customer And Account Information CSV Data Sourcece', 'Customer And Account Information CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/advice/advice_data.csv', NULL, NULL, 'I', '', '', 'ADVICE_REQUEST_DATA_CSV_DATASOURCE', 'Advice Request CSV Data Source', 'Advice Request CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 4, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/advice/advice_data.csv', NULL, NULL, 'I', '', '', 'N', 'ADVICE_REQUEST_DATA_CSV_DATASOURCE', 'Advice Request CSV Data Source', 'Advice Request CSV Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_CHANNEL (CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/cts/cheque_txn.xls', NULL, NULL, 'I', '', '', 'CTS_CHQ_TXN_DATA_EXCEL_DATASOURCE', 'CTS Cheque Transactions Excel Data Source', 'CTS Cheque Transactions Excel Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 5, 1, '127.0.0.1', NULL, '/home/administrator/Projects/alantra/data/cts/cheque_txn.xls', NULL, NULL, 'I', '', '', 'N', 'CTS_CHQ_TXN_DATA_EXCEL_DATASOURCE', 'CTS Cheque Transactions Excel Data Source', 'CTS Cheque Transactions Excel Data Source', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO DATA_CHANNEL (CHANNEL_CLASS_ID, CHANNEL_TY_ID, CHANNEL_STATUS_ID, IP_ADDR, PORT_NO, URL, USERNAME, PASSWORD, INBOUND_OUTBOUND_CD, CONN_SECURITY_CD, AUTH_METHOD_CD, LOCAL_SERVICE_FG, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 3, 1, '127.0.0.1', 8083, '/home/administrator/Projects/alantra/data/cts/cheque_txn.xls', NULL, NULL, 'I', '', '', 'Y', 'SERVER_TEST', 'QTM Service Test', 'QTM Service Test', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
 
 /* --------------------------------------------------------------------Message-------------------------------------------------------------------------------------------- */
 
-INSERT INTO MESSAGE (MSG_APPL_ID, MSG_TY_ID, MSG_CLASS_ID, MSG_STATUS_ID, CHANNEL_ID, MESSAGE_FROM, MESSAGE_TO, MESSAGE_SUBJECT, MESSAGE_TXT, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 1, 1, 1, 'customer@testserver.com', 'ek@ecobank.com', 'Advice', 'Advice', 'RECEIVED', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO MESSAGE (MSG_TY_ID, MSG_CLASS_ID, MSG_STATUS_ID, CHANNEL_ID, MESSAGE_FROM, MESSAGE_TO, MESSAGE_SUBJECT, MESSAGE_TXT, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 1, 1, 'customer@testserver.com', 'ek@ecobank.com', 'Advice', 'Advice', 'RECEIVED', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Customer Category Notification Channel -------------------------------------------------------------------------------------------- */
 
-INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_CAT_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (1, 1, 'PERSONAL_EMAIL', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_CAT_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (1, 2, 'PERSONAL_SMS', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_CAT_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (2, 1, 'ORG_EMAIL', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_CAT_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO CUSTOMER_CATEGORY_COMMUNICATIONS_CHANNEL (CUST_CAT_ID, CHANNEL_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (2, 2, 'ORG_SMS', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 
-INSERT INTO SYSTEM_USER_COMMUNICATIONS_CHANNEL (SYSTEM_USER_ID, CHANNEL_CAT_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+INSERT INTO SYSTEM_USER_COMMUNICATIONS_CHANNEL (SYSTEM_USER_ID, CHANNEL_ID, CODE, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (1, 1, 'PERSONAL_EMAIL', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Pipeline-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_PIPELINE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('DEFAULT', 'Default', 'Default', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Handler Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_HANDLER_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('DEFAULT', 'Default', 'Default', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Handler-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'HTTP_DECODER', 'Http Decoder', 'Http Decoder', 'org.jboss.netty.handler.codec.http.HttpRequestDecoder', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'HTTP_ENCODER', 'Http Encoder', 'Http Encoder', 'org.jboss.netty.handler.codec.http.HttpResponseEncoder', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'HTTP_TXN_DATA_DECODER', 'Http Transaction Data Handler', 'Decodes Http based transaction data', 'HTTP_TXN_DATA_DECODER', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'HTTP_TXN_DATA_ENCODER', 'Http Transaction Data Encoder', 'Encodes Http based transaction data', 'HTTP_TXN_DATA_ENCODER', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'BO_VALIDATOR', 'Business Object Validator', 'Business Object Validator', 'BO_VALIDATOR', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'BO_PROCESSOR', 'Business Object Processor', 'Business Object Processor', 'BO_PROCESSOR', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_HANDLER (HANDLER_TY_ID, CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'BO_ROUTER', 'Business Object Router', 'Business Object Router', 'BO_ROUTER', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Pipeline Handler-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'HTTP_DECODER', 'Http Decoder', 'Http Decoder', 1, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 1, 'HTTP_ENCODER', 'Http Encoder', 'Http Encoder', 2, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 1, 'HTTP_TXN_DATA_DECODER', 'Http Transaction Data Decoder', 'Http Transaction Data Decoder', 3, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (4, 1, 'HTTP_TXN_DATA_ENCODE', 'Http Transaction Data Encoder', 'Http Transaction Data Encoder', 4, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (5, 1, 'BO_VALIDATOR', 'Business Object Validator', 'Business Object Validator', 5, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (6, 1, 'BO_PROCESSOR', 'Business Object Processor', 'Business Object Processor', 6, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO CHANNEL_PIPELINE_HANDLER (HANDLER_ID, PIPELINE_ID, CODE, NAME, DESCRIPTION, SEQUENCE_NO, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (7, 1, 'BO_ROUTER', 'Business Object Router', 'Business Object Router', 7, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('MASTER', 'Master', 'Master', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel Status-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('ACTIVE', 'Active', 'Active', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Channel-------------------------------------------------------------------------------------------- */
+
+INSERT INTO CHANNEL (STATUS_ID, PIPELINE_ID, CHANNEL_TY_ID, DATA_CHANNEL_ID, CODE, NAME, DESCRIPTION, AUTO_START_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 1, 7, 'SERVER', 'Server', 'Server', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Parameter Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO PARAMETER_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('STRING', 'String', 'String', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Parameter -------------------------------------------------------------------------------------------- */
+
+INSERT INTO PARAMETER (PARAMETER_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'ACCOUNT_NO', 'Account Number', 'Account Number', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Operator Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO OPERATOR (CODE, NAME, DESCRIPTION, OPERATOR_SYMBOL, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('EQUALS_TO', 'Equals To', 'Equals To', '=', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Parameter Operator-------------------------------------------------------------------------------------------- */
+
+INSERT INTO PARAMETER_TYPE_OPERATOR (PARAMETER_TY_ID, OPERATOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'EQUALS_TO', 'Equals To', 'Equals To', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Space-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_SPACE (CODE, NAME, DESCRIPTION, DEFAULT_RULE_SPACE_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('OPERATIONS', 'Operations Rule Space', 'A rules space used during normal operation', 'Y', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Category-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_CATEGORY (RULE_SPACE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'VALIDATION', 'Validation Rules', 'A category for validation rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_CATEGORY (RULE_SPACE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'PROCESSING', 'Processing Rules', 'A category for processing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_CATEGORY (RULE_SPACE_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'ROUTING', 'Routing Rules', 'A category for routing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Type-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'INPUT', 'Input Validation Rules', 'Input validation rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'ROUTE', 'Routing Validation Rules', 'Routing validation rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'OUTPUT', 'Output Validation Rules', 'Output validation rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 'PROCESS', 'Processing Rules', 'Default type for processing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 'INBOUND', 'Inbound rules', 'Inbound routing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 'FORWARD', 'Forward rules', 'Forward routing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+INSERT INTO TRANSACTION_RULE_TYPE (RULE_CAT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 'OUTBOUND', 'Outbound rules', 'Outbound routing rules', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Action-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_ACTION (CODE, NAME, DESCRIPTION, CLASS_NAME, EFFECTIVE_DT, REC_ST, VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values ('ACCEPT_ACTION', 'Accept Action', 'Accept Action', 'com.nathanclaire.alantra.rule.action.validation.AcceptAction', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE (RULE_TY_ID, RULE_ACTION_ID, CODE, NAME, DESCRIPTION, OPERATOR_MODE_FG, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1,1, 'VALIDATE_TXN_ATRTIBUTES_RULE', 'Transaction Attributes Validation Rule', "A rule to validate a transaction's attributes", 'A', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Condition Attribute-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_CONDITION_ATTRIBUTE (PARAMETER_TY_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 'TXN_ACCOUNT_NO', 'accountNo', 'Transaction Account No', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Condition Parameter-------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_CONDITION_PARAMETER (PARAMETER_ID, PARAMETER_VALUE, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, '0001012', 'TXN_ACCOUNT_NO', 'accountNo', 'Transaction Account No', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+
+/* --------------------------------------------------------------------Transaction Rule Condition -------------------------------------------------------------------------------------------- */
+
+INSERT INTO TRANSACTION_RULE_CONDITION (RULE_ID, ATTRIBUTE_ID, PARAMETER_ID, OPERATOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1,1,1,1, 'RULE_CONDITION', 'Condition', 'Condition', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* -------------------------------------------------------------------- Advice Classification -------------------------------------------------------------------------------------------- */
 
@@ -584,45 +693,8 @@ INSERT INTO ADVICE_STATUS(CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSIO
 
 /* -------------------------------------------------------------------- Advice -------------------------------------------------------------------------------------------- */
 
-INSERT INTO ADVICE(ADVICE_TY_ID, ADVICE_CLASS_ID, ADVICE_ST_ID,  CUSTOMER_ID, ACCOUNT_ID, CURRENCY_ID, ADVICE_REQUEST_ID, CODE, NAME, AMOUNT, DESCRIPTION, MAX_MATCHES, MATCH_COUNT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 1, 3, 1, 1, 1, 1, 'TEST', 'Test Cheque Advice', 1000.00, 'Test Cheque Advice', -1, 0, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-
-/* --------------------------------------------------------------------DATA_EXTRACTOR-------------------------------------------------------------------------------------------- */
-INSERT INTO DATA_EXTRACTOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('CSV_DATA_EXTRACTOR', 'CSV Data Extractor', 'CSV Data Extractor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_EXTRACTOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('EXCEL_DATA_EXTRACTOR', 'Excel Data Extractor', 'Excel Data Extractor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_EXTRACTOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('EMAIL_DATA_EXTRACTOR', 'Email Data Extractor', 'Email Data Extractor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------DATA_PROCESSOR-------------------------------------------------------------------------------------------- */
-INSERT INTO DATA_PROCESSOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('TRANSACTION_DATA_PROCESSOR', 'Transaction Data Processor', 'Transaction Data Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_PROCESSOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('CUST_ACCT_DATA_PROCESSOR', 'Customer And Account Data Processor', 'Customer And Account Data Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_PROCESSOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ADVICE_REQUEST_DATA_PROCESSOR', 'Advice Request Data Processor', 'Advice Request Data Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_PROCESSOR (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('MESSAGE_DATA_PROCESSOR', 'Message Request Data Processor', 'Message Request Data Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------DATA_PROCESSOR-------------------------------------------------------------------------------------------- */
-INSERT INTO DATA_LOADER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('TRANSACTION_DATA_LOADER', 'Transaction Data Loader', 'Transaction Data Loader', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_LOADER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('CUST_ACCT_DATA_LOADER', 'Customer And Account Data Loader', 'Customer And Account Data Loader', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_LOADER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('ADVICE_REQUEST_DATA_LOADER', 'Advice Request Data Loader', 'Advice Request Data Loader', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_LOADER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('MESSAGE_DATA_LOADER', 'Message Request Data Loader', 'Message Request Data Loader', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO ADVICE(ADVICE_TY_ID, ADVICE_CLASS_ID, ADVICE_ST_ID,  CUSTOMER_ID, ACCOUNT_ID, CURRENCY_ID, CODE, NAME, AMOUNT, DESCRIPTION, MAX_MATCHES, MATCH_COUNT, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 1, 3, 1, 1, 1, 'TEST', 'Test Cheque Advice', 1000.00, 'Test Cheque Advice', -1, 0, '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------DATA_TRANSFORMER-------------------------------------------------------------------------------------------- */
 INSERT INTO DATA_TRANSFORMER (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -770,54 +842,37 @@ INSERT INTO DATA_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_N
 
 /* --------------------------------------------------------------------DATA-------------------------------------------------------------------------------------------- */
 
-INSERT INTO DATA (CHANNEL_ID, DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 1, 'EMAIL_MESSAGE_DATA', 'Email Message Data', 'Email Message Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA (DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'EMAIL_MESSAGE_DATA', 'Email Message Data', 'Email Message Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA (CHANNEL_ID, DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 2, 2, 'CTS_TRANSACTION_DATA', 'CTS Transactional Data', 'CTS Transaction data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA (DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 2, 'CTS_TRANSACTION_DATA', 'CTS Transactional Data', 'CTS Transaction data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA (CHANNEL_ID, DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 3, 3, 'CBS_CUSTOMER_DATA', 'CBS Customer And Account Data', 'CBS Customer And Account Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA (DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 3, 'CBS_CUSTOMER_DATA', 'CBS Customer And Account Data', 'CBS Customer And Account Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA (CHANNEL_ID, DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 4, 4, 'ADVICE_REQUEST_DATA', 'Advice Request Data', 'Advice Request Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA (DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (4, 4, 'ADVICE_REQUEST_DATA', 'Advice Request Data', 'Advice Request Data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA (CHANNEL_ID, DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (6, 2, 2, 'CTS_EXCEL_TRANSACTION_DATA', 'CTS Excel Transactional Data', 'CTS Excel Transaction data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA (DATA_TY_ID, DATA_STRUCT_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 2, 'CTS_EXCEL_TRANSACTION_DATA', 'CTS Excel Transactional Data', 'CTS Excel Transaction data', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------DATA_INPUT-------------------------------------------------------------------------------------------- */
 
-INSERT INTO DATA_INPUT (DATA_ID, DATA_LOADER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 4, 'EMAIL_MASSAGE_DATA_INPUT_CONFIG', 'Email Message Data Input Configuration', 'Email Message Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_INPUT (DATA_ID, CHANNEL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (1, 1, 'EMAIL_MASSAGE_DATA_INPUT_CONFIG', 'Email Message Data Input Configuration', 'Email Message Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_INPUT (DATA_ID, DATA_LOADER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 1, 'CTS_TRANSACTION_DATA_INPUT_CONFIG', 'CTS Transactional Data Input Configuration', 'CTS Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_INPUT (DATA_ID, CHANNEL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (2, 3, 'CTS_TRANSACTION_DATA_INPUT_CONFIG', 'CTS Transactional Data Input Configuration', 'CTS Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_INPUT (DATA_ID, DATA_LOADER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 2, 'CBS_CUSTOMER_DATA_INPUT_CONFIG', 'CBS Customer Data Input Configuration', 'CBS Customer Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_INPUT (DATA_ID, CHANNEL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (3, 4, 'CBS_CUSTOMER_DATA_INPUT_CONFIG', 'CBS Customer Data Input Configuration', 'CBS Customer Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_INPUT (DATA_ID, DATA_LOADER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 3, 'ADVICE_REQUEST_DATA_INPUT_CONFIG', 'Advice Request Data Input Configuration', 'Advice Request Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_INPUT (DATA_ID, CHANNEL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (4, 5, 'ADVICE_REQUEST_DATA_INPUT_CONFIG', 'Advice Request Data Input Configuration', 'Advice Request Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
-INSERT INTO DATA_INPUT (DATA_ID, DATA_LOADER_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 1, 'CTS_EXCEL_TRANSACTION_DATA_INPUT_CONFIG', 'CTS Excel Transactional Data Input Configuration', 'CTS Excel Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------DATA_INPUT_PROCESSSORS-------------------------------------------------------------------------------------------- */
-
-INSERT INTO DATA_INPUT_PROCESSORS (DATA_INPUT_ID, DATA_PROCESSOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (1, 1, 'CTS_DATA_INPUT_PROCESSORS', 'CTS Data Input Processor', 'CTS Data Input Processors', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_PROCESSORS (DATA_INPUT_ID, DATA_PROCESSOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (2, 2, 'CBS_CUST_DATA_INPUT_PROCESSORS', 'CBS Customer Data Input Processor', 'CTS Data Input Processors', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_PROCESSORS (DATA_INPUT_ID, DATA_PROCESSOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (3, 3, 'ADVICE_REQUEST_DATA_INPUT_PROCESSORS', 'Advice Request Data Input Processor', 'Advice Request Data Input Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_PROCESSORS (DATA_INPUT_ID, DATA_PROCESSOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (4, 4, 'EMAIL_MESSAGE_DATA_INPUT_PROCESSORS', 'Email Message Data Input Processor', 'Email Message Data Input Processor', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_PROCESSORS (DATA_INPUT_ID, DATA_PROCESSOR_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values (5, 1, 'CTS_EXCEL_DATA_INPUT_PROCESSORS', 'CTS Excel Data Input Processor', 'CTS Excel Data Input Processors', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
+INSERT INTO DATA_INPUT (DATA_ID, CHANNEL_ID, CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
+) values (5, 6, 'CTS_EXCEL_TRANSACTION_DATA_INPUT_CONFIG', 'CTS Excel Transactional Data Input Configuration', 'CTS Excel Transactional Data Input Configuration', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 
 /* --------------------------------------------------------------------DATA_INPUT_JOB_TYPE-------------------------------------------------------------------------------------------- */
 INSERT INTO DATA_INPUT_JOB_TYPE (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
@@ -855,19 +910,4 @@ INSERT INTO DATA_INPUT_JOB (DATA_INPUT_ID, DATA_INPUT_JOB_TY_ID, DATA_INPUT_JOB_
 
 INSERT INTO DATA_INPUT_JOB (DATA_INPUT_ID, DATA_INPUT_JOB_TY_ID, DATA_INPUT_JOB_STATUS_ID, CODE, NAME, DESCRIPTION, DI_FREQ_VAL, DI_FREQ_CD, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
 ) values (5,1,2, 'CTS_EXCEL_INPUT_JOB', 'CTS Excel Input Job', 'CTS Excel Input Job', 1, 'MINUTE', '2012-04-04', 'I', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-
-/* --------------------------------------------------------------------Data input job  summary status-------------------------------------------------------------------------------------------- */
-INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('SUCCESSFULLY_COMPLETED', 'Successfully Completed', 'Completed', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('NOT_SUCCESSFULLY_COMPLETED', 'Not Successfully Completed', 'Completed', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-INSERT INTO DATA_INPUT_JOB_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('RUNNING', 'Running', 'Running', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
-
-/* --------------------------------------------------------------------Data input job record summary status-------------------------------------------------------------------------------------------- */
-INSERT INTO DATA_INPUT_JOB_RECORDS_SUMMARY_STATUS (CODE, NAME, DESCRIPTION, EFFECTIVE_DT, REC_ST , VERSION_NO, ROW_TS, CREATED_DT, CREATED_BY_USR, LAST_MODIFIED_DT, LAST_MODIFIED_USR
-) values ('COMPLETED', 'Completed', 'Completed', '2012-04-04', 'A', 1, '2012-04-04', '2012-04-04', 'Admin', '2012-04-04', 'Admin' );
 

@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.advice.model.Advice;
 import com.nathanclaire.alantra.advice.model.AdviceClassification;
-import com.nathanclaire.alantra.advice.model.AdviceRequestMessage;
 import com.nathanclaire.alantra.advice.model.AdviceStatus;
 import com.nathanclaire.alantra.advice.model.AdviceType;
 import com.nathanclaire.alantra.advice.request.AdviceRequest;
@@ -33,7 +32,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.businessdata.model.Currency;
 import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
 import com.nathanclaire.alantra.customer.model.Customer;
@@ -45,14 +44,13 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerService;
  * @author Edward Banfa
  *
  */
-@Stateless
+@Stateless(name="AdviceEntityServiceImpl")
 public class AdviceServiceImpl 
 	extends BaseEntityServiceImpl<Advice, AdviceResponse, AdviceRequest> 
 	implements AdviceService
 {
 	private static final String LIST_ITEM_CUSTOMER = "customer";
 	private static final String LIST_ITEM_CURRENCY = "currency";
-	private static final String LIST_ITEM_ADVICEREQUESTMESSAGE = "adviceRequestMessage";
 	private static final String LIST_ITEM_ADVICESTATUS = "adviceStatus";
 	private static final String LIST_ITEM_ADVICECLASSIFICATION = "adviceClassification";
 	private static final String LIST_ITEM_CUSTOMERACCOUNT = "customerAccount";
@@ -61,16 +59,12 @@ public class AdviceServiceImpl
 	private static final String LIST_ACTIVITY_CODE = "LIST_ADVICE_ADVICE";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_ADVICE_ADVICE";
 	
-	private Logger logger = LoggerFactory.getLogger(AdviceServiceImpl.class);
-	
 	@Inject
 	ApplicationEntityService  applicationEntityService;
 	@Inject
 	CustomerService  customerService;
 	@Inject
 	CurrencyService  currencyService;
-	@Inject
-	AdviceRequestMessageService  adviceRequestMessageService;
 	@Inject
 	AdviceStatusService  adviceStatusService;
 	@Inject
@@ -184,7 +178,6 @@ public class AdviceServiceImpl
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> customers = customerService.asListItem();
 		List<ListItemResponse> currencys = currencyService.asListItem();
-		List<ListItemResponse> adviceRequestMessages = adviceRequestMessageService.asListItem();
 		List<ListItemResponse> adviceStatuss = adviceStatusService.asListItem();
 		List<ListItemResponse> adviceClassifications = adviceClassificationService.asListItem();
 		List<ListItemResponse> customerAccounts = customerAccountService.asListItem();
@@ -192,7 +185,6 @@ public class AdviceServiceImpl
     	
 		listItems.put(LIST_ITEM_CUSTOMER, customers); 
 		listItems.put(LIST_ITEM_CURRENCY, currencys); 
-		listItems.put(LIST_ITEM_ADVICEREQUESTMESSAGE, adviceRequestMessages); 
 		listItems.put(LIST_ITEM_ADVICESTATUS, adviceStatuss); 
 		listItems.put(LIST_ITEM_ADVICECLASSIFICATION, adviceClassifications); 
 		listItems.put(LIST_ITEM_CUSTOMERACCOUNT, customerAccounts); 
@@ -225,7 +217,7 @@ public class AdviceServiceImpl
 		Advice advice = new Advice();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(adviceRequest, advice, allowedEntityFields);
+		PropertyUtil.copyProperties(adviceRequest, advice, allowedEntityFields);
     	//Process many to one relationships
     	if (adviceRequest.getCustomerId() != null)
     	{
@@ -236,11 +228,6 @@ public class AdviceServiceImpl
     	{
     		Currency currency = getEntityManager().find(Currency.class, adviceRequest.getCurrencyId());
     		advice.setCurrency(currency);
-    	}
-    	if (adviceRequest.getAdviceRequestMessageId() != null)
-    	{
-    		AdviceRequestMessage adviceRequestMessage = getEntityManager().find(AdviceRequestMessage.class, adviceRequest.getAdviceRequestMessageId());
-    		advice.setAdviceRequestMessage(adviceRequestMessage);
     	}
     	if (adviceRequest.getAdviceStatusId() != null)
     	{
@@ -270,7 +257,7 @@ public class AdviceServiceImpl
 		if (model == null) return null;
 		AdviceResponse adviceResponse = new AdviceResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, adviceResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, adviceResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomer() != null)
 			adviceResponse.setCustomerId(model.getCustomer().getId());
@@ -278,9 +265,6 @@ public class AdviceServiceImpl
 		if(model.getCurrency() != null)
 			adviceResponse.setCurrencyId(model.getCurrency().getId());
 			adviceResponse.setCurrencyText(model.getCurrency().getName());
-		if(model.getAdviceRequestMessage() != null)
-			adviceResponse.setAdviceRequestMessageId(model.getAdviceRequestMessage().getId());
-			adviceResponse.setAdviceRequestMessageText(model.getAdviceRequestMessage().getName());
 		if(model.getAdviceStatus() != null)
 			adviceResponse.setAdviceStatusId(model.getAdviceStatus().getId());
 			adviceResponse.setAdviceStatusText(model.getAdviceStatus().getName());

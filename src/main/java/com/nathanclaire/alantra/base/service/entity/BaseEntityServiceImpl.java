@@ -32,7 +32,7 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa 
@@ -352,7 +352,7 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
      */
     protected void copyProperties(Object from, Object to)
     {
-    	PropertyUtils.copyProperties(from, to, null);
+    	PropertyUtil.copyProperties(from, to, null);
     }
     
     /**

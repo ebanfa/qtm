@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.transaction.annotation.TransactionMatchedEvent;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
@@ -83,7 +83,7 @@ public class TransactionMatchedEventListenerImpl extends BaseTransactionEventLis
 	private void createTxnAwaitingNotification(ServiceTransaction transaction, String type) throws ApplicationException {
 		TxnAwaitingNotificationRequest awaitingNotificationRequest = new 
 				TxnAwaitingNotificationRequest();
-		PropertyUtils.initializeBaseFields(awaitingNotificationRequest);
+		PropertyUtil.initializeBaseFields(awaitingNotificationRequest);
 		awaitingNotificationRequest.setServiceTransactionId(transaction.getId());
 		awaitingNotificationRequest.setCode(transaction.getCode());
 		awaitingNotificationRequest.setNotificationTypeId(0);

@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.model.CustomerCategory;
 import com.nathanclaire.alantra.customer.model.CustomerClassification;
@@ -36,7 +36,7 @@ import com.nathanclaire.alantra.customer.response.CustomerResponse;
  * @author Edward Banfa
  *
  */
-@Stateless
+@Stateless(name="CustomerEntityServiceImpl")
 public class CustomerServiceImpl 
 	extends BaseEntityServiceImpl<Customer, CustomerResponse, CustomerRequest> 
 	implements CustomerService
@@ -240,7 +240,7 @@ public class CustomerServiceImpl
 		Customer customer = new Customer();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerRequest, customer, allowedEntityFields);
+		PropertyUtil.copyProperties(customerRequest, customer, allowedEntityFields);
     	//Process many to one relationships
     	if (customerRequest.getCustomerClassificationId() != null)
     	{
@@ -260,7 +260,7 @@ public class CustomerServiceImpl
 		if (model == null) return null;
 		CustomerResponse customerResponse = new CustomerResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomerClassification() != null)
 			customerResponse.setCustomerClassificationId(model.getCustomerClassification().getId());

@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataChannelCategorySer
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class DataChannelTypeServiceImpl
 		DataChannelType dataChannelType = new DataChannelType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataChannelTypeRequest, dataChannelType, allowedEntityFields);
+		PropertyUtil.copyProperties(dataChannelTypeRequest, dataChannelType, allowedEntityFields);
     	//Process many to one relationships
     	if (dataChannelTypeRequest.getDataChannelAdapterId() != null)
     	{
@@ -209,7 +209,7 @@ public class DataChannelTypeServiceImpl
 		if (model == null) return null;
 		DataChannelTypeResponse dataChannelTypeResponse = new DataChannelTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataChannelTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataChannelTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataChannelAdapter() != null)
 			dataChannelTypeResponse.setDataChannelAdapterId(model.getDataChannelAdapter().getId());

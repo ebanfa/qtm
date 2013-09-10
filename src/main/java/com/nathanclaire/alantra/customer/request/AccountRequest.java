@@ -28,7 +28,24 @@ public class AccountRequest extends BaseRequest {
     public AccountRequest() {
     }
 
-    public Integer getCurrencyId() {
+    /**
+	 * @param accountTypeId
+	 * @param currencyId
+	 * @param name
+	 * @param accountNo
+	 * @param isJointFg
+	 */
+	public AccountRequest(Integer accountTypeId, Integer currencyId,
+			String name, String accountNo, char isJointFg) {
+		super();
+		this.accountTypeId = accountTypeId;
+		this.currencyId = currencyId;
+		this.name = name;
+		this.accountNo = accountNo;
+		this.isJointFg = isJointFg;
+	}
+
+	public Integer getCurrencyId() {
         return this.currencyId;
     }
     

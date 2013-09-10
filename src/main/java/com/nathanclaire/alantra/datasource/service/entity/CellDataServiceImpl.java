@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
-import com.nathanclaire.alantra.datasource.model.CellData;
-import com.nathanclaire.alantra.datasource.model.RowData;
+import com.nathanclaire.alantra.datasource.model.DataCell;
+import com.nathanclaire.alantra.datasource.model.DataRow;
 import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.request.CellDataRequest;
 import com.nathanclaire.alantra.datasource.response.CellDataResponse;
@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataFieldService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -36,7 +36,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtils;
  */
 @Stateless
 public class CellDataServiceImpl 
-	extends BaseEntityServiceImpl<CellData, CellDataResponse, CellDataRequest> 
+	extends BaseEntityServiceImpl<DataCell, CellDataResponse, CellDataRequest> 
 	implements CellDataService
 {
 	private static final String LIST_ITEM_ROWDATA = "rowData";
@@ -58,14 +58,14 @@ public class CellDataServiceImpl
 	 * @param entityClass
 	 */
 	public CellDataServiceImpl() {
-		super(CellData.class);
+		super(DataCell.class);
 	}
 
     /* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#findById(java.lang.Integer)
 	 */
 	@Override
-	public CellData findById(Integer id) throws ApplicationException {
+	public DataCell findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -73,7 +73,7 @@ public class CellDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#findByCode(java.lang.String)
 	 */
 	@Override
-	public CellData findByCode(String code) throws ApplicationException {
+	public DataCell findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -81,7 +81,7 @@ public class CellDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#findByName(java.lang.String)
 	 */
 	@Override
-	public CellData findByName(String name) throws ApplicationException {
+	public DataCell findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -89,7 +89,7 @@ public class CellDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#findAll(java.util.Map)
 	 */
 	@Override
-	public List<CellData> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
+	public List<DataCell> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -97,7 +97,7 @@ public class CellDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#createCellData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CellData create(CellDataRequest cellDataRequest) throws ApplicationException {
+	public DataCell create(CellDataRequest cellDataRequest) throws ApplicationException {
 		return createInstance(cellDataRequest);
 	}
 
@@ -113,7 +113,7 @@ public class CellDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.CellData#updateCellData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public CellData update(CellDataRequest cellDataRequest) throws ApplicationException {
+	public DataCell update(CellDataRequest cellDataRequest) throws ApplicationException {
 		return updateInstance(cellDataRequest);
 	}
 	
@@ -171,7 +171,7 @@ public class CellDataServiceImpl
 	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
-		for(CellData celldata: findAll(queryParameters))
+		for(DataCell celldata: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(celldata.getId(), celldata.getCode(), celldata.getName());
 			listItems.add(item);
@@ -184,36 +184,36 @@ public class CellDataServiceImpl
      * @return
      */
 	@Override
-    public CellData convertRequestToModel(CellDataRequest cellDataRequest) 
+    public DataCell convertRequestToModel(CellDataRequest cellDataRequest) 
      throws ApplicationException {
-		CellData cellData = new CellData();
+		DataCell dataCell = new DataCell();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(cellDataRequest, cellData, allowedEntityFields);
+		PropertyUtil.copyProperties(cellDataRequest, dataCell, allowedEntityFields);
     	//Process many to one relationships
     	if (cellDataRequest.getRowDataId() != null)
     	{
-    		RowData rowData = getEntityManager().find(RowData.class, cellDataRequest.getRowDataId());
-    		cellData.setRowData(rowData);
+    		DataRow dataRow = getEntityManager().find(DataRow.class, cellDataRequest.getRowDataId());
+    		dataCell.setDataRow(dataRow);
     	}
     	if (cellDataRequest.getDataFieldId() != null)
     	{
     		DataField dataField = getEntityManager().find(DataField.class, cellDataRequest.getDataFieldId());
-    		cellData.setDataField(dataField);
+    		dataCell.setDataField(dataField);
     	}
-		return cellData;
+		return dataCell;
 	}
 	
 	@Override
-	public CellDataResponse convertModelToResponse(CellData model) throws ApplicationException {
+	public CellDataResponse convertModelToResponse(DataCell model) throws ApplicationException {
 		if (model == null) return null;
 		CellDataResponse cellDataResponse = new CellDataResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, cellDataResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, cellDataResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
-		if(model.getRowData() != null)
-			cellDataResponse.setRowDataId(model.getRowData().getId());
-			cellDataResponse.setRowDataText(model.getRowData().getName());
+		if(model.getDataRow() != null)
+			cellDataResponse.setRowDataId(model.getDataRow().getId());
+			cellDataResponse.setRowDataText(model.getDataRow().getName());
 		if(model.getDataField() != null)
 			cellDataResponse.setDataFieldId(model.getDataField().getId());
 			cellDataResponse.setDataFieldText(model.getDataField().getName());

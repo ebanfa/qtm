@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.datasource.service.entity.DataChannelService;
+import com.nathanclaire.alantra.datasource.service.entity.DataChannelEntityService;
 import com.nathanclaire.alantra.messaging.annotation.OutboundMessageCreatedEvent;
 import com.nathanclaire.alantra.messaging.messenger.MessengerService;
 import com.nathanclaire.alantra.messaging.messenger.MessengerServiceLocator;
@@ -27,7 +27,7 @@ public class OutboundMessageCreatedEventImpl extends BaseProcessService
 		implements OutboundMessageCreatedEventListener {
 
 	@Inject MessageService messageService;
-	@Inject DataChannelService channelService;
+	@Inject DataChannelEntityService channelService;
 	@Inject MessengerServiceLocator serviceLocator;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

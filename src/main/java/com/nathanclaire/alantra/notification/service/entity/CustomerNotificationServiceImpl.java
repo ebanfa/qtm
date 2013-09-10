@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.notification.service.entity.NotificationTypeServ
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class CustomerNotificationServiceImpl
 		CustomerNotification customerNotification = new CustomerNotification();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerNotificationRequest, customerNotification, allowedEntityFields);
+		PropertyUtil.copyProperties(customerNotificationRequest, customerNotification, allowedEntityFields);
     	//Process many to one relationships
     	if (customerNotificationRequest.getCustomerId() != null)
     	{
@@ -209,7 +209,7 @@ public class CustomerNotificationServiceImpl
 		if (model == null) return null;
 		CustomerNotificationResponse customerNotificationResponse = new CustomerNotificationResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerNotificationResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerNotificationResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomer() != null)
 			customerNotificationResponse.setCustomerId(model.getCustomer().getId());

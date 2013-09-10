@@ -23,7 +23,7 @@ import com.nathanclaire.alantra.application.response.ApplicationActivityGroupRes
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -221,7 +221,7 @@ public class ApplicationActivityGroupServiceImpl
 		if (model == null) return null;
 		ApplicationActivityGroupResponse applicationActivityGroupResponse = new ApplicationActivityGroupResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, applicationActivityGroupResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationActivityGroupResponse, allowedEntityFields);
 		//
 		for (ApplicationActivity activity: model.getApplicationActivities())
 		{

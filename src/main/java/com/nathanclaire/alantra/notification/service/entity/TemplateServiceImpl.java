@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.notification.service.entity.TemplateClassificati
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class TemplateServiceImpl
 		Template template = new Template();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(templateRequest, template, allowedEntityFields);
+		PropertyUtil.copyProperties(templateRequest, template, allowedEntityFields);
     	//Process many to one relationships
     	if (templateRequest.getTemplateTypeId() != null)
     	{
@@ -209,7 +209,7 @@ public class TemplateServiceImpl
 		if (model == null) return null;
 		TemplateResponse templateResponse = new TemplateResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, templateResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, templateResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getTemplateType() != null)
 			templateResponse.setTemplateTypeId(model.getTemplateType().getId());

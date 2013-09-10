@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.messaging.service.entity.MessageService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class CustomerMessageServiceImpl
 		CustomerMessage customerMessage = new CustomerMessage();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerMessageRequest, customerMessage, allowedEntityFields);
+		PropertyUtil.copyProperties(customerMessageRequest, customerMessage, allowedEntityFields);
     	//Process many to one relationships
     	if (customerMessageRequest.getCustomerId() != null)
     	{
@@ -209,7 +209,7 @@ public class CustomerMessageServiceImpl
 		if (model == null) return null;
 		CustomerMessageResponse customerMessageResponse = new CustomerMessageResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerMessageResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerMessageResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomer() != null)
 			customerMessageResponse.setCustomerId(model.getCustomer().getId());

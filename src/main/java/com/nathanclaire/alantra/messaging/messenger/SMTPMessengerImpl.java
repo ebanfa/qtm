@@ -23,15 +23,12 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
 import com.nathanclaire.alantra.messaging.annotation.messenger.SMTPMessenger;
 import com.nathanclaire.alantra.messaging.request.MessageRequest;
-import com.nathanclaire.alantra.messaging.service.entity.MessageApplicationService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageService;
-import com.nathanclaire.alantra.messaging.service.entity.MessageStatusService;
 import com.nathanclaire.alantra.messaging.service.entity.MessageTypeService;
-import com.nathanclaire.alantra.messaging.service.process.ClassificationService;
 import com.nathanclaire.alantra.messaging.util.MessageLite;
 import com.sun.mail.smtp.SMTPTransport;
 
@@ -57,8 +54,8 @@ public class SMTPMessengerImpl extends BaseProcessService implements MessengerSe
 	
 	@Inject MessageService messageService;
 	@Inject MessageTypeService messageTypeService;
-	@Inject ClassificationService classificationService;
-	@Inject MessageApplicationService messageApplicationService;
+	//@Inject ClassificationService classificationService;
+	//@Inject MessageApplicationService messageApplicationService;
 	private Logger logger = LoggerFactory.getLogger(SMTPPOP3MessengerImpl.class);
 	
 	/* (non-Javadoc)
@@ -109,17 +106,17 @@ public class SMTPMessengerImpl extends BaseProcessService implements MessengerSe
 	private com.nathanclaire.alantra.messaging.model.Message createMessage(MessageLite messageLite, DataChannel channel) throws ApplicationException
 	{
 		MessageRequest messageRequest = new MessageRequest();
-		PropertyUtils.initializeBaseFields(messageRequest);
+		PropertyUtil.initializeBaseFields(messageRequest);
 		messageRequest.setCode(this.getCurrentTimeInMilliSeconds().toString());
 		messageRequest.setMessageFrom(messageLite.getMessageFrom());
 		messageRequest.setMessageTo(messageLite.getMessageTo());
 		messageRequest.setMessageSubject(messageLite.getSubjectLine());
 		messageRequest.setMessageTxt(messageLite.getMessageBody());
-		messageRequest.setMessageTypeId(messageTypeService.findByCode(MessageTypeService.SMTP_POP3_MSG).getId());
+		//messageRequest.setMessageTypeId(messageTypeService.findByCode(MessageTypeService.SMTP_POP3_MSG).getId());
 		messageRequest.setDataChannelId(channel.getId());
-		messageRequest.setMessageStatusId(classificationService.getMessageStatus(MessageStatusService.MESSAGE_SENT).getId());
-		messageRequest.setMessageApplicationId(messageApplicationService.findByCode(MessageApplicationService.OUT_BOUND_MSG_APPLICATION).getId());
-		messageRequest.setMessageClassificationId(classificationService.getMessageClassification(channel).getId());
+		//messageRequest.setMessageStatusId(classificationService.getMessageStatus(MessageStatusService.MESSAGE_SENT).getId());
+		//messageRequest.setMessageApplicationId(messageApplicationService.findByCode(MessageApplicationService.OUT_BOUND_MSG_APPLICATION).getId());
+		//messageRequest.setMessageClassificationId(classificationService.getMessageClassification(channel).getId());
 		return messageService.create(messageRequest);
 	}
 	

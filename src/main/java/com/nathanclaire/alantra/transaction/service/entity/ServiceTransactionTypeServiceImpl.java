@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.transaction.service.entity.ServiceTransactionCat
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class ServiceTransactionTypeServiceImpl
 		ServiceTransactionType serviceTransactionType = new ServiceTransactionType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(serviceTransactionTypeRequest, serviceTransactionType, allowedEntityFields);
+		PropertyUtil.copyProperties(serviceTransactionTypeRequest, serviceTransactionType, allowedEntityFields);
     	//Process many to one relationships
     	if (serviceTransactionTypeRequest.getServiceTransactionCategoryId() != null)
     	{
@@ -197,7 +197,7 @@ public class ServiceTransactionTypeServiceImpl
 		if (model == null) return null;
 		ServiceTransactionTypeResponse serviceTransactionTypeResponse = new ServiceTransactionTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, serviceTransactionTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, serviceTransactionTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getServiceTransactionCategory() != null)
 			serviceTransactionTypeResponse.setServiceTransactionCategoryId(model.getServiceTransactionCategory().getId());

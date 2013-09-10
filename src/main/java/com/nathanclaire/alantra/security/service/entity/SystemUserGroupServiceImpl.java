@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.security.service.entity.SystemGroupService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class SystemUserGroupServiceImpl
 		SystemUserGroup systemUserGroup = new SystemUserGroup();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(systemUserGroupRequest, systemUserGroup, allowedEntityFields);
+		PropertyUtil.copyProperties(systemUserGroupRequest, systemUserGroup, allowedEntityFields);
     	//Process many to one relationships
     	if (systemUserGroupRequest.getSystemUserId() != null)
     	{
@@ -209,7 +209,7 @@ public class SystemUserGroupServiceImpl
 		if (model == null) return null;
 		SystemUserGroupResponse systemUserGroupResponse = new SystemUserGroupResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, systemUserGroupResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, systemUserGroupResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getSystemUser() != null)
 			systemUserGroupResponse.setSystemUserId(model.getSystemUser().getId());

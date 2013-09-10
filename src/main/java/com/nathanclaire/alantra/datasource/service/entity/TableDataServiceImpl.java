@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 
-import com.nathanclaire.alantra.datasource.model.TableData;
+import com.nathanclaire.alantra.datasource.model.DataTable;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.datasource.request.TableDataRequest;
 import com.nathanclaire.alantra.datasource.response.TableDataResponse;
@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -34,7 +34,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtils;
  */
 @Stateless
 public class TableDataServiceImpl 
-	extends BaseEntityServiceImpl<TableData, TableDataResponse, TableDataRequest> 
+	extends BaseEntityServiceImpl<DataTable, TableDataResponse, TableDataRequest> 
 	implements TableDataService
 {
 	private static final String LIST_ITEM_DATAINPUTJOB = "dataInputJob";
@@ -53,14 +53,14 @@ public class TableDataServiceImpl
 	 * @param entityClass
 	 */
 	public TableDataServiceImpl() {
-		super(TableData.class);
+		super(DataTable.class);
 	}
 
     /* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#findById(java.lang.Integer)
 	 */
 	@Override
-	public TableData findById(Integer id) throws ApplicationException {
+	public DataTable findById(Integer id) throws ApplicationException {
 		return getSingleInstance(id);
 	}
 
@@ -68,7 +68,7 @@ public class TableDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#findByCode(java.lang.String)
 	 */
 	@Override
-	public TableData findByCode(String code) throws ApplicationException {
+	public DataTable findByCode(String code) throws ApplicationException {
 		return findInstanceByCode(code);
 	}
 
@@ -76,7 +76,7 @@ public class TableDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#findByName(java.lang.String)
 	 */
 	@Override
-	public TableData findByName(String name) throws ApplicationException {
+	public DataTable findByName(String name) throws ApplicationException {
 		return findInstanceByName(name);
 	}
 
@@ -84,7 +84,7 @@ public class TableDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#findAll(java.util.Map)
 	 */
 	@Override
-	public List<TableData> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
+	public List<DataTable> findAll(MultivaluedMap<String, String> queryParameters) throws ApplicationException {
 		return findAllInstances(queryParameters);
 	}
 
@@ -92,7 +92,7 @@ public class TableDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#createTableData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TableData create(TableDataRequest tableDataRequest) throws ApplicationException {
+	public DataTable create(TableDataRequest tableDataRequest) throws ApplicationException {
 		return createInstance(tableDataRequest);
 	}
 
@@ -108,7 +108,7 @@ public class TableDataServiceImpl
 	 * @see com.nathanclaire.alantra.datasource.service.TableData#updateTableData(com.nathanclaire.alantra.datasource.rest.request.ServiceRequest)
 	 */
 	@Override
-	public TableData update(TableDataRequest tableDataRequest) throws ApplicationException {
+	public DataTable update(TableDataRequest tableDataRequest) throws ApplicationException {
 		return updateInstance(tableDataRequest);
 	}
 	
@@ -164,7 +164,7 @@ public class TableDataServiceImpl
 	public List<ListItemResponse> asListItem() throws ApplicationException {
 		List<ListItemResponse> listItems = new ArrayList<ListItemResponse>();
 		queryParameters.clear();
-		for(TableData tabledata: findAll(queryParameters))
+		for(DataTable tabledata: findAll(queryParameters))
 		{
 			ListItemResponse item = new ListItemResponse(tabledata.getId(), tabledata.getCode(), tabledata.getName());
 			listItems.add(item);
@@ -177,27 +177,27 @@ public class TableDataServiceImpl
      * @return
      */
 	@Override
-    public TableData convertRequestToModel(TableDataRequest tableDataRequest) 
+    public DataTable convertRequestToModel(TableDataRequest tableDataRequest) 
      throws ApplicationException {
-		TableData tableData = new TableData();
+		DataTable dataTable = new DataTable();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(tableDataRequest, tableData, allowedEntityFields);
+		PropertyUtil.copyProperties(tableDataRequest, dataTable, allowedEntityFields);
     	//Process many to one relationships
     	if (tableDataRequest.getDataInputJobId() != null)
     	{
     		DataInputJob dataInputJob = getEntityManager().find(DataInputJob.class, tableDataRequest.getDataInputJobId());
-    		tableData.setDataInputJob(dataInputJob);
+    		dataTable.setDataInputJob(dataInputJob);
     	}
-		return tableData;
+		return dataTable;
 	}
 	
 	@Override
-	public TableDataResponse convertModelToResponse(TableData model) throws ApplicationException {
+	public TableDataResponse convertModelToResponse(DataTable model) throws ApplicationException {
 		if (model == null) return null;
 		TableDataResponse tableDataResponse = new TableDataResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, tableDataResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, tableDataResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataInputJob() != null)
 			tableDataResponse.setDataInputJobId(model.getDataInputJob().getId());

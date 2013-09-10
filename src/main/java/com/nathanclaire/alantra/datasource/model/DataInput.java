@@ -35,17 +35,16 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class DataInput  extends BaseEntity implements java.io.Serializable {
 
-	private DataLoader dataLoader;
 	private Data data;
+	private DataChannel dataChannel;
     private String name;
     private String description;
 	private Set<DataInputJob> dataInputJobs = new HashSet<DataInputJob>(0);
-	private Set<DataInputProcessors> dataInputProcessorses = new HashSet<DataInputProcessors>(0);
 
     public DataInput() {
     }
 
-    public DataInput(DataLoader dataLoader, Data data, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
+    public DataInput(Data data, String code, String name, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
     {
 		this.code = code;
 		this.name = name;
@@ -54,9 +53,8 @@ public class DataInput  extends BaseEntity implements java.io.Serializable {
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataInput(DataLoader dataLoader, Data data, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJob> dataInputJobs, Set<DataInputProcessors> dataInputProcessorses ) 
+    public DataInput(Data data, String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataInputJob> dataInputJobs) 
     {
-		this.dataLoader = dataLoader;
 		this.data = data;
 		this.code = code;
 		this.name = name;
@@ -68,21 +66,6 @@ public class DataInput  extends BaseEntity implements java.io.Serializable {
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
 		this.dataInputJobs = dataInputJobs;
-		this.dataInputProcessorses = dataInputProcessorses;
-    }
-    
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="DATA_LOADER_ID", nullable=false)
-    @JsonIgnore
-    public DataLoader getDataLoader() 
-    {
-        return this.dataLoader;
-    }
-    
-    public void setDataLoader(DataLoader dataLoader)
-    {
-        this.dataLoader = dataLoader;
     }
     		
     @ManyToOne(fetch=FetchType.LAZY)
@@ -131,20 +114,19 @@ public class DataInput  extends BaseEntity implements java.io.Serializable {
     {
         this.dataInputJobs = dataInputJobs;
     }			
-			
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataInput")
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CHANNEL_ID", nullable=false)
     @JsonIgnore
-    public Set<DataInputProcessors> getDataInputProcessorses() 
+    public DataChannel getDataChannel() 
     {
-        return this.dataInputProcessorses;
+        return this.dataChannel;
     }
     
-    public void setDataInputProcessorses(Set<DataInputProcessors> dataInputProcessorses) 
+    public void setDataChannel(DataChannel dataChannel)
     {
-        this.dataInputProcessorses = dataInputProcessorses;
-    }			
-
-
+        this.dataChannel = dataChannel;
+    }
+		
 }
 
 

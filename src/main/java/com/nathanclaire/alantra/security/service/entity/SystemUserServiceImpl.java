@@ -21,7 +21,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.security.model.SystemGroup;
 import com.nathanclaire.alantra.security.model.SystemUser;
 import com.nathanclaire.alantra.security.request.SystemUserRequest;
@@ -206,7 +206,7 @@ public class SystemUserServiceImpl
 		SystemUser systemUser = new SystemUser();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(systemUserRequest, systemUser, allowedEntityFields);
+		PropertyUtil.copyProperties(systemUserRequest, systemUser, allowedEntityFields);
     	//Process many to one relationships
     	if (systemUserRequest.getSystemGroupId() != null)
     	{
@@ -221,7 +221,7 @@ public class SystemUserServiceImpl
 		if (model == null) return null;
 		SystemUserResponse systemUserResponse = new SystemUserResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, systemUserResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, systemUserResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getSystemGroup() != null)
 			systemUserResponse.setSystemGroupId(model.getSystemGroup().getId());

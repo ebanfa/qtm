@@ -7,8 +7,6 @@ import javax.enterprise.event.Observes;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.transaction.annotation.TransactionCreatedEvent;
-import com.nathanclaire.alantra.transaction.annotation.ChequeTransactionCreatedEvent;
-import com.nathanclaire.alantra.transaction.annotation.TransactionNotCreatedEvent;
 
 /**
  * @author Edward Banfa 

@@ -21,7 +21,7 @@ import com.nathanclaire.alantra.application.response.ApplicationFormFieldRespons
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -220,7 +220,7 @@ public class ApplicationFormFieldServiceImpl
 		if (model == null) return null;
 		ApplicationFormFieldResponse applicationFormFieldResponse = new ApplicationFormFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, applicationFormFieldResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationFormFieldResponse, allowedEntityFields);
 		return applicationFormFieldResponse;
 	}
 }

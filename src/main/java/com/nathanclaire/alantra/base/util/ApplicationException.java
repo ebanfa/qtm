@@ -30,12 +30,20 @@ public class ApplicationException extends Exception {
 	}
 
 	/**
+	 * @param cause
+	 */
+	public ApplicationException(String code, Throwable cause) {
+		super(cause);
+		this.code = code;
+	}
+
+	/**
 	 * @param code
 	 * @param message 
 	 */
 	public ApplicationException(String code) {
 		this.code = code;
-		this.message = Messages.getString(code);
+		//this.message = Messages.getString(code);
 	}
 	
 	/**

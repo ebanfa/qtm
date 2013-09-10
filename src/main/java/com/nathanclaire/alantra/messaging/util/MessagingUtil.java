@@ -4,7 +4,7 @@
 package com.nathanclaire.alantra.messaging.util;
 
 import com.nathanclaire.alantra.base.util.DateUtil;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.customer.request.CustomerMessageRequest;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
@@ -35,7 +35,7 @@ public class MessagingUtil {
 	public static MessageRequest getMessageRequest(DataChannel channel, MessageType msgType, 
 			MessageClassification msgClassification, MessageStatus msgStatus, Character inOutFg, String msgHeader, String msgBody) {
 		MessageRequest messageRequest = new MessageRequest();
-		PropertyUtils.initializeBaseFields(messageRequest);
+		PropertyUtil.initializeBaseFields(messageRequest);
 		messageRequest.setDataChannelId(channel.getId());
 		messageRequest.setMessageSubject(msgHeader);
 		messageRequest.setMessageTxt(msgBody);
@@ -54,7 +54,7 @@ public class MessagingUtil {
 	 */
 	public static CustomerMessageRequest getCustomerMessageRequest(Customer customer, Message message) {
 		CustomerMessageRequest customerMessageRequest = new CustomerMessageRequest();
-		PropertyUtils.initializeBaseFields(customerMessageRequest);
+		PropertyUtil.initializeBaseFields(customerMessageRequest);
 		customerMessageRequest.setCustomerId(customer.getId());
 		customerMessageRequest.setMessageId(message.getId());
 		customerMessageRequest.setCode(message.getCode());
@@ -69,7 +69,7 @@ public class MessagingUtil {
 	public static SystemUserMessageRequest getUserMessageRequest(SystemUser user,
 			Message message) {
 		SystemUserMessageRequest userMessageRequest = new SystemUserMessageRequest();
-		PropertyUtils.initializeBaseFields(userMessageRequest);
+		PropertyUtil.initializeBaseFields(userMessageRequest);
 		userMessageRequest.setSystemUserId(user.getId());
 		userMessageRequest.setMessageId(message.getId());
 		userMessageRequest.setCode(message.getCode());

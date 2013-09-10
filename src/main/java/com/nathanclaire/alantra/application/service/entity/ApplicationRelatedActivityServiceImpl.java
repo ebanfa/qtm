@@ -20,7 +20,7 @@ import com.nathanclaire.alantra.application.response.ApplicationRelatedActivityR
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -210,7 +210,7 @@ public class ApplicationRelatedActivityServiceImpl
 		if (model == null) return null;
 		ApplicationRelatedActivityResponse applicationRelatedActivityResponse = new ApplicationRelatedActivityResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, applicationRelatedActivityResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationRelatedActivityResponse, allowedEntityFields);
 		
 		
 		applicationRelatedActivityResponse.setDescription(model.getDescription());

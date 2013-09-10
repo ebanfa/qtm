@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.security.service.entity.SystemUserService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class CurrentUserSessionServiceImpl
 		CurrentUserSession currentUserSession = new CurrentUserSession();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(currentUserSessionRequest, currentUserSession, allowedEntityFields);
+		PropertyUtil.copyProperties(currentUserSessionRequest, currentUserSession, allowedEntityFields);
     	//Process many to one relationships
     	if (currentUserSessionRequest.getSystemUserId() != null)
     	{
@@ -204,7 +204,7 @@ public class CurrentUserSessionServiceImpl
 		if (model == null) return null;
 		CurrentUserSessionResponse currentUserSessionResponse = new CurrentUserSessionResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, currentUserSessionResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, currentUserSessionResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getSystemUser() != null)
 			currentUserSessionResponse.setSystemUserId(model.getSystemUser().getId());

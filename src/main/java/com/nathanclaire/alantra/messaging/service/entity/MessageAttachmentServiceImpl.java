@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.messaging.model.Message;
 import com.nathanclaire.alantra.messaging.service.entity.MessageService;
 
@@ -172,7 +172,7 @@ private static final String LIST_ITEM_MESSAGE = "message";
 		queryParameters.clear();
 		for(MessageAttachment messageAttachment: findAll(queryParameters))
 		{
-			ListItemResponse item = new ListItemResponse(messageAttachment.getId(), messageAttachment.getCode(), messageAttachment.getName());
+			ListItemResponse item = new ListItemResponse(messageAttachment.getId(), messageAttachment.getCode(), messageAttachment.getCode());
 			listItems.add(item);
 		}
 		return listItems;
@@ -188,7 +188,7 @@ private static final String LIST_ITEM_MESSAGE = "message";
 		MessageAttachment messageAttachment = new MessageAttachment();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(messageAttachmentRequest, messageAttachment, allowedEntityFields);
+		PropertyUtil.copyProperties(messageAttachmentRequest, messageAttachment, allowedEntityFields);
     	//Process many to one relationships
         if (messageAttachmentRequest.getMessageId() != null)
     	{
@@ -203,10 +203,10 @@ private static final String LIST_ITEM_MESSAGE = "message";
 		if (model == null) return null;
 		MessageAttachmentResponse messageAttachmentResponse = new MessageAttachmentResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, messageAttachmentResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, messageAttachmentResponse, allowedEntityFields);
 		if(model.getMessage() != null)
 			messageAttachmentResponse.setMessageId(model.getMessage().getId());
-			messageAttachmentResponse.setMessageText(model.getMessage().getName());
+			messageAttachmentResponse.setMessageText(model.getMessage().getCode());
 		return messageAttachmentResponse;
 	}
 

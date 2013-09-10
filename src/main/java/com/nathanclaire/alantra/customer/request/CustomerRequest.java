@@ -30,7 +30,29 @@ public class CustomerRequest extends BaseRequest {
     public CustomerRequest() {
     }
 
-    public Integer getCustomerClassificationId() {
+    /**
+	 * @param customerTypeId
+	 * @param customerClassificationId
+	 * @param name
+	 * @param code
+	 * @param pin
+	 * @param primaryEmail
+	 * @param primaryMobile
+	 */
+	public CustomerRequest(Integer customerTypeId,
+			Integer customerClassificationId, String name, String code,
+			String pin, String primaryEmail, String primaryMobile) {
+		super();
+		this.customerTypeId = customerTypeId;
+		this.customerClassificationId = customerClassificationId;
+		this.name = name;
+		this.code = code;
+		this.pin = pin;
+		this.primaryEmail = primaryEmail;
+		this.primaryMobile = primaryMobile;
+	}
+
+	public Integer getCustomerClassificationId() {
         return this.customerClassificationId;
     }
     

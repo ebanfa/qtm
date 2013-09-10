@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class CustomerBlacklistServiceImpl
 		CustomerBlacklist customerBlacklist = new CustomerBlacklist();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerBlacklistRequest, customerBlacklist, allowedEntityFields);
+		PropertyUtil.copyProperties(customerBlacklistRequest, customerBlacklist, allowedEntityFields);
     	//Process many to one relationships
     	if (customerBlacklistRequest.getCustomerId() != null)
     	{
@@ -197,7 +197,7 @@ public class CustomerBlacklistServiceImpl
 		if (model == null) return null;
 		CustomerBlacklistResponse customerBlacklistResponse = new CustomerBlacklistResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerBlacklistResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerBlacklistResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomer() != null)
 			customerBlacklistResponse.setCustomerId(model.getCustomer().getId());

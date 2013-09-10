@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.Customer;
 import com.nathanclaire.alantra.transaction.annotation.TransactionNotMatchedEvent;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
@@ -84,7 +84,7 @@ public class TransactionNotMatchedEventListenerImpl extends BaseTransactionEvent
 	private void createTxnAwaitingConfirmation(ServiceTransaction transaction, String type) throws ApplicationException {
 		TxnAwaitingConfirmationRequest awaitingConfirmationRequest = new 
 				TxnAwaitingConfirmationRequest();
-		PropertyUtils.initializeBaseFields(awaitingConfirmationRequest);
+		PropertyUtil.initializeBaseFields(awaitingConfirmationRequest);
 		awaitingConfirmationRequest.setServiceTransactionId(transaction.getId());
 		awaitingConfirmationRequest.setNotificationTypeId(0);
 		awaitingConfirmationRequest.setCode(transaction.getCode());

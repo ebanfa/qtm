@@ -20,7 +20,7 @@ import com.nathanclaire.alantra.application.response.ApplicationEntityFieldRespo
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -181,7 +181,7 @@ public class ApplicationEntityFieldServiceImpl
 			ApplicationEntityField applicationEntityField = new ApplicationEntityField();
 			// Copy properties
 			List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-			PropertyUtils.copyProperties(applicationEntityFieldRequest, applicationEntityField, allowedEntityFields);
+			PropertyUtil.copyProperties(applicationEntityFieldRequest, applicationEntityField, allowedEntityFields);
 	    	//Process many to one relationships
 	    	if (applicationEntityFieldRequest.getApplicationEntityFieldTypeId() != null)
 	    	{
@@ -249,7 +249,7 @@ public class ApplicationEntityFieldServiceImpl
 		return applicationEntityFieldResponse;*/
 		ApplicationEntityFieldResponse applicationEntityFieldResponse = new ApplicationEntityFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, applicationEntityFieldResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, applicationEntityFieldResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getApplicationEntityFieldType() != null){
 			applicationEntityFieldResponse.setApplicationEntityFieldTypeId(model.getApplicationEntityFieldType().getId());

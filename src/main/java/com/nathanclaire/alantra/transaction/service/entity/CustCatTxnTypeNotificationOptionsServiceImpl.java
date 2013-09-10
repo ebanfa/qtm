@@ -31,7 +31,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.CustomerCategory;
 import com.nathanclaire.alantra.customer.service.entity.CustomerCategoryService;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
@@ -195,7 +195,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		CustCatTxnTypeNotificationOptions custCatTxnTypeNotificationOptions = new CustCatTxnTypeNotificationOptions();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(custCatTxnTypeNotificationOptionsRequest, custCatTxnTypeNotificationOptions, allowedEntityFields);
+		PropertyUtil.copyProperties(custCatTxnTypeNotificationOptionsRequest, custCatTxnTypeNotificationOptions, allowedEntityFields);
     	//Process many to one relationships
         if (custCatTxnTypeNotificationOptionsRequest.getCustomerCategoryId() != null)
     	{
@@ -215,7 +215,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		if (model == null) return null;
 		CustCatTxnTypeNotificationOptionsResponse custCatTxnTypeNotificationOptionsResponse = new CustCatTxnTypeNotificationOptionsResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, custCatTxnTypeNotificationOptionsResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, custCatTxnTypeNotificationOptionsResponse, allowedEntityFields);
 		if(model.getCustomerCategory() != null)
 			custCatTxnTypeNotificationOptionsResponse.setCustomerCategoryId(model.getCustomerCategory().getId());
 			custCatTxnTypeNotificationOptionsResponse.setCustomerCategoryText(model.getCustomerCategory().getName());

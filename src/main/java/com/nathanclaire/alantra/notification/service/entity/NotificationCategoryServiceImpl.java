@@ -24,7 +24,7 @@ import com.nathanclaire.alantra.notification.response.NotificationCategoryRespon
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -175,7 +175,7 @@ public class NotificationCategoryServiceImpl
 		NotificationCategory notificationCategory = new NotificationCategory();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(notificationCategoryRequest, notificationCategory, allowedEntityFields);
+		PropertyUtil.copyProperties(notificationCategoryRequest, notificationCategory, allowedEntityFields);
     	//Process many to one relationships
 		return notificationCategory;
 	}
@@ -185,7 +185,7 @@ public class NotificationCategoryServiceImpl
 		if (model == null) return null;
 		NotificationCategoryResponse notificationCategoryResponse = new NotificationCategoryResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, notificationCategoryResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, notificationCategoryResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		return notificationCategoryResponse;
 	}

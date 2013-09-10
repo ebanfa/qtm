@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.businessdata.service.entity.CurrencyService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class CountryServiceImpl
 		Country country = new Country();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(countryRequest, country, allowedEntityFields);
+		PropertyUtil.copyProperties(countryRequest, country, allowedEntityFields);
     	//Process many to one relationships
     	if (countryRequest.getCurrencyId() != null)
     	{
@@ -197,7 +197,7 @@ public class CountryServiceImpl
 		if (model == null) return null;
 		CountryResponse countryResponse = new CountryResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, countryResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, countryResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCurrency() != null)
 			countryResponse.setCurrencyId(model.getCurrency().getId());

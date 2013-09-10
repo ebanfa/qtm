@@ -12,6 +12,12 @@ import com.nathanclaire.alantra.customer.model.Customer;
  */
 public interface CustomerContactService {
 	
+	public Customer findCustomerByContact(String contact) throws ApplicationException;
+
+	public Customer findCustomerByEmail(String sourceAddress) throws ApplicationException;
+	
+	public Customer findCustomerByPhone(String sourceAddress) throws ApplicationException;
+	
 	public String getPrimaryMobileNo(Customer customer) throws ApplicationException;
 	
 	public String getSecondaryMobileNo(Customer customer) throws ApplicationException;

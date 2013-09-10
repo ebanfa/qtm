@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.security.service.entity.SystemUserService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class SystemUserMessageServiceImpl
 		SystemUserMessage systemUserMessage = new SystemUserMessage();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(systemUserMessageRequest, systemUserMessage, allowedEntityFields);
+		PropertyUtil.copyProperties(systemUserMessageRequest, systemUserMessage, allowedEntityFields);
     	//Process many to one relationships
     	if (systemUserMessageRequest.getMessageId() != null)
     	{
@@ -209,7 +209,7 @@ public class SystemUserMessageServiceImpl
 		if (model == null) return null;
 		SystemUserMessageResponse systemUserMessageResponse = new SystemUserMessageResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, systemUserMessageResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, systemUserMessageResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getMessage() != null)
 			systemUserMessageResponse.setMessageId(model.getMessage().getId());

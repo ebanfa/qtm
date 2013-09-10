@@ -28,7 +28,7 @@ import com.nathanclaire.alantra.notification.service.entity.NotificationCategory
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -189,7 +189,7 @@ public class NotificationTypeServiceImpl
 		NotificationType notificationType = new NotificationType();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(notificationTypeRequest, notificationType, allowedEntityFields);
+		PropertyUtil.copyProperties(notificationTypeRequest, notificationType, allowedEntityFields);
     	//Process many to one relationships
     	if (notificationTypeRequest.getTemplateId() != null)
     	{
@@ -209,7 +209,7 @@ public class NotificationTypeServiceImpl
 		if (model == null) return null;
 		NotificationTypeResponse notificationTypeResponse = new NotificationTypeResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, notificationTypeResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, notificationTypeResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getTemplate() != null)
 			notificationTypeResponse.setTemplateId(model.getTemplate().getId());

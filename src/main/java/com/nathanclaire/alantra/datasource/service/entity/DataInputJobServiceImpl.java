@@ -26,11 +26,11 @@ import com.nathanclaire.alantra.datasource.request.DataInputJobRequest;
 import com.nathanclaire.alantra.datasource.response.DataInputJobResponse;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobStatusService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobTypeService;
-import com.nathanclaire.alantra.datasource.service.entity.DataInputService;
+import com.nathanclaire.alantra.datasource.service.entity.DataInputEntityService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -57,7 +57,7 @@ public class DataInputJobServiceImpl
 	@Inject
 	DataInputJobTypeService  dataInputJobTypeService;
 	@Inject
-	DataInputService  dataInputService;
+	DataInputEntityService  dataInputEntityService;
 	
 	/**
 	 * @param entityClass
@@ -163,7 +163,7 @@ public class DataInputJobServiceImpl
 		Map<String, List<ListItemResponse>> listItems = new HashMap<String, List<ListItemResponse>>(); 
 		List<ListItemResponse> dataInputJobStatuss = dataInputJobStatusService.asListItem();
 		List<ListItemResponse> dataInputJobTypes = dataInputJobTypeService.asListItem();
-		List<ListItemResponse> dataInputs = dataInputService.asListItem();
+		List<ListItemResponse> dataInputs = dataInputEntityService.asListItem();
     	
 		listItems.put(LIST_ITEM_DATAINPUTJOBSTATUS, dataInputJobStatuss); 
 		listItems.put(LIST_ITEM_DATAINPUTJOBTYPE, dataInputJobTypes); 
@@ -196,7 +196,7 @@ public class DataInputJobServiceImpl
 		DataInputJob dataInputJob = new DataInputJob();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataInputJobRequest, dataInputJob, allowedEntityFields);
+		PropertyUtil.copyProperties(dataInputJobRequest, dataInputJob, allowedEntityFields);
     	//Process many to one relationships
     	if (dataInputJobRequest.getDataInputJobStatusId() != null)
     	{
@@ -221,7 +221,7 @@ public class DataInputJobServiceImpl
 		if (model == null) return null;
 		DataInputJobResponse dataInputJobResponse = new DataInputJobResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataInputJobResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataInputJobResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataInputJobStatus() != null)
 			dataInputJobResponse.setDataInputJobStatusId(model.getDataInputJobStatus().getId());

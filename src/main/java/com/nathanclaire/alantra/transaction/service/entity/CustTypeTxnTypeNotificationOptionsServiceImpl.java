@@ -31,7 +31,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.customer.model.CustomerType;
 import com.nathanclaire.alantra.customer.service.entity.CustomerTypeService;
 import com.nathanclaire.alantra.transaction.model.ServiceTransactionType;
@@ -195,7 +195,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		CustTypeTxnTypeNotificationOptions custTypeTxnTypeNotificationOptions = new CustTypeTxnTypeNotificationOptions();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(custTypeTxnTypeNotificationOptionsRequest, custTypeTxnTypeNotificationOptions, allowedEntityFields);
+		PropertyUtil.copyProperties(custTypeTxnTypeNotificationOptionsRequest, custTypeTxnTypeNotificationOptions, allowedEntityFields);
     	//Process many to one relationships
         if (custTypeTxnTypeNotificationOptionsRequest.getCustomerTypeId() != null)
     	{
@@ -215,7 +215,7 @@ private static final String LIST_ITEM_SERVICETRANSACTIONTYPE = "transactionType"
 		if (model == null) return null;
 		CustTypeTxnTypeNotificationOptionsResponse custTypeTxnTypeNotificationOptionsResponse = new CustTypeTxnTypeNotificationOptionsResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, custTypeTxnTypeNotificationOptionsResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, custTypeTxnTypeNotificationOptionsResponse, allowedEntityFields);
 		if(model.getCustomerType() != null)
 			custTypeTxnTypeNotificationOptionsResponse.setCustomerTypeId(model.getCustomerType().getId());
 			custTypeTxnTypeNotificationOptionsResponse.setCustomerTypeText(model.getCustomerType().getName());

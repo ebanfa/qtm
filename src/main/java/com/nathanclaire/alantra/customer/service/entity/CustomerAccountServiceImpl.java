@@ -28,13 +28,13 @@ import com.nathanclaire.alantra.customer.service.entity.AccountService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
  *
  */
-@Stateless
+@Stateless(name="CustomerAccountEntityServiceImpl")
 public class CustomerAccountServiceImpl 
 	extends BaseEntityServiceImpl<CustomerAccount, CustomerAccountResponse, CustomerAccountRequest> 
 	implements CustomerAccountService
@@ -189,7 +189,7 @@ public class CustomerAccountServiceImpl
 		CustomerAccount customerAccount = new CustomerAccount();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerAccountRequest, customerAccount, allowedEntityFields);
+		PropertyUtil.copyProperties(customerAccountRequest, customerAccount, allowedEntityFields);
     	//Process many to one relationships
     	if (customerAccountRequest.getCustomerId() != null)
     	{
@@ -209,7 +209,7 @@ public class CustomerAccountServiceImpl
 		if (model == null) return null;
 		CustomerAccountResponse customerAccountResponse = new CustomerAccountResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerAccountResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerAccountResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getCustomer() != null)
 			customerAccountResponse.setCustomerId(model.getCustomer().getId());

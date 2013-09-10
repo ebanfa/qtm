@@ -8,10 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>
-        Alantra Platform Java EE 6 webapp project
+        Qrion Transaction Manager Platform
     </name>
     <description>
-        Alantra Platform Java EE 6 webapp project for use on JBoss AS 7.1 / EAP 6
+        Qrion Transaction Manager Platform
     </description>
 
     <properties>

@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.TxnAwaitingNotification;
 import com.nathanclaire.alantra.transaction.model.TxnNotificationStatus;
@@ -190,7 +190,7 @@ private static final String LIST_ITEM_SERVICETRANSACTION = "serviceTransaction";
 		TxnAwaitingNotification txnAwaitingNotification = new TxnAwaitingNotification();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(txnAwaitingNotificationRequest, txnAwaitingNotification, allowedEntityFields);
+		PropertyUtil.copyProperties(txnAwaitingNotificationRequest, txnAwaitingNotification, allowedEntityFields);
     	//Process many to one relationships
         if (txnAwaitingNotificationRequest.getTxnNotificationStatusId() != null)
     	{
@@ -210,7 +210,7 @@ private static final String LIST_ITEM_SERVICETRANSACTION = "serviceTransaction";
 		if (model == null) return null;
 		TxnAwaitingNotificationResponse txnAwaitingNotificationResponse = new TxnAwaitingNotificationResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, txnAwaitingNotificationResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, txnAwaitingNotificationResponse, allowedEntityFields);
 		if(model.getTxnNotificationStatus() != null)
 			txnAwaitingNotificationResponse.setTxnNotificationStatusId(model.getTxnNotificationStatus().getId());
 			txnAwaitingNotificationResponse.setTxnNotificationStatusText(model.getTxnNotificationStatus().getName());
@@ -325,6 +325,6 @@ private static final String LIST_ITEM_SERVICETRANSACTION = "serviceTransaction";
 	public List<TxnAwaitingNotification> getTransactionsAwaitingNotification() throws ApplicationException {
 		Map<String, String> criteria = new HashMap<String, String>();
 		criteria.put("txnNotificationStatus.code", TxnNotificationStatusService.NOT_SENT);
-		return this.findByCriteria(criteria);
+		return findByCriteria(criteria);
 	}
 }

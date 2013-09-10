@@ -43,6 +43,36 @@ public class AdviceRequest extends BaseRequest {
     public AdviceRequest() {
     }
     
+	/**
+	 * @param customerId
+	 * @param currencyId
+	 * @param adviceStatusId
+	 * @param adviceClassificationId
+	 * @param customerAccountId
+	 * @param adviceTypeId
+	 * @param name
+	 * @param cardNo
+	 * @param chequeNo
+	 * @param amount
+	 * @param maxMatches
+	 * @param matchCount
+	 */
+	public AdviceRequest(Integer adviceTypeId, Integer adviceClassificationId, 
+			Integer adviceStatusId, Integer customerId, Integer customerAccountId, 
+			Integer currencyId,	 String code, String cardNo, String chequeNo, BigDecimal amount) {
+		super();
+		this.customerId = customerId;
+		this.currencyId = currencyId;
+		this.adviceStatusId = adviceStatusId;
+		this.adviceClassificationId = adviceClassificationId;
+		this.customerAccountId = customerAccountId;
+		this.adviceTypeId = adviceTypeId;
+		this.setCode(code);
+		this.cardNo = cardNo;
+		this.chequeNo = chequeNo;
+		this.amount = amount;
+	}
+
 	public Integer getCustomerId() {
         return this.customerId;
     }

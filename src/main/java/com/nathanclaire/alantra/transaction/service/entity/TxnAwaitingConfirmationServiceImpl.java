@@ -25,7 +25,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.transaction.model.ServiceTransaction;
 import com.nathanclaire.alantra.transaction.model.TxnAwaitingConfirmation;
 import com.nathanclaire.alantra.transaction.model.TxnConfirmationStatus;
@@ -190,7 +190,7 @@ private static final String LIST_ITEM_SERVICETRANSACTION = "serviceTransaction";
 		TxnAwaitingConfirmation txnAwaitingConfirmation = new TxnAwaitingConfirmation();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(txnAwaitingConfirmationRequest, txnAwaitingConfirmation, allowedEntityFields);
+		PropertyUtil.copyProperties(txnAwaitingConfirmationRequest, txnAwaitingConfirmation, allowedEntityFields);
     	//Process many to one relationships
         if (txnAwaitingConfirmationRequest.getTxnConfirmationStatusId() != null)
     	{
@@ -210,7 +210,7 @@ private static final String LIST_ITEM_SERVICETRANSACTION = "serviceTransaction";
 		if (model == null) return null;
 		TxnAwaitingConfirmationResponse txnAwaitingConfirmationResponse = new TxnAwaitingConfirmationResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, txnAwaitingConfirmationResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, txnAwaitingConfirmationResponse, allowedEntityFields);
 		if(model.getTxnConfirmationStatus() != null)
 			txnAwaitingConfirmationResponse.setTxnConfirmationStatusId(model.getTxnConfirmationStatus().getId());
 			txnAwaitingConfirmationResponse.setTxnConfirmationStatusText(model.getTxnConfirmationStatus().getName());

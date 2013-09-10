@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.customer.service.entity.CustomerTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -196,7 +196,7 @@ public class CustomerTypeTransactionLimitServiceImpl
 		CustomerTypeTransactionLimit customerTypeTransactionLimit = new CustomerTypeTransactionLimit();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(customerTypeTransactionLimitRequest, customerTypeTransactionLimit, allowedEntityFields);
+		PropertyUtil.copyProperties(customerTypeTransactionLimitRequest, customerTypeTransactionLimit, allowedEntityFields);
     	//Process many to one relationships
     	if (customerTypeTransactionLimitRequest.getServiceTransactionTypeId() != null)
     	{
@@ -221,7 +221,7 @@ public class CustomerTypeTransactionLimitServiceImpl
 		if (model == null) return null;
 		CustomerTypeTransactionLimitResponse customerTypeTransactionLimitResponse = new CustomerTypeTransactionLimitResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, customerTypeTransactionLimitResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, customerTypeTransactionLimitResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getServiceTransactionType() != null)
 			customerTypeTransactionLimitResponse.setServiceTransactionTypeId(model.getServiceTransactionType().getId());

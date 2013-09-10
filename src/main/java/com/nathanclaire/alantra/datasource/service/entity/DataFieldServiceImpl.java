@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -196,7 +196,7 @@ public class DataFieldServiceImpl
 		DataField dataField = new DataField();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(dataFieldRequest, dataField, allowedEntityFields);
+		PropertyUtil.copyProperties(dataFieldRequest, dataField, allowedEntityFields);
     	//Process many to one relationships
     	if (dataFieldRequest.getDataTransformerId() != null)
     	{
@@ -221,7 +221,7 @@ public class DataFieldServiceImpl
 		if (model == null) return null;
 		DataFieldResponse dataFieldResponse = new DataFieldResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, dataFieldResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, dataFieldResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
 		if(model.getDataTransformer() != null)
 			dataFieldResponse.setDataTransformerId(model.getDataTransformer().getId());

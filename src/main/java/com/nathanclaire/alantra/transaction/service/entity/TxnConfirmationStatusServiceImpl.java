@@ -30,7 +30,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.response.ListItemResponse;
 import com.nathanclaire.alantra.base.service.entity.BaseEntityServiceImpl;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.PropertyUtils;
+import com.nathanclaire.alantra.base.util.PropertyUtil;
 
 /**
  * @author Edward Banfa
@@ -182,7 +182,7 @@ public class TxnConfirmationStatusServiceImpl
 		TxnConfirmationStatus txnConfirmationStatus = new TxnConfirmationStatus();
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(txnConfirmationStatusRequest, txnConfirmationStatus, allowedEntityFields);
+		PropertyUtil.copyProperties(txnConfirmationStatusRequest, txnConfirmationStatus, allowedEntityFields);
     	//Process many to one relationships
 		return txnConfirmationStatus;
 	}
@@ -192,7 +192,7 @@ public class TxnConfirmationStatusServiceImpl
 		if (model == null) return null;
 		TxnConfirmationStatusResponse txnConfirmationStatusResponse = new TxnConfirmationStatusResponse();
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
-		PropertyUtils.copyProperties(model, txnConfirmationStatusResponse, allowedEntityFields);
+		PropertyUtil.copyProperties(model, txnConfirmationStatusResponse, allowedEntityFields);
 		return txnConfirmationStatusResponse;
 	}
 

@@ -15,7 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.datasource.model.CellData;
+import com.nathanclaire.alantra.datasource.model.DataCell;
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.datasource.request.CellDataRequest;
 import com.nathanclaire.alantra.datasource.response.CellDataResponse;
@@ -63,7 +63,7 @@ public class CellDataRESTService extends BaseActivityRESTService<CellDataRespons
 		response.setFields(responseFields);
 		// Load the list of CellData's
 		List<CellDataResponse> dataItems = new ArrayList<CellDataResponse>();
-		for (CellData item:cellDataService.findAll(queryParameters))
+		for (DataCell item:cellDataService.findAll(queryParameters))
 		{
 			dataItems.add(cellDataService.convertModelToResponse(item));
 		}
@@ -111,8 +111,8 @@ public class CellDataRESTService extends BaseActivityRESTService<CellDataRespons
 	@Override
 	protected EditActivityResponse<CellDataResponse> saveEntityInstance(
 			CellDataRequest entityInstance) throws ApplicationException {
-		CellData cellData = cellDataService.create(entityInstance);
-		return this.getEditActivityResponse(cellData.getId());
+		DataCell dataCell = cellDataService.create(entityInstance);
+		return this.getEditActivityResponse(dataCell.getId());
 	}
 	
 	/* (non-Javadoc)
@@ -121,8 +121,8 @@ public class CellDataRESTService extends BaseActivityRESTService<CellDataRespons
 	@Override
 	protected EditActivityResponse<CellDataResponse> saveEditedEntityInstance(
 			CellDataRequest entityInstance) throws ApplicationException {
-		CellData cellData = cellDataService.update(entityInstance);
-		return this.getEditActivityResponse(cellData.getId());
+		DataCell dataCell = cellDataService.update(entityInstance);
+		return this.getEditActivityResponse(dataCell.getId());
 	}
 	
 	@Override
