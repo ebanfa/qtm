@@ -18,6 +18,12 @@ public class TableData {
 	private Integer dataInputId;
 	private Integer jobSummaryId;
 	private Integer dataStructureId;
+	private String businessObjectClassName;
+    private String  primEntityName;
+    private Integer primEntityRecordsCreated=0;
+    private Integer primEntityRecordsRejected=0;
+    private Integer primEntityInputPercenatge=0;
+    private Character inputStatusFg = 'C';
 	
 	private Integer userId;
 	private Integer customerId;
@@ -28,17 +34,6 @@ public class TableData {
     private Integer recordsRead=0;
     private Integer recordsRejected=0;
     private Integer recordsReadPercentage=0;
-    private String  primEntityName;
-    private Integer primEntityRecordsCreated=0;
-    private Integer primEntityRecordsRejected=0;
-    private Integer primEntityInputPercenatge=0;
-    private String  secEntityName;
-    private Integer secEntityRecordsCreated=0;
-    private Integer secEntityRecordsRejected=0;
-    private Integer secEntityInputPercenatge=0;
-    private Integer totalEntitiesCreated=0;
-    private Integer totalEntitiesRejected=0;
-    private Integer totalEntitiesInputPercentage;
     private Integer txnsMatched=0;
     private Integer txnsUnmatched =0;
     private String  txnMatchPercentage;
@@ -46,7 +41,7 @@ public class TableData {
 	private String statusText;
 	private String statusDescription;
 
-	private List<RowDataLite> rows = new ArrayList<RowDataLite>();
+	private List<RowData> rows = new ArrayList<RowData>();
 
 	/**
 	 * @return the tableInputStatus
@@ -189,104 +184,6 @@ public class TableData {
 	}
 
 	/**
-	 * @return the secEntityName
-	 */
-	public String getSecEntityName() {
-		return secEntityName;
-	}
-
-	/**
-	 * @param secEntityName the secEntityName to set
-	 */
-	public void setSecEntityName(String secEntityName) {
-		this.secEntityName = secEntityName;
-	}
-
-	/**
-	 * @return the secEntityRecordsCreated
-	 */
-	public Integer getSecEntityRecordsCreated() {
-		return secEntityRecordsCreated;
-	}
-
-	/**
-	 * @param secEntityRecordsCreated the secEntityRecordsCreated to set
-	 */
-	public void setSecEntityRecordsCreated(Integer secEntityRecordsCreated) {
-		this.secEntityRecordsCreated = secEntityRecordsCreated;
-	}
-
-	/**
-	 * @return the secEntityRecordsRejected
-	 */
-	public Integer getSecEntityRecordsRejected() {
-		return secEntityRecordsRejected;
-	}
-
-	/**
-	 * @param secEntityRecordsRejected the secEntityRecordsRejected to set
-	 */
-	public void setSecEntityRecordsRejected(Integer secEntityRecordsRejected) {
-		this.secEntityRecordsRejected = secEntityRecordsRejected;
-	}
-
-	/**
-	 * @return the secEntityInputPercenatge
-	 */
-	public Integer getSecEntityInputPercenatge() {
-		return secEntityInputPercenatge;
-	}
-
-	/**
-	 * @param secEntityInputPercenatge the secEntityInputPercenatge to set
-	 */
-	public void setSecEntityInputPercenatge(Integer secEntityInputPercenatge) {
-		this.secEntityInputPercenatge = secEntityInputPercenatge;
-	}
-
-	/**
-	 * @return the totalEntitiesCreated
-	 */
-	public Integer getTotalEntitiesCreated() {
-		return totalEntitiesCreated;
-	}
-
-	/**
-	 * @param totalEntitiesCreated the totalEntitiesCreated to set
-	 */
-	public void setTotalEntitiesCreated(Integer totalEntitiesCreated) {
-		this.totalEntitiesCreated = totalEntitiesCreated;
-	}
-
-	/**
-	 * @return the totalEntitiesRejected
-	 */
-	public Integer getTotalEntitiesRejected() {
-		return totalEntitiesRejected;
-	}
-
-	/**
-	 * @param totalEntitiesRejected the totalEntitiesRejected to set
-	 */
-	public void setTotalEntitiesRejected(Integer totalEntitiesRejected) {
-		this.totalEntitiesRejected = totalEntitiesRejected;
-	}
-
-	/**
-	 * @return the totalEntitiesInputPercentage
-	 */
-	public Integer getTotalEntitiesInputPercentage() {
-		return totalEntitiesInputPercentage;
-	}
-
-	/**
-	 * @param totalEntitiesInputPercentage the totalEntitiesInputPercentage to set
-	 */
-	public void setTotalEntitiesInputPercentage(Integer totalEntitiesInputPercentage) {
-		this.totalEntitiesInputPercentage = totalEntitiesInputPercentage;
-	}
-
-	/**
 	 * @return the txnsMatched
 	 */
 	public Integer getTxnsMatched() {
@@ -331,14 +228,14 @@ public class TableData {
 	/**
 	 * @return the rows
 	 */
-	public List<RowDataLite> getRows() {
+	public List<RowData> getRows() {
 		return rows;
 	}
 
 	/**
 	 * @param rows the rows to set
 	 */
-	public void setRows(List<RowDataLite> rows) {
+	public void setRows(List<RowData> rows) {
 		this.rows = rows;
 	}
 
@@ -509,6 +406,43 @@ public class TableData {
 	 */
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "TableData [primEntityName=" + primEntityName + ", errors="
+				+ errors + ", rows=" + rows.size() + "]";
+	}
+
+	/**
+	 * @return the businessObjectClassName
+	 */
+	public String getBusinessObjectClassName() {
+		return businessObjectClassName;
+	}
+
+	/**
+	 * @param businessObjectClassName the businessObjectClassName to set
+	 */
+	public void setBusinessObjectClassName(String businessObjectClassName) {
+		this.businessObjectClassName = businessObjectClassName;
+	}
+
+	/**
+	 * @return the inputStatusFg
+	 */
+	public Character getInputStatusFg() {
+		return inputStatusFg;
+	}
+
+	/**
+	 * @param inputStatusFg the inputStatusFg to set
+	 */
+	public void setInputStatusFg(Character inputStatusFg) {
+		this.inputStatusFg = inputStatusFg;
 	}
 	
 	

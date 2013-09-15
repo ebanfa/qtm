@@ -261,11 +261,12 @@ public class TransactionRuleConfigurationServiceImpl extends BaseProcessService
 		Rule rule = null;
 		logger.debug("Processing entity rule definition {}", transactionRule);
 		try {
+			String processCategoryCode = transactionRule.getApplicationModule().getCode();
 			Set<TransactionRuleCondition> transactionRuleConditions = transactionRule.getTransactionRuleConditions();
 			RuleAction ruleAction = loadRuleAction(transactionRule.getTransactionRuleAction());
 			List<RuleCondition> conditions = loadRuleConditions(transactionRuleConditions);
 			 rule = new QTMRule(transactionRule.getCode(), transactionRule.getName(), 
-					 transactionRule.getOperatorModeFg().toString(), ruleAction, conditions);
+					 transactionRule.getOperatorModeFg().toString(), ruleAction, processCategoryCode, conditions);
 				logger.debug("Successfully loaded rule {}", rule);
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.TRCS_RULE_CONFIG_ERROR_CD);

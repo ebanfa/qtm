@@ -15,11 +15,13 @@ import com.nathanclaire.alantra.rule.engine.RuleCondition;
  */
 public class QTMRule implements Rule {
 
+	
 	private String code;
 	private String name;
 	private String conditionMode;
 	private RuleAction ruleAction;
 	private Boolean active;
+	private String processCategoryCode;
 	private List<RuleCondition> ruleConditions;
 	
 	/**
@@ -35,6 +37,25 @@ public class QTMRule implements Rule {
 		this.name = name;
 		this.conditionMode = conditionMode;
 		this.ruleAction = ruleAction;
+		this.ruleConditions = ruleConditions;
+	}
+	/**
+	 * @param code
+	 * @param name
+	 * @param conditionMode
+	 * @param ruleAction
+	 * @param active
+	 * @param processCategoryCode
+	 * @param ruleConditions
+	 */
+	public QTMRule(String code, String name, String conditionMode,
+			RuleAction ruleAction, String processCategoryCode,
+			List<RuleCondition> ruleConditions) {
+		this.code = code;
+		this.name = name;
+		this.conditionMode = conditionMode;
+		this.ruleAction = ruleAction;
+		this.processCategoryCode = processCategoryCode;
 		this.ruleConditions = ruleConditions;
 	}
 	/**
@@ -135,5 +156,17 @@ public class QTMRule implements Rule {
 		return "QTMRule [code=" + code + ", name=" + name + ", conditionMode="
 				+ conditionMode + ", ruleAction=" + ruleAction + ", active="
 				+ active + "]";
+	}
+	/**
+	 * @return the processCategoryCode
+	 */
+	public String getProcessCategoryCode() {
+		return processCategoryCode;
+	}
+	/**
+	 * @param processCategoryCode the processCategoryCode to set
+	 */
+	public void setProcessCategoryCode(String processCategoryCode) {
+		this.processCategoryCode = processCategoryCode;
 	}
 }

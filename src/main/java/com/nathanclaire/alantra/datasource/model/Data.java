@@ -95,8 +95,6 @@ public class Data  extends BaseEntity implements java.io.Serializable {
     {
         this.dataStructure = dataStructure;
     }
-    		
-    
 		
     @Column(name="NAME" , nullable=false, length=150)
     public String getName() 

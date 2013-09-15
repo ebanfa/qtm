@@ -44,6 +44,9 @@ public class EntityNames{
 		entityNames.put("DataInputJobStatus", "Data Input Job Status");
 		entityNames.put("DataStructure", "Data Structure");
 		entityNames.put("DataField", "Data Field");
+		entityNames.put("TransformationMap", "Transformation Map");
+		entityNames.put("TransformationMapItem", "Transformation Item Map");
+		entityNames.put("DataFieldMap", "Data Field Map");
 		entityNames.put("DataTransformer", "DataTransformer");
 		entityNames.put("DataTable", "Data Table");
 		entityNames.put("DataRow", "Data Row");

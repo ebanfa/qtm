@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.channel.config.ChannelConfiguration;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 
 /**
  * @author Edward Banfa

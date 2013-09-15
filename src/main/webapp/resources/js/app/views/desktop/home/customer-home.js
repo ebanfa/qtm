@@ -8,7 +8,7 @@ define([
 
         render:function () {
             utilities.applyTemplate($(this.el), homeTemplate, {});
-            
+            $("#tabber").tabs({active: 1});
             return this;
         }
     });

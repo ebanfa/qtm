@@ -35,7 +35,7 @@ public class DataTransformer  extends BaseEntity implements java.io.Serializable
 
     private String name;
     private String description;
-	private Set<DataField> dataFields = new HashSet<DataField>(0);
+	private Set<DataFieldMap> dataFieldMaps = new HashSet<DataFieldMap>(0);
 
     public DataTransformer() {
     }
@@ -49,7 +49,7 @@ public class DataTransformer  extends BaseEntity implements java.io.Serializable
 		this.createdDt = createdDt;
 		this.createdByUsr = createdByUsr;
     }
-    public DataTransformer(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataField> dataFields ) 
+    public DataTransformer(String code, String name, String description, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataFieldMap> dataFieldMaps ) 
     {
 		this.code = code;
 		this.name = name;
@@ -60,7 +60,7 @@ public class DataTransformer  extends BaseEntity implements java.io.Serializable
 		this.createdByUsr = createdByUsr;
 		this.lastModifiedDt = lastModifiedDt;
 		this.lastModifiedUsr = lastModifiedUsr;
-		this.dataFields = dataFields;
+		this.dataFieldMaps = dataFieldMaps;
     }
     
 		
@@ -88,14 +88,14 @@ public class DataTransformer  extends BaseEntity implements java.io.Serializable
 			
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataTransformer")
     @JsonIgnore
-    public Set<DataField> getDataFields() 
+    public Set<DataFieldMap> getDataFieldMaps() 
     {
-        return this.dataFields;
+        return this.dataFieldMaps;
     }
     
-    public void setDataFields(Set<DataField> dataFields) 
+    public void setDataFieldMaps(Set<DataFieldMap> dataFieldMaps) 
     {
-        this.dataFields = dataFields;
+        this.dataFieldMaps = dataFieldMaps;
     }			
 
 

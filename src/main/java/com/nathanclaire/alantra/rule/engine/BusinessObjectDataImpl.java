@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.channel.handler;
+package com.nathanclaire.alantra.rule.engine;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,22 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	private Boolean routed;
 	private Boolean processed;
 	private String businessObjectName;
+	private String businessObjectClassName;
+	private String processCategoryCode;
 	private Map<String, Object> dataValues = new HashMap<String, Object>();
+	
+	/**
+	 * 
+	 */
+	public BusinessObjectDataImpl() {
+	}
+
+	/**
+	 * @param businessObjectName
+	 */
+	public BusinessObjectDataImpl(String businessObjectName) {
+		this.businessObjectName = businessObjectName;
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.channel.service.process.netty.handler.BusinessObjectData#getDataValue(java.lang.String)
@@ -36,7 +51,6 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	 */
 	@Override
 	public void setDataValue(String dataValueName, Object dataValue) {
-		System.out.println("Setting data:" + dataValueName);
 		dataValues.put(dataValueName, dataValue);
 	}
 
@@ -74,7 +88,7 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	@Override
 	public Boolean isInboundBusinessObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -83,7 +97,7 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	@Override
 	public Boolean isForwardBusinessObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -92,7 +106,7 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	@Override
 	public Boolean isOutboundBusinessObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -162,6 +176,34 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	@Override
 	public String toString() {
 		return "BusinessObjectDataImpl [businessObjectName="
-				+ businessObjectName + ", dataValues=" + dataValues + "]";
+				+ businessObjectName + ", businessObjectClassName= " + businessObjectClassName + ", dataValues=" + dataValues + "]";
+	}
+
+	/**
+	 * @return the businessObjectClassName
+	 */
+	public String getBusinessObjectClassName() {
+		return businessObjectClassName;
+	}
+
+	/**
+	 * @param businessObjectClassName the businessObjectClassName to set
+	 */
+	public void setBusinessObjectClassName(String businessObjectClassName) {
+		this.businessObjectClassName = businessObjectClassName;
+	}
+
+	/**
+	 * @return the processCategoryCode
+	 */
+	public String getProcessCategoryCode() {
+		return processCategoryCode;
+	}
+
+	/**
+	 * @param processCategoryCode the processCategoryCode to set
+	 */
+	public void setProcessCategoryCode(String processCategoryCode) {
+		this.processCategoryCode = processCategoryCode;
 	}
 }

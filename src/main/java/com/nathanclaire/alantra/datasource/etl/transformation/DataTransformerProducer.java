@@ -12,6 +12,6 @@ import com.nathanclaire.alantra.datasource.model.DataField;
  */
 public interface DataTransformerProducer {
 	
-	public DataTransformer getDataTransformer(DataField field) throws ApplicationException;
+	public DataTransformer getDataTransformer(String transformerCode) throws ApplicationException;
 
 }

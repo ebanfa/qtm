@@ -33,7 +33,8 @@ public class JobServiceImpl extends BaseProcessService implements JobService {
 	public void startAllJobs() throws ApplicationException {
 		try {
 			for(DataInputJob inputJob : dataInputService.getAllRunnableJobs())
-				if(dataInputService.isReadyToRun(inputJob))	this.startJob(inputJob);
+				if(dataInputService.isReadyToRun(inputJob) && inputJob.getRecSt() == ENTITY_STATUS_ACTIVE)	
+					this.startJob(inputJob);
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.JS_DATA_INPUT_JOB_START_ERROR_CD);
 		}

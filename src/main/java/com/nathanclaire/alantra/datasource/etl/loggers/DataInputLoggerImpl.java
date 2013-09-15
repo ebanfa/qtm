@@ -11,7 +11,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.DateUtil;
 import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 import com.nathanclaire.alantra.datasource.model.DataRow;
@@ -45,16 +45,10 @@ public class DataInputLoggerImpl implements DataInputLogger {
 		tableDataRequest.setPrimRecCreated(tableData.getPrimEntityRecordsCreated());
 		tableDataRequest.setPrimRecRead(tableData.getPrimEntityRecordsRead());
 		tableDataRequest.setPrimRecRejected(tableData.getPrimEntityRecordsRejected());
-		tableDataRequest.setSecRecCreated(tableData.getSecEntityRecordsCreated());
-		tableDataRequest.setSecRecRead(tableData.getSecEntityRecordsRead());
-		tableDataRequest.setSecRecRejected(tableData.getSecEntityRecordsRejected());
-		tableDataRequest.setTotRecCreated(tableData.getTotalEntitiesCreated());
-		tableDataRequest.setTotRecRead(tableData.getTotalEntitiesRead());
-		tableDataRequest.setTotRecRejected(tableData.getTotalEntitiesRejected());
 		// 3. Create the table data entity
 		DataTable dataTable = null;//dataTableService.createTableData(tableDataRequest);
 		// 4. For each row in table data method param
-		for(RowDataLite rowDataLite : tableData.getRows())
+		for(RowData rowData : tableData.getRows())
 		{
 			// 5. Initialize a row data request
 			RowDataRequest rowDataRequest = new RowDataRequest();
@@ -62,7 +56,7 @@ public class DataInputLoggerImpl implements DataInputLogger {
 			rowDataRequest.setCode(inputJob.getCode() + DateUtil.getCurrentTimeInMilliSeconds().toString());
 			rowDataRequest.setName(inputJob.getName() + inputJob.getCode() + DateUtil.getCurrentTimeInMilliSeconds().toString());
 			// 6. Set required properties
-			if(rowDataLite.isHeaderRow())
+			if(rowData.isHeaderRow())
 				rowDataRequest.setIsHeaderFg(BaseEntityService.ENTITY_FLAG_YES);
 			else 
 				rowDataRequest.setIsHeaderFg(BaseEntityService.ENTITY_FLAG_NO);
@@ -71,7 +65,7 @@ public class DataInputLoggerImpl implements DataInputLogger {
 			rowDataRequest.setCode(DateUtil.getCurrentTimeInMilliSeconds().toString());
 			DataRow dataRow = null;//dataTableService.createRowData(rowDataRequest);
 			//  8. For each cell data in cell data in row data from param
-			for(CellData cellData: rowDataLite.getColumns())
+			for(CellData cellData: rowData.getColumns())
 			{
 				// 9. Initialize a cell data request
 				CellDataRequest cellDataRequest = new CellDataRequest();

@@ -137,8 +137,8 @@ public class DataInputServiceImpl extends BaseProcessService implements
 		logger.debug("Loading all runnable jobs ...");
 		List<DataInputJob> allRunnableJobs = new ArrayList<DataInputJob>();
 		try {
-			allRunnableJobs.addAll(this.getJobsByStatus(DataInputJobStatusService.NOT_RUNNING));
-			allRunnableJobs.addAll(this.getJobsByStatus(DataInputJobStatusService.PROCESSING_CYCLES));
+			allRunnableJobs.addAll(getJobsByStatus(DataInputJobStatusService.NOT_RUNNING));
+			allRunnableJobs.addAll(getJobsByStatus(DataInputJobStatusService.RUNNING));
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.DIS_LOAD_RUNNABLE_JOBS_ERROR_CD);
 		}
@@ -171,7 +171,8 @@ public class DataInputServiceImpl extends BaseProcessService implements
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.DIS_RESOLVE_RUNNABLE_JOB_ERROR_CD);
 		}
-		return false;
+		// TODO Change this!!!
+		return true;
 	}
 
 	/* (non-Javadoc)

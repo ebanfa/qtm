@@ -18,6 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.nathanclaire.alantra.application.model.ApplicationModule;
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.rule.model.TransactionRuleType;
 import com.nathanclaire.alantra.rule.model.TransactionRuleAction;
@@ -40,6 +41,7 @@ import com.nathanclaire.alantra.rule.model.TransactionRuleCondition;
 public class TransactionRule  extends BaseEntity implements java.io.Serializable {
 	private TransactionRuleType transactionRuleType;
 	private TransactionRuleAction transactionRuleAction;
+	private ApplicationModule applicationModule;
 	private String name;
 	private Character operatorModeFg;
 	private String description;
@@ -163,7 +165,24 @@ public class TransactionRule  extends BaseEntity implements java.io.Serializable
     public void setTransactionRuleConditions(Set<TransactionRuleCondition> transactionRuleConditions) 
     {
         this.transactionRuleConditions = transactionRuleConditions;
-    }			
+    }
+
+	/**
+	 * @return the applicationModule
+	 */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="PROCESS_CAT_ID")
+    @JsonIgnore
+	public ApplicationModule getApplicationModule() {
+		return applicationModule;
+	}
+
+	/**
+	 * @param applicationModule the applicationModule to set
+	 */
+	public void setApplicationModule(ApplicationModule applicationModule) {
+		this.applicationModule = applicationModule;
+	}			
 		
     
 

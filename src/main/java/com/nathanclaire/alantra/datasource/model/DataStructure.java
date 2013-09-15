@@ -38,8 +38,7 @@ public class DataStructure  extends BaseEntity implements java.io.Serializable {
     private Character dsStructDelimeter;
     private Character skipFirstFg;
     private Character strictFg;
-    private String targetPriEntityCd;
-    private String targetSecEntityCd;
+    private String businessObjectCd;
 	private Set<DataField> dataFields = new HashSet<DataField>(0);
 	private Set<Data> datas = new HashSet<Data>(0);
 
@@ -50,8 +49,7 @@ public class DataStructure  extends BaseEntity implements java.io.Serializable {
     {
 		this.code = code;
 		this.name = name;
-		this.targetPriEntityCd = targetPriEntityCd;
-		this.targetSecEntityCd = targetSecEntityCd;
+		this.businessObjectCd = targetPriEntityCd;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -65,8 +63,7 @@ public class DataStructure  extends BaseEntity implements java.io.Serializable {
 		this.dsStructDelimeter = dsStructDelimeter;
 		this.skipFirstFg = skipFirstFg;
 		this.strictFg = strictFg;
-		this.targetPriEntityCd = targetPriEntityCd;
-		this.targetSecEntityCd = targetSecEntityCd;
+		this.businessObjectCd = targetPriEntityCd;
 		this.effectiveDt = effectiveDt;
 		this.recSt = recSt;
 		this.createdDt = createdDt;
@@ -133,28 +130,17 @@ public class DataStructure  extends BaseEntity implements java.io.Serializable {
         this.strictFg = strictFg;
     }
 		
-    @Column(name="TARGET_PRI_ENTITY_CD" , nullable=false, length=75)
-    public String getTargetPriEntityCd() 
+    @Column(name="BUSINESS_OBJECT_CD" , nullable=false, length=75)
+    public String getBusinessObjectCd() 
     {
-        return this.targetPriEntityCd;
+        return this.businessObjectCd;
     }
     
-    public void setTargetPriEntityCd(String targetPriEntityCd) 
+    public void setBusinessObjectCd(String businessObjectCd) 
     {
-        this.targetPriEntityCd = targetPriEntityCd;
+        this.businessObjectCd = businessObjectCd;
     }
-		
-    @Column(name="TARGET_SEC_ENTITY_CD" , nullable=false, length=75)
-    public String getTargetSecEntityCd() 
-    {
-        return this.targetSecEntityCd;
-    }
-    
-    public void setTargetSecEntityCd(String targetSecEntityCd) 
-    {
-        this.targetSecEntityCd = targetSecEntityCd;
-    }
-			
+					
     @OneToMany(fetch=FetchType.LAZY, mappedBy="dataStructure")
     @JsonIgnore
     public Set<DataField> getDataFields() 

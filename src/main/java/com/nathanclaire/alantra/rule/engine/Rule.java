@@ -13,6 +13,8 @@ public interface Rule {
 	
 	public String getName();
 	
+	public String getProcessCategoryCode();
+	
 	public String getCode();
 	
 	public String getConditionMode();

@@ -4,7 +4,7 @@
 package com.nathanclaire.alantra.rule.action.validation;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.RuleAction;
 
 /**

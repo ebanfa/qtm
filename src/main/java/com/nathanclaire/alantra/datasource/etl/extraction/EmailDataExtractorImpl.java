@@ -21,7 +21,7 @@ import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.annotation.etl.EmailDataExtractor;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.Data;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
@@ -70,7 +70,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processStringDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
 	@Override
-	protected CellData processStringDataField(DataField dataField, CellData cellData, String data, RowDataLite currentRow) 
+	protected CellData processStringDataField(DataField dataField, CellData cellData, String data, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(StringUtil.isValidString(data))
@@ -84,7 +84,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processIntegerDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
 	@Override
-	protected CellData processIntegerDataField(DataField dataField, CellData cellData, String data, RowDataLite currentRow) 
+	protected CellData processIntegerDataField(DataField dataField, CellData cellData, String data, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(StringUtil.isValidString(data))
@@ -104,7 +104,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDecimalDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
 	@Override
-	protected CellData processDecimalDataField(DataField dataField, CellData cellData, String data, RowDataLite currentRow) 
+	protected CellData processDecimalDataField(DataField dataField, CellData cellData, String data, RowData currentRow) 
 			throws ApplicationException 
 	{
 		// Clean decimal fields
@@ -127,7 +127,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDateDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
 	@Override
-	protected CellData processDateDataField(DataField dataField, CellData cellData, String data, RowDataLite currentRow) 
+	protected CellData processDateDataField(DataField dataField, CellData cellData, String data, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(StringUtil.isValidString(data)) {
@@ -142,7 +142,7 @@ public class EmailDataExtractorImpl  extends BaseDataExtractor<String> implement
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processRelationshipDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
 	@Override
-	protected CellData processRelationshipDataField(DataField dataField, CellData cellData, String data, RowDataLite currentRow) 
+	protected CellData processRelationshipDataField(DataField dataField, CellData cellData, String data, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(StringUtil.isValidString(data))

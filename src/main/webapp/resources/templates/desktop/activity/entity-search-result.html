@@ -9,15 +9,30 @@
                 <%
                 _.each(model.fields, function (field) {
                 %>  
-                    <% if  (field.name == "id") { %> 
-                    <% } else if  (field.name == "lastModifiedDt") { %>
-                    <% } else if  (field.name == "lastModifiedUsr") { %>
-                    <% } else if  (field.name == "createdDt") { %>
-                    <% } else { %> 
-                        <th>
-                            <div class="hideextra" style="width:150px"><%=field.description%></div>
-                        </th>  
-                    <% }  %>
+                	<% if  (field.applicationEntityFieldTypeText == "RELATIONSHIP") { %>
+	                        <th>
+	                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+	                        </th>  
+                	<% } else { %>
+	                    <% if  (field.name == "name") { %> 
+	                        <th>
+	                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+	                        </th>  
+	                    <% } else if  (field.name == "code") { %>
+	                        <th>
+	                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+	                        </th>  
+	                    <% } else if  (field.name == "description") { %>
+	                        <th>
+	                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+	                        </th>  
+	                    <% } else if  (field.name == "effectiveDt") { %>
+	                        <th>
+	                            <div class="hideextra" style="width:150px"><%=field.description%></div>
+	                        </th>  
+	                    <% } else { %> 
+	                    <% }  %>
+	               <% }  %>
 
                 <% }); %>                           
                     </tr>
@@ -64,15 +79,24 @@
                                     <%= activity[field.name] ? activity[field.name] : '' %>
                                 </a>
                             </div>
-                        </td>    
-                            <% } else { %> 
+                        </td>     
+                            <% } else if  (field.name == "description") { %>
                         <td class="td-actions">
-                            <div class="hideextra  other-field-cell" style="width:150px">
-                                <a href="#view/<%=model.activityUrl%>/<%=activity.id%>">
+                            <div class="hideextra  name-field-cell" style="width:150px">
+                                <a href="<%=activity.id%>">
                                     <%= activity[field.name] ? activity[field.name] : '' %>
                                 </a>
                             </div>
-                        </td>   
+                        </td>     
+                            <% } else if  (field.name == "effectiveDt") { %>
+                        <td class="td-actions">
+                            <div class="hideextra  name-field-cell" style="width:150px">
+                                <a href="<%=activity.id%>">
+                                    <%= activity[field.name] ? activity[field.name] : '' %>
+                                </a>
+                            </div>
+                        </td>    
+                            <% } else { %> 
                             <% }  %>   <!-- End if -->                  
                          
                         <% }  %>    <!-- End if --> 

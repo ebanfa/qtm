@@ -25,8 +25,8 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectDataImpl;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectDataImpl;
 
 /**
  * Represents an object that knows how to decode a

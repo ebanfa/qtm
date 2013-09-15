@@ -120,20 +120,11 @@ public class DataServiceImpl extends BaseProcessService implements DataService {
 	 * @see com.nathanclaire.alantra.datasource.service.process.DataService#getPrimaryEntityCode(com.nathanclaire.alantra.datasource.model.Data)
 	 */
 	@Override
-	public String getPrimaryEntityCode(Data data) throws ApplicationException {
+	public String getBusinessObjectCode(Data data) throws ApplicationException {
 		EntityUtil.returnOrThrowIfParamsArrayContainsNull( new Object[] {data, ((data != null) ? data.getDataStructure():null)});
-		return data.getDataStructure().getTargetPriEntityCd();
+		return data.getDataStructure().getBusinessObjectCd();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.service.process.DataService#getSecondaryEntityCode(com.nathanclaire.alantra.datasource.model.Data)
-	 */
-	@Override
-	public String getSecondaryEntityCode(Data data) throws ApplicationException {
-		EntityUtil.returnOrThrowIfParamsArrayContainsNull( new Object[] {data,  ((data != null) ? data.getDataStructure():null)});
-		return data.getDataStructure().getTargetSecEntityCd();
-	}
-	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.service.process.DataService#getDataStructure(com.nathanclaire.alantra.datasource.model.DataInputJob)
 	 */

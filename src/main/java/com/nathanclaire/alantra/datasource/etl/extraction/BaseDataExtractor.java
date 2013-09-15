@@ -16,8 +16,9 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
+import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.Data;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
@@ -87,25 +88,30 @@ public abstract class BaseDataExtractor<T> {
 			}
 			logger.debug("Row has {} columns ", row.length);
 			// Fetch all columns in a given row
-			RowDataLite currentRow = new RowDataLite();
+			RowData currentRow = new RowData();
 			for(int i = 0; i < row.length; i++) 
 			{
 				for(DataField dataField:dataFields)
 					if(dataField.getSeqNo() == (i + 1))
 					{
-						CellData cellData = getCellData(dataField, row[i], currentRow);
-						cellData.setDataFieldId(dataField.getId());
-						currentRow.getColumns().add(cellData);
+						if(!StringUtil.flagToBoolean(dataField.getVirtualField())){
+
+							CellData cellData = getCellData(dataField, row[i], currentRow);
+							cellData.setDataFieldId(dataField.getId());
+							currentRow.getColumns().add(cellData);
+						}
 					}
 			}
+			currentRow.setTableData(tableToBePopulated);
 			tableToBePopulated.getRows().add(currentRow);
+			tableToBePopulated.setPrimEntityName(dataStructure.getBusinessObjectCd());
 			rowCount++;
 			recordsRead ++;
 		}
 		return recordsRead;
 	}
 	
-	protected CellData getCellData(DataField dataField, T data, RowDataLite currentRow) throws ApplicationException
+	protected CellData getCellData(DataField dataField, T data, RowData currentRow) throws ApplicationException
 	{
 		EntityUtil.returnOrThrowIfParamsArrayContainsNull(
 				new Object[] {dataField, data, currentRow, (dataField!=null) ? dataField.getDataFieldType(): null});
@@ -143,7 +149,7 @@ public abstract class BaseDataExtractor<T> {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract CellData processStringDataField(DataField dataField, CellData cellData, T data, RowDataLite currentRow) throws ApplicationException;
+	protected abstract CellData processStringDataField(DataField dataField, CellData cellData, T data, RowData currentRow) throws ApplicationException;
 	
 	/**
 	 * @param dataField
@@ -152,7 +158,7 @@ public abstract class BaseDataExtractor<T> {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract CellData processIntegerDataField(DataField dataField, CellData cellData, T data, RowDataLite currentRow) throws ApplicationException;
+	protected abstract CellData processIntegerDataField(DataField dataField, CellData cellData, T data, RowData currentRow) throws ApplicationException;
 	
 	/**
 	 * @param dataField
@@ -161,7 +167,7 @@ public abstract class BaseDataExtractor<T> {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract CellData processDecimalDataField(DataField dataField, CellData cellData, T data, RowDataLite currentRow) throws ApplicationException;
+	protected abstract CellData processDecimalDataField(DataField dataField, CellData cellData, T data, RowData currentRow) throws ApplicationException;
 	
 	/**
 	 * @param dataField
@@ -170,7 +176,7 @@ public abstract class BaseDataExtractor<T> {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract CellData processDateDataField(DataField dataField, CellData cellData, T data, RowDataLite currentRow) throws ApplicationException;
+	protected abstract CellData processDateDataField(DataField dataField, CellData cellData, T data, RowData currentRow) throws ApplicationException;
 	
 	/**
 	 * @param dataField
@@ -179,6 +185,6 @@ public abstract class BaseDataExtractor<T> {
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract CellData processRelationshipDataField(DataField dataField, CellData cellData, T data, RowDataLite currentRow) throws ApplicationException;
+	protected abstract CellData processRelationshipDataField(DataField dataField, CellData cellData, T data, RowData currentRow) throws ApplicationException;
 
 }

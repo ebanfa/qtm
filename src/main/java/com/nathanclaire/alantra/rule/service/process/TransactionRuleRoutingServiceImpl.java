@@ -6,6 +6,7 @@ package com.nathanclaire.alantra.rule.service.process;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -16,11 +17,14 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.channel.config.ChannelConfiguration;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.annotation.BusinessObjectRoutingEvent;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.Rule;
 import com.nathanclaire.alantra.rule.engine.RuleAction;
 import com.nathanclaire.alantra.rule.engine.RuleChain;
 import com.nathanclaire.alantra.rule.engine.RuleSpace;
+import com.nathanclaire.alantra.rule.event.BusinessObjectEvent;
+import com.nathanclaire.alantra.rule.util.BusinessObjectUtil;
 
 /**
  * @author Edward Banfa
@@ -33,6 +37,7 @@ public class TransactionRuleRoutingServiceImpl extends BaseProcessService
 	@Inject TransactionRuleMatchingService matchingService;
 	@Inject TransactionRuleManagementService managementService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	@Inject @BusinessObjectRoutingEvent Event<BusinessObjectEvent> event;
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.rule.service.process.TransactionRuleRoutingService#route(com.nathanclaire.alantra.rule.engine.BusinessObjectData)
@@ -51,15 +56,18 @@ public class TransactionRuleRoutingServiceImpl extends BaseProcessService
 							ErrorCodes.TRRS_NO_ROUTING_RULES_CHAIN_FOUND_ERROR_MSG);
 			// Match the business object with the rules defined in the rules chain
 			List<Rule> rules = matchingService.match(ruleChain, businessObjectData);
+			businessObjectData.setProcessed(false);
 			logger.debug("Routing business object: {} against {} rules", businessObjectData, rules.size());
 			for(Rule rule : rules){
 				RuleAction ruleAction = rule.getRuleAction();
 				ruleAction.execute(businessObjectData);
 			}
 			logger.debug("Routing execution complete for: {} ", businessObjectData);
+			businessObjectData.setProcessed(true);
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.TRRS_TRANSACTION_RULE_VALIDATION_ERROR_CD);
 		}
+		event.fire(new BusinessObjectEvent(BusinessObjectUtil.clone(businessObjectData)));
 		return businessObjectData;
 	}
 

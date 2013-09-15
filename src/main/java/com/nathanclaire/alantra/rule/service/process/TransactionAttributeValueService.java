@@ -4,7 +4,7 @@
 package com.nathanclaire.alantra.rule.service.process;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 
 /**
  * Represents an object that can return the value

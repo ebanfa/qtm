@@ -66,7 +66,6 @@ define([
         {
             this.addNextSelectedEntity(event);
             $('#entity-search-dialog').modal('hide');
-
         },
         addNextSelectedEntity:function(event)
         {
@@ -77,7 +76,9 @@ define([
     
     var EntitySearchDialogView = Backbone.View.extend({
         initialize: function (options) {
+            console.log("Failing!");
             _.bindAll(this, 'render');
+            console.log("Failing2");
             this.searchView = null;
             this.parentView = options.parentView;
             this.activityURL = options.activityURL;
@@ -100,8 +101,11 @@ define([
         */
         onSearchFieldsSuccessCallBack: function(data)
         {
+
+            var blockBuilder = formUtil.blockBuilder;
+            var form = blockBuilder(data);
             utilities.applyTemplate($('#entity-search-dialog-div'), 
-                EntitySearchTemplate,  {model:{}, fields:data, entities_strings:entities_strings});
+                EntitySearchTemplate,  {model:{}, form:form, entities_strings:entities_strings});
             $('#entity-search-dialog').modal('show');
         },
        /*
@@ -116,13 +120,13 @@ define([
         selectEntity:function(event, parentView)
         {
             // Delegate to the search view
-            console.log('slecting>>>>>>')
+            console.log('selecting>>>>>>')
             this.searchView.selectEntity(event, parentView);
         },
        /*
         * Called when the entity search result button has been clicked
         */
-        handleEntitySearchResultButtonClicked: function()
+        handleEntitySearchResultButtonClicked: function( event)
         {
             var buttonClicked = $(event.currentTarget);
             if(buttonClicked.attr("id") == "add-selected-item-btn")

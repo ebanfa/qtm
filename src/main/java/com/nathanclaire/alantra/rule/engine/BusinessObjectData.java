@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.channel.handler;
+package com.nathanclaire.alantra.rule.engine;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +20,14 @@ public interface BusinessObjectData {
 	public String getBusinessObjectName() ;
 	
 	public void setBusinessObjectName(String businessObjectName);
+	
+	public String getBusinessObjectClassName();
+	
+	public void setBusinessObjectClassName(String className);
+	
+	public String getProcessCategoryCode();
+	
+	public void setProcessCategoryCode(String categoryCode);
 	
 	public Object getDataValue(String dataValueName);
 	

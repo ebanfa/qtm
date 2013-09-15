@@ -26,7 +26,7 @@ import com.nathanclaire.alantra.base.util.PropertyUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.annotation.etl.ExcelDataExtractor;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.Data;
 import com.nathanclaire.alantra.datasource.model.DataChannel;
@@ -76,7 +76,7 @@ public class ExcelDataExtractorImpl  extends BaseDataExtractor<Cell> implements 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processStringDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected CellData processStringDataField(DataField dataField, CellData cellData, Cell cell, RowDataLite currentRow) throws ApplicationException 
+	protected CellData processStringDataField(DataField dataField, CellData cellData, Cell cell, RowData currentRow) throws ApplicationException 
 	{
 		if(cell.getCellType() == Cell.CELL_TYPE_STRING)
 		{
@@ -114,7 +114,7 @@ public class ExcelDataExtractorImpl  extends BaseDataExtractor<Cell> implements 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDecimalDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected CellData processDecimalDataField(DataField dataField, CellData cellData, Cell cell, RowDataLite currentRow) throws ApplicationException {
+	protected CellData processDecimalDataField(DataField dataField, CellData cellData, Cell cell, RowData currentRow) throws ApplicationException {
 		if(cell.getCellType() == Cell.CELL_TYPE_STRING)
 		{
 			if(cell.getRichStringCellValue() != null)
@@ -154,7 +154,7 @@ public class ExcelDataExtractorImpl  extends BaseDataExtractor<Cell> implements 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processIntegerDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected CellData processIntegerDataField(DataField dataField, CellData cellData, Cell cell, RowDataLite currentRow) 
+	protected CellData processIntegerDataField(DataField dataField, CellData cellData, Cell cell, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(cell.getCellType() == Cell.CELL_TYPE_STRING)
@@ -193,7 +193,7 @@ public class ExcelDataExtractorImpl  extends BaseDataExtractor<Cell> implements 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processDateDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected CellData processDateDataField(DataField dataField, CellData cellData, Cell cell, RowDataLite currentRow) 
+	protected CellData processDateDataField(DataField dataField, CellData cellData, Cell cell, RowData currentRow) 
 			throws ApplicationException 
 	{
 		if(cell.getCellType() == Cell.CELL_TYPE_STRING)
@@ -217,7 +217,7 @@ public class ExcelDataExtractorImpl  extends BaseDataExtractor<Cell> implements 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.extractors.BaseDataExtractor#processRelationshipDataField(com.nathanclaire.alantra.datasource.model.DataField, java.lang.Object, com.nathanclaire.alantra.datasource.etl.RowDataLite)
 	 */
-	protected CellData processRelationshipDataField(DataField dataField, CellData cellData, Cell cell, RowDataLite currentRow) 
+	protected CellData processRelationshipDataField(DataField dataField, CellData cellData, Cell cell, RowData currentRow) 
 			throws ApplicationException 
 	{
 		return this.processStringDataField(dataField, cellData, cell, currentRow);

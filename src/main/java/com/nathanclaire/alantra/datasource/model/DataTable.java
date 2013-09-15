@@ -38,7 +38,7 @@ public class DataTable  extends BaseEntity implements java.io.Serializable {
 	private DataInputJob dataInputJob;
     private String name;
     private String description;
-    private int primEntity;
+    private String primEntityNm;
     private int primRecRead;
     private int primRecCreated;
     private int primRecRejected;
@@ -55,50 +55,6 @@ public class DataTable  extends BaseEntity implements java.io.Serializable {
     public DataTable() {
     }
 
-    public DataTable(DataInputJob dataInputJob, String code, String name, int primEntity, int primRecRead, int primRecCreated, int primRecRejected, int totRecRead, int totRecCreated, int totRecRejected, char importStatusFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
-    {
-		this.code = code;
-		this.name = name;
-		this.primEntity = primEntity;
-		this.primRecRead = primRecRead;
-		this.primRecCreated = primRecCreated;
-		this.primRecRejected = primRecRejected;
-		this.totRecRead = totRecRead;
-		this.totRecCreated = totRecCreated;
-		this.totRecRejected = totRecRejected;
-		this.importStatusFg = importStatusFg;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
-		this.createdDt = createdDt;
-		this.createdByUsr = createdByUsr;
-    }
-    public DataTable(DataInputJob dataInputJob, String code, String name, String description, int primEntity, int primRecRead, int primRecCreated, int primRecRejected, Integer secEntity, Integer secRecRead, Integer secRecCreated, Integer secRecRejected, int totRecRead, int totRecCreated, int totRecRejected, char importStatusFg, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataRow> dataRows ) 
-    {
-		this.dataInputJob = dataInputJob;
-		this.code = code;
-		this.name = name;
-		this.description = description;
-		this.primEntity = primEntity;
-		this.primRecRead = primRecRead;
-		this.primRecCreated = primRecCreated;
-		this.primRecRejected = primRecRejected;
-		this.secEntity = secEntity;
-		this.secRecRead = secRecRead;
-		this.secRecCreated = secRecCreated;
-		this.secRecRejected = secRecRejected;
-		this.totRecRead = totRecRead;
-		this.totRecCreated = totRecCreated;
-		this.totRecRejected = totRecRejected;
-		this.importStatusFg = importStatusFg;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
-		this.createdDt = createdDt;
-		this.createdByUsr = createdByUsr;
-		this.lastModifiedDt = lastModifiedDt;
-		this.lastModifiedUsr = lastModifiedUsr;
-		this.dataRows = dataRows;
-    }
-    
     		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="JOB_ID", nullable=false)
@@ -135,15 +91,15 @@ public class DataTable  extends BaseEntity implements java.io.Serializable {
         this.description = description;
     }
 		
-    @Column(name="PRIM_ENTITY" , nullable=false)
-    public int getPrimEntity() 
+    @Column(name="PRIM_ENTITY_NM" , nullable=false)
+    public String getPrimEntityNm() 
     {
-        return this.primEntity;
+        return this.primEntityNm;
     }
     
-    public void setPrimEntity(int primEntity) 
+    public void setPrimEntityNm(String primEntityNm) 
     {
-        this.primEntity = primEntity;
+        this.primEntityNm = primEntityNm;
     }
 		
     @Column(name="PRIM_REC_READ" , nullable=false)

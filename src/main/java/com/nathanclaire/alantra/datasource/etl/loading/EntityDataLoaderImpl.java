@@ -7,23 +7,26 @@ import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Entity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.annotation.etl.EntityDataLoader;
-import com.nathanclaire.alantra.datasource.etl.service.EntityDataInputService;
-import com.nathanclaire.alantra.datasource.etl.service.EntityDataInputServiceProducer;
+import com.nathanclaire.alantra.datasource.etl.service.BusinessObjectInputService;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.DataField;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectDataImpl;
 
 /**
+ * An implementation of {@link DataLoader} that loads data
+ * into JEE {@link Entity}s.
+ * 
  * @author Edward Banfa 
  *
  */
@@ -31,116 +34,65 @@ import com.nathanclaire.alantra.datasource.model.DataField;
 @EntityDataLoader
 public class EntityDataLoaderImpl extends BaseDataLoader implements DataLoader 
 {
-	@Inject EntityDataInputServiceProducer entityDataInputServiceProducer;
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	@Inject BusinessObjectInputService businessObjectInputService;
 	
-	private Logger logger = LoggerFactory.getLogger(EntityDataLoaderImpl.class);
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.datasource.etl.loaders.BaseDataLoader#loadTableDataRow(com.nathanclaire.alantra.datasource.etl.TableDataLite, com.nathanclaire.alantra.datasource.etl.RowDataLite, java.lang.Class, java.lang.Class)
 	 */
 	@Override
-	protected TableData loadTableDataRow(TableData tableData, Set<DataField> fields, RowDataLite currentRow, 
-			Class<? extends BaseRequest> primEntityRequestClass, Class<? extends BaseRequest> secEntityRequestClass) 
+	protected TableData loadTableDataRow(RowData currentRow, Set<DataField> fields) 
 			throws ApplicationException 
-	{
-		BaseRequest primEntityRequestInstance = EntityUtil.getEntityInstance(primEntityRequestClass);
-		BaseRequest secEntityRequestInstance = EntityUtil.getEntityInstance(secEntityRequestClass);
-		// Only load the data if the row contains no errors
-		if(currentRow.isErrors()) {
-			logger.debug("Not loading row with error for entity {}", tableData.getPrimEntityName());
-			return tableData;
-		}
-		logger.debug("Loading table data for {} of {} rows", tableData.getPrimEntityName(), tableData.getRows().size());
-		rowToEntity(tableData, fields, currentRow, primEntityRequestClass, 
-				secEntityRequestClass, primEntityRequestInstance, secEntityRequestInstance);
-		EntityDataInputService dataInputService = 
-				entityDataInputServiceProducer.getEntityDataInputService(tableData.getPrimEntityName());
-		if(dataInputService != null)
-			dataInputService.processDataInput(primEntityRequestInstance, secEntityRequestInstance, tableData);
-		else
-		{
-			tableData.setErrors(true);
-			tableData.setStatusText(DATA_LOADING_ERROR);
-			tableData.setStatusDescription(DATA_INPUT_SERVICE_NOT_FOUND);
-		}
-		return tableData;
-	}
-	/**
-	 * @param tableData
-	 * @param fields
-	 * @param currentRow
-	 * @param primEntityRequestClass
-	 * @param secEntityRequestClass
-	 * @param primEntityRequestInstance
-	 * @param secEntityRequestInstance
-	 */
-	private void rowToEntity(
-			TableData tableData, 
-			Set<DataField> fields, 
-			RowDataLite currentRow,	
-			Class<? extends BaseRequest> primEntityRequestClass,  
-			Class<? extends BaseRequest> secEntityRequestClass, 
-			BaseRequest primEntityRequestInstance, 
-			BaseRequest secEntityRequestInstance) throws ApplicationException
-	{
+	{	
+		logger.debug("Loading {}", currentRow);
+		// Initialize the primary and the secondary business objects
+		BusinessObjectData businessObjectData = 
+				new BusinessObjectDataImpl(currentRow.getTableData().getPrimEntityName());
+		businessObjectData.setBusinessObjectClassName(currentRow.getTableData().getBusinessObjectClassName());
+		// Process the each cell data, basically we figure which business object the cell data
+		// belongs to, then we copy its data into the business object field
 		for(CellData cellData: currentRow.getColumns())
-		{
-			if(!cellData.isErrors()){
-				cellToEntityProperty(tableData, fields, primEntityRequestClass, 
-						secEntityRequestClass, primEntityRequestInstance, secEntityRequestInstance, cellData);
-				if(cellData.isErrors())
-					currentRow.setErrors(true);
-			}
-			else
-				currentRow.setErrors(true);
-		}
+			processCellData(fields, businessObjectData, cellData);
+		logger.debug("Loading {}", businessObjectData);
+		businessObjectInputService.loadBusinessObject(businessObjectData);
+		
+		return currentRow.getTableData();
 	}
+
 	/**
-	 * @param tableData
-	 * @param fields
-	 * @param primEntityRequestClass
-	 * @param secEntityRequestClass
-	 * @param primEntityRequestInstance
-	 * @param secEntityRequestInstance
-	 * @param cellData
+	 * Figures out which {@link BusinessObjectData} object a
+	 * {@link CellData} belongs to then copies the data into
+	 * the field of the {@link BusinessObjectData}.
+	 * 
+	 * @param fields the set of fields belong to the business objects
+	 * @param businessObject the primary business object
+	 * @param secondaryBusinessObject the secondary business object
+	 * @param cellData the cell data
 	 */
-	private void cellToEntityProperty(TableData tableData,
-			Set<DataField> fields,
-			Class<? extends BaseRequest> primEntityRequestClass,
-			Class<? extends BaseRequest> secEntityRequestClass,
-			BaseRequest primEntityRequestInstance,
-			BaseRequest secEntityRequestInstance, CellData cellData) throws ApplicationException {
+	private void processCellData(Set<DataField> fields,	BusinessObjectData businessObject, CellData cellData) 
+	{
+		logger.debug("Processing {}", cellData);
 		for(DataField field : fields)
-		{
-			if(!StringUtil.isValidString(field.getTargetEntityCd())){
-				cellData.setErrors(true);
-				cellData.setStatusDescription(ENTITY_FIELD_ERROR);
-				cellData.setStatusDescription(TARGET_ENTITY_FIELD_NOT_SPECIFIED);
-				return;
-			}
-			if(cellData.getName().equals(field.getCode())){
-				if(field.getTargetEntityCd().equals(tableData.getPrimEntityName()))
-					cellToEntityField(primEntityRequestClass, primEntityRequestInstance, cellData, field);
-				if(field.getTargetEntityCd().equals(tableData.getSecEntityName()))
-					cellToEntityField(secEntityRequestClass, secEntityRequestInstance, cellData, field);
-			}
-		}
+			if(cellData.getName().equals(field.getCode()))
+				cellToBusinessObjectField(businessObject, cellData, field);
 	}
+	
 	/**
-	 * @param entityRequestClass
-	 * @param entityRequestInstance
-	 * @param cellData
-	 * @param field
+	 * Copies the data in a {@link CellData} in a field of a {@link BusinessObjectData}.
+	 * 
+	 * @param businessObject the business object
+	 * @param cellData the cell data
+	 * @param field the field that belongs to the business object
 	 */
-	private void cellToEntityField(
-			Class<? extends BaseRequest> entityRequestClass,
-			BaseRequest entityRequestInstance, CellData cellData, DataField field) {
+	private void cellToBusinessObjectField(BusinessObjectData businessObject, CellData cellData, DataField field) {
 		try {
 			if(cellData.isErrors())
 				return;
 			if(StringUtil.flagToBoolean(field.getRequiredFg()) && cellData.getData() == null)
 				throw new ApplicationException(REQ_FIELD_VALUE_NOT_PROVIDED);
-			EntityUtil.invokeMethodOnEntityRequestInstance(entityRequestClass, 
-					entityRequestInstance, field, cellData.getDataType(), cellData.getData());
+			// Set the data value on the business object, with the field name as 
+			// the key
+			 businessObject.setDataValue(cellData.getBusinessObjectFieldCd(), cellData.getData());
 		} catch (Exception e) {
 			cellData.setErrors(true);
 			cellData.setStatusDescription(ENTITY_FIELD_ERROR);

@@ -68,6 +68,40 @@ public class PropertyUtil {
 	}
 	
 	/**
+	 * @param fromObj
+	 * @param toObj
+	 * @param excludedFields
+	 */
+	public static void copyProperties(Object fromObj, Object toObj) {
+	    Class<? extends Object> fromClass = fromObj.getClass();
+	    Class<? extends Object> toClass = toObj.getClass();
+	    try {
+	        BeanInfo fromBean = Introspector.getBeanInfo(fromClass);
+	        BeanInfo toBean = Introspector.getBeanInfo(toClass);
+
+	        PropertyDescriptor[] toPd = toBean.getPropertyDescriptors();
+	        List<PropertyDescriptor> fromPd = Arrays.asList(fromBean
+	                .getPropertyDescriptors());
+	        
+	        for (PropertyDescriptor toPropertyDescriptor : toPd) 
+	        {
+		        for (PropertyDescriptor fromPropertyDescriptor : fromPd) 
+		        {
+		            if (fromPropertyDescriptor.getName().equals(toPropertyDescriptor.getName()) && 
+		            		!fromPropertyDescriptor.getName().equals("class")) 
+		            {
+		        	copyProperty(toObj, fromObj, toPropertyDescriptor, fromPropertyDescriptor);
+		            }
+		        }
+	        }
+	    } catch (IntrospectionException e) {
+	        e.printStackTrace();
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	/**
 	 * @param toObject
 	 * @param fromObject
 	 * @param toPropertyDescriptor
@@ -88,6 +122,31 @@ public class PropertyUtil {
 					// Copy only if field is on include list
 					if(!excludeField)
 				        toPropertyDescriptor.getWriteMethod().invoke(toObject, 
+				        		fromPropertyDescriptor.getReadMethod().invoke(fromObject, null));
+				 }
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+	}
+	/**
+	 * @param toObject
+	 * @param fromObject
+	 * @param toPropertyDescriptor
+	 * @param fromPropertyDescriptor
+	 * @param includedFields
+	 */
+	private static void copyProperty(Object toObject, Object fromObject, 
+			PropertyDescriptor toPropertyDescriptor, PropertyDescriptor fromPropertyDescriptor)
+	{
+             try 
+             {
+				if(toPropertyDescriptor.getWriteMethod() != null) 
+				{  
+					toPropertyDescriptor.getWriteMethod().invoke(toObject, 
 				        		fromPropertyDescriptor.getReadMethod().invoke(fromObject, null));
 				 }
 			} catch (IllegalArgumentException e) {

@@ -45,6 +45,13 @@ public class ErrorCodes {
 	public static final String EMAIL_DATA_EXTRACTOR_ERROR_CD = "EmailDataExtractor.EMAIL_DATA_EXTRACTOR_ERROR_CD";
 	public static final String DP_FIELD_TRANSFORMATION_ERROR_CD = "DataProcessor.DP_FIELD_TRANSFORMATION_ERROR_CD";
 	public static final String DP_DATA_TRANSFORMER_NOT_FOUND_ERROR_CD = "DataProcessor.DP_DATA_TRANSFORMER_NOT_FOUND_ERROR_CD";
+	public static final String BOIS_LOAD_BO_ERROR_CD = "BusinessObjectInputService.BOIS_LOAD_BO_ERROR_CD";
+	public static final String RELATED_ENTITY_NOT_FOUND_ERROR_CD = "AbstractDataTransformer.RELATED_ENTITY_NOT_FOUND_ERROR_MSG";
+	public static final String RELATED_ENTITY_SEARCH_ERROR_CD = "AbstractDataTransformer.RELATED_ENTITY_SEARCH_ERROR_CD";
+	public static final String MBT_UNSUPPORTED_INT_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_INT_OPCODE_ERROR_MSG";
+	public static final String MBT_UNSUPPORTED_BIGDECIMAL_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_BIGDECIMAL_OPCODE_ERROR_MSG";
+	public static final String MBT_UNSUPPORTED_DATE_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_DATE_OPCODE_ERROR_MSG";
+	
 	// Channels
 	public static final String CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_CD = "ChannelConfigurationService.CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_CD";
 	public static final String CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_MSG = "ChannelConfigurationService.CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_MSG";
@@ -109,6 +116,9 @@ public class ErrorCodes {
 	public static final String HTDH_PARSE_DATA_ERROR_CD = "HttpTransactionDataHandler.HTDH_PARSE_DATA_ERROR_CD";
 	public static final String HTDH_INVALID_KEY_VALUE_PAIR_ERROR_MSG = "HttpTransactionDataHandler.HTDH_INVALID_KEY_VALUE_PAIR_ERROR_MSG";
 	public static final String HTDH_INVALID_POST_DATA_ERROR_MSG = "HttpTransactionDataHandler.HTDH_INVALID_POST_DATA_ERROR_MSG";
+	public static final String BOCS_BUSINESS_OBJECT_CREATION_ERROR_CD = "BusinessObjectCreationService.BOCs_BUSINESS_OBJECT_CREATION_ERROR_CD";
+
+	
 	
 
 }

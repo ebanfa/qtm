@@ -216,6 +216,20 @@ define([
     console.log("Current no of fieldBlocks in form: " + form.fields.length);
   }
 
+  /*
+   * Helper function to create a form
+   * from an array of fields. The
+   * function  $.fn.formBuilder = function(activity)
+   * should be refactored to use this function
+   */
+  $.fn.blockBuilder = function(fields)
+  {
+	 var form = new Form();
+	 form.fields = fields;
+     $.fn.populateFieldBlocks(form);
+     return form;
+  }
+
  /*
   * Function to build an activity's form.
   */
@@ -245,7 +259,7 @@ define([
     }
     return form;
   };
-  return {formSerializer: $.fn.serializeObject, 
+  return {formSerializer: $.fn.serializeObject, blockBuilder: $.fn.blockBuilder,
     formBuilder: $.fn.formBuilder, entityLite: $.fn.createEntityLite, 
     createSelectedRelatedEntityInfo: $.fn.createSelectedRelatedEntityInfo}
 });

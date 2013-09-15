@@ -197,7 +197,7 @@ public class EntityUtil {
 	 */
 	public static String getFieldSetterMethodName(DataField field) 
 	{
-		String entityFieldName = StringUtil.capitalizeFirstLetter(field.getTargetEntityField());
+		String entityFieldName = ""; // TODO StringUtil.capitalizeFirstLetter(field.getBusinessObjectFieldCd());
 		if(field.getDataFieldType().getCode().equals(DataFieldTypeService.RELATIONSHIP))
 			entityFieldName = entityFieldName.concat(RELATED_REQ_ID_SUFFIX);
 		return SET_METH_NAME_SUFFIX.concat(entityFieldName);
@@ -221,13 +221,10 @@ public class EntityUtil {
 		try {
 			return Class.forName(className).newInstance();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

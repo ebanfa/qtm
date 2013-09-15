@@ -3,9 +3,12 @@
  */
 package com.nathanclaire.alantra.datasource.etl.transformation;
 
+import java.util.List;
+
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
 import com.nathanclaire.alantra.datasource.model.DataField;
+import com.nathanclaire.alantra.datasource.model.DataFieldMap;
 
 /**
  * @author Edward Banfa 
@@ -18,5 +21,5 @@ public interface DataTransformer
 	public static final String USR_WRONG_FIELD_DATA_TYPE = "DataTransformer.USR_WRONG_FIELD_DATA_TYPE";
 	public static final String ENTITY_RELATIONSHIP_FIELD_ERROR = "DataTransformer.ENTITY_RELATIONSHIP_FIELD_ERROR";
 
-	public CellData transform(CellData cellData, DataField field) throws ApplicationException;
+	public CellData transform(CellData cellData, DataFieldMap fieldMap) throws ApplicationException;
 }

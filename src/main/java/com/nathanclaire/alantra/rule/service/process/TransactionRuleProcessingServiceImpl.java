@@ -6,6 +6,7 @@ package com.nathanclaire.alantra.rule.service.process;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,11 +16,14 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.annotation.BusinessObjectProcessingEvent;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.Rule;
 import com.nathanclaire.alantra.rule.engine.RuleAction;
 import com.nathanclaire.alantra.rule.engine.RuleChain;
 import com.nathanclaire.alantra.rule.engine.RuleSpace;
+import com.nathanclaire.alantra.rule.event.BusinessObjectEvent;
+import com.nathanclaire.alantra.rule.util.BusinessObjectUtil;
 
 /**
  * @author Edward Banfa
@@ -32,6 +36,7 @@ public class TransactionRuleProcessingServiceImpl extends BaseProcessService
 	@Inject TransactionRuleMatchingService matchingService;
 	@Inject TransactionRuleManagementService managementService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	@Inject @BusinessObjectProcessingEvent Event<BusinessObjectEvent> event;
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.rule.service.process.TransactionRuleProcessingService#process(com.nathanclaire.alantra.rule.engine.BusinessObjectData)
@@ -50,12 +55,16 @@ public class TransactionRuleProcessingServiceImpl extends BaseProcessService
 							ErrorCodes.NO_PROCESSING_RULES_CHAIN_FOUND_ERROR_MSG);
 			// Match the business object with the rules defined in the rules chain
 			List<Rule> rules = matchingService.match(ruleChain, businessObjectData);
+			businessObjectData.setProcessed(false);
 			logger.debug("Processing business object: {} against {} rules", businessObjectData, rules.size());
 			for(Rule rule : rules){
 				RuleAction ruleAction = rule.getRuleAction();
 				ruleAction.execute(businessObjectData);
 			}
-			logger.debug("Processing rules execution complete for business object: {}", businessObjectData);
+			logger.debug("Processing rules execution " +
+					"complete for business object: {}", businessObjectData);
+			businessObjectData.setProcessed(true);
+			event.fire(new BusinessObjectEvent(BusinessObjectUtil.clone(businessObjectData)));
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.TRPS_TRANSACTION_RULE_PROCESSING_ERROR_CD);
 		}

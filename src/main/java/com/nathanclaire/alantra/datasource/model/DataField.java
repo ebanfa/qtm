@@ -3,7 +3,6 @@
  */
 package com.nathanclaire.alantra.datasource.model;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,72 +34,22 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class DataField  extends BaseEntity implements java.io.Serializable {
 
-	private DataTransformer dataTransformer;
 	private DataStructure dataStructure;
 	private DataFieldType dataFieldType;
     private String name;
     private String description;
-    private String targetEntityCd;
-    private String targetEntityField;
-    private String relTargetEntityCd;
+    private String relBusinessObjectCd;
     private String fieldFormat;
     private char requiredFg;
     private int seqNo;
+    private Character virtualField;
+    private String defaultValue;
 	private Set<DataCell> dataCells = new HashSet<DataCell>(0);
+	private Set<DataFieldMap> dataFieldMaps = new HashSet<DataFieldMap>();
 
-    public DataField() {
-    }
-
-    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String targetEntityCd, String targetEntityField, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr) 
-    {
-		this.code = code;
-		this.name = name;
-		this.targetEntityCd = targetEntityCd;
-		this.targetEntityField = targetEntityField;
-		this.requiredFg = requiredFg;
-		this.seqNo = seqNo;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
-		this.createdDt = createdDt;
-		this.createdByUsr = createdByUsr;
-    }
-    public DataField(DataTransformer dataTransformer, DataStructure dataStructure, DataFieldType dataFieldType, String code, String name, String description, String targetEntityCd, String targetEntityField, String relTargetEntityCd, String fieldFormat, char requiredFg, int seqNo, Date effectiveDt, char recSt, Date createdDt, String createdByUsr, Date lastModifiedDt, String lastModifiedUsr, Set<DataCell> dataCells ) 
-    {
-		this.dataTransformer = dataTransformer;
-		this.dataStructure = dataStructure;
-		this.dataFieldType = dataFieldType;
-		this.code = code;
-		this.name = name;
-		this.description = description;
-		this.targetEntityCd = targetEntityCd;
-		this.targetEntityField = targetEntityField;
-		this.relTargetEntityCd = relTargetEntityCd;
-		this.fieldFormat = fieldFormat;
-		this.requiredFg = requiredFg;
-		this.seqNo = seqNo;
-		this.effectiveDt = effectiveDt;
-		this.recSt = recSt;
-		this.createdDt = createdDt;
-		this.createdByUsr = createdByUsr;
-		this.lastModifiedDt = lastModifiedDt;
-		this.lastModifiedUsr = lastModifiedUsr;
-		this.dataCells = dataCells;
+	public DataField() {
     }
     
-    		
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="DATA_TRANSFORMER_ID", nullable=false)
-    @JsonIgnore
-    public DataTransformer getDataTransformer() 
-    {
-        return this.dataTransformer;
-    }
-    
-    public void setDataTransformer(DataTransformer dataTransformer)
-    {
-        this.dataTransformer = dataTransformer;
-    }
-    		
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="DATA_STRUCT_ID", nullable=false)
     @JsonIgnore
@@ -149,37 +98,15 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
         this.description = description;
     }
 		
-    @Column(name="TARGET_ENTITY_CD" , nullable=false, length=75)
-    public String getTargetEntityCd() 
+    @Column(name="REL_BUSINESS_OBJ_CD" , unique=true, length=75)
+    public String getRelBusinessObjectCd() 
     {
-        return this.targetEntityCd;
+        return this.relBusinessObjectCd;
     }
     
-    public void setTargetEntityCd(String targetEntityCd) 
+    public void setRelBusinessObjectCd(String relTargetEntityCd) 
     {
-        this.targetEntityCd = targetEntityCd;
-    }
-		
-    @Column(name="TARGET_ENTITY_FIELD" , nullable=false, length=75)
-    public String getTargetEntityField() 
-    {
-        return this.targetEntityField;
-    }
-    
-    public void setTargetEntityField(String targetEntityField) 
-    {
-        this.targetEntityField = targetEntityField;
-    }
-		
-    @Column(name="REL_TARGET_ENTITY_CD" , unique=true, length=75)
-    public String getRelTargetEntityCd() 
-    {
-        return this.relTargetEntityCd;
-    }
-    
-    public void setRelTargetEntityCd(String relTargetEntityCd) 
-    {
-        this.relTargetEntityCd = relTargetEntityCd;
+        this.relBusinessObjectCd = relTargetEntityCd;
     }
 		
     @Column(name="FIELD_FORMAT" , unique=true, length=75)
@@ -225,7 +152,52 @@ public class DataField  extends BaseEntity implements java.io.Serializable {
     public void setDataCells(Set<DataCell> dataCells) 
     {
         this.dataCells = dataCells;
-    }			
+    }	
+    /**
+	 * @return the dataFieldMaps
+	 */
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="dataField")
+    @JsonIgnore
+	public Set<DataFieldMap> getDataFieldMaps() {
+		return dataFieldMaps;
+	}
+
+	/**
+	 * @param dataFieldMaps the dataFieldMaps to set
+	 */
+	public void setDataFieldMaps(Set<DataFieldMap> dataFieldMaps) {
+		this.dataFieldMaps = dataFieldMaps;
+	}
+
+	/**
+	 * @return the virtualField
+	 */
+    @Column(name="VIRTUAL_FIELD" , nullable=false, length=1)
+	public Character getVirtualField() {
+		return virtualField;
+	}
+
+	/**
+	 * @param virtualField the virtualField to set
+	 */
+	public void setVirtualField(Character virtualField) {
+		this.virtualField = virtualField;
+	}
+
+	/**
+	 * @return the defaultValue
+	 */
+    @Column(name="DEFAULT_VALUE" , length=255)
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	/**
+	 * @param defaultValue the defaultValue to set
+	 */
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}		
 
 
 }

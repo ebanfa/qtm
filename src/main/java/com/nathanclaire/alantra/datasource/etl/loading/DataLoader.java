@@ -11,6 +11,13 @@ import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
 
 /**
+ * The primary interface for classes that can load 
+ * {@link TableData}s into the system.
+ * 
+ * TODO: I think the table data should contain
+ * all the data required to load it. Should there be 
+ * any need to pass in the {@link DataInputJob} ?
+ * 
  * @author Edward Banfa 
  *
  */

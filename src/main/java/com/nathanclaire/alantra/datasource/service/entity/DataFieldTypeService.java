@@ -18,6 +18,7 @@ public interface DataFieldTypeService extends BaseEntityService<DataFieldType, D
 	public final String STRING = "STRING";
 	public final String DECIMAL = "DECIMAL";
 	public final String INTEGER = "INTEGER";
+	public final String CHARACTER = "CHARACTER";
 	public final String RELATIONSHIP = "RELATIONSHIP";
 	
 }

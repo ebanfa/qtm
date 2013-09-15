@@ -6,6 +6,7 @@ package com.nathanclaire.alantra.rule.service.process;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,11 +16,14 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.annotation.BusinessObjectValidationEvent;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.Rule;
 import com.nathanclaire.alantra.rule.engine.RuleAction;
 import com.nathanclaire.alantra.rule.engine.RuleChain;
 import com.nathanclaire.alantra.rule.engine.RuleSpace;
+import com.nathanclaire.alantra.rule.event.BusinessObjectEvent;
+import com.nathanclaire.alantra.rule.util.BusinessObjectUtil;
 
 /**
  * @author Edward Banfa
@@ -32,6 +36,8 @@ public class TransactionRuleValidationServiceImpl extends BaseProcessService
 	@Inject TransactionRuleMatchingService matchingService;
 	@Inject TransactionRuleManagementService managementService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+    @Inject BusinessObjectCreationService objectCreationService;
+	@Inject @BusinessObjectValidationEvent Event<BusinessObjectEvent> event;
 	
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.rule.service.process.TransactionRuleValidationService#validate(com.nathanclaire.alantra.rule.engine.BusinessObjectData)
@@ -57,12 +63,17 @@ public class TransactionRuleValidationServiceImpl extends BaseProcessService
 			}
 			if(!rules.isEmpty()){
 				logger.debug("Validation success for business object: {}", businessObjectData);
+				businessObjectData.setValid(true);
+				objectCreationService.create(businessObjectData);
+				event.fire(new BusinessObjectEvent(BusinessObjectUtil.clone(businessObjectData)));
 				return true;
 			}
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.TRVS_TRANSACTION_RULE_VALIDATION_ERROR_CD);
 		}
-		logger.debug("Validation failed for business object: {}", businessObjectData);
+		logger.debug("Validation failed for business object: {}", businessObjectData);;
+		businessObjectData.setValid(false);
+		event.fire(new BusinessObjectEvent(BusinessObjectUtil.clone(businessObjectData)));
 		return false;
 	}
 }

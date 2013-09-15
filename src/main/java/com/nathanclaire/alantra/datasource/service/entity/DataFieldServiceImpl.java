@@ -197,12 +197,6 @@ public class DataFieldServiceImpl
 		// Copy properties
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtil.copyProperties(dataFieldRequest, dataField, allowedEntityFields);
-    	//Process many to one relationships
-    	if (dataFieldRequest.getDataTransformerId() != null)
-    	{
-    		DataTransformer dataTransformer = getEntityManager().find(DataTransformer.class, dataFieldRequest.getDataTransformerId());
-    		dataField.setDataTransformer(dataTransformer);
-    	}
     	if (dataFieldRequest.getDataStructureId() != null)
     	{
     		DataStructure dataStructure = getEntityManager().find(DataStructure.class, dataFieldRequest.getDataStructureId());
@@ -223,9 +217,6 @@ public class DataFieldServiceImpl
 		List<ApplicationEntityField> allowedEntityFields = this.getEntityFields();
 		PropertyUtil.copyProperties(model, dataFieldResponse, allowedEntityFields);
 		// Set the value of the response to the value of the id of the related Entity
-		if(model.getDataTransformer() != null)
-			dataFieldResponse.setDataTransformerId(model.getDataTransformer().getId());
-			dataFieldResponse.setDataTransformerText(model.getDataTransformer().getName());
 		if(model.getDataStructure() != null)
 			dataFieldResponse.setDataStructureId(model.getDataStructure().getId());
 			dataFieldResponse.setDataStructureText(model.getDataStructure().getName());

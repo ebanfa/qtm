@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.datasource.service.process;
 
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
@@ -28,6 +29,7 @@ import com.nathanclaire.alantra.datasource.model.DataInputJob;
  * @author Edward Banfa
  *
  */
+@Stateless
 public class ETLServiceImpl extends BaseProcessService implements ETLService {
 	
 	@Inject DataService dataService;
@@ -48,6 +50,7 @@ public class ETLServiceImpl extends BaseProcessService implements ETLService {
 			DataExtractor extractor = 
 					producerService.getDataExtractor(inputJob);
 			TableData tableData = extractor.extract(inputJob);
+			tableData.setJobId(inputJob.getId());
 			dataExtractedEvent.fire(new DataInputEvent(inputJob.getId(), inputJob.getCode(), tableData));
 			logger.debug("Extracted {} rows of data for input job {}", tableData.getRows().size(), inputJob);
 		} catch (Exception e) {
@@ -81,7 +84,7 @@ public class ETLServiceImpl extends BaseProcessService implements ETLService {
 	public void loadData(DataInputJob inputJob, TableData tableData) throws ApplicationException 
 	{
 		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[] {inputJob, tableData});
-		logger.debug("Loading {} rows of data for input job {}", tableData.getRows().size(), inputJob);
+		logger.debug("Loading data {} for input job {}", tableData, inputJob);
 		try {
 			DataLoader dataLoader = 
 					producerService.getDataLoader(inputJob);

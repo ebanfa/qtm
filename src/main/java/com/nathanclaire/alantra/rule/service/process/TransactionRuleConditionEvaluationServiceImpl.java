@@ -16,7 +16,7 @@ import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.RuleCondition;
 import com.nathanclaire.alantra.rule.engine.RuleConditionAttribute;
 import com.nathanclaire.alantra.rule.engine.RuleConditionOperator;

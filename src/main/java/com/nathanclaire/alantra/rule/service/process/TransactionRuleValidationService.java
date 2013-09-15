@@ -4,7 +4,7 @@
 package com.nathanclaire.alantra.rule.service.process;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.Rule;
 import com.nathanclaire.alantra.rule.engine.RuleChain;
 import com.nathanclaire.alantra.rule.engine.RuleSpace;
@@ -29,5 +29,4 @@ public interface TransactionRuleValidationService {
 	 * @throws ApplicationException if an exception was encountered
 	 */
 	public Boolean validate(BusinessObjectData businessObjectData) throws ApplicationException;
-
 }

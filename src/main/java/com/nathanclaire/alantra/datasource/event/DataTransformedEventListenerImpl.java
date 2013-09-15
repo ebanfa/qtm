@@ -34,7 +34,8 @@ public class DataTransformedEventListenerImpl extends BaseProcessService impleme
 	 */
 	@Override
 	public void processDatatTransformedEvent(@Observes @DataTransformedEvent DataInputEvent event) throws ApplicationException {
-		logger.debug("Processing data transformed event for input job {}", event.getInputJobCode());
+		logger.debug("Processing data transformed event for " +
+				"input job: {}, with data: {}", event.getInputJobCode(), event.getTableData());
 		try {
 			etlService.loadData(
 					dataInputService.getDataInputJob(event.getInputJobId()), event.getTableData());

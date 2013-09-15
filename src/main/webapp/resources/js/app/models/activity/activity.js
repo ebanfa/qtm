@@ -39,6 +39,10 @@ define([
             delete attr.relatedEntitiesListData;
             delete attr.errorCode;
             delete attr.errorMessage;
+            // This will affect other entities 
+            // that have displayNm as a field
+            // seems to be causing trouble in CustomerAccount model
+            //delete attr.displayNm;
             return attr;
         }/*,
         // Overwrite save function

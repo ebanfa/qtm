@@ -113,8 +113,7 @@ public class DateUtil {
 	}
 
 	public static String getCurrentTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return getCurrentTimeInMilliSeconds().toString();
 	}
 
 }

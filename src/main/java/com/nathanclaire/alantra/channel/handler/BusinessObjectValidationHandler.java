@@ -20,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.rule.service.process.BusinessObjectCreationService;
 import com.nathanclaire.alantra.rule.service.process.RulesEngine;
 
 /**
@@ -41,6 +43,7 @@ public class BusinessObjectValidationHandler extends
 		AbstractBusinessLogicHandler {
 	
 	@Inject RulesEngine rulesEngine;
+    @Inject BusinessObjectCreationService objectCreationService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	/* (non-Javadoc)
 	 * @see org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.MessageEvent)
@@ -52,7 +55,7 @@ public class BusinessObjectValidationHandler extends
 		logger.debug("Received business object: {}", businessObject);
 		try {
 			rulesEngine.validate(businessObject);
-			businessObject.setValid(true);
+			objectCreationService.create(businessObject);
 		} catch (Exception e1) {
 			logger.debug("Error executing validation rules on {}. Error message: {}", businessObject, e1);
 			businessObject.setValid(false);

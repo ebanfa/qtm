@@ -13,6 +13,8 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+
 /**
  * Abstract class for {@link BusinessLogicHandler}s
  * 

@@ -163,7 +163,8 @@ h6 {
 [ Subnavbar / .subnavbar ]
 */
 .subnavbar {
-  margin-bottom: 2.5em;
+/*   margin-bottom: 2.5em; */
+  margin-bottom: 1px;
   border-top: 1px solid #595959;
 }
 .subnavbar .subnavbar-inner {
@@ -297,7 +298,7 @@ h6 {
 [ Main / .main ]
 */
 .main {
-  padding-bottom: 2em;
+  padding-bottom: 1px;
 }
 /*------------------------------------------------------------------
 [ Extra / .extra ]

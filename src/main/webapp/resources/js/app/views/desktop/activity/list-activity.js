@@ -1,17 +1,11 @@
 define([
     'utilities',
+    'configuration',
     'i18n!app/nls/entities',
     'app/util/formUtilities',
     'app/views/desktop/activity/entity-search',
-    'app/util/dialog-utilities',
     'text!../../../../../templates/desktop/activity/list-activity.html'
-], function (
-    utilities,
-    entities_strings, 
-    formUtilities,  
-    EntitySearchDialogView,
-    dialogUtilities, 
-    activityListTemplate) {
+], function (utilities, config, entities_strings, formUtilities, EntitySearchDialogView, activityListTemplate) {
 
     var ActivityListView = Backbone.View.extend({
         initialize: function(options)
@@ -99,8 +93,21 @@ define([
             var buttonClicked = $(event.currentTarget);
             if(buttonClicked.attr("id") == "show-create-view-btn")
                 utilities.navigate(this.activityEditURL);
-            else if (buttonClicked.attr("id") == "show-search-view-btn")
-                $('#activity-search-dialog').modal('show');
+            else {
+
+            	
+                //$('#activity-search-dialog').modal('show');
+            }
+
+        	var modalEntityName = "Customer";
+        	var modalEntityFieldName = "name";
+        	var modalEntityActivityURL = "customer";
+
+        	this.currentModalEntity = modalEntityName;
+            this.currentModalField = modalEntityFieldName;
+            this.entitySearchDialogView = 
+                new EntitySearchDialogView({parentView:this, modalEntityName:modalEntityName, activityURL:modalEntityActivityURL, modalFieldName: modalEntityFieldName});
+            this.entitySearchDialogView.render();
 
         },
        /*

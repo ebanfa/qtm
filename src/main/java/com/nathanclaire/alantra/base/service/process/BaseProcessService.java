@@ -37,6 +37,9 @@ public class BaseProcessService {
 
 	public static final String ENTITY_CREATION_ERROR_CD = "BaseProcessService.AS_ADVICE_CREATION_ERROR_CD";
 	public static final String ENTITY_CREATION_ERROR_MSG = "BaseProcessService.ENTITY_CREATION_ERROR_MSG";
+	
+
+	public static final char ENTITY_STATUS_ACTIVE = 'A';
 
 	/**
 	 * @return

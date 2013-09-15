@@ -16,7 +16,7 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.channel.handler.BusinessObjectData;
+import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 import com.nathanclaire.alantra.rule.engine.Rule;
 import com.nathanclaire.alantra.rule.engine.RuleChain;
 import com.nathanclaire.alantra.rule.engine.RuleCondition;
@@ -104,8 +104,11 @@ public class TransactionRuleMatchingServiceImpl extends BaseProcessService
 		try {
 			for(Rule rule : rules)
 			{
-				if(match(rule, businessObjectData))
-					allMatchingRules.add(rule);
+				// Only process match against rules in the same process category 
+				// (module) as the business object
+				if(rule.getProcessCategoryCode().equals(businessObjectData.getProcessCategoryCode()))
+					if(match(rule, businessObjectData))
+						allMatchingRules.add(rule);
 			}
 		} catch (Exception e) {
 			ExceptionUtil.processException(e, ErrorCodes.TRMS2_RULE_MATCHING_ERROR_CD);

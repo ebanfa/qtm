@@ -12,11 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.application.model.ApplicationEntity;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
-import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.datasource.etl.util.RowDataLite;
+import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.model.DataInputJob;
@@ -24,6 +23,8 @@ import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
 import com.nathanclaire.alantra.datasource.service.process.DataService;
 
 /**
+ * Parent class of all {@link DataLoader}s.
+ * 
  * @author Edward Banfa 
  *
  */
@@ -40,7 +41,8 @@ public abstract class BaseDataLoader {
 	 * @see com.nathanclaire.alantra.datasource.etl.DataLoader#loadData(com.nathanclaire.alantra.datasource.model.DataInputJob, com.nathanclaire.alantra.datasource.etl.TableData)
 	 */
 	public TableData loadData(DataInputJob inputJob, TableData tableData) throws ApplicationException {
-		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{inputJob, tableData});
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(
+				new Object[]{inputJob, tableData}, "BaseDataLoader.loadData(DataInputJob inputJob, TableData tableData)");
 		return loadData(tableData, dataService.getDataStructure(inputJob).getDataFields());
 	}
 	
@@ -48,55 +50,46 @@ public abstract class BaseDataLoader {
 	 * @see com.nathanclaire.alantra.datasource.etl.DataLoader#loadData(com.nathanclaire.alantra.datasource.etl.TableDataLite)
 	 */
 	public TableData loadData(TableData tableData, Set<DataField> fields) throws ApplicationException {
-		// Get the request class for the primary and secondary entities 
-		Class<? extends BaseRequest> primEntityRequestClass = getEntityRequestClass(tableData.getPrimEntityName());
-		Class<? extends BaseRequest> secEntityRequestClass = getEntityRequestClass(tableData.getSecEntityName());
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(
+				new Object[]{fields, tableData}, "BaseDataLoader.loadData(TableData tableData, Set<DataField> fields)");
+		ApplicationEntity entity = entityService.findByName(tableData.getPrimEntityName());
+		tableData.setBusinessObjectClassName(entity.getEntityClassNm());
 		// Load each individual row
-		int rowNumber = 0;
-		for(RowDataLite row: tableData.getRows()){
-			rowNumber++;
-			tableData = loadDataRow(tableData, row, rowNumber, fields, primEntityRequestClass, secEntityRequestClass);
-		}
+		for(RowData rowData: tableData.getRows())
+			// Was getting a null pointer exception
+			// TODO: This needs to be fixed up
+			if(rowData != null)
+			tableData = loadDataRow(rowData, fields);
 		return tableData;
 	}
 
-	private TableData loadDataRow(TableData tableData, RowDataLite row, int rowNumber, Set<DataField> fields, 
-			Class<? extends BaseRequest> primEntityRequestClass, Class<? extends BaseRequest> secEntityRequestClass) 
+	protected TableData loadDataRow(RowData rowData, Set<DataField> fields) 
 	{
-		if(!row.isErrors())
+		logger.debug("Loading row {}", rowData);
+		if(!rowData.isErrors())
 		{
-			logger.debug("Loading row {}. [P]Entity {}, [S]Entity {}", 
-					rowNumber, tableData.getPrimEntityName(), tableData.getSecEntityName());
 			try {
-				return loadTableDataRow(tableData, fields, row, primEntityRequestClass, secEntityRequestClass);
+				logger.debug("Loading row {}", rowData);
+				return loadTableDataRow(rowData, fields);
 			} catch (ApplicationException e) {
 				ExceptionUtil.logException(e);
 			}
 		}
 		else
-			logger.debug("Ignoring row {}. [P]Entity: {}, [S]Entity {}", 
-					rowNumber, tableData.getPrimEntityName(), tableData.getSecEntityName());
-		return tableData;
-	}
-	
-
-	private Class<? extends BaseRequest> getEntityRequestClass(String entityCode) throws ApplicationException 
-	{
-		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{entityCode});
-		ApplicationEntity entity = entityService.findByName(entityCode);
-		return (entity != null) ? EntityUtil.getEntityRequestClass(entity) : null;
-	}
-	
+			logger.debug("Ignoring row {}",rowData);
+		return rowData.getTableData();
+	}	
 
 	/**
-	 * @param tableData
-	 * @param currentRow
-	 * @param secEntityRequestClass 
-	 * @param primEntityRequestClass 
+	 * This method is called to load a single {@link RowData}.
+	 * 
+	 * Subclasses will provide an implementation that is specific
+	 * to the manner they load data into the system.
+	 * 
+	 * @param rowData
+	 * @param field
 	 * @return
 	 * @throws ApplicationException
 	 */
-	protected abstract TableData loadTableDataRow(TableData tableData, Set<DataField> field, 
-			RowDataLite currentRow,	Class<? extends BaseRequest> primEntityRequestClass,
-			Class<? extends BaseRequest> secEntityRequestClass) throws ApplicationException;
+	protected abstract TableData loadTableDataRow(RowData rowData, Set<DataField> field) throws ApplicationException;
 }

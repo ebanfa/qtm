@@ -28,6 +28,7 @@ requirejs.config({
 define("initializer", ["jquery"],
     function ($) {
     //$('head').append('<link type="text/css" rel="stylesheet" href="resources/css/screen.css"/>');
+    $('head').append('<link rel="stylesheet" href="resources/css/jquery-ui.min.css" />');
     $('head').append('<link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css" media="all"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/bootstrap-responsive.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/css.css"/>');
@@ -41,6 +42,7 @@ define("initializer", ["jquery"],
     $('head').append('<link rel="stylesheet" href="resources/css/notifier-theme-plastic.css"/>');
     $('head').append('<link rel="stylesheet" href="resources/css/jquery.jqplot.min.css" />');
 
+    $('head').append('<script type="text/javascript" src="resources/js/libs/jquery-ui.min.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/excanvas.js"></script>');
     $('head').append('<script type="text/javascript" src="resources/js/libs/jquery.jqplot.min.js"></script>');
     

@@ -40,6 +40,7 @@ public class ApplicationEntity  extends BaseEntity implements java.io.Serializab
     private String description;
     private String displayNm;
     private String displayNmPlural;
+    private String entityClassNm;
     private char hasTable;
     private String dbName;
 	private Set<ApplicationEntityField> applicationEntityFields = new HashSet<ApplicationEntityField>(0);
@@ -205,7 +206,22 @@ public class ApplicationEntity  extends BaseEntity implements java.io.Serializab
     public void setApplicationActivities(Set<ApplicationActivity> applicationActivities) 
     {
         this.applicationActivities = applicationActivities;
-    }			
+    }
+
+	/**
+	 * @return the entityClassNm
+	 */
+    @Column(name="ENTITY_CLASS_NM" , nullable=false, length=75)
+	public String getEntityClassNm() {
+		return entityClassNm;
+	}
+
+	/**
+	 * @param entityClassNm the entityClassNm to set
+	 */
+	public void setEntityClassNm(String entityClassNm) {
+		this.entityClassNm = entityClassNm;
+	}			
 
 
 }

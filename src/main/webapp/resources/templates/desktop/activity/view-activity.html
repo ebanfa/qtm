@@ -10,10 +10,11 @@
         <div class="container-fluid form-container">
             <form id="entity-view-form">
 			    <fieldset>
-			    	<legend><%= form.name %></legend>
-                        <!-- Loop over field blocks in form -->
+			    	<!--  <legend><%= form.name %></legend>
+                        Loop over field blocks in form -->
+                        <br>
                         <% _.each(form.fieldBlocks, function (fieldBlock) { %>
-                        <div class="row-fluid">
+                        <div class="row-fluid fieldblock">
                         <!-- Loop over fields in field block -->
                         <% _.each(fieldBlock.fields, function (field) { %>
                             <!-- Code field -->
@@ -25,18 +26,18 @@
                             <% } else if  (field.fieldInfo.applicationEntityFieldTypeText == "CODE") { %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium  <%= field.fieldClassName %>">
                             </div> 
                             <!-- Name field -->
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "NAME") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>"> 
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>"> 
                             </div>  
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "TEXT") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-large <%= field.fieldClassName %>">
                             </div> 
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "STATUS") {  %>
                             <div class="span6">
@@ -49,33 +50,33 @@
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "CHAR") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
                             </div>    
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "NUMBER") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
                             </div>  
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "CURRENCY") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>">
                             </div>       
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "DECIMAL") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>">
                             </div>   
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "BOOLEAN") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="<%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
                             </div>    
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "DATE") {  %>
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
                                 <div class="input-append date form_date" data-date-format="dd-mm-yyyy">
-                                    <input id="<%= field.fieldInfo.name %>"  name="<%= field.fieldInfo.name %>" size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="<%= field.fieldClassName %>">
+                                    <input id="<%= field.fieldInfo.name %>"  name="<%= field.fieldInfo.name %>" size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-small  <%= field.fieldClassName %>">
                                     <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
                             </div>
@@ -83,14 +84,14 @@
                             <div class="span6">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
                                 <div class="input-append date form_datetime" >
-                                    <input size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="<%= field.fieldClassName %>">
+                                    <input size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-medium <%= field.fieldClassName %>">
                                     <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
                             </div>
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "RELATIONSHIP") {  %>
                             <div id="<%= field.fieldInfo.name %>SelectContainerDiv" class="span6">
                                 <label for="<%= field.fieldInfo.name %>Id"><%= field.fieldInfo.description %></label>
-                                <select name="<%=field.fieldInfo.name%>Id" id="field.fieldInfo.nameId" class="<%= field.fieldClassName %>">
+                                <select name="<%=field.fieldInfo.name%>Id" id="<%=field.fieldInfo.name%>Id" class="<%= field.fieldClassName %>">
                                     <option value=""></option>
                                 <%
                                 _.each(field.listOptions, function (option) {
@@ -98,24 +99,30 @@
                                     <% if (field.fieldValue == option.id) { %>
                                     <option value="<%=option.id%>" selected="selected"><%=option.name%></option>
                                     <% } else {%>
-                                    <option value="<%=option.id%>"><%=option.name%></option>
+                                    <!-- <option value="<%=option.id%>"><%=option.name%></option> -->
                                     <% } %>
                                 <% }); %>
                                 </select>
+                                <a class="lookup_field" href="<%= field.fieldInfo.name %>">Change</a>
                             </div>
                             <% } %>
                         <% }); %> <!-- End row for each -->  
                         </div> 
                         <% }); %>   <!-- End field block for each -->
-                    <button type="submit" class="btn btn-primary"><%= entities_strings.alantra_label_edit %></button>
-                    <a id="entity-view-done-btn" class="btn" href="#"><%= entities_strings.alantra_label_done %></a>
-			    </fieldset>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary"><%=entities_strings.alantra_label_edit %></button>
+						<a id="entity-view-done-btn" class="btn" href="#"><%=entities_strings.alantra_label_done %></a>
+					</div>
+
+				</fieldset>
 		    </form>
 	    </div> <!-- /form container -->
         
     </div> <!-- /widget-content -->
 
 </div> <!-- /widget -->
+
+<div id="entity-search-dialog-div"></div>
 
 
 

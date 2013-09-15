@@ -49,8 +49,7 @@ public interface DataService {
 
 	public Data createData(DataType dataType, DataStructure structure, String name, String code) throws ApplicationException;
 
-	public String getPrimaryEntityCode(Data data) throws ApplicationException;
+	public String getBusinessObjectCode(Data data) throws ApplicationException;
 	
-	public String getSecondaryEntityCode(Data data) throws ApplicationException;
 
 }

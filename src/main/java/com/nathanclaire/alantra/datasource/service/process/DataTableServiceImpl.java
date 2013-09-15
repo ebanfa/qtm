@@ -67,7 +67,7 @@ public class DataTableServiceImpl extends BaseProcessService implements	DataTabl
 		EntityUtil.returnOrThrowIfParamsArrayContainsNull( new Object[] {inputJob, primEntityNm, primEntityRd, 
 				primEntityCreated, primEntityRejected, totalEntityRd, totalEntityCreated, totalEntityRejected, importStatusFg});
 		try {
-			String primaryEntityName = dataService.getPrimaryEntityCode(inputJob.getDataInput().getData());
+			String primaryEntityName = dataService.getBusinessObjectCode(inputJob.getDataInput().getData());
 			String dataTableName = 
 					inputJob.getName().concat(StringUtil.UNDERSCORE).concat(EntityUtil.generateDefaultEntityCode());
 			

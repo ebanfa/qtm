@@ -15,6 +15,7 @@ import com.nathanclaire.alantra.datasource.response.DataTransformerResponse;
 public interface DataTransformerService extends BaseEntityService<DataTransformer, DataTransformerResponse, DataTransformerRequest>
 {
 
+	public final String MAP_BASED_DATA_TRANSFORMER = "MAP_BASED_DATA_TRANSFORMER";
 	public final String NO_OPERATION_DATA_TRANSFORMER = "NO_OPERATION_DATA_TRANSFORMER";
 	public final String REL_ENTITY_CODE_TO_ID_DATA_TRANSFORMER = "REL_ENTITY_CODE_TO_ID_DATA_TRANSFORMER";
 																   

@@ -150,8 +150,10 @@ public class BaseEntity
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return code;
+		return "BaseEntity [code=" + code + ", effectiveDt=" + effectiveDt
+				+ ", recSt=" + recSt + ", createdDt=" + createdDt
+				+ ", createdByUsr=" + createdByUsr + ", lastModifiedDt="
+				+ lastModifiedDt + ", lastModifiedUsr=" + lastModifiedUsr + "]";
 	}
 
 }

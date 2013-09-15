@@ -12,54 +12,32 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.DateUtil;
+import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.datasource.annotation.etl.NoOperationDataTransformer;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
 import com.nathanclaire.alantra.datasource.model.DataField;
+import com.nathanclaire.alantra.datasource.model.DataFieldMap;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
 
 /**
  * @author Edward Banfa 
- *
  */
 @Stateless
 @NoOperationDataTransformer
-public class NoOperationDataTransformerImpl extends BaseDataTransformer
+public class NoOperationDataTransformerImpl extends AbstractDataTransformer
 		implements DataTransformer {
-	private Logger logger = LoggerFactory.getLogger(NoOperationDataTransformerImpl.class);
+	protected Logger logger = LoggerFactory.getLogger(NoOperationDataTransformerImpl.class);
 
-	/* (non-Javadoc)
-	 * @see com.nathanclaire.alantra.datasource.etl.DataTransformer#transform(com.nathanclaire.alantra.datasource.etl.CellDataLite, com.nathanclaire.alantra.datasource.model.DataField)
-	 */
-	@Override
-	public CellData transform(CellData cellData, DataField field) throws ApplicationException 
-	{
-		// Validate the data (null data check)
-		if(validateCellDataValueRequired(cellData, field).isErrors()) return cellData;
-		// Transform the data based on the data type
-		if(field.getDataFieldType().getCode().equals(DataFieldTypeService.STRING))
-			return cellData;
-		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.INTEGER)) 
-			return transformIntegerField(cellData);
-		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.DECIMAL))
-			return transformDecimalField(cellData);
-		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.DATE))
-			return transformDateField(cellData);
-		else if(field.getDataFieldType().getCode().equals(DataFieldTypeService.RELATIONSHIP))
-			return transformRelationshipField(cellData, field);
-		else {
-			setCellDataTypeError(cellData);
-			return cellData;
-		}
-	}
 
 	/**
 	 * @param cellData
 	 * @param field
 	 */
-	private CellData validateCellDataValueRequired(CellData cellData, DataField field) 
+	protected CellData validateCellDataValueRequired(CellData cellData, DataField field) 
 	{
 		if(StringUtil.flagToBoolean(field.getRequiredFg()) && cellData.getData() == null)
 		{
@@ -70,13 +48,44 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 		return cellData;
 	}
 
-	/**
-	 * @param cellData
-	 * @param field
-	 * @return
-	 * @throws ApplicationException
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformStringField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
 	 */
-	private CellData transformRelationshipField(CellData cellData,	DataField field) 
+	@Override
+	protected CellData transformStringField(CellData cellData, DataFieldMap fieldMap) 
+			throws ApplicationException {
+		return cellData;
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformCharacterField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
+	 */
+	@Override
+	protected CellData transformCharacterField(CellData cellData, DataFieldMap fieldMap) throws ApplicationException {
+		if(cellData.getData() instanceof Character){
+			return cellData;
+			
+		}
+		else if(cellData.getData() instanceof String)	{
+			try {
+				String stringValue = (String) cellData.getData();
+				cellData.setData(stringValue.charAt(0));
+			} catch (Exception e) {
+				cellData.setErrors(true);
+				cellData.setStatusDescription(ENTITY_FIELD_ERROR);
+				cellData.setStatusDescription(e.getMessage());
+			}
+		}
+		else
+			setCellDataTypeError(cellData);
+		return cellData;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformRelationshipField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
+	 */
+	protected CellData transformRelationshipField(CellData cellData, DataFieldMap fieldMap) 
 			throws ApplicationException 
 	{
 		if(cellData.getData() instanceof Integer)
@@ -84,10 +93,11 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 		else if(cellData.getData() instanceof String)	{
 			try {
 				String stringValue = (String) cellData.getData();
-				Integer integerValue = this.getRelatedIDFromRelatedCode(field, stringValue);
-				cellData.setData(integerValue);
+				//Integer integerValue = this.getRelatedIDFromRelatedCode(field, stringValue);
+				BaseEntity entity = this.getRelatedObjectFromRelatedCode(fieldMap.getDataField(), stringValue);
+				cellData.setData(entity);
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+				ExceptionUtil.logException(e);
 				cellData.setErrors(true);
 				cellData.setStatusDescription(ENTITY_RELATIONSHIP_FIELD_ERROR);
 				cellData.setStatusDescription(e.getMessage());
@@ -97,12 +107,11 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 			setCellDataTypeError(cellData);
 		return cellData;
 	}
-
-	/**
-	 * @param cellData
-	 * @return
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformDateField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
 	 */
-	private CellData transformDateField(CellData cellData) {
+	protected CellData transformDateField(CellData cellData, DataFieldMap fieldMap) {
 		if(cellData.getData() instanceof DateTime)
 			cellData.setData(((DateTime) cellData.getData()).toDate());
 		if(cellData.getData() instanceof Date)
@@ -123,11 +132,10 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 		return cellData;
 	}
 
-	/**
-	 * @param cellData
-	 * @return
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformDecimalField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
 	 */
-	private CellData transformDecimalField(CellData cellData) {
+	protected CellData transformDecimalField(CellData cellData, DataFieldMap fieldMap) {
 		if(cellData.getData() instanceof BigDecimal)
 			return cellData;
 		else if(cellData.getData() instanceof String)	{
@@ -144,12 +152,11 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 			setCellDataTypeError(cellData);
 		return cellData;
 	}
-
-	/**
-	 * @param cellData
-	 * @return
+	
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.datasource.etl.transformation.AbstractDataTransformer#transformIntegerField(com.nathanclaire.alantra.datasource.etl.util.CellData, com.nathanclaire.alantra.datasource.model.DataFieldMap)
 	 */
-	private CellData transformIntegerField(CellData cellData) {
+	protected CellData transformIntegerField(CellData cellData, DataFieldMap fieldMap) {
 		if(cellData.getData() instanceof Integer)
 			return cellData;
 		else if(cellData.getData() instanceof String)	{
@@ -165,14 +172,5 @@ public class NoOperationDataTransformerImpl extends BaseDataTransformer
 		else
 			setCellDataTypeError(cellData);
 		return cellData;
-	}
-
-	/**
-	 * @param cellData
-	 */
-	private void setCellDataTypeError(CellData cellData) {
-		cellData.setErrors(true);
-		cellData.setStatusDescription(ENTITY_FIELD_ERROR);
-		cellData.setStatusDescription(USR_WRONG_FIELD_DATA_TYPE);
 	}
 }
