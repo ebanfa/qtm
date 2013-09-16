@@ -96,34 +96,51 @@ define([
             var self = this;
             // do an ajax query to fetch the sarch fields of the entity
             ajaxUtil.ajaxGET(this.activityURL + 'searchFields', {entityName:this.entityName},
-                this.onSearchFieldsSuccessCallBack, this.onSearchFieldsErrorCallBack);
+            		self.onSearchFieldsSuccessCallBack(this.entityName), self.onSearchFieldsErrorCallBack);
             return this;
         },
         
        /**
         * Called if search fields are successfully loaded
         */
-        onSearchFieldsSuccessCallBack: function(data)
+        onSearchFieldsSuccessCallBack: function(entityName)
         {
-
-            var blockBuilder = formUtil.blockBuilder;
-            var form = blockBuilder(data);
-            utilities.applyTemplate($('#entity-search-dialog-div'), 
-                EntitySearchTemplate,  {model:{entityName:this.entityName}, form:form, entities_strings:entities_strings});
-            $('#entity-search-dialog').modal('show');
-        	$('.search_options').hide();
+        	return function(data, textStatus) {
+				var blockBuilder = formUtil.blockBuilder;
+				var form = blockBuilder(data);
+				console.log("this.entityName" + entityName);
+				utilities.applyTemplate($('#entity-search-dialog-div'), EntitySearchTemplate, {
+							model: {entityName: entityName},
+							form: form,
+							entities_strings: entities_strings
+				});
+				$('#entity-search-dialog').modal('show');
+				$('.search_options').hide(); // do something with
+			};
         },
         
        /**
         * Called if there was an error while attempting to load search fields
         */
-        onSearchFieldsErrorCallBack: function(error)
+        onSearchFieldsErrorCallBack : function(entityName) 
         {
+			return function(data, textStatus) {
+				var blockBuilder = formUtil.blockBuilder;
+				var form = blockBuilder(data);
+				console.log("this.entityName" + entityName);
+				utilities.applyTemplate($('#entity-search-dialog-div'), EntitySearchTemplate, {
+							model: {entityName: this.entityName},
+							form: form,
+							entities_strings: entities_strings
+				});
+				$('#entity-search-dialog').modal('show');
+				$('.search_options').hide(); // do something with
+			};
         },
         
        /**
-        * An item from the search result list has been selected
-        */
+		 * An item from the search result list has been selected
+		 */
         selectEntity:function(event, parentView)
         {
             // Delegate to the search view
