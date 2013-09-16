@@ -1,6 +1,7 @@
 define([
     'jquery'
 ], function ($) {
+	
   
  /*
   * Simple notification.

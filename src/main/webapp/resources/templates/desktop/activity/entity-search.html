@@ -5,9 +5,10 @@
     </div>
     <div class="scrollable-main-content">
         <div id="search-form-div">
-            <form id="edit-activity-form">
+            <form id="search-form">
                         <!--  <legend><%= form.name %></legend>
                         Loop over field blocks in form -->
+                        <input type="hidden" value="<%= model.entityName %>" name="entityName">
                         <br>
                         <% _.each(form.fieldBlocks, function (fieldBlock) { %>
                         <div class="row-fluid fieldblock">
@@ -22,18 +23,36 @@
                             <% } else if  (field.fieldInfo.applicationEntityFieldTypeText == "CODE") { %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium  <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium  <%= field.fieldClassName %> search-field">
+                                <select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div> 
                             <!-- Name field -->
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "NAME") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>"> 
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>  
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "TEXT") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-large <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-large <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div> 
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "STATUS") {  %>
                             <div class="span4">
@@ -46,42 +65,84 @@
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "CHAR") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>    
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "NUMBER") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>  
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "CURRENCY") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>       
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "DECIMAL") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-medium <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>   
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "BOOLEAN") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
-                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %>">
+                                <input type="text" id="<%= field.fieldInfo.name %>" value="<%= field.fieldValue ? field.fieldValue : '' %>" name="<%= field.fieldInfo.name %>" placeholder="<%= field.fieldInfo.name %>" class="input-small <%= field.fieldClassName %> search-field"> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                             </div>    
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "DATE") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
                                 <div class="input-append date form_date" data-date-format="dd-mm-yyyy">
-                                    <input id="<%= field.fieldInfo.name %>"  name="<%= field.fieldInfo.name %>" size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-small  <%= field.fieldClassName %>">
-                                    <span class="add-on"><i class="icon-th"></i></span>
+                                    <input id="<%= field.fieldInfo.name %>"  name="<%= field.fieldInfo.name %>" size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-small  <%= field.fieldClassName %> search-field">
+                                    <span class="add-on"><i class="icon-th"></i></span> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                                 </div>
                             </div>
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "DATETIME") {  %>
                             <div class="span4">
                                 <label for="<%= field.fieldInfo.name %>"><%= field.fieldInfo.description %></label>
                                 <div class="input-append date form_datetime" >
-                                    <input size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-medium <%= field.fieldClassName %>">
-                                    <span class="add-on"><i class="icon-th"></i></span>
+                                    <input size="16" type="text" value="<%= field.fieldValue ? field.fieldValue : '' %>" readonly class="input-medium <%= field.fieldClassName %> search-field">
+                                    <span class="add-on"><i class="icon-th"></i></span> 
+                            	<select id="<%= field.fieldInfo.name %>_options" name="<%= field.fieldInfo.name %>_options" class="search_options">
+                                    <option value="ET">=</option>
+                                    <option value="GT">></option>
+                                    <option value="LT"><</option>
+                                    <option value="L">%</option>
+                                </select>
                                 </div>
                             </div>
                             <% } else if (field.fieldInfo.applicationEntityFieldTypeText == "RELATIONSHIP") {  %>

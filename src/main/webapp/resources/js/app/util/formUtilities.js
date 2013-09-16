@@ -1,7 +1,10 @@
 define([
     'jquery'
 ], function ($) {
-  
+
+	/*$('input').on('focus', function (e) {
+        console.log("Red bitch is mine!!!");
+   });*/
  /*
   * Information of an entity that was selected from the entity search page.
   */

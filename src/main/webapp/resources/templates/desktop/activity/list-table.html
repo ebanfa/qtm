@@ -1,0 +1,64 @@
+	<table class="table table-bordered table-striped table-highlight">
+            
+           <thead>
+               <tr>   
+               <th><input class="select-all-list-items" type="checkbox"></th>
+           <%
+           _.each(listFields, function (field) {
+           %>  
+               <% if  (field.name == "id") { %> 
+               <% } else if  (field.name == "lastModifiedDt") { %>
+               <% } else if  (field.name == "lastModifiedUsr") { %>
+               <% } else if  (field.name == "createdDt") { %>
+               <% } else { %> 
+                   <th>
+                       <div class="hideextra" style="width:150px"><%=field.description%></div>
+                   </th>  
+               <% }  %>
+
+           <% }); %>                           
+               </tr>
+           </thead> 
+
+   
+           <tbody>
+          <%
+        _.each(listData, function (activity) {
+        %>     
+        <tr>
+               <td class="description">
+               	<input class="entity-list-item" type="checkbox" value="<%=activity.id%>">
+               </td> 
+               <%
+               _.each(listFields, function (field) {
+               %>  
+                   <% if  (field.applicationEntityFieldTypeText == "RELATIONSHIP") { %>                      
+                   <td class="td-actions">
+                       <div class="hideextra" style="width:150px">
+                           <a href="#view/<%=linkURL%>/<%=activity.id%>">
+                               <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
+                           </a>
+                       </div>
+                   </td>  
+                   <% } else { %> 
+                       <!-- Filter listFields --> 
+                       <% if  (field.name == "id") { %> 
+                       <% } else if  (field.name == "lastModifiedDt") { %>
+                       <% } else if  (field.name == "lastModifiedUsr") { %>
+                       <% } else if  (field.name == "createdDt") { %> 
+                       <% } else { %> 
+                   <td class="td-actions">
+                       <div class="hideextra" style="width:150px">
+                           <a href="#view/<%=linkURL%>/<%=activity.id%>">
+                               <%= activity[field.name] ? activity[field.name] : '' %>
+                           </a>
+                       </div>
+                   </td>   
+                       <% }  %>   <!-- End if -->                  
+                    
+                   <% }  %>    <!-- End if --> 
+               <% }); %>  
+           </tr>  
+        <% }); %>                      
+       	</tbody>
+   	</table>
