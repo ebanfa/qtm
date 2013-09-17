@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
 import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.service.process.BusinessObjectCreationService;
+import com.nathanclaire.alantra.businessobject.util.BusinessObjectUtil;
 import com.nathanclaire.alantra.datasource.annotation.DataLoadedEvent;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
 import com.nathanclaire.alantra.datasource.etl.util.RowData;
@@ -25,12 +28,9 @@ import com.nathanclaire.alantra.datasource.model.DataRow;
 import com.nathanclaire.alantra.datasource.model.DataTable;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldService;
 import com.nathanclaire.alantra.datasource.service.entity.DataInputJobService;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
-import com.nathanclaire.alantra.rule.service.process.BusinessObjectCreationService;
 import com.nathanclaire.alantra.rule.service.process.TransactionRuleProcessingService;
 import com.nathanclaire.alantra.rule.service.process.TransactionRuleRoutingService;
 import com.nathanclaire.alantra.rule.service.process.TransactionRuleValidationService;
-import com.nathanclaire.alantra.rule.util.BusinessObjectUtil;
 
 /**
  * Listens to {@link DataLoadedEvent} and creates the necessary

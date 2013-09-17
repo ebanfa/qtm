@@ -13,8 +13,8 @@ import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus;
 import org.jboss.netty.util.CharsetUtil;
 
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 import com.nathanclaire.alantra.channel.handler.HttpUtil;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 
 
 /**

@@ -1,22 +1,26 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.rule.util;
+package com.nathanclaire.alantra.businessobject.util;
 
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
+import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.DateUtil;
 import com.nathanclaire.alantra.base.util.EntityUtil;
+import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.base.util.StringUtil;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectDataImpl;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectDataImpl;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
 
 /**
  * @author Edward Banfa
@@ -39,18 +43,19 @@ public class BusinessObjectUtil {
 		return clone;
 	}
 
-	public static BaseEntity createBusinessObjectInstance(
-			BusinessObjectData businessObjectData) {
+	public static BaseEntity businessObjectToEntityInstance(
+			BusinessObjectData businessObjectData) throws ApplicationException {
 		// Create a new instance of the business object
 		Object object = 
 				EntityUtil.newInstance(businessObjectData.getBusinessObjectClassName());
 		prepareBusinessObject(businessObjectData);
-		copyData(businessObjectData, object);
+		copyDataFromBusinessObject(businessObjectData, object);
 		return (BaseEntity) object;
 	}
 
-	private static void copyData(BusinessObjectData businessObjectData,
-			Object object) {
+	private static void copyDataFromBusinessObject(BusinessObjectData businessObjectData, Object object) throws ApplicationException {
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{
+				businessObjectData,	object}, "BusinessObjectUtil.copyDataFromBusinessObject");
 		// Get the class of the business object
 		Class<? extends BaseEntity> businessObjectClass = (Class<? extends BaseEntity>) object.getClass();
 		//
@@ -73,27 +78,81 @@ public class BusinessObjectUtil {
 			}
 		}
 	}
-	
-	public  static void printData(Object object) {
-		// Get the class of the business object
-		//
-		logger.debug("Printing object data from {}" , object);
-		Method[] methods = object.getClass().getMethods();
-			// Loop through all the methods
-			for(Method method: methods){
-				if(method.getName().startsWith("get")){
-					Class paramType = method.getParameterTypes()[0];
-					logger.debug("Invoking method {} with parameter type {}", method.getName(), paramType.getName());
+	public static void copyDataToBusinessObject(BusinessObjectData toBusinessObject, Object fromObject)  
+			throws ApplicationException 
+	{
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{
+				toBusinessObject,	fromObject}, "BusinessObjectUtil.copyDataToBusinessObject");// Get the class of the business object
+		Class<? extends BaseEntity> businessObjectClass = (Class<? extends BaseEntity>) fromObject.getClass();
+		// Get all the methods in the class of the business object/entity
+		Method[] methods = businessObjectClass.getMethods();
+		// Simple filter for the methods we are interested in
+		String setterMethodPrefix = "get";
+		// Loop through each method
+		for(Method method: methods){
+			// filter
+			if(method.getName().startsWith(setterMethodPrefix) && isPropertyMethod(method)){
+				// Get the type of the arguments
+				if(method.getParameterTypes().length == 0){
+					logger.debug("Invoking method {} ", method.getName());
 					try {
-						Object returnValue = method.invoke(object, null);
-						logger.debug("Invoked method {} wand got back {}", method.getName(), returnValue);
+						// Invoke
+						Object returnValue = method.invoke(fromObject, new Object[0]);
+						if(returnValue != null)
+							toBusinessObject.setDataValue(
+									propertyNameFromMethodName(method.getName()), returnValue);
 					} catch (Exception e) {
-						e.printStackTrace();
-						ExceptionUtil.logException(e);
+						ExceptionUtil.logAndProcessException(e, ErrorCodes.BOU_DATA_COPY_TO_BO_ERROR_CD);
 					}
 				}
 			}
+		}
 	}
+	private static String propertyNameFromMethodName(String name) throws ApplicationException 
+	{
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{}, 
+				"BusinessObjectUtil.propertyNameFromMethodName");
+		if(name.length() > 3)
+			return StringUtil.unCapitalizeFirstLetter(name.substring(3));
+		return name;
+	}
+
+	private static boolean isPropertyMethod(Method method) {
+		if(method.getName().equals("getClass"))
+			return false;
+		return true;
+	}
+
+	public static void copyDataToBusinessObject(BusinessObjectData toBusinessObject, 
+			Object fromObject, List<BusinessObjectFieldData> fieldsToCopy) throws ApplicationException {
+		
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(new Object[]{
+				toBusinessObject,	fromObject, fieldsToCopy}, "copyDataToBusinessObject");
+		// Get the class of the business object
+		Class<? extends BaseEntity> businessObjectClass = (Class<? extends BaseEntity>) fromObject.getClass();
+		// Get all the methods in the class of the business object/entity
+		Method[] methods = businessObjectClass.getMethods();
+		// Simple filter for the methods we are interested in
+		String setterMethodPrefix = "get";
+		// Loop through each method
+		for(Method method: methods){
+			// filter
+			if(method.getName().startsWith(setterMethodPrefix)){
+				// Get the type of the arguments
+				Class paramType = method.getParameterTypes()[0];
+				logger.debug("Invoking method {} with parameter type {}", method.getName(), paramType.getName());
+				try {
+					// Invoke
+					Object returnValue = method.invoke(fromObject, new Object[0]);
+					if(returnValue != null)
+						toBusinessObject.setDataValue(method.getName(), returnValue);
+				} catch (Exception e) {
+					ExceptionUtil.logException(e);
+				}
+			}
+		}
+	}
+	
 
 	public static BusinessObjectData prepareBusinessObject(BusinessObjectData businessObjectData) {
 		if(businessObjectData == null)

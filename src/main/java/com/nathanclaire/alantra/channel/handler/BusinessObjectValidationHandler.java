@@ -20,8 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
-import com.nathanclaire.alantra.rule.service.process.BusinessObjectCreationService;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.service.process.BusinessObjectCreationService;
 import com.nathanclaire.alantra.rule.service.process.RulesEngine;
 
 /**

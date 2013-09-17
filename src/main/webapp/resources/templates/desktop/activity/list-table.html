@@ -6,13 +6,13 @@
            <%
            _.each(listFields, function (field) {
            %>  
-               <% if  (field.name == "id") { %> 
-               <% } else if  (field.name == "lastModifiedDt") { %>
-               <% } else if  (field.name == "lastModifiedUsr") { %>
-               <% } else if  (field.name == "createdDt") { %>
+               <% if  (field.fieldName == "id") { %> 
+               <% } else if  (field.fieldName == "lastModifiedDt") { %>
+               <% } else if  (field.fieldName == "lastModifiedUsr") { %>
+               <% } else if  (field.fieldName == "createdDt") { %>
                <% } else { %> 
                    <th>
-                       <div class="hideextra" style="width:150px"><%=field.description%></div>
+                       <div class="hideextra" style="width:150px"><%=field.fieldName%></div>
                    </th>  
                <% }  %>
 
@@ -23,40 +23,34 @@
    
            <tbody>
           <%
-        _.each(listData, function (activity) {
+        _.each(listData, function (dataRow) {
         %>     
         <tr>
                <td class="description">
-               	<input class="entity-list-item" type="checkbox" value="<%=activity.id%>">
+               	<input class="entity-list-item" type="checkbox" value="">
                </td> 
                <%
                _.each(listFields, function (field) {
-               %>  
-                   <% if  (field.applicationEntityFieldTypeText == "RELATIONSHIP") { %>                      
-                   <td class="td-actions">
-                       <div class="hideextra" style="width:150px">
-                           <a href="#view/<%=linkURL%>/<%=activity.id%>">
-                               <%= activity[field.name + 'Text'] ? activity[field.name+ 'Text'] : '' %>
-                           </a>
-                       </div>
-                   </td>  
-                   <% } else { %> 
-                       <!-- Filter listFields --> 
-                       <% if  (field.name == "id") { %> 
-                       <% } else if  (field.name == "lastModifiedDt") { %>
-                       <% } else if  (field.name == "lastModifiedUsr") { %>
-                       <% } else if  (field.name == "createdDt") { %> 
-                       <% } else { %> 
-                   <td class="td-actions">
-                       <div class="hideextra" style="width:150px">
-                           <a href="#view/<%=linkURL%>/<%=activity.id%>">
-                               <%= activity[field.name] ? activity[field.name] : '' %>
-                           </a>
-                       </div>
-                   </td>   
-                       <% }  %>   <!-- End if -->                  
-                    
-                   <% }  %>    <!-- End if --> 
+               %>     
+	               <%
+	               _.each(dataRow.dataValues, function (dataValue, index) {
+	               %>     
+	               		<% if  (field.fieldName == index) { %> 
+			               <% if  (field.fieldName == "id") { %> 
+			               <% } else if  (field.fieldName == "lastModifiedDt") { %>
+			               <% } else if  (field.fieldName == "lastModifiedUsr") { %>
+               			   <% } else if  (field.fieldName == "createdDt") { %>
+			               <% } else { %> 
+			                   <td class="td-actions">
+			                        <div class="hideextra" style="width:150px">
+			                            <a href="#view/<%=linkURL%>/">
+			                                <%= dataValue ? dataValue : '' %>
+			                            </a>
+			                        </div>
+			                    </td>   
+			               <% }  %>
+			           <% }  %>     
+		          <% }); %>  
                <% }); %>  
            </tr>  
         <% }); %>                      

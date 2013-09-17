@@ -16,18 +16,22 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.nathanclaire.alantra.application.model.ApplicationEntityField;
 import com.nathanclaire.alantra.application.response.ApplicationEntityFieldResponse;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.application.service.process.ActivityService;
+import com.nathanclaire.alantra.base.rest.AbstractRESTService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectResponse;
+import com.nathanclaire.alantra.businessobject.data.SearchData;
 import com.nathanclaire.alantra.businessobject.service.process.BusinessObjectSearchService;
-import com.nathanclaire.alantra.businessobject.util.BusinessObjectFieldData;
 import com.nathanclaire.alantra.businessobject.util.BusinessObjectRESTUtil;
-import com.nathanclaire.alantra.businessobject.util.BusinessObjectSearchInfo;
-import com.nathanclaire.alantra.businessobject.util.BusinessObjectSearchResultInfo;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 
 /**
  * @author Edward Banfa
@@ -35,37 +39,67 @@ import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
  */
 @Path("/search")
 @Stateless
-public class BusinessObjectSearchRESTService {
+public class BusinessObjectSearchRESTService extends AbstractRESTService {
 
 	@Inject ActivityService activityService;
 	@Inject BusinessObjectSearchService businessObjectSearchService;
 	@Inject ApplicationEntityFieldService applicationEntityFieldService;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+    /**
+     * @param uriInfo
+     * @return
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public BusinessObjectSearchResultInfo findBusinessObjects(@Context UriInfo uriInfo) 
+    public BusinessObjectResponse findByCriteria(@Context UriInfo uriInfo) 
     {
-    	BusinessObjectSearchResultInfo searchResultInfo = new BusinessObjectSearchResultInfo();
+    	BusinessObjectResponse businessObjectResponse = new BusinessObjectResponse();
 		try {
 			// Extract the items from the map
-			BusinessObjectSearchInfo searchInfo = 
+			SearchData searchData = 
 					BusinessObjectRESTUtil.mapToBusinessObjectSearchInfo(uriInfo.getQueryParameters());
 			// Get the activity list fields
-			searchResultInfo.setBusinessObjectName(searchInfo.getBusinesObjectName());
+			businessObjectResponse.setBusinessObjectName(searchData.getBusinesObjectName());
 			List<BusinessObjectFieldData> entityListFields = 
-					activityService.getEntityListFields(searchInfo.getBusinesObjectName());
+					activityService.getEntityListFields(searchData.getBusinesObjectName());
+			logger.debug("Loaded {} fields for entity {}", 
+					entityListFields.size(), searchData.getBusinesObjectName());
 			// Do the search
-			List<BusinessObjectData> results = businessObjectSearchService.find(searchInfo);
-			searchResultInfo.setFields(entityListFields);
-			searchResultInfo.setData(results);
-			searchResultInfo.setErrors(false);
+			List<BusinessObjectData> results = businessObjectSearchService.find(searchData);
+			businessObjectResponse.setDataFields(entityListFields);
+			businessObjectResponse.setDataList(results);
+			businessObjectResponse.setErrors(false);
 		} 
 		catch (ApplicationException e) {
-			searchResultInfo.setErrors(true);
-			searchResultInfo.setErrorMessage(e.getMessage());
-			ExceptionUtil.logException(e);
+			this.processRESTException(e, businessObjectResponse);
 		}
-		return searchResultInfo;
+		return businessObjectResponse;
+    }
+    
+    public BusinessObjectResponse findById(@Context UriInfo uriInfo) 
+    {
+    	BusinessObjectResponse businessObjectResponse = new BusinessObjectResponse();
+		try {
+			// Extract the items from the map
+			SearchData searchData = 
+					BusinessObjectRESTUtil.mapToBusinessObjectSearchInfo(uriInfo.getQueryParameters());
+			// Get the activity list fields
+			businessObjectResponse.setBusinessObjectName(searchData.getBusinesObjectName());
+			List<BusinessObjectFieldData> entityListFields = 
+					activityService.getEntityListFields(searchData.getBusinesObjectName());
+			logger.debug("Loaded {} fields for entity {}", 
+					entityListFields.size(), searchData.getBusinesObjectName());
+			// Do the search
+			BusinessObjectData businessObjectData = businessObjectSearchService.findById(searchData);
+			businessObjectResponse.setDataFields(entityListFields);
+			businessObjectResponse.setData(businessObjectData);
+			businessObjectResponse.setErrors(false);
+		} 
+		catch (ApplicationException e) {
+			this.processRESTException(e, businessObjectResponse);
+		}
+		return businessObjectResponse;
     }
     
     @GET

@@ -12,7 +12,7 @@ import com.nathanclaire.alantra.base.service.process.BaseProcessService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 
 /**
  * 

@@ -1,9 +1,8 @@
-package com.nathanclaire.alantra.businessobject.util;
+package com.nathanclaire.alantra.businessobject.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
 
 /**
  * Holds information and search results from {@link BusinessObjectData} 
@@ -12,13 +11,14 @@ import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
  * @author Edward Banfa
  *
  */
-public class BusinessObjectSearchResultInfo {
+public class BusinessObjectResponse {
 
 	private Boolean errors;
 	private String errorMessage;
 	private String businessObjectName;
-	private List<BusinessObjectFieldData> fields = new ArrayList<BusinessObjectFieldData>();
-	private List<BusinessObjectData> data = new ArrayList<BusinessObjectData>();
+	private BusinessObjectData data;
+	private List<BusinessObjectData> dataList = new ArrayList<BusinessObjectData>();
+	private List<BusinessObjectFieldData> dataFields = new ArrayList<BusinessObjectFieldData>();
 	
 	/**
 	 * @return the errors
@@ -57,27 +57,41 @@ public class BusinessObjectSearchResultInfo {
 		this.businessObjectName = businessObjectName;
 	}
 	/**
-	 * @return the results
+	 * @return the data
 	 */
-	public List<BusinessObjectData> getData() {
+	public BusinessObjectData getData() {
 		return data;
 	}
 	/**
-	 * @param results the results to set
+	 * @param data the data to set
 	 */
-	public void setData(List<BusinessObjectData> data) {
+	public void setData(BusinessObjectData data) {
 		this.data = data;
 	}
 	/**
-	 * @return the fields
+	 * @return the dataList
 	 */
-	public List<BusinessObjectFieldData> getFields() {
-		return fields;
+	public List<BusinessObjectData> getDataList() {
+		return dataList;
 	}
 	/**
-	 * @param fields the fields to set
+	 * @param dataList the dataList to set
 	 */
-	public void setFields(List<BusinessObjectFieldData> fields) {
-		this.fields = fields;
+	public void setDataList(List<BusinessObjectData> dataList) {
+		this.dataList = dataList;
 	}
+	/**
+	 * @return the dataFields
+	 */
+	public List<BusinessObjectFieldData> getDataFields() {
+		return dataFields;
+	}
+	/**
+	 * @param dataFields the dataFields to set
+	 */
+	public void setDataFields(List<BusinessObjectFieldData> dataFields) {
+		this.dataFields = dataFields;
+	}
+	
+	
 }

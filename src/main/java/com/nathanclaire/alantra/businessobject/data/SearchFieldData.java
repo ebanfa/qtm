@@ -1,12 +1,14 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.businessobject.util;
+package com.nathanclaire.alantra.businessobject.data;
 
 /**
+ * Information on a field in a search query
+ * 
  * @author Edward Banfa
  */
-public class BusinessObjectFieldSearchInfo {
+public class SearchFieldData {
 	
 	private String fieldName;
 	private String fieldValue;

@@ -14,14 +14,14 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.StringUtil;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectDataImpl;
 import com.nathanclaire.alantra.datasource.annotation.etl.EntityDataLoader;
 import com.nathanclaire.alantra.datasource.etl.service.BusinessObjectInputService;
 import com.nathanclaire.alantra.datasource.etl.util.CellData;
 import com.nathanclaire.alantra.datasource.etl.util.RowData;
 import com.nathanclaire.alantra.datasource.etl.util.TableData;
 import com.nathanclaire.alantra.datasource.model.DataField;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectDataImpl;
 
 /**
  * An implementation of {@link DataLoader} that loads data

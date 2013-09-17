@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.rule.service.process;
+package com.nathanclaire.alantra.businessobject.service.process;
 
 import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 
 /**
  * An interface for business object creation services.

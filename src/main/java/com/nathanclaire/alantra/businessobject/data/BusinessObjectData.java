@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.rule.engine;
+package com.nathanclaire.alantra.businessobject.data;
 
 import java.util.List;
 import java.util.Map;

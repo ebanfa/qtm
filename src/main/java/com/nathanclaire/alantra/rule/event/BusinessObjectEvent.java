@@ -3,7 +3,7 @@
  */
 package com.nathanclaire.alantra.rule.event;
 
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 
 /**
  * A {@link BusinessObjectData} related event occurred,

@@ -208,23 +208,37 @@ define([
             var searchData = $('#search-form').formSerializer();
             var self = this;
             QUI.ajaxGET(this.activity.searchURLPrefix, searchData,
-            			function(data){self.listTableView.render()}, this.onSearchFailureCallBack);
+            		this.onSearchSuccessCallBack(this), this.onSearchFailureCallBack(this));
         },
 
         /**
          * Call back upon successfully completing search operation
          */
-        onSearchSuccessCallBack: function (data)
-        {
-        	;
+        onSearchSuccessCallBack: function (self)
+	    {
+        	console.log("Near, Far where ever you are");
+        	return function(data, textStatus) {
+				self.listTableView.reload(data.dataList, data.dataFields, "somme");
+			};
         },
         
         /**
          * Call back when an error was encountered during the search operation
          */
-        onSearchFailureCallBack: function (data)
+        onSearchFailureCallBack: function (self)
         {
-        	console.log('We back there');
+        	return function(data, textStatus) {
+				var blockBuilder = formUtil.blockBuilder;
+				var form = blockBuilder(data);
+				console.log("this.entityName" + entityName);
+				utilities.applyTemplate($('#entity-search-dialog-div'), EntitySearchTemplate, {
+							model: {entityName: entityName},
+							form: form,
+							entities_strings: entities_strings
+				});
+				$('#entity-search-dialog').modal('show');
+				$('.search_options').hide(); // do something with
+			};
         },
         
         /**

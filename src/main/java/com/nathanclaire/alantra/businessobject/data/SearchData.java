@@ -1,20 +1,24 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.businessobject.util;
+package com.nathanclaire.alantra.businessobject.data;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
+ * Contains all the information needed to 
+ * search for {@link BusinessObjectData}
+ * 
  * @author Edward Banfa
  *
  */
-public class BusinessObjectSearchInfo {
+public class SearchData {
 	
 	private String businesObjectName;
-	private Map<String, BusinessObjectFieldSearchInfo> searchFields = 
-			new HashMap<String, BusinessObjectFieldSearchInfo>();
+	private Map<String, SearchFieldData> searchFields = 
+			new HashMap<String, SearchFieldData>();
 
 	/**
 	 * @return the businesObjectName
@@ -33,14 +37,14 @@ public class BusinessObjectSearchInfo {
 	/**
 	 * @return the searchFields
 	 */
-	public Map<String, BusinessObjectFieldSearchInfo> getSearchFields() {
+	public Map<String, SearchFieldData> getSearchFields() {
 		return searchFields;
 	}
 
 	/**
 	 * @param searchFields the searchFields to set
 	 */
-	public void setSearchFields(Map<String, BusinessObjectFieldSearchInfo> searchFields) {
+	public void setSearchFields(Map<String, SearchFieldData> searchFields) {
 		this.searchFields = searchFields;
 	}
 

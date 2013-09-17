@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nathanclaire.alantra.rule.service.process;
+package com.nathanclaire.alantra.businessobject.service.process;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,8 +14,8 @@ import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
-import com.nathanclaire.alantra.rule.util.BusinessObjectUtil;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.util.BusinessObjectUtil;
 
 /**
  * @author Edward Banfa
@@ -42,8 +42,8 @@ public class BusinessObjectCreationServiceImpl implements BusinessObjectCreation
 		return businessObject;
 	}
 	
-	private BaseEntity createBusinessObjectInstance(BusinessObjectData businessObjectData){
-		return BusinessObjectUtil.createBusinessObjectInstance(businessObjectData);
+	private BaseEntity createBusinessObjectInstance(BusinessObjectData businessObjectData) throws ApplicationException{
+		return BusinessObjectUtil.businessObjectToEntityInstance(businessObjectData);
 	}
 
 }

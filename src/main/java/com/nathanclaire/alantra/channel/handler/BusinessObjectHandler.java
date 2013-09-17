@@ -3,7 +3,7 @@
  */
 package com.nathanclaire.alantra.channel.handler;
 
-import com.nathanclaire.alantra.rule.engine.BusinessObjectData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 
 /**
  * A handler that deals with {@link BusinessObjectData}s.

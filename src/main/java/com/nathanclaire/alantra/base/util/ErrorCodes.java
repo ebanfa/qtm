@@ -3,8 +3,6 @@
  */
 package com.nathanclaire.alantra.base.util;
 
-import com.nathanclaire.alantra.rule.service.process.TransactionAttributeValueService;
-import com.nathanclaire.alantra.rule.service.process.TransactionRuleProcessingService;
 
 
 /**
@@ -51,7 +49,6 @@ public class ErrorCodes {
 	public static final String MBT_UNSUPPORTED_INT_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_INT_OPCODE_ERROR_MSG";
 	public static final String MBT_UNSUPPORTED_BIGDECIMAL_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_BIGDECIMAL_OPCODE_ERROR_MSG";
 	public static final String MBT_UNSUPPORTED_DATE_OPCODE_ERROR_MSG = "MapBasedTransformer.MBT_UNSUPPORTED_DATE_OPCODE_ERROR_MSG";
-	
 	// Channels
 	public static final String CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_CD = "ChannelConfigurationService.CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_CD";
 	public static final String CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_MSG = "ChannelConfigurationService.CCS_CHANNEL_CONFIGURATION_CREATION_ERROR_MSG";
@@ -116,7 +113,12 @@ public class ErrorCodes {
 	public static final String HTDH_PARSE_DATA_ERROR_CD = "HttpTransactionDataHandler.HTDH_PARSE_DATA_ERROR_CD";
 	public static final String HTDH_INVALID_KEY_VALUE_PAIR_ERROR_MSG = "HttpTransactionDataHandler.HTDH_INVALID_KEY_VALUE_PAIR_ERROR_MSG";
 	public static final String HTDH_INVALID_POST_DATA_ERROR_MSG = "HttpTransactionDataHandler.HTDH_INVALID_POST_DATA_ERROR_MSG";
+	// Business Object
 	public static final String BOCS_BUSINESS_OBJECT_CREATION_ERROR_CD = "BusinessObjectCreationService.BOCs_BUSINESS_OBJECT_CREATION_ERROR_CD";
+	public static final String BORU_SEARCH_FIELD_ERROR_CD = "BusinessObjectRESTService.BORU_SEARCH_FIELD_ERROR_CD";
+	public static final String BORU_SEARCH_FIELD_ERROR_MSG = "BusinessObjectRESTService.BORU_SEARCH_FIELD_ERROR_MSG";
+	public static final String BOSS_BUSINESS_OBJ_QUERY_ERROR_CD = "BusinessObjectSearchService.BOSS_BUSINESS_OBJ_QUERY_ERROR_CD";
+	public static final String BOU_DATA_COPY_TO_BO_ERROR_CD = "BusinessObjectUtil.BOU_DATA_COPY_TO_BO_ERROR_CD";
 
 	
 	
