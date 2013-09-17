@@ -36,19 +36,29 @@
 	               _.each(dataRow.dataValues, function (dataValue, index) {
 	               %>     
 	               		<% if  (field.fieldName == index) { %> 
-			               <% if  (field.fieldName == "id") { %> 
-			               <% } else if  (field.fieldName == "lastModifiedDt") { %>
-			               <% } else if  (field.fieldName == "lastModifiedUsr") { %>
-               			   <% } else if  (field.fieldName == "createdDt") { %>
-			               <% } else { %> 
-			                   <td class="td-actions">
-			                        <div class="hideextra" style="width:150px">
-			                            <a href="#view/<%=linkURL%>/">
-			                                <%= dataValue ? dataValue : '' %>
-			                            </a>
-			                        </div>
-			                    </td>   
-			               <% }  %>
+			               			<% if  (field.fieldDataType == "RELATIONSHIP") { %>                      
+				                    <td class="td-actions">
+				                        <div class="hideextra" style="width:150px">
+				                            <a href="#view/<%=dataValue.code%>/<%=dataValue.code%>">
+				                                <%= dataValue.code ? dataValue.code : '' %>
+				                            </a>
+				                        </div>
+				                    </td>  
+				                    <% } else { %> 
+				                        <!-- Filter fields --> 
+				                        <% if  (field.name == "id") { %> 
+				                        <% } else if  (field.name == "lastModifiedDt") { %>
+				                        <% } else if  (field.name == "lastModifiedUsr") { %>
+				                        <% } else if  (field.name == "createdDt") { %> 
+				                        <% } else { %> 
+				                    <td class="td-actions">
+				                        <div class="hideextra" style="width:150px">
+				                            <a href="#view/<%=dataValue%>/<%=dataValue%>">
+				                                <%= dataValue ? dataValue : '' %>
+				                            </a>
+				                        </div>
+				                    </td>   
+				                        <% }  %>   <!-- End if --> 
 			           <% }  %>     
 		          <% }); %>  
                <% }); %>  

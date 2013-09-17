@@ -34,4 +34,9 @@ public class BusinessObjectCreateRESTService {
     	return new BusinessObjectResponse();
     }
 
+	private void validateRequest(BusinessObjectRequest businessObjectRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
