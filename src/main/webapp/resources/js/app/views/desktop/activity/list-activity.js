@@ -48,6 +48,8 @@ define([
             if(this.model.length > 0)
             {
                 listData = this.model.at(0).attributes;
+                console.log("List data is:" + listData);
+                console.log("List data activityName:" + this.model.activityName);
             }
             else
             {

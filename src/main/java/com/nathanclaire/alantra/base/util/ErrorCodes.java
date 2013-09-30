@@ -12,6 +12,7 @@ package com.nathanclaire.alantra.base.util;
 public class ErrorCodes {
 	
 	// Base
+	
 	public static final String INVALID_DATE_STRING = "DateUtil.INVALID_DATE_STRING_ERROR_CD";
 	public static final String BPS_ENTITY_CREATION_ERROR_CD = "BaseProcessService.ENTITY_CREATION_ERROR_CD";
 	public static final String BPS_ENTITY_CREATION_ERROR_MSG = "BaseProcessService.ENTITY_CREATION_ERROR_MSG";
@@ -19,6 +20,7 @@ public class ErrorCodes {
 	public static final String BPS_NULL_PARAMETER_ERROR_MSG = "BaseProcessService.BPS_NULL_PARAMETER_ERROR_MSG";
 	public static final String BPS_ENTITY_INSTANCE_NOT_FOUND_ERROR_CD = "BaseProcessService.BPS_ENTITY_INSTANCE_NOT_FOUND_ERROR_CD";
 	public static final String BPS_ENTITY_PROPERTY_VALUE_NOT_FOUND_ERROR_CD = "BaseProcessService.BPS_ENTITY_PROPERTY_VALUE_NOT_FOUND_ERROR_CD";
+	public static final String EU_ENTITY_CLASS_NOT_FOUND_ERROR_CD = "EntityUtil.EU_ENTITY_CLASS_NOT_FOUND_ERROR_CD";
 	// Advice module
 	public static final String ADIS_DATA_INPUT_ERROR = "AdviceDataInputServiceImpl.ADIS_DATA_INPUT_ERROR";
 	//Customer module
@@ -118,7 +120,15 @@ public class ErrorCodes {
 	public static final String BORU_SEARCH_FIELD_ERROR_CD = "BusinessObjectRESTService.BORU_SEARCH_FIELD_ERROR_CD";
 	public static final String BORU_SEARCH_FIELD_ERROR_MSG = "BusinessObjectRESTService.BORU_SEARCH_FIELD_ERROR_MSG";
 	public static final String BOSS_BUSINESS_OBJ_QUERY_ERROR_CD = "BusinessObjectSearchService.BOSS_BUSINESS_OBJ_QUERY_ERROR_CD";
+	public static final String BOSS_SINGLE_BUSINESS_OBJ_QUERY_ERROR_CD = "BusinessObjectSearchService.BOSS_SINGLE_BUSINESS_OBJ_QUERY_ERROR_CD";
 	public static final String BOU_DATA_COPY_TO_BO_ERROR_CD = "BusinessObjectUtil.BOU_DATA_COPY_TO_BO_ERROR_CD";
+	public static final String BORU_INVALID_ENTITY_ID_ERROR_CD = "BusinessObjectRESTUtil.BORU_INVALID_ENTITY_ID_ERROR_CD";
+	public static final String ARU_LOAD_ACTIVITY_ERROR_CD = "ActivityRESTUtil.ARU_LOAD_ACTIVITY_ERROR_CD";
+	public static final String ARU_INVALID_ACTIVITY_URL_ERROR_MSG = "ActivityRESTUtil.ARU_INVALID_ACTIVITY_URL_ERROR_MSG";
+	public static final String AS_ENTITY_NOT_FOUND_ERROR_MSG = "ActivityService.AS_ENTITY_NOT_FOUND_ERROR_MSG";
+	public static final String ACTIVITY_WITH_URL_NOT_FOUND_ERROR_MSG = "ActivityRESTService.ACTIVITY_WITH_URL_NOT_FOUND_ERROR_MSG";
+	public static final String ACTIVITY_HAS_NO_ENTITY_ERROR_MSG = "ActivityRESTService.ACTIVITY_HAS_NO_ENTITY_ERROR_MSG";
+	public static final String ARU_INVALID_ENTITY_ID_ERROR_MSG = "ActivityRESTService.ARU_INVALID_ENTITY_ID_ERROR_MSG";
 
 	
 	

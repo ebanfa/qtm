@@ -2,9 +2,6 @@ define([
     'jquery'
 ], function ($) {
 
-	/*$('input').on('focus', function (e) {
-        console.log("Red bitch is mine!!!");
-   });*/
  /*
   * Information of an entity that was selected from the entity search page.
   */
@@ -67,7 +64,7 @@ define([
   {
     this.mode = null;
     this.fields = [];
-    this.entity = null;
+    this.businessObject = null;
     this.activity = null;
     this.fieldBlocks = [];
     this.relatedEntities = null;
@@ -75,11 +72,11 @@ define([
 
   $.fn.createEntityLite = function(id, code, name, description) {
     return new EntityLite(id, code, name, description);
-  }
+  };
 
   $.fn.createSelectedRelatedEntityInfo = function (fieldName, entityLite) {
     return new SelectedRelatedEntityInfo(fieldName, entityLite);
-  }
+  };
 
  /*
   * Serializes a form into an array.
@@ -136,10 +133,10 @@ define([
       if (fieldType == "RELATIONSHIP")
       {
         if(form.mode == "EDIT")  {
-          form.name = "Edit"
-          fieldValue = form.entity[fieldName + relationshipFieldSuffix];
+          form.name = "Edit";
+          fieldValue = form.businessObject[fieldName + relationshipFieldSuffix];
         } else  {
-          form.name = "Create"
+          form.name = "Create";
           fieldValue = null;
         }
         return new Field(form.fields[index], fieldValue, form.relatedEntities[fieldName], fieldClassName);
@@ -148,10 +145,10 @@ define([
       else
       {
         if(form.mode == "EDIT")  {
-          form.name = "Edit"
-          fieldValue = form.entity[fieldName];
+          form.name = "Edit";
+          fieldValue = form.businessObject[fieldName];
         } else  {
-          form.name = "Create"
+          form.name = "Create";
           fieldValue = null;
         }
         return new Field(form.fields[index], fieldValue, null, fieldClassName);
@@ -161,18 +158,18 @@ define([
   function sortFields(first, second)
   {
     //var val = first.sequenceNo - second.sequenceNo;
-     console.log("Comparing" + first.sequenceNo + ":" + second.sequenceNo);
-    if(first.sequenceNo < second.sequenceNo)
+     console.log("Comparing" + first.fieldSequence + ":" + second.fieldSequence);
+    if(first.fieldSequence < second.fieldSequence)
     {
       console.log("first.sequenceNo: Before");
       return -1;
     }
-    if(first.sequenceNo > second.sequenceNo)
+    if(first.fieldSequence > second.fieldSequence)
     {
       console.log("first.sequenceNo: Later");
       return 1;
     }
-    if(first.sequenceNo == second.sequenceNo)
+    if(first.fieldSequence == second.fieldSequence)
     {
       console.log("first.sequenceNo: Equal ");
       return 0;
@@ -217,7 +214,7 @@ define([
       }
     }
     console.log("Current no of fieldBlocks in form: " + form.fields.length);
-  }
+  };
 
   /*
    * Helper function to create a form
@@ -231,7 +228,7 @@ define([
 	 form.fields = fields;
      $.fn.populateFieldBlocks(form);
      return form;
-  }
+  },
 
  /*
   * Function to build an activity's form.
@@ -239,31 +236,25 @@ define([
   $.fn.formBuilder = function(activity)
   {
     var form = new Form();
-    if(activity) {
-      form.mode = "CREATE";
-      form.activity = activity;
-      form.fields = activity.attributes.fields;
-      form.entity = activity.attributes.entity;
-      form.relatedEntities = activity.attributes.relatedEntitiesListData;
-      if(form.entity != null ) {
-        form.mode = "EDIT"
-      }
-      // Loop through the related entity fields and 
-      // and each to the form fields
-      /*for (var property in relatedEntities) {
-        if (relatedEntities.hasOwnProperty(property)) {
-          var relationshipFieldInfo = new FieldInfo(property, "RELATIONSHIP");
-          var relationshipField = new Field(relationshipFieldInfo, relatedEntities[property]);
-          form.fields.push(relationshipField);
-        }
-      }*/
-
-      $.fn.populateFieldBlocks(form);
+    // validate the activity
+    if(activity)
+    {
+    	// Short cut to the activities attributes
+    	form.activity = activity.attributes;
+        // get and validate the businessObject data
+    	var businessObjectData = form.activity.businessObjectData;
+    	if(businessObjectData)
+    	{
+    		form.businessObjectName = businessObjectData.businessObjectName;
+    		form.fields = businessObjectData.dataValues;
+    	}
+    	$.fn.populateFieldBlocks(form);
     }
     return form;
   };
+  
   return {formSerializer: $.fn.serializeObject, blockBuilder: $.fn.blockBuilder,
     formBuilder: $.fn.formBuilder, entityLite: $.fn.createEntityLite, 
-    createSelectedRelatedEntityInfo: $.fn.createSelectedRelatedEntityInfo}
+    createSelectedRelatedEntityInfo: $.fn.createSelectedRelatedEntityInfo};
 });
 

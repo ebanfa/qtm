@@ -3,6 +3,8 @@
            <thead>
                <tr>   
                <th><input class="select-all-list-items" type="checkbox"></th>
+               
+               
            <%
            _.each(listFields, function (field) {
            %>  
@@ -19,49 +21,49 @@
            <% }); %>                           
                </tr>
            </thead> 
-
    
            <tbody>
-          <%
-        _.each(listData, function (dataRow) {
-        %>     
+        <% _.each(listData, function (dataRow) {%>     
         <tr>
                <td class="description">
                	<input class="entity-list-item" type="checkbox" value="">
-               </td> 
-               <%
-               _.each(listFields, function (field) {
-               %>     
-	               <%
-	               _.each(dataRow.dataValues, function (dataValue, index) {
-	               %>     
-	               		<% if  (field.fieldName == index) { %> 
-			               			<% if  (field.fieldDataType == "RELATIONSHIP") { %>                      
+               </td>  
+               
+            <%
+            _.each(listFields, function (field) {
+            %>  
+        
+	             <% _.each(dataRow.dataValues, function (dataValue) { %> 
+	             
+	             		 <% if  (dataValue.fieldName == field.fieldName) { %>    
+	             		 
+			               	<% if  (dataValue.fieldDataType == "RELATIONSHIP") { %>                      
 				                    <td class="td-actions">
 				                        <div class="hideextra" style="width:150px">
-				                            <a href="#view/<%=dataValue.code%>/<%=dataValue.code%>">
-				                                <%= dataValue.code ? dataValue.code : '' %>
+				                            <a href="#view/edit_<%=linkURL%>/<%=dataRow.id%>">
+				                                <%= dataValue.fieldValue ? dataValue.fieldValue : 'No Value' %>
 				                            </a>
 				                        </div>
 				                    </td>  
-				                    <% } else { %> 
+				            <% } else { %> 
 				                        <!-- Filter fields --> 
-				                        <% if  (field.name == "id") { %> 
-				                        <% } else if  (field.name == "lastModifiedDt") { %>
-				                        <% } else if  (field.name == "lastModifiedUsr") { %>
-				                        <% } else if  (field.name == "createdDt") { %> 
+				                        <% if  (dataValue.fieldName == "id") { %> 
+				                        <% } else if  (dataValue.fieldName == "lastModifiedDt") { %>
+				                        <% } else if  (dataValue.fieldName == "lastModifiedUsr") { %>
+				                        <% } else if  (dataValue.fieldName == "createdDt") { %> 
 				                        <% } else { %> 
-				                    <td class="td-actions">
-				                        <div class="hideextra" style="width:150px">
-				                            <a href="#view/<%=dataValue%>/<%=dataValue%>">
-				                                <%= dataValue ? dataValue : '' %>
-				                            </a>
-				                        </div>
-				                    </td>   
-				                        <% }  %>   <!-- End if --> 
-			           <% }  %>     
-		          <% }); %>  
-               <% }); %>  
+					                    <td class="td-actions">
+					                        <div class="hideextra" style="width:150px">
+					                            <a href="#view/edit_<%=linkURL%>/<%=dataRow.id%>">
+					                                <%= dataValue.fieldValue ? dataValue.fieldValue : 'No Value' %>
+					                            </a>
+					                        </div>
+					                    </td>   
+					                  <% }  %>   <!-- End if --> 
+				           <% }  %>     
+				        <% }  %>     
+              	 <% }); %> 
+           	<% }); %>      
            </tr>  
         <% }); %>                      
        	</tbody>

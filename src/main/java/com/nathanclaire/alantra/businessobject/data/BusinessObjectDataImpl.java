@@ -17,6 +17,7 @@ import com.nathanclaire.alantra.channel.config.ChannelConfiguration;
  */
 public class BusinessObjectDataImpl implements BusinessObjectData {
 
+	private Integer id;
 	private Boolean valid;
 	private Boolean routed;
 	private Boolean processed;
@@ -175,8 +176,12 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	 */
 	@Override
 	public String toString() {
-		return "BusinessObjectDataImpl [businessObjectName="
-				+ businessObjectName + ", businessObjectClassName= " + businessObjectClassName + ", dataValues=" + dataValues + "]";
+		return "BusinessObjectDataImpl [id=" + id + ", valid=" + valid
+				+ ", routed=" + routed + ", processed=" + processed
+				+ ", businessObjectName=" + businessObjectName
+				+ ", businessObjectClassName=" + businessObjectClassName
+				+ ", processCategoryCode=" + processCategoryCode
+				+ ", dataValues=" + dataValues.size() + "]";
 	}
 
 	/**
@@ -205,5 +210,19 @@ public class BusinessObjectDataImpl implements BusinessObjectData {
 	 */
 	public void setProcessCategoryCode(String processCategoryCode) {
 		this.processCategoryCode = processCategoryCode;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

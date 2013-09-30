@@ -5,8 +5,7 @@ import java.util.List;
 
 
 /**
- * Holds information and search results from {@link BusinessObjectData} 
- * search operation.
+ * Holds {@link BusinessObjectData} information . 
  * 
  * @author Edward Banfa
  *
@@ -87,10 +86,10 @@ public class BusinessObjectResponse {
 		return dataFields;
 	}
 	/**
-	 * @param dataFields the dataFields to set
+	 * @param entityListFields the dataFields to set
 	 */
-	public void setDataFields(List<BusinessObjectFieldData> dataFields) {
-		this.dataFields = dataFields;
+	public void setDataFields(List<BusinessObjectFieldData> entityListFields) {
+		this.dataFields = entityListFields;
 	}
 	
 	

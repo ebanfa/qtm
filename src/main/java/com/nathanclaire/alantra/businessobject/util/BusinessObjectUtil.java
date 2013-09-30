@@ -4,6 +4,7 @@
 package com.nathanclaire.alantra.businessobject.util;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectDataImpl;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldDataImpl;
 
 /**
  * @author Edward Banfa
@@ -28,6 +30,7 @@ import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
  */
 public class BusinessObjectUtil {
 	
+	public static final String ID_FIELD_NAME = "id";
 	private static Logger logger = LoggerFactory.getLogger(BusinessObjectUtil.class);
 	
 	public static BusinessObjectData clone(BusinessObjectData businessObject){
@@ -132,25 +135,49 @@ public class BusinessObjectUtil {
 		Class<? extends BaseEntity> businessObjectClass = (Class<? extends BaseEntity>) fromObject.getClass();
 		// Get all the methods in the class of the business object/entity
 		Method[] methods = businessObjectClass.getMethods();
-		// Simple filter for the methods we are interested in
-		String setterMethodPrefix = "get";
 		// Loop through each method
-		for(Method method: methods){
-			// filter
-			if(method.getName().startsWith(setterMethodPrefix)){
-				// Get the type of the arguments
-				Class paramType = method.getParameterTypes()[0];
-				logger.debug("Invoking method {} with parameter type {}", method.getName(), paramType.getName());
-				try {
-					// Invoke
-					Object returnValue = method.invoke(fromObject, new Object[0]);
-					if(returnValue != null)
-						toBusinessObject.setDataValue(method.getName(), returnValue);
-				} catch (Exception e) {
-					ExceptionUtil.logException(e);
+		for(Method method: methods)
+		{
+			for(BusinessObjectFieldData fieldData: fieldsToCopy)
+			{
+				if(method.getName().equalsIgnoreCase("get" + fieldData.getFieldName()))
+				{
+					logger.debug("The method.getGenericReturnType() {}", method.getGenericReturnType());
+					// Get the type of the arguments
+					if(method.getParameterTypes().length == 0){
+						try {
+							BusinessObjectFieldData fieldDataValue = new BusinessObjectFieldDataImpl();
+							fieldDataValue.setFieldName(fieldData.getFieldName());
+							fieldDataValue.setFieldSequence(fieldData.getFieldSequence());
+							// Invoke
+							Object returnValue = method.invoke(fromObject, new Object[0]);
+							if(returnValue != null)
+							{
+								Type typeOfField = method.getGenericReturnType();
+								if(typeOfField.toString().contains(EntityUtil.BASE_PACKAGE_NM))
+								{
+									logger.debug("Processing relationship field {}", fieldData.getFieldName());
+									BaseEntity relatedEntityInstance = (BaseEntity) returnValue;
+									fieldDataValue.setFieldValue(relatedEntityInstance.getCode());
+									fieldDataValue.setFieldDataType(fieldData.getFieldDataType());
+								}
+								else {
+									if(fieldData.getFieldName().equals(ID_FIELD_NAME))
+										toBusinessObject.setId((Integer) returnValue);
+									logger.debug("Processing non relationship field {}", fieldData.getFieldName());
+									fieldDataValue.setFieldValue(returnValue);
+									fieldDataValue.setFieldDataType(fieldData.getFieldDataType());
+								}
+							}
+							toBusinessObject.setDataValue(fieldData.getFieldName(), fieldDataValue);
+						} catch (Exception e) {
+							ExceptionUtil.logAndProcessException(e, ErrorCodes.BOU_DATA_COPY_TO_BO_ERROR_CD);
+						}
+					}
 				}
 			}
 		}
+		
 	}
 	
 

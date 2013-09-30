@@ -21,9 +21,11 @@ define([
 		
 		initialize: function(options)
         {
+			this.linkURL = options.linkURL;
+			if(this.linkURL)
+				this.linkURL = this.linkURL.toLowerCase();
 			this.listData = options.listData;
 			this.listFields = options.listFields;
-			this.linkURL = options.linkURL;
         },
         
 	    /**
@@ -42,6 +44,8 @@ define([
 	    },
         reload: function(listData, listFields, linkURL){
         	this.linkURL = linkURL;
+			if(this.linkURL)
+				this.linkURL = this.linkURL.toLowerCase();
         	this.listData = listData;
         	this.listFields = listFields;
         	this.render();
@@ -57,6 +61,7 @@ define([
         {
 			var self = this;
 			this.listTableView = null;
+			this.entitySearchDialogView = null;
 			this.activity = QUI.ListActivity({
 				data : [],
 				name : 'ActivityListView',
@@ -68,6 +73,7 @@ define([
 				activityEditURL : "edit/" + self.model.activityURL,
 				listActivityTemplate : ListActivityTemplate
 			});
+			// This will load the list activity from the DB.
 			this.model.bind("reset", function() {
 				utilities.viewManager.showView(self);
 			}).fetch();
@@ -88,13 +94,37 @@ define([
         { 
         	// Load the data from the model
 			if (this.model.length > 0) {
+				// Backbone Collection Model will return a 
+				// list of models, but we know that our backend
+				// will only ever return one item, the activity
+				// we are requesting.
 				var data = this.model.at(0).attributes;
 				this.activity.data = data;
-				this.activity.entityName = data.displayNm;
+				this.activity.entityName = data.businessObjectName;
+                console.log("List data is:" + data.businessObjectName);
+				// Instantiate the list table
+				this.listTableView = new ListTableView(
+				{
+					listData : {},
+					listFields : {},
+					linkURL : '',
+				});
+				// Instantiate the search view
+				var self = this;
+				this.entitySearchDialogView = new EntitySearchDialogView(
+				{
+					searchView : self,
+					parentView : self,
+					modalEntityName : self.activity.entityName,
+					activityURL : self.activity.searchURLPrefix,
+					modalFieldName : self.activity.activityURL
+				});
+				// Search
+	            this.entitySearchDialogView.doSearch();
 			} else {
 				this.activity.data = [];
 			}
-			console.log("West  side" + this.activity.entityName);
+			
 			// Render the template
 			utilities.applyTemplate($(this.el),
 					ListActivityTemplate, {
@@ -102,15 +132,7 @@ define([
 					activity : this.activity,
 					entities_strings : entities_strings
 			});
-			// Create and render the list table view
-			this.listTableView = new ListTableView(
-			{
-				listData : this.activity.data.data,
-				listFields : this.activity.data.fields,
-				linkURL : this.activity.activityEditURL,
-			});
-			this.listTableView.render();
-
+			
 			$(this.el).trigger('pagecreate');
 			$(".list-item-btn").hide();
 			this.renderAdditional();
@@ -134,7 +156,6 @@ define([
          */
         renderAdditional: function()
         {
-        	console.log('Ouncezzz');
         },
         
        /**
@@ -177,14 +198,6 @@ define([
         {
 			var self = this;
 			console.log("Down south" + self.activity.entityName);
-			this.entitySearchDialogView = new EntitySearchDialogView(
-			{
-				searchView : self,
-				parentView : self,
-				modalEntityName : self.activity.entityName,
-				activityURL : self.activity.searchURLPrefix,
-				modalFieldName : self.activity.activityURL
-			});
 			this.entitySearchDialogView.render();
         },
         
@@ -206,6 +219,11 @@ define([
             this.entitySearchDialogView.closeSearchDialog();
             $.fn.formSerializer = formUtilities.formSerializer;
             var searchData = $('#search-form').formSerializer();
+            if(!searchData)
+	            searchData = {};
+
+            if(!searchData.entityName)
+	            searchData.entityName = this.activity.entityName;
             var self = this;
             QUI.ajaxGET(this.activity.searchURLPrefix, searchData,
             		this.onSearchSuccessCallBack(this), this.onSearchFailureCallBack(this));
@@ -216,9 +234,8 @@ define([
          */
         onSearchSuccessCallBack: function (self)
 	    {
-        	console.log("Near, Far where ever you are");
         	return function(data, textStatus) {
-				self.listTableView.reload(data.dataList, data.dataFields, "somme");
+				self.listTableView.reload(data.dataList, data.dataFields, self.activity.entityName);
 			};
         },
         

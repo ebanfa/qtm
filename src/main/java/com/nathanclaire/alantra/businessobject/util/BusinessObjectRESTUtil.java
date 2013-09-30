@@ -23,7 +23,8 @@ import com.nathanclaire.alantra.businessobject.data.SearchFieldData;
  */
 public class BusinessObjectRESTUtil {
 
-	private static final String ENTITY_NAME = "entityName";
+	public static final String ENTITY_ID = "id";
+	public static final String ENTITY_NAME = "entityName";
 	private static Logger logger = LoggerFactory.getLogger(BusinessObjectRESTUtil.class);
 	
 	/**
@@ -37,12 +38,9 @@ public class BusinessObjectRESTUtil {
 			throws ApplicationException 
 	{
 		logger.debug("Processing search map : {}", queryParameters);
-		if(!queryParameters.containsKey(ENTITY_NAME))
-			throw new ApplicationException(ErrorCodes.BORU_SEARCH_FIELD_ERROR_CD, ErrorCodes.BORU_SEARCH_FIELD_ERROR_MSG);
-		
+		SearchData searchData = extractDefaultParameters(queryParameters);
 		// Each search field is mapped by its name
 		Map<String, SearchFieldData> searchFields = new HashMap<String, SearchFieldData>();
-		SearchData searchData = new SearchData();
 		// Loop through the parameters and process
 		for(String parameterName : queryParameters.keySet()) 
 		{
@@ -61,12 +59,53 @@ public class BusinessObjectRESTUtil {
 				searchFieldData.setFieldSearchOperator(fieldOptionValue);
 				searchFields.put(fieldName, searchFieldData);
 			}
-			if(parameterName.equals(ENTITY_NAME)){
-				searchData.setBusinesObjectName(queryParameters.getFirst(ENTITY_NAME));
-			}
 		}
 		searchData.setSearchFields(searchFields);
 		return searchData;
+	}
+
+	/**
+	 * Extract the default search parameters, form the query
+	 * parameters.
+	 * 
+	 * @param queryParameters the query parameters
+	 * @throws ApplicationException if an exception was encountered
+	 */
+	public static SearchData extractDefaultParameters(MultivaluedMap<String, String> queryParameters)
+			throws ApplicationException {
+		// Lest first validate the request
+		validateQueryParameter(queryParameters);
+		SearchData searchData = new SearchData();
+		// Loop through the parameters and process
+		for(String parameterName : queryParameters.keySet()) 
+		{
+			if(parameterName.equals(ENTITY_NAME)){
+				searchData.setBusinesObjectName(queryParameters.getFirst(ENTITY_NAME));
+			}
+			if(parameterName.equals(ENTITY_ID)){
+				try {
+					searchData.setBusinessObjectId((Integer.valueOf(queryParameters.getFirst(ENTITY_ID))));
+				} catch (NumberFormatException e) {
+					throw new ApplicationException(ErrorCodes.BORU_INVALID_ENTITY_ID_ERROR_CD);
+				}
+			}
+		}
+		return searchData;
+	}
+
+	/**
+	 * Validates the query parameter. This involves just searching
+	 * for specific parameters within the provided {@link MultivaluedMap}.
+	 * 
+	 * @param queryParameters the queryParameters we are validating
+	 * @throws ApplicationException if an exception was encountered
+	 */
+	public static void validateQueryParameter(MultivaluedMap<String, String> queryParameters)
+			throws ApplicationException {
+		if(!queryParameters.containsKey(ENTITY_NAME))
+			throw new ApplicationException(
+					ErrorCodes.BORU_SEARCH_FIELD_ERROR_CD, 
+					ErrorCodes.BORU_SEARCH_FIELD_ERROR_MSG);
 	}
 	
 	/**

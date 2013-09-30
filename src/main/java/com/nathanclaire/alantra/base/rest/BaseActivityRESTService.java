@@ -90,14 +90,10 @@ public abstract class BaseActivityRESTService<T,V> {
 	private static final String ACTIVITY_NOT_FOUND = "BaseActivityRESTService.ACTIVITY_NOT_FOUND";
 	private static final String EDIT_ACTIVITY_NOT_FOUND = "BaseActivityRESTService.LIST_EDIT_NOT_FOUND";
 	private static final String LIST_ACTIVITY_NOT_FOUND = "BaseActivityRESTService.LIST_ACTIVITY_NOT_FOUND";
-
-	@Inject
-	ApplicationRelatedActivityService applicationRelatedActivityService;
 	
-	@Inject
-	ApplicationActivityService applicationActivityService;
-	@Inject
-	ApplicationEntityFieldService applicationEntityFieldService;;
+	@Inject ApplicationActivityService applicationActivityService;
+	@Inject	ApplicationEntityFieldService applicationEntityFieldService;
+	@Inject ApplicationRelatedActivityService applicationRelatedActivityService;
 
     /**
      * Default constructor

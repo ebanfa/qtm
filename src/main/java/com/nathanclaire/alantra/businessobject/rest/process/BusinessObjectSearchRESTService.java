@@ -25,9 +25,9 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFiel
 import com.nathanclaire.alantra.application.service.process.ActivityService;
 import com.nathanclaire.alantra.base.rest.AbstractRESTService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
-import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
+import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldDataImpl;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectResponse;
 import com.nathanclaire.alantra.businessobject.data.SearchData;
 import com.nathanclaire.alantra.businessobject.service.process.BusinessObjectSearchService;
@@ -41,6 +41,7 @@ import com.nathanclaire.alantra.businessobject.util.BusinessObjectRESTUtil;
 @Stateless
 public class BusinessObjectSearchRESTService extends AbstractRESTService {
 
+	
 	@Inject ActivityService activityService;
 	@Inject BusinessObjectSearchService businessObjectSearchService;
 	@Inject ApplicationEntityFieldService applicationEntityFieldService;
@@ -66,7 +67,7 @@ public class BusinessObjectSearchRESTService extends AbstractRESTService {
 			logger.debug("Loaded {} fields for entity {}", 
 					entityListFields.size(), searchData.getBusinesObjectName());
 			// Do the search
-			List<BusinessObjectData> results = businessObjectSearchService.find(searchData);
+			List<BusinessObjectData> results = businessObjectSearchService.find(searchData, entityListFields);
 			businessObjectResponse.setDataFields(entityListFields);
 			businessObjectResponse.setDataList(results);
 			businessObjectResponse.setErrors(false);
@@ -76,7 +77,10 @@ public class BusinessObjectSearchRESTService extends AbstractRESTService {
 		}
 		return businessObjectResponse;
     }
-    
+
+    @GET
+    @Path("/single/{id:[0-9][0-9]*}")
+    @Produces(MediaType.APPLICATION_JSON)
     public BusinessObjectResponse findById(@Context UriInfo uriInfo) 
     {
     	BusinessObjectResponse businessObjectResponse = new BusinessObjectResponse();
@@ -91,7 +95,8 @@ public class BusinessObjectSearchRESTService extends AbstractRESTService {
 			logger.debug("Loaded {} fields for entity {}", 
 					entityListFields.size(), searchData.getBusinesObjectName());
 			// Do the search
-			BusinessObjectData businessObjectData = businessObjectSearchService.findById(searchData);
+			BusinessObjectData businessObjectData = businessObjectSearchService.findById(
+					searchData.getBusinesObjectName(), searchData.getBusinessObjectId(), entityListFields);
 			businessObjectResponse.setDataFields(entityListFields);
 			businessObjectResponse.setData(businessObjectData);
 			businessObjectResponse.setErrors(false);

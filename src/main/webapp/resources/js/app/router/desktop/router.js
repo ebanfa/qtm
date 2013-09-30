@@ -21,7 +21,8 @@ define("router", [
     'app/views/desktop/home/security-home',
     'app/models/activity/activity',
     'app/collections/activity/activity',
-    'app/views/desktop/activity/view-activity',
+    'app/views/desktop/base/base-entity-view-view',
+   // 'app/views/desktop/activity/view-activity',
     'app/views/desktop/activity/edit-activity',
     'app/views/desktop/base/base-entity-list-view',
   //  'app/views/desktop/base/list-activity',
@@ -50,7 +51,8 @@ define("router", [
             SecurityHomeView,
             ActivityModel,
             ActivityCollection,
-            ActivityViewView,
+            //ActivityViewView,
+            ViewActivityView,
             ActivityEditView,
             ListActivityView,
            // ActivityListView,
@@ -152,10 +154,10 @@ define("router", [
             "security-module":"securityModuleIndex",
 
             "list/:activityURL":"showActivityList",
-            "view/:activityURL":"showActivityView",
-            "view/:activityURL/:id":"showActivityView",
+            //"view/:activityURL":"showActivityView",
+            "view/:activityURL/:entityId":"showActivityView",
             "edit/:activityURL":"showActivityEdit",
-            "edit/:activityURL/:id":"showActivityEdit",
+            "edit/:activityURL/:entityId":"showActivityEdit",
 
             "about":"home"
         },
@@ -177,11 +179,13 @@ define("router", [
                 var activityListView = new ListActivityView({model:model, el:$("#content-container")});
                 //var activityListView = new ActivityListView({model:model, el:$("#content-container")});
         },
-        showActivityView:function(activityURL, id)
+     
+        showActivityView:function(activityURL, entityId)
         {
-            var model = new ActivityModel({activityURL:activityURL, id:id});
-            var activityViewView = new ActivityViewView({model:model, el:$("#content-container")});
-            utilities.viewManager.showView(activityViewView);
+        	console.log('The activity URL is:' + activityURL + ' the entity id is: ' + entityId);
+            var model = new ActivityModel({activityURL:activityURL, entityId:entityId});
+            var viewActivityView = new ViewActivityView({model:model, el:$("#content-container")});
+            utilities.viewManager.showView(viewActivityView);
         },
         showActivityEdit:function(activityURL, id)
         {

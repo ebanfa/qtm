@@ -9,12 +9,14 @@ define([
 ], function (config, entities_strings) {
     /**
      * The Activity model class definition
-     * Used for CRUD operations against individual Activity
+     * Used for CRUD operations against individual Activities
      */
     var ActivityModel = Backbone.Model.extend({
         initialize: function(props){
+        	this.entityId = props.entityId;
             this.activityURL = props.activityURL;
-            this.urlRoot = config.baseUrl + 'rest/' + this.activityURL + '/single';
+            this.entityName = 'ApplicationActivity';
+            this.urlRoot = config.baseUrl + 'rest/activity/?activityURL=' + this.activityURL + "&entityId=" + this.entityId;
         },
         
         validate: function (attrs) {
@@ -22,18 +24,18 @@ define([
             /*if (!attrs.party) {
             	errors.push({name: 'party', message: entities_strings.alantra_form_field_required + entities_strings.organization_party + '.'});
         	}*/	
-            if (!attrs.code) {
+            if (!attrs.businessObjectName) {
                 errors.push({name: 'code', message: entities_strings.alantra_form_field_required + entities_strings.activity_code + '.'});
             }
-            if (!attrs.name) {
+            if (!attrs.activityURL) {
                 errors.push({name: 'name', message: entities_strings.alantra_form_field_required + entities_strings.activity_name + '.'});
             }
             return errors.length > 0 ? errors : false;
-        },
+        }/*,
         toJSON: function(options) {
             var attr = _.clone(this.attributes);
             delete attr.fields;
-            delete attr.activityURL;
+            //delete attr.activityURL;
             delete attr.entity;
             delete attr.relatedActivities;
             delete attr.relatedEntitiesListData;
@@ -44,7 +46,7 @@ define([
             // seems to be causing trouble in CustomerAccount model
             //delete attr.displayNm;
             return attr;
-        }/*,
+        }*//*,
         // Overwrite save function
         save: function(attrs, options) {
             options || (options = {});

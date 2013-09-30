@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.application.model.ApplicationEntity;
+import com.nathanclaire.alantra.base.model.BaseEntity;
 import com.nathanclaire.alantra.base.request.BaseRequest;
 import com.nathanclaire.alantra.datasource.model.DataField;
 import com.nathanclaire.alantra.datasource.service.entity.DataFieldTypeService;
-import com.nathanclaire.alantra.rule.engine.RuleAction;
 
 /**
  * @author Edward Banfa 
@@ -36,6 +36,7 @@ public class EntityUtil {
 	public static final String INVALID_ENTITY_REQUEST_CLASS = "BaseDataLoader.INVALID_ENTITY_REQUEST_CLASS";
 	public static final String UNSUPPORTED_TARGET_FIELD_TYPE = "BaseDataLoader.UNSUPPORTED_TARGET_FIELD_TYPE";
 	public static final String USR_WRONG_TARGET_FIELD_TYPE = "BaseDataLoader.USR_WRONG_TARGET_FIELD_TYPE";
+	public static final String BASE_PACKAGE_NM = "com.nathanclaire.alantra";
 	
 	/**
 	 * @param object
@@ -110,11 +111,24 @@ public class EntityUtil {
 
 		Class<? extends BaseRequest> entityRequestClass = null;
 		try {
-			entityRequestClass = (Class<? extends BaseRequest>) Class.forName(entityRequestPackageName.concat(entityRequestClassName));
+			entityRequestClass = (Class<? extends BaseRequest>) 
+					Class.forName(entityRequestPackageName.concat(entityRequestClassName));
 		} catch (ClassNotFoundException e) {
-			throw new ApplicationException(ENTITY_CLASS_NOT_FOUND);
+			throw new ApplicationException(ErrorCodes.EU_ENTITY_CLASS_NOT_FOUND_ERROR_CD, e.getMessage());
 		}
 		return entityRequestClass;
+	}
+	
+	public static Class<? extends BaseEntity> getEntityClass(ApplicationEntity entity) throws ApplicationException
+	{
+		String className =  entity.getEntityClassNm(); 
+		Class<? extends BaseEntity> entityClass = null;
+		try {
+			entityClass = (Class<? extends BaseEntity>) Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new ApplicationException(ErrorCodes.EU_ENTITY_CLASS_NOT_FOUND_ERROR_CD,  e.getMessage());
+		}
+		return entityClass;
 	}
 
 	/**

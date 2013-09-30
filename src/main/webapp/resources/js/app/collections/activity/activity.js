@@ -17,8 +17,9 @@ define([
             this.id = "id";
             this.model = ActivityModel;
             this.activityURL = props.activityURL;
+            this.entityName = 'ApplicationActivity';
             this.baseURL = config.baseUrl + 'rest/';
-            this.url = config.baseUrl + 'rest/' + this.activityURL;            
+            this.url = config.baseUrl + 'rest/activity/?activityURL=' + this.activityURL;            
         },
         deleteByIds: function(arrayOfIds) 
         {

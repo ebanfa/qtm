@@ -155,7 +155,6 @@ public abstract class BaseEntityServiceImpl<M,T,V> {
     	}
         final CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
         final CriteriaQuery<M> criteriaQuery = criteriaBuilder.createQuery(ENTITY_CLASS);
-
         TypedQuery<M> query = 
         		initCriteria(queryParameters, criteriaBuilder, criteriaQuery);
         initQuery(queryParameters, query);

@@ -50,6 +50,8 @@ public class ApplicationActivityServiceImpl
 	private static final String ENTITY_NAME = "ApplicationActivity";
 	private static final String LIST_ACTIVITY_CODE = "LIST_APPLICATION_APPLICATIONACTIVITY";
 	private static final String EDIT_ACTIVITY_CODE = "EDIT_APPLICATION_APPLICATIONACTIVITY";
+	private static final String ACTIVITY_URL_FIELD_NAME = "activityUrl";
+	private static final String ACTIVITY_URL_CRITERIA = "activityUrl";
 
 	private Logger logger = LoggerFactory.getLogger(ApplicationActivityServiceImpl.class);
 
@@ -95,6 +97,19 @@ public class ApplicationActivityServiceImpl
 	public ApplicationActivity findByName(String name)  throws ApplicationException {
 		return findInstanceByName(name);
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.application.service.ApplicationActivity#findByName(java.lang.String)
+	 */
+	@Override
+	public ApplicationActivity findByActivityURL(String name)  throws ApplicationException {
+    	queryParameters.clear();
+    	queryParameters.add(ACTIVITY_URL_FIELD_NAME, name);
+    	List<ApplicationActivity> instances = findAllInstances(queryParameters);
+    	if(instances.isEmpty()) return null;
+    	return instances.get(0);
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.nathanclaire.alantra.application.service.ApplicationActivity#findAll(java.util.Map)
@@ -211,6 +226,10 @@ public class ApplicationActivityServiceImpl
         if (queryParameters.containsKey(CODE_CRITERIA))   {
             String code = queryParameters.getFirst(CODE_CRITERIA);
             predicates.add(criteriaBuilder.equal(root.get(CODE_CRITERIA), code));
+        }
+        if (queryParameters.containsKey(ACTIVITY_URL_CRITERIA))   {
+            String code = queryParameters.getFirst(ACTIVITY_URL_CRITERIA);
+            predicates.add(criteriaBuilder.equal(root.get(ACTIVITY_URL_CRITERIA), code));
         }
         return predicates.toArray(new Predicate[]{});
     }

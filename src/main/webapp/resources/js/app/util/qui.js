@@ -42,8 +42,8 @@ define([ 'jquery' ], function($) {
 		});
 	};
 
-	/*
-	 * Simple notification.
+	/**
+	 * List Activity Object.
 	 */
 	var ListActivity = function (options){
 		return { 
@@ -58,10 +58,28 @@ define([ 'jquery' ], function($) {
 			activityListTemplate : options.activityListTemplate,
 		};
 	};
-
+	
+	/**
+	 * View Activity Object.
+	 */
+	var ViewActivity = function (options){
+		return { 
+			data : {},
+			name : options.name,
+			baseURL : options.baseURL,
+			parentView : options.parentView,
+			entityName : options.entityName,
+			activityURL : options.activityURL,
+			searchURLPrefix : options.searchURLPrefix,
+			activityEditURL : options.activityEditURL,
+			activityListTemplate : options.activityListTemplate,
+		};
+	};
+	
 	var QUI = root.QUI = {
 			ajaxGET: ajaxGET,
-			ListActivity: ListActivity
+			ListActivity: ListActivity,
+			ViewActivity: ViewActivity
 	};
 	return QUI;
 });

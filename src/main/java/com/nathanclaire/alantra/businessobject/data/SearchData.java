@@ -17,6 +17,7 @@ import java.util.Map;
 public class SearchData {
 	
 	private String businesObjectName;
+	private Integer businessObjectId;
 	private Map<String, SearchFieldData> searchFields = 
 			new HashMap<String, SearchFieldData>();
 
@@ -33,6 +34,16 @@ public class SearchData {
 	public void setBusinesObjectName(String businesObjectName) {
 		this.businesObjectName = businesObjectName;
 	}
+	
+	public void addField(String fieldName, SearchFieldData field)
+	{
+		this.searchFields.put(fieldName, field);
+	}
+	
+	public SearchFieldData getField(String fieldName)
+	{
+		return this.searchFields.get(fieldName);
+	}
 
 	/**
 	 * @return the searchFields
@@ -46,6 +57,30 @@ public class SearchData {
 	 */
 	public void setSearchFields(Map<String, SearchFieldData> searchFields) {
 		this.searchFields = searchFields;
+	}
+
+	/**
+	 * @return the businessObjectId
+	 */
+	public Integer getBusinessObjectId() {
+		return businessObjectId;
+	}
+
+	/**
+	 * @param businessObjectId the businessObjectId to set
+	 */
+	public void setBusinessObjectId(Integer businessObjectId) {
+		this.businessObjectId = businessObjectId;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SearchData [businesObjectName=" + businesObjectName
+				+ ", businessObjectId=" + businessObjectId + ", searchFields="
+				+ searchFields + "]";
 	}
 
 }

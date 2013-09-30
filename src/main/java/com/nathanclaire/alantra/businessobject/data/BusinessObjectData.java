@@ -15,7 +15,11 @@ import com.nathanclaire.alantra.channel.config.ChannelConfiguration;
  *
  */
 public interface BusinessObjectData {
+	 
 	
+	public Integer getId();
+	
+	public void setId(Integer id);
 	
 	public String getBusinessObjectName() ;
 	

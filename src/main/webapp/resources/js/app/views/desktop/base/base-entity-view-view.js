@@ -1,59 +1,83 @@
+/**
+ * 
+ * @author Edward Banfa
+ */
 define([
     'utilities',
     'configuration',
-    'app/util/formUtilities',
     'i18n!app/nls/entities',
+    'app/util/formUtilities',
+    'app/util/qui',
     'app/views/desktop/activity/entity-search',
-    'app/views/desktop/base/baseentityviewview',
-    'text!../../../../../templates/desktop/activity/messaging/compose.html',
     'text!../../../../../templates/desktop/activity/view-activity.html'
-], function (utilities, config, formUtilities, entities_strings, EntitySearchDialogView, BaseEntityViewView, MessageTempl, ActivityViewTemplate) {
-	
-    var ActivityViewView = BaseEntityViewView.extend({
-    
+], function (utilities, config, entities_strings, formUtilities, QUI, EntitySearchDialogView, ViewActivityTemplate) {
+
+    /**
+     * The view for the view activity
+     */
+    var ViewActivityView = Backbone.View.extend(
+    {
+        /**
+         * 
+         */
         initialize: function(options)
         {
-            this.activityTemplate = ActivityViewTemplate;
-            this.name = 'ActivityViewView';
-            this.activityURL = this.model.activityURL;
-            this.activityEditURL = "edit/" + this.model.activityURL;
-            // Should we display the list item buttons ?
-            this.showListItemButtons = false;
-            // The entity record that was selected from the search results page
-            this.selectedRelatedEntity = null;
-            this.entityLite = null;
-            // The entity we are opening the modal form for
-            this.currentModalEntity = null;
-            // The relationship field we are opening the modal form for.
-            // This helps avoid confusion in the case were we have two 
-            // relationship fields to the same target entity
-            this.currentModalField = null;
-            // Holds all the related entities records that have been selected
-            // (ie if we search multiples times we keep each selected record here)
+			var self = this;
+			this.form = {};
+			this.listTableView = null;
+			this.entitySearchDialogView = null;
+			this.activity = QUI.ViewActivity({
+				data : {},
+				name : 'ActivityViewView',
+				baseURL : 'rest/',
+				parentView : self,
+				entityName : '',
+				activityURL : self.model.activityURL,
+				searchURLPrefix : 'search/',
+				activityEditURL : "edit/" + self.model.activityURL,
+				viewActivityTemplate : ViewActivityTemplate
+			});
         },
-        
-        events:
+
+        /**
+         * 
+         */
+        render:function ()  
         {
-            'submit #entity-view-form':'showEditEntityView',
-            'click  #entity-view-done-btn':'showListEntityView',
-            // Change related entity field value element clicked
-            'click  .lookup_field':'showEntityLookupDialog',
-            // Search button was clicked
-            'click  #do-related-entity-search-btn':'doRelatedEntitySearch',
-            'click  .entity-list-item':'selectEntity',
-            'click  #add-selected-item-btn':'handleEntitySearchResultButtonClicked',
-            'click  #add-next-selected-item-btn':'handleEntitySearchResultButtonClicked'
+        	var self = this;
+            // This will load the activity from the DB.
+			this.model.fetch({ 
+                success: function(activity) {
+                    self.renderActivity(activity);
+                },
+                error: function(model, response, options) {
+                    console.log(response);
+                }
+            });
+            return this;
         },
-        
-        renderSubViews:function()
+        renderActivity:function(activity)
         {
-            if (this.model.attributes.id)
-            {
-		    	//this.partyId = this.model.attributes.party
-            }
+        	//console.log("This is the activity " + JSON.stringify(activity, null, 4));
+        	if(activity) {
+        		this.activity = activity;
+            	this.form = this.buildActivityForm(activity);
+    		    utilities.applyTemplate($(this.el), ViewActivityTemplate, {form:this.form, entities_strings:entities_strings}); 
+                $(this.el).trigger('pagecreate');
+            	this.delegateEvents();
+        	}
+        },
+        /**
+         * 
+         */
+        buildActivityForm:function(activity)
+        {
+        	var formBuilder = formUtilities.formBuilder;
+            var form = formBuilder(activity);
+            return form;
         },
         
-        /*
+        /**
          * Show the related entity search dialog
          */
         showEntityLookupDialog:function(event)
@@ -86,7 +110,7 @@ define([
             this.entitySearchDialogView.render();
         },
         
-        /*
+        /**
          * Search button was clicked so we do the search
          */
         doRelatedEntitySearch:function(event)
@@ -95,7 +119,7 @@ define([
             this.entitySearchDialogView.doSearch();
         },
         
-        /*
+        /**
          * Listen for when a search result entry has been selected
          * (radio button)
          */
@@ -105,12 +129,18 @@ define([
             this.entitySearchDialogView.selectEntity(event, this);
         },
         
+        /**
+         * 
+         */
         handleEntitySearchResultButtonClicked:function(event)
         {
             event.preventDefault();
         	this.entitySearchDialogView.handleEntitySearchResultButtonClicked(event);
         },
         
+        /**
+         * 
+         */
         addCurrentEntity:function()
         {
         	// The entity that was selected from the search list
@@ -124,9 +154,8 @@ define([
            var relatedEntityField = $(fieldSelector);
            // Replace the html content of the field with newFieldValue
            relatedEntityField.html(newFieldValue);
-        }
-        
+        },
     });
 
-    return ActivityViewView;
+    return ViewActivityView;
 });

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <process processType="Private" isExecutable="true" id="com.sample.bpmn" name="Sample Process" tns:packageName="defaultPackage" >
+
+    <!-- nodes -->
+    <startEvent id="_1"  isInterrupting="true"/>
+    <businessRuleTask id="_jbpm-unique-3" name="Validate" g:ruleFlowGroup="" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <businessRuleTask id="_jbpm-unique-4" name="Process" g:ruleFlowGroup="" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <businessRuleTask id="_jbpm-unique-5" name="Route" g:ruleFlowGroup="" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <endEvent id="_jbpm-unique-6" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_jbpm-unique-3" sourceRef="_1" targetRef="_jbpm-unique-3" />
+    <sequenceFlow id="_jbpm-unique-3-_jbpm-unique-4" sourceRef="_jbpm-unique-3" targetRef="_jbpm-unique-4" />
+    <sequenceFlow id="_jbpm-unique-4-_jbpm-unique-5" sourceRef="_jbpm-unique-4" targetRef="_jbpm-unique-5" />
+    <sequenceFlow id="_jbpm-unique-5-_jbpm-unique-6" sourceRef="_jbpm-unique-5" targetRef="_jbpm-unique-6" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="262" y="190" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-3" >
+        <dc:Bounds x="342" y="190" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-4" >
+        <dc:Bounds x="454" y="190" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-5" >
+        <dc:Bounds x="566" y="190" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-6" >
+        <dc:Bounds x="678" y="190" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_jbpm-unique-3" >
+        <di:waypoint x="286" y="214" />
+        <di:waypoint x="382" y="214" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-3-_jbpm-unique-4" >
+        <di:waypoint x="382" y="214" />
+        <di:waypoint x="494" y="214" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-4-_jbpm-unique-5" >
+        <di:waypoint x="494" y="214" />
+        <di:waypoint x="606" y="214" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-5-_jbpm-unique-6" >
+        <di:waypoint x="606" y="214" />
+        <di:waypoint x="702" y="214" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
