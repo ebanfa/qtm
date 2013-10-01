@@ -123,4 +123,14 @@ public class BusinessObjectSearchServiceImpl implements	BusinessObjectSearchServ
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/* (non-Javadoc)
+	 * @see com.nathanclaire.alantra.businessobject.service.process.BusinessObjectSearchService#findAll(java.lang.String)
+	 */
+	@Override
+	public List<BusinessObjectData> findAll(String businessObjectName)
+			throws ApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

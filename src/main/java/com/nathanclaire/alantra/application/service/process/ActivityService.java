@@ -24,6 +24,9 @@ public interface ActivityService {
 	public List<BusinessObjectFieldData> getEntityViewFields(String entityName) 
 			throws ApplicationException;
 	
+	public List<BusinessObjectFieldData> getEntitySearchFields(String entityName)
+			throws ApplicationException;
+	
 	public ApplicationActivity findByActivityURL(String activityURL) throws ApplicationException;
 
 }

@@ -72,5 +72,11 @@ public interface BusinessObjectSearchService {
 	 * @throws ApplicationException if an exception was encountered
 	 */
 	public BusinessObjectData findSingle(SearchData searchData, List<BusinessObjectFieldData> fieldsWanted) throws ApplicationException;
-
+	
+	/**
+	 * @param businessObjectName
+	 * @return
+	 * @throws ApplicationException
+	 */
+	public List<BusinessObjectData> findAll(String businessObjectName) throws ApplicationException;
 }

@@ -69,7 +69,7 @@ define([
                 if(fields[i].name == fieldName){
                 	modalEntityFieldName = fields[i].name;
                 	modalEntityName = fields[i].applicationRelatedEntityText;
-                	modalEntityActivityURL = fields[i].applicationRelatedEntityText.toLowerCase();
+                	modalEntityActivityURL = fields[i].applicationRelatedEntityText.toLowerCase() + "/";
                 }
             }
             // Customer is not related to message, but this hack should allows

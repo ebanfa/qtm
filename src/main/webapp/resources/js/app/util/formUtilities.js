@@ -25,29 +25,15 @@ define([
  /*
   * Field object's constructor function.
   */
-  function Field(fieldInfo, fieldValue, listOptions, fieldClassName)
+  function Field(fieldData, fieldCSSClassName)
   {
-    // Field info contains name and field type
-    this.fieldInfo = fieldInfo;
-    // The value of this field
-    this.fieldValue = fieldValue;
     // List item to populate list based widgets e.g
     // drop downs but will be null for non list based 
     // widgets
-    this.listOptions = listOptions;
-    this.fieldClassName = fieldClassName;
+    this.fieldData = fieldData;
+    this.fieldCSSClassName = fieldCSSClassName;
   }
-
- /*
-  * FieldInfo object's constructor function.
-  */
-  function FieldInfo(name, applicationEntityFieldTypeText, description)
-  {
-    this.name = name;
-    this.description = description;
-    this.applicationEntityFieldTypeText = applicationEntityFieldTypeText;
-  }
-
+  
  /*
   * FieldBlock object's constructor function.
   */
@@ -114,51 +100,24 @@ define([
   $.fn.initializeField = function(form, index)
   {
       // The name and the type of the field
-      var fieldValue = null;
-      var fieldClassName = null;
-      var fieldName = form.fields[index].name;
-      var requiredFg = form.fields[index].requiredFg;
-      var fieldDescription = form.fields[index].description;
-      var fieldType = form.fields[index].applicationEntityFieldTypeText;
-      var relationshipFieldSuffix = "Id";
+      var fieldCSSClassName = null;
+      var requiredFg = form.fields[index].required;
       // Are we dealing with a required field
-      if (requiredFg == "Y") 
+      console.log("The requiredFg is: " + requiredFg);
+      if (requiredFg) 
       {
-        fieldClassName = "field_required";
+        fieldCSSClassName = "field_required";
       } else 
       {
-        fieldClassName = "field";
+        fieldCSSClassName = "field";
       }
-      // Are we dealing with a relationship field
-      if (fieldType == "RELATIONSHIP")
-      {
-        if(form.mode == "EDIT")  {
-          form.name = "Edit";
-          fieldValue = form.businessObject[fieldName + relationshipFieldSuffix];
-        } else  {
-          form.name = "Create";
-          fieldValue = null;
-        }
-        return new Field(form.fields[index], fieldValue, form.relatedEntities[fieldName], fieldClassName);
-      }
-      // No we are dealing with a non relationship field
-      else
-      {
-        if(form.mode == "EDIT")  {
-          form.name = "Edit";
-          fieldValue = form.businessObject[fieldName];
-        } else  {
-          form.name = "Create";
-          fieldValue = null;
-        }
-        return new Field(form.fields[index], fieldValue, null, fieldClassName);
-      }
+        return new Field(form.fields[index], fieldCSSClassName);
   };
 
   function sortFields(first, second)
   {
     //var val = first.sequenceNo - second.sequenceNo;
-     console.log("Comparing" + first.fieldSequence + ":" + second.fieldSequence);
+    console.log("Comparing" + first.fieldSequence + ":" + second.fieldSequence);
     if(first.fieldSequence < second.fieldSequence)
     {
       console.log("first.sequenceNo: Before");
@@ -175,6 +134,7 @@ define([
       return 0;
     }
   }
+  
  /*
   * Function to populate the field blocks on a form.
   */
@@ -185,7 +145,7 @@ define([
     form.fields.sort(sortFields);
     for (var index=0; index<form.fields.length; index++) 
     {
-      if(form.fields[index].applicationEntityFieldTypeText != "ID")
+      if(form.fields[index].fieldDataType != "ID")
       {
         // Do we have space in the current field block
         if (currentFieldBlock.fields.length < currentFieldBlock.fieldsPerBlock) 
@@ -213,7 +173,6 @@ define([
         }
       }
     }
-    console.log("Current no of fieldBlocks in form: " + form.fields.length);
   };
 
   /*
@@ -228,7 +187,7 @@ define([
 	 form.fields = fields;
      $.fn.populateFieldBlocks(form);
      return form;
-  },
+  };
 
  /*
   * Function to build an activity's form.
@@ -246,7 +205,18 @@ define([
     	if(businessObjectData)
     	{
     		form.businessObjectName = businessObjectData.businessObjectName;
-    		form.fields = businessObjectData.dataValues;
+    		// Loop through all the fields defined in the data values object
+    		// create an array consisting of these fields and set that are the 
+    		// the array of form fields.
+    		var fields = [];
+    		var dataValuesObject = businessObjectData.dataValues;
+    		for(key in dataValuesObject) {
+    			if(dataValuesObject.hasOwnProperty(key)) {
+    				fields.push(dataValuesObject[key]);
+    			}
+    		}
+    		console.log("THis is the field array " + JSON.stringify(fields));
+    		form.fields = fields;
     	}
     	$.fn.populateFieldBlocks(form);
     }

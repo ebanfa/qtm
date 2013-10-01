@@ -149,6 +149,8 @@ public class BusinessObjectUtil {
 							BusinessObjectFieldData fieldDataValue = new BusinessObjectFieldDataImpl();
 							fieldDataValue.setFieldName(fieldData.getFieldName());
 							fieldDataValue.setFieldSequence(fieldData.getFieldSequence());
+							fieldDataValue.setRequired(fieldData.getRequired());
+							fieldDataValue.setFieldDescription(fieldData.getFieldDescription());
 							// Invoke
 							Object returnValue = method.invoke(fromObject, new Object[0]);
 							if(returnValue != null)
@@ -156,10 +158,15 @@ public class BusinessObjectUtil {
 								Type typeOfField = method.getGenericReturnType();
 								if(typeOfField.toString().contains(EntityUtil.BASE_PACKAGE_NM))
 								{
-									logger.debug("Processing relationship field {}", fieldData.getFieldName());
+									logger.debug("Processing relationship field {} of type {}", 
+											fieldData.getFieldName(), extractEntityNameFromTypeName(typeOfField.toString()));
+									fieldDataValue.setRelatedBusinessObjectName(
+											extractEntityNameFromTypeName(typeOfField.toString()));
 									BaseEntity relatedEntityInstance = (BaseEntity) returnValue;
-									fieldDataValue.setFieldValue(relatedEntityInstance.getCode());
-									fieldDataValue.setFieldDataType(fieldData.getFieldDataType());
+									if(relatedEntityInstance != null) {
+										fieldDataValue.setFieldValue(relatedEntityInstance.getCode());
+										fieldDataValue.setFieldDataType(fieldData.getFieldDataType());
+									}
 								}
 								else {
 									if(fieldData.getFieldName().equals(ID_FIELD_NAME))
@@ -208,6 +215,19 @@ public class BusinessObjectUtil {
 		businessObjectData.setDataValue("createdByUsr", "System");
 		businessObjectData.setDataValue("recSt", 'A');
 		return businessObjectData;
+	}
+	
+	public static String extractEntityNameFromTypeName(String typeString)
+	{
+		String entityName = "";
+		String[] firstSplit = typeString.split(" ");
+		if(firstSplit.length > 1)
+			entityName = firstSplit[1];
+		if(entityName.contains("."))
+			firstSplit = entityName.split("\\.");
+		if(firstSplit.length > 1)
+			entityName = firstSplit[firstSplit.length - 1];
+		return entityName;
 	}
 	
 

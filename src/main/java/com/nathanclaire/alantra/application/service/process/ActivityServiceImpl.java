@@ -20,6 +20,7 @@ import com.nathanclaire.alantra.application.service.entity.ApplicationEntityServ
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.EntityUtil;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
+import com.nathanclaire.alantra.base.util.StringUtil;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldDataImpl;
 
@@ -52,11 +53,19 @@ public class ActivityServiceImpl implements ActivityService {
 		EntityUtil.returnOrThrowIfNull(entity, 
 				ErrorCodes.BPS_ENTITY_INSTANCE_NOT_FOUND_ERROR_CD, 
 				ErrorCodes.AS_ENTITY_NOT_FOUND_ERROR_MSG);
-		// Get all the fields of the the
+		// Get all the fields of the entity
 		for(ApplicationEntityField entityField : entity.getApplicationEntityFields()){
 			BusinessObjectFieldDataImpl fieldData = new  BusinessObjectFieldDataImpl();
 			fieldData.setFieldName(entityField.getName());
+			fieldData.setFieldDescription(entityField.getDescription());
 			fieldData.setFieldDataType(entityField.getApplicationEntityFieldType().getCode());
+			fieldData.setFieldSequence(entityField.getSequenceNo());
+			// Check required flag
+			if(StringUtil.flagToBoolean(entityField.getRequiredFg()))
+				fieldData.setRequired(true);
+			else
+				fieldData.setRequired(false);
+				
 			fieldDataList.add(fieldData);
 		}
 		logger.debug("Loaded {} fields for entity {}", fieldDataList.size(), entityName);
@@ -81,6 +90,40 @@ public class ActivityServiceImpl implements ActivityService {
 			throws ApplicationException 
 	{
 		return this.getEntityListFields(entityName);
+	}
+	
+	public List<BusinessObjectFieldData> getEntitySearchFields(String entityName)
+			throws ApplicationException 
+	{
+		EntityUtil.returnOrThrowIfParamsArrayContainsNull(
+				new Object[]{entityName}, "ActivityServiceImpl.getEntityListFields");
+		
+		List<BusinessObjectFieldData> fieldDataList = new ArrayList<BusinessObjectFieldData>();
+		ApplicationEntity entity = entityService.findByName(entityName);
+		EntityUtil.returnOrThrowIfNull(entity, 
+				ErrorCodes.BPS_ENTITY_INSTANCE_NOT_FOUND_ERROR_CD, 
+				ErrorCodes.AS_ENTITY_NOT_FOUND_ERROR_MSG);
+		// Get all the fields of the entity
+		for(ApplicationEntityField entityField : entity.getApplicationEntityFields()) 
+		{
+			if(StringUtil.flagToBoolean(entityField.getSearchFieldFg())) 
+			{
+				BusinessObjectFieldDataImpl fieldData = new  BusinessObjectFieldDataImpl();
+				fieldData.setFieldName(entityField.getName());
+				fieldData.setFieldDescription(entityField.getDescription());
+				fieldData.setFieldDataType(entityField.getApplicationEntityFieldType().getCode());
+				fieldData.setFieldSequence(entityField.getSequenceNo());
+				// Check required flag
+				if(StringUtil.flagToBoolean(entityField.getRequiredFg()))
+					fieldData.setRequired(true);
+				else
+					fieldData.setRequired(false);
+					
+				fieldDataList.add(fieldData);
+			}
+		}
+		logger.debug("Loaded {} fields for entity {}", fieldDataList.size(), entityName);
+		return fieldDataList;
 	}
 
 	/* (non-Javadoc)

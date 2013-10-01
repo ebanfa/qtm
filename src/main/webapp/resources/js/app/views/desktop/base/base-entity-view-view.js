@@ -38,6 +38,11 @@ define([
 				viewActivityTemplate : ViewActivityTemplate
 			});
         },
+        events:
+        {
+            // Change related entity field value element clicked
+            'click  .lookup_field':'showEntityLookupDialog',
+        },
 
         /**
          * 
@@ -84,16 +89,16 @@ define([
         {
         	event.preventDefault();
         	var fieldName = event.currentTarget.getAttribute("href");
-        	var modalEntityName = null;;
-        	var modalEntityFieldName = null;;
-        	var modalEntityActivityURL = null;;
+        	var modalEntityName = null;
+        	var modalEntityFieldName = null;
+        	var modalEntityActivityURL = null;
         	var fields = this.form.fields;
             for (var i=0; i<fields.length;i++)
             {
-                if(fields[i].name == fieldName){
-                	modalEntityFieldName = fields[i].name;
-                	modalEntityName = fields[i].applicationRelatedEntityText;
-                	modalEntityActivityURL = fields[i].applicationRelatedEntityText.toLowerCase();
+                if(fields[i].fieldName == fieldName){
+                	modalEntityFieldName = fields[i].fieldName;
+                	modalEntityName = fields[i].relatedBusinessObjectName;
+                	modalEntityActivityURL = fields[i].relatedBusinessObjectName.toLowerCase() + "/";
                 }
             }
             // Customer is not related to message, but this hack should allows
@@ -104,7 +109,7 @@ define([
                 new EntitySearchDialogView({ 
                 	parentView:this,
                     modalEntityName:modalEntityName,
-                    activityURL:modalEntityActivityURL,
+                    activityURL:'activity/searchFields',
                     modalFieldName: modalEntityFieldName
                 });
             this.entitySearchDialogView.render();

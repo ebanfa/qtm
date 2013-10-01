@@ -95,7 +95,7 @@ define([
         {           
             var self = this;
             // do an ajax query to fetch the sarch fields of the entity
-            ajaxUtil.ajaxGET(this.activityURL + 'searchFields', {entityName:this.entityName},
+            ajaxUtil.ajaxGET(this.activityURL, {entityName:this.entityName},
             		self.onSearchFieldsSuccessCallBack(this.entityName), self.onSearchFieldsErrorCallBack);
             return this;
         },

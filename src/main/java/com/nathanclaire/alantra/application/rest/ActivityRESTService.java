@@ -3,6 +3,7 @@
  */
 package com.nathanclaire.alantra.application.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -19,13 +21,13 @@ import org.slf4j.LoggerFactory;
 
 import com.nathanclaire.alantra.application.model.ApplicationActivity;
 import com.nathanclaire.alantra.application.model.ApplicationEntity;
+import com.nathanclaire.alantra.application.service.entity.ApplicationEntityFieldService;
 import com.nathanclaire.alantra.application.service.entity.ApplicationEntityService;
 import com.nathanclaire.alantra.application.service.process.ActivityService;
 import com.nathanclaire.alantra.base.util.ApplicationException;
 import com.nathanclaire.alantra.base.util.ErrorCodes;
 import com.nathanclaire.alantra.base.util.ExceptionUtil;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectData;
-import com.nathanclaire.alantra.businessobject.data.BusinessObjectDataImpl;
 import com.nathanclaire.alantra.businessobject.data.BusinessObjectFieldData;
 import com.nathanclaire.alantra.businessobject.service.process.BusinessObjectSearchService;
 import com.nathanclaire.alantra.businessobject.util.BusinessObjectUtil;
@@ -42,8 +44,32 @@ public class ActivityRESTService {
 
 	@Inject ActivityService activityService;
 	@Inject ApplicationEntityService entityService;
+	@Inject ApplicationEntityFieldService entityFieldService;
 	@Inject BusinessObjectSearchService searchService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+
+    /**
+     * Uses the entity name specified in the query parameters to 
+     * fetch the search fields for the entity.
+     * 
+     * @param entityName the name of the entity we want to load its search fields
+     * @return a list of business object field data that represent the search fields
+     * 		for the entity.
+     */
+    @GET
+    @Path("/searchFields")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BusinessObjectFieldData> getEntitySearchFields(@QueryParam("entityName") String entityName)
+    {
+    	List<BusinessObjectFieldData> searchFields = new ArrayList<BusinessObjectFieldData>();
+    	try {
+    		searchFields = activityService.getEntitySearchFields(entityName);
+		} catch (ApplicationException e) {
+			logger.error(e.getCode());
+		}
+    	return searchFields;
+    }
 
     /**
      * Uses the activity URL parameter to fetch and

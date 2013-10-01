@@ -45,5 +45,34 @@ public interface BusinessObjectFieldData {
 	 * @param fieldSequence the fieldSequence to set
 	 */
 	public void setFieldSequence(Integer fieldSequence);
+	
+	/**
+	 * @return the fieldDecription
+	 */
+	public String getFieldDescription() ;
+	
+	/**
+	 * @param fieldDecription the fieldDecription to set
+	 */
+	public void setFieldDescription(String fieldDecription);
+	
+	/**
+	 * @return the required
+	 */
+	public Boolean getRequired() ;
+	/**
+	 * @param required the required to set
+	 */
+	public void setRequired(Boolean required);
+
+	/**
+	 * @return the relatedBusinessObjectName
+	 */
+	public String getRelatedBusinessObjectName() ;
+	
+	/**
+	 * @param relatedBusinessObjectName the relatedBusinessObjectName to set
+	 */
+	public void setRelatedBusinessObjectName(String relatedBusinessObjectName) ;
 
 }
